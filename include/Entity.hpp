@@ -12,6 +12,7 @@
     #include <array>
     #include <queue>
     #include "Component.hpp"
+    #include "Error.hpp"
 
 namespace GameEngine
 {
@@ -35,18 +36,17 @@ namespace GameEngine
             {
                 Entity entity;
 
-                // if (_entitiesAvailable.empty())              // Implement custom error
-                    // throw;
+                if (_entitiesAvailable.empty())
+                    throw Error::NoEntityAvailableError();
                 entity = _entitiesAvailable.front();
-
                 _entitiesAvailable.pop();
                 return entity;
             };
 
             void destroyEntity(Entity entity)
             {
-                // if (entity >= MAX_ENTITY)                    // Implement custom error
-                    // throw;
+                if (entity >= MAX_ENTITY)
+                    throw Error::OutOfEntitiesLimit();
 
                 // reset signature
                 _entitiesAvailable.push(entity);
