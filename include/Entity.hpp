@@ -24,49 +24,14 @@ namespace GameEngine
     class EntityManager
     {
         public:
-            EntityManager()
-            {
-                for (Entity entity = 0; entity < MAX_ENTITY; entity++)
-                    _entitiesAvailable.push(entity);
-            };
-
+            EntityManager();
             ~EntityManager() = default;
 
-            Entity createEntity()
-            {
-                Entity entity;
+            Entity createEntity();
+            void destroyEntity(Entity entity);
 
-                if (_entitiesAvailable.empty())
-                    throw Error::NoEntityAvailableError();
-                entity = _entitiesAvailable.front();
-                _entitiesAvailable.pop();
-                return entity;
-            };
-
-            void destroyEntity(Entity entity)
-            {
-                if (entity >= MAX_ENTITY)
-                    throw Error::OutOfEntitiesLimit();
-
-                _entitiesSignatures[entity].reset();
-                _entitiesAvailable.push(entity);
-            }
-
-            void setSignature(Entity entity, Signature signature)
-            {
-                if (entity >= MAX_ENTITY)
-                    throw Error::OutOfEntitiesLimit();
-
-                _entitiesSignatures[entity] = signature;
-            }
-
-            Signature getSignature(Entity entity)
-            {
-                if (entity >= MAX_ENTITY)
-                    throw Error::OutOfEntitiesLimit();
-
-                return _entitiesSignatures[entity];
-            }
+            void setSignature(Entity entity, Signature signature);
+            Signature getSignature(Entity entity);
 
         private:
             std::queue<Entity> _entitiesAvailable;
