@@ -54,16 +54,16 @@ namespace GameEngine
 
             void setSignature(Entity entity, Signature signature)
             {
-                // if (entity >= MAX_ENTITY)                    // Implement custom error
-                    // throw;
+                if (entity >= MAX_ENTITY)
+                    throw Error::OutOfEntitiesLimit();
 
                 _entitiesSignatures[entity] = signature;
             }
 
             Signature getSignature(Entity entity)
             {
-                // if (entity >= MAX_ENTITY)                    // Implement custom error
-                    // throw;
+                if (entity >= MAX_ENTITY)
+                    throw Error::OutOfEntitiesLimit();
 
                 return _entitiesSignatures[entity];
             }
