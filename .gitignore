@@ -1,2 +1,9 @@
-# Other files
+*.a
+*.cmake
+
+GameEngine
+
 .vscode
+Makefile
+CMakeCache.txt
+CMakeFiles
