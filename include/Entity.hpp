@@ -48,11 +48,25 @@ namespace GameEngine
                 // if (entity >= MAX_ENTITY)                    // Implement custom error
                     // throw;
 
-                // reset signature
+                _entitiesSignatures[entity].reset();
                 _entitiesAvailable.push(entity);
             }
 
-            // manage signatures
+            void setSignature(Entity entity, Signature signature)
+            {
+                // if (entity >= MAX_ENTITY)                    // Implement custom error
+                    // throw;
+
+                _entitiesSignatures[entity] = signature;
+            }
+
+            Signature getSignature(Entity entity)
+            {
+                // if (entity >= MAX_ENTITY)                    // Implement custom error
+                    // throw;
+
+                return _entitiesSignatures[entity];
+            }
 
         private:
             std::queue<Entity> _entitiesAvailable;
