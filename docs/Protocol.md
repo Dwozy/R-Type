@@ -13,18 +13,26 @@ Data will be received in the client in this format:
 |---|---|---|---|
 |Uint16|Uint16 (0 if sent directly by the server)|Uint16|{...}||
 
+### Pascal string:
+
+Pascal string (noted Pstring) are string not null terminated, with the number of character before the string.
+
+|Size of string|String|
+|---|---|
+|Uint16|string (not null terminated)|
+
 ### Event types:
 - #### Player related events:
     - #### Move*
-      Data represent normalised movement vector:
+      Data represent position and normalised movement vector:
       |x|y|dx|dy|
       |---|---|---|---|
-      |Int32|Int32|Int8|Int8|
+      |Float|Float|Float|Float|
     - #### Shoot*
       Data represent position and normalised directional vector:
       |x|y|dx|dy|
       |---|---|---|---|
-      |Int32|Int32|Int8|Int8|
+      |Float|Float|Float|Float|
     - #### Take damage*
       No Additional data
     - #### Die
@@ -33,43 +41,48 @@ Data will be received in the client in this format:
       Data represent position and bonus type:
       |x|y|bonus_id|
       |---|---|---|
-      |Int32|Int32|Uint8|
+      |Float|Float|Uint8|
 
 - #### Room related events:
     - #### Create room**
       Data represent room:
       |room_name|
       |---|
-      |string|
+      |Pstring|
     - #### Get rooms
       Data represent list of available room:
       |number of rooms|room_name|players in room|...|
       |---|---|---|---|
-      |Uint16|string|Uint8|...|
+      |Uint16|Pstring|Uint8|...|
     - #### Join*
       Data represent room:
       |room_name|
       |---|
-      |string|
+      |Pstring|
     - #### Leave*
       No Additional data
+    - #### Choice stage*
+      Data represent stage chosen:
+      |stage_number|
+      |---|
+      |Uint8|
 
 - #### Enemy related events:
     - #### Spawn
       Data represent position of the enemy and its id:
       |x|y|enemy_id|
       |---|---|---|
-      |Int32|Int32|Uint16|
+      |Float|Float|Uint16|
     - #### Move
       Data represent movement vector:
       |x|y|
       |---|---|
-      |Int8|Int8|
+      |Float|Float|
     - #### Shoot
       Data represent position and normalised directional vector:
       |x|y|dx|dy|
       |---|---|---|---|
-      |Int32|Int32|Int8|Int8|
+      |Float|Float|Float|Float|
     - #### Take damage*
       Data represent enemy:
       |enemy_id|
@@ -84,7 +97,7 @@ Data will be received in the client in this format:
       Data represent position of the enemy, its id and the bonus:
       |x|y|enemy_id|bonus_id|
       |---|---|---|---|
-      |Int32|Int32|Uint16|Uint8|
+      |Float|Float|Uint16|Uint8|
 
 - #### Stage related events:
     - #### Start
@@ -98,7 +111,11 @@ Data will be received in the client in this format:
     - #### OK
       No Additional data
     - #### KO
-      No Additional data
+      Data is the error message:
+      |message|
+      |---|
+      |Pstring|
 
 *: sent by client, redistributed by server in the corresponding room with the id of the sender
+
 **: sent by client, but not redistributed
