@@ -106,7 +106,7 @@ jobs:
 
   push_to_mirror:
     if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: [run_tests_unix, run_tests_win, check_coding_style]
+    needs: [run_tests_unix, run_tests_win, check_style]
     runs-on: ubuntu-latest
     name: push_to_mirror
     steps:
