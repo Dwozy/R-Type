@@ -29,13 +29,69 @@ namespace Error {
 
     /**
      * @brief
-     * OutOfLimitEntities Class Error
+     * OutOfLimitEntitiesError Class Error
      * Error thrown when trying to get entity that doesn't exist
      */
-    class OutOfEntitiesLimit : public std::exception {
+    class OutOfEntitiesLimitError : public std::exception {
         public:
-            OutOfEntitiesLimit();
-            ~OutOfEntitiesLimit();
+            OutOfEntitiesLimitError();
+            ~OutOfEntitiesLimitError();
+            const char *what() const noexcept override;
+        private:
+            std::string message;
+    };
+
+    /**
+     * @brief
+     * ComponentAlreadyAssignedError Class Error
+     * Error thrown when trying to asign a component to an entity who already have this type of component asigned
+     */
+    class ComponentAlreadyAssignedError : public std::exception {
+        public:
+            ComponentAlreadyAssignedError();
+            ~ComponentAlreadyAssignedError();
+            const char *what() const noexcept override;
+        private:
+            std::string message;
+    };
+
+    /**
+     * @brief
+     * ComponentNotAsignedError Class Error
+     * Error thrown when trying to remove a component from an entity who doesn't have this type of component
+     */
+    class ComponentNotAsignedError : public std::exception {
+        public:
+            ComponentNotAsignedError();
+            ~ComponentNotAsignedError();
+            const char *what() const noexcept override;
+        private:
+            std::string message;
+    };
+
+    /**
+     * @brief
+     * ComponentAlreadyRegisterError Class Error
+     * Error thrown when trying to register a component who is already registered
+     */
+    class ComponentAlreadyRegisterError : public std::exception {
+        public:
+            ComponentAlreadyRegisterError();
+            ~ComponentAlreadyRegisterError();
+            const char *what() const noexcept override;
+        private:
+            std::string message;
+    };
+
+    /**
+     * @brief
+     * ComponentNotRegisterError Class Error
+     * Error thrown when trying to register a component who is already registered
+     */
+    class ComponentNotRegisterError : public std::exception {
+        public:
+            ComponentNotRegisterError();
+            ~ComponentNotRegisterError();
             const char *what() const noexcept override;
         private:
             std::string message;

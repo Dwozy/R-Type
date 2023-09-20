@@ -27,7 +27,7 @@ GameEngine::Entity GameEngine::EntityManager::createEntity()
 void GameEngine::EntityManager::destroyEntity(Entity entity)
 {
     if (entity >= MAX_ENTITY)
-        throw Error::OutOfEntitiesLimit();
+        throw Error::OutOfEntitiesLimitError();
 
     _entitiesSignatures[entity].reset();
     _entitiesAvailable.push(entity);
@@ -36,7 +36,7 @@ void GameEngine::EntityManager::destroyEntity(Entity entity)
 void GameEngine::EntityManager::setSignature(Entity entity, Signature signature)
 {
     if (entity >= MAX_ENTITY)
-        throw Error::OutOfEntitiesLimit();
+        throw Error::OutOfEntitiesLimitError();
 
     _entitiesSignatures[entity] = signature;
 }
@@ -44,7 +44,7 @@ void GameEngine::EntityManager::setSignature(Entity entity, Signature signature)
 GameEngine::Signature GameEngine::EntityManager::getSignature(Entity entity)
 {
     if (entity >= MAX_ENTITY)
-        throw Error::OutOfEntitiesLimit();
+        throw Error::OutOfEntitiesLimitError();
 
     return _entitiesSignatures[entity];
 }
