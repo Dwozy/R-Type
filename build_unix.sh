@@ -3,7 +3,7 @@
 build()
 {
     cmake -S . -B build
-    make -C ./build
+    cmake --build ./build --config Release --clean-first
 }
 
 clean()
