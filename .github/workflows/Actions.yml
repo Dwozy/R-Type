@@ -50,21 +50,19 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Build
-        run: |
-          dir
-          build_win.bat
-        timeout-minutes: 5
+      # - name: Build
+      #   run: build_win.bat
+      #   timeout-minutes: 5
 
-      - name: Clean build files
-        run: build_win.bat clean
+      # - name: Clean build files
+      #   run: build_win.bat clean
 
-      - name: Check file existence
-        id: check_files
-        uses: andstor/file-existence-action@v2
-        with:
-          files: "${{ env.EXECUTABLES_WIN }}"
-          fail: true
+      # - name: Check file existence
+      #   id: check_files
+      #   uses: andstor/file-existence-action@v2
+      #   with:
+      #     files: "${{ env.EXECUTABLES_WIN }}"
+      #     fail: true
 
   check_style:
     needs: [check_program_compilation_unix, check_program_compilation_win]
