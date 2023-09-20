@@ -32,7 +32,7 @@ namespace GameEngine
             Vector2 operator+(const Vector2 &vec) {
                 return (Vector2(x + vec.x, y + vec.y));
             }
-            Vector operator-(const Vector2 &vec) {
+            Vector2 operator-(const Vector2 &vec) {
                 return (Vector2(x + (-vec.x), y + (-vec.y)));
             }
             T operator*(const Vector2 &vec) {
