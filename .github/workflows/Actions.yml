@@ -10,7 +10,7 @@ on:
     - 'main'
 
 env:
-  MIRROR_URL: git@github.com:EpitechPromo2026/B-YEP-400-PAR-4-1-zappy-axel.humeau.git
+  MIRROR_URL: git@github.com:EpitechPromo2026/B-CPP-500-PAR-5-1-rtype-timothe.zheng.git
   EXECUTABLES_UNIX: r-type_server,r-type_client
   EXECUTABLES_WIN: r-type_server.exe,r-type_client.exe
 
@@ -51,7 +51,9 @@ jobs:
           fetch-depth: 0
 
       - name: Build
-        run: build_win.bat
+        run: |
+          dir
+          build_win.bat
         timeout-minutes: 5
 
       - name: Clean build files
