@@ -12,6 +12,7 @@
     #include <boost/bind/bind.hpp>
     #include <asio.hpp>
     #include <array>
+    #include <map>
 
 /**
  * @brief UdpServer
@@ -28,6 +29,7 @@ class UdpServer {
         asio::ip::udp::socket _socket;
         asio::ip::udp::endpoint _clientEndpoint;
         std::array<char, 1024> _readBuffer;
+        std::map<unsigned short, asio::ip::udp::endpoint> _listClient;
         void receive();
         void sender(std::string buffer);
         void handleReceive(const asio::error_code &error, std::size_t recvBytes);

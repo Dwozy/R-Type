@@ -20,6 +20,10 @@ UdpServer::UdpServer(asio::io_context &IOContext, int port) :
 
 UdpServer::~UdpServer()
 {
+    std::string message = "END OF SERVER\n";
+    for (std::pair<unsigned short, asio::ip::udp::endpoint> elem : _listClient) {
+        _socket.send_to(asio::buffer(message.c_str(), message.length()), elem.second);
+    }
     _socket.close();
 }
 
@@ -48,6 +52,8 @@ void UdpServer::sender(std::string buffer)
     message += std::to_string((int) _clientEndpoint.port());
     message +=  " with message : ";
     message += buffer;
+    if (_listClient.find(_clientEndpoint.port()) == _listClient.end())
+        _listClient[_clientEndpoint.port()] = std::move(_clientEndpoint);
     _socket.async_send_to(asio::buffer(message.c_str(), message.length()), _clientEndpoint,
         [&] (const std::error_code &, std::size_t) {
             receive();
