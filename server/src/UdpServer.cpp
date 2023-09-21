@@ -23,11 +23,6 @@ UdpServer::~UdpServer()
     _socket.close();
 }
 
-void UdpServer::stop()
-{
-
-}
-
 void UdpServer::handleReceive(const asio::error_code &error, std::size_t recvBytes)
 {
     if (!error) {

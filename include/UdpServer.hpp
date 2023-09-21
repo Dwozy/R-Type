@@ -29,7 +29,6 @@ class UdpServer {
         asio::ip::udp::endpoint _clientEndpoint;
         std::array<char, 1024> _readBuffer;
         void receive();
-        void stop();
         void sender(std::string buffer);
         void handleReceive(const asio::error_code &error, std::size_t recvBytes);
 };
