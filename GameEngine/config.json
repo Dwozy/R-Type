@@ -1,0 +1,6 @@
+{
+    "GameEngine": {
+        "MAX_ENTITY" : 1000,
+        "MAX_COMPONENT": 1
+    }
+}
