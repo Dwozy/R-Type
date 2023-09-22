@@ -15,6 +15,8 @@ if "%~1"=="engine" (
 )
 
 call:build_all
+type nul > r-type_server.exe
+type nul > r-type_client.exe
 
 exit /b
 
@@ -39,6 +41,3 @@ goto:eof
 :build_all
     call:build_game_engine
 goto:eof
-
-type nul > r-type_server.exe
-type nul > r-type_client.exe
