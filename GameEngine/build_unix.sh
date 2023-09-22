@@ -2,7 +2,7 @@
 
 build()
 {
-    cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=/home/aldric/Downloads/vcpkg/vcpkg/scripts/buildsystems/vcpkg.cmake
+    cmake -S . -B build
     status=$?
     if [ "$status" -ne 0 ]; then
         exit "$status"
@@ -22,9 +22,6 @@ fclean()
     echo "-- Cleaning GameEngine folder"
     rm -rf "./GameEngine"
     echo "-- Cleaning GameEngine folder - done"
-    echo "-- Cleaning libGameEngine.a"
-    rm "./libGameEngine.a"
-    echo "-- Cleaning libGameEngine.a - done"
 }
 
 if [ "$1" == "fclean" ]
