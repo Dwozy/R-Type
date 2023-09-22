@@ -55,7 +55,7 @@ jobs:
         timeout-minutes: 5
 
       - name: Clean build files
-        run: build_win.bat clean
+        run: cmd /c build_win.bat clean
 
       - name: Check file existence
         id: check_files
