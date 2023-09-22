@@ -14,6 +14,10 @@ env:
   EXECUTABLES_UNIX: r-type_server,r-type_client
   EXECUTABLES_WIN: r-type_server.exe,r-type_client.exe
 
+permissions:
+  contents: read
+  checks: write
+
 jobs:
   check_program_compilation_unix:
     if: success()
