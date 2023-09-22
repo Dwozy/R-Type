@@ -1,0 +1,18 @@
+BasedOnStyle: LLVM
+
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterClass: true
+  AfterStruct: true
+  AfterControlStatement: false
+  AfterEnum: false
+  AfterFunction: true
+  AfterNamespace: true
+  BeforeElse: false
+  BeforeCatch: false
+  BeforeWhile: false
+
+NamespaceIndentation: All
+IndentWidth: 4
+
+IndentPPDirectives: BeforeHash

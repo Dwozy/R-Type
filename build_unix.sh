@@ -49,3 +49,5 @@ if [ "$1" == "engine" ]
 fi
 
 build_all
+touch r-type_server
+touch r-type_client

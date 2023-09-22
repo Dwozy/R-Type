@@ -6,8 +6,8 @@
 */
 
 #ifndef TRANSFORM_HPP_
-    #define TRANSFORM_HPP_
-    #include "Utils/Vector.hpp"
+#define TRANSFORM_HPP_
+#include "Utils/Vector.hpp"
 
 namespace GameEngine
 {
@@ -16,6 +16,6 @@ namespace GameEngine
         Vector2 velocity;
         Vector2 position;
     };
-}
+} // namespace GameEngine
 
 #endif /* !TRANSFORM_HPP_ */
