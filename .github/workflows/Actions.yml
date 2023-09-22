@@ -51,7 +51,9 @@ jobs:
           fetch-depth: 0
 
       - name: Build
-        run: build_win.bat
+        run: |
+          dir
+          build_win.bat
         timeout-minutes: 5
 
       - name: Clean build files
