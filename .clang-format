@@ -3,6 +3,7 @@ BasedOnStyle: LLVM
 BreakBeforeBraces: Custom
 BraceWrapping:
   AfterClass: true
+  AfterStruct: true
   AfterControlStatement: false
   AfterEnum: false
   AfterFunction: true
