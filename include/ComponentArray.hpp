@@ -24,6 +24,11 @@ namespace GameEngine
     class ComponentArray : public IComponentArray
     {
         public:
+            ComponentArray(Entity maxEntities)
+            {
+                _componentArray.reserve(maxEntities);
+            };
+
             void asignComponent(Entity entity, CompType component)
             {
                 if (_assignedEntity.find(entity) != _assignedEntity.end())
@@ -56,7 +61,7 @@ namespace GameEngine
             };
 
         private:
-            std::array<CompType, MAX_ENTITY> _componentArray;
+            std::vector<CompType> _componentArray;
             std::set<Entity> _asignedEntites;
     };
 }

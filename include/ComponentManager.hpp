@@ -16,8 +16,10 @@
 
 namespace GameEngine
 {
-    class ComponentManager {
+    class ComponentManager
+    {
         public:
+            ComponentManager(Entity maxEntities): _maxEntities(maxEntities) {};
             ~ComponentManager() = default;
 
             template<typename CompType>
@@ -28,11 +30,11 @@ namespace GameEngine
                 if (_componentIds.find(typeId) != _componentIds.end())
                     throw Error::ComponentAlreadyRegisterError();
                 _componentIds.insert({ typeId, _nbComponents });
-                _components.insert({ typeId, make_shared<ComponentArray<CompType>>() });
+                _components.insert({ typeId, make_shared<ComponentArray<CompType>>(_maxEntities) });
             };
 
             template<typename CompType>
-            ComponentId getComponentId()
+            const ComponentId &getComponentId() const
             {
                 std::string typeId(typeid(CompType).name());
 
@@ -89,6 +91,7 @@ namespace GameEngine
             std::unordered_map<std::string, std::shared_ptr<IComponentArray>> _components;
             std::unordered_map<std::string, ComponentId> _componentIds;
             ComponentId _nbComponents = 0;
+            Entity _maxEntities;
     };
 }
 

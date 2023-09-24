@@ -12,6 +12,8 @@
 
 namespace GameEngine
 {
+    class GameEngine;
+
     class ISystem
     {
         public:
@@ -25,7 +27,7 @@ namespace GameEngine
     class SystemBase : public ISystem
     {
         public:
-            SystemBase(/*GameEngine gameEngine*/)/*: _gameEngine(gameEngine)*/ {};
+            SystemBase(GameEngine &gameEngine): _gameEngine(gameEngine) {};
 
             virtual void update() override
             {
@@ -37,7 +39,7 @@ namespace GameEngine
         protected:
             virtual void _updateSingle(const Entity &entity) override {};
 
-            /*GameEngine _gameEngine;*/
+            GameEngine &_gameEngine;
     };
 }
 

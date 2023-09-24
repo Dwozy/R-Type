@@ -33,4 +33,12 @@ namespace Error {
     ComponentNotRegisterError::~ComponentNotRegisterError() {}
     char const *ComponentNotRegisterError::what() const noexcept { return message.c_str(); }
 
+    SystemAlreadyRegisterError::SystemAlreadyRegisterError(): message("This system has already been registered") {}
+    SystemAlreadyRegisterError::~SystemAlreadyRegisterError() {}
+    char const *SystemAlreadyRegisterError::what() const noexcept { return message.c_str(); }
+
+    SystemNotRegisterError::SystemNotRegisterError(): message("This system hasn't been registered") {}
+    SystemNotRegisterError::~SystemNotRegisterError() {}
+    char const *SystemNotRegisterError::what() const noexcept { return message.c_str(); }
+
 }
