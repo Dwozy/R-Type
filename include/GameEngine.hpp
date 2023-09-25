@@ -11,7 +11,7 @@
     #include "Entity.hpp"
     #include "ComponentManager.hpp"
     #include "SystemManager.hpp"
-    #include "Nop.hpp"
+    #include "DeltaTime.hpp"
 
 namespace GameEngine
 {
@@ -22,7 +22,6 @@ namespace GameEngine
             {
                 _entityManager.reset(new EntityManager(_maxEntities));
                 _componentManager.reset(new ComponentManager(_maxEntities));
-                _dTime = 10;
             };
             ~GameEngine() = default;
 
@@ -46,14 +45,15 @@ namespace GameEngine
             template<typename SysType>
             std::shared_ptr<SysType> getSystem() { _systemManager.getSystem<SysType>(); };
 
-            const float &getDeltaTime() const { return _dTime; };
+            const float &getDeltaTime() const { return _deltaTime.getDeltaTime(); };
+            void updateDeltaTime() { _deltaTime.update(); };
 
         private:
             std::shared_ptr<EntityManager> _entityManager;
             std::shared_ptr<ComponentManager> _componentManager;
             SystemManager _systemManager;
             Entity _maxEntities;
-            float _dTime;
+            DeltaTime _deltaTime;
     };
 }
 

@@ -9,6 +9,9 @@ int main(int ac, char const * const *av)
 
     sys->entities.insert(test);
     while (1)
+    {
         sys->update();
+        gameEngine.updateDeltaTime();
+    }
     return (0);
 }

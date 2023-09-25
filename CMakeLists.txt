@@ -8,6 +8,7 @@ set(LIBRARY_NAME "libGameEngine")
 set(INCLUDES include)
 set(SRCS
     src/Error.cpp
+    src/DeltaTime.cpp
 )
 
 project(${PROJECT_NAME})
