@@ -2,45 +2,30 @@
 ** EPITECH PROJECT, 2023
 ** R-Type
 ** File description:
-** System
+** SystemLoadingMusic
 */
 
-#ifndef SYSTEM_HPP_
-    #define SYSTEM_HPP_
+#ifndef SYSTEMLOADINGMUSIC_HPP_
+    #define SYSTEMLOADINGMUSIC_HPP_
     #include <set>
     #include "Entity.hpp"
+    #include "System.hpp"
 
 namespace GameEngine
 {
-    class GameEngine;
-
-    class ISystem
+    class SystemLoadingMusic : public ISystem
     {
         public:
-            ~ISystem() = default;
-
-            virtual void update() = 0;
-        protected:
-            virtual void _updateSingle(const Entity &entity) = 0;
-    };
-
-    class SystemBase : public ISystem
-    {
-        public:
-            SystemBase(GameEngine &gameEngine): _gameEngine(gameEngine) {};
-
+            SystemLoadingMusic(GameEngine &gameEngine): _gameEngine(gameEngine) {};
             virtual void update() override
             {
                 for (const Entity &entity : entities)
                     _updateSingle(entity);
             };
-
             std::set<Entity> entities;
         protected:
             virtual void _updateSingle(const Entity &entity) override {};
-
-            GameEngine &_gameEngine;
     };
 }
 
-#endif /* !SYSTEM_HPP_ */
+#endif /* !SYSTEMLOADINGMUSIC_HPP_ */

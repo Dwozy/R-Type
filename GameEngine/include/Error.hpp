@@ -96,6 +96,34 @@ namespace Error {
         private:
             std::string message;
     };
+
+    /**
+     * @brief
+     * ComponentNotRegisterError Class Error
+     * Error thrown when trying to register a component who is already registered
+     */
+    class SystemAlreadyRegisterError : public std::exception {
+        public:
+            SystemAlreadyRegisterError();
+            ~SystemAlreadyRegisterError();
+            const char *what() const noexcept override;
+        private:
+            std::string message;
+    };
+
+    /**
+     * @brief
+     * ComponentNotRegisterError Class Error
+     * Error thrown when trying to register a component who is already registered
+     */
+    class SystemNotRegisterError : public std::exception {
+        public:
+            SystemNotRegisterError();
+            ~SystemNotRegisterError();
+            const char *what() const noexcept override;
+        private:
+            std::string message;
+    };
 };
 
 #endif /* !ERROR_HPP_ */

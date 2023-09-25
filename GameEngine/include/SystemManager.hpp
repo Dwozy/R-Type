@@ -14,19 +14,20 @@
 
 namespace GameEngine
 {
-    class SystemManager {
+    class SystemManager
+    {
         public:
             ~SystemManager() = default;
 
             template<typename SysType>
-            std::shared_ptr<SysType> registerSystem(/*GameEngine*/)
+            std::shared_ptr<SysType> registerSystem(GameEngine &gameEngine)
             {
                 std::string typeId(typeid(SysType).name());
                 std::shared_ptr<SysType> system;
 
                 if (_systems.find(typeId) != _systems.end())
-                    throw Error::ComponentAlreadyRegisterError();
-                system = make_shared<ISystem<SysType>>(/*GameEngine*/);
+                    throw Error::SystemAlreadyRegisterError();
+                system = make_shared<SysType>(gameEngine);
                 _systems.insert({ typeId, system });
                 return system;
             };
@@ -38,7 +39,7 @@ namespace GameEngine
                 std::shared_ptr<SysType> system;
 
                 if (_systems.find(typeId) == _systems.end())
-                    throw;
+                    throw Error::SystemNotRegisterError();
                 system = std::static_pointer_cast<SysType>(_systems[typeId]);
                 return system;
             };
