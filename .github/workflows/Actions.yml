@@ -40,6 +40,10 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Install
+        run: ${{ matrix.install_cmd }} install
+        timeout-minutes: 5
+
       - name: Build
         run: ${{ matrix.install_cmd }}
         timeout-minutes: 5
