@@ -11,6 +11,7 @@
     #include "Entity.hpp"
     #include "ComponentManager.hpp"
     #include "SystemManager.hpp"
+    #include "DeltaTime.hpp"
 
 namespace GameEngine
 {
@@ -32,25 +33,27 @@ namespace GameEngine
             template<typename CompType>
             void registerComponent() { _componentManager->registerComponent<CompType>(); };
             template<typename CompType>
-            const ComponentId &getComponentId() const { return _componentManager->getComponentId<CompType>(); };
+            const ComponentId &getComponentId() { return _componentManager->getComponentId<CompType>(); };
             template<typename CompType>
-            void assignComponent(Entity entity, CompType component) { _componentManager->assignComponent<CompType>(entity, component) };
-            template<typename CompType>
-            void removeComponent(Entity entity) { _componentManager->removeComponent<CompType>(entity); };
+            void assignComponent(Entity entity, CompType component) { _componentManager->assignComponent<CompType>(entity, component); };
             template<typename CompType>
             CompType &getComponent(Entity entity) { _componentManager->getComponent<CompType>(entity); };
             void entityDestroyed(Entity entity) { _componentManager->entityDestroyed(entity); };
 
             template<typename SysType>
-            std::shared_ptr<SysType> registerSystem() { _systemManager.registerSystem<SysType>(*this); };
+            std::shared_ptr<SysType> registerSystem(){ return _systemManager.registerSystem<SysType>(*this); };
             template<typename SysType>
             std::shared_ptr<SysType> getSystem() { _systemManager.getSystem<SysType>(); };
+
+            const float &getDeltaTime() const { return _deltaTime.getDeltaTime(); };
+            void updateDeltaTime() { _deltaTime.update(); };
 
         private:
             std::shared_ptr<EntityManager> _entityManager;
             std::shared_ptr<ComponentManager> _componentManager;
             SystemManager _systemManager;
             Entity _maxEntities;
+            DeltaTime _deltaTime;
     };
 }
 

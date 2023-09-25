@@ -31,24 +31,24 @@ namespace GameEngine
 
             void asignComponent(Entity entity, CompType component)
             {
-                if (_assignedEntity.find(entity) != _assignedEntity.end())
-                    throw Error::ComponentAlreadyAssiggnedError();
+                if (_assignedEntities.find(entity) != _assignedEntities.end())
+                    throw Error::ComponentAlreadyAssignedError();
 
                 _componentArray[entity] = component;
-                _asignedEntites.insert(entity);
+                _assignedEntities.insert(entity);
             };
 
             void removeComponent(Entity entity)
             {
-                if (_assignedEntity.find(entity) == _assignedEntity.end())
+                if (_assignedEntities.find(entity) == _assignedEntities.end())
                     throw Error::ComponentNotAsignedError();
 
-                _asignedEntites.erase(entity);
+                _assignedEntities.erase(entity);
             };
 
             CompType &getComponent(Entity entity)
             {
-                if (_assignedEntity.find(entity) == _assignedEntity.end())
+                if (_assignedEntities.find(entity) == _assignedEntities.end())
                     throw Error::ComponentNotAsignedError();
 
                 return _componentArray[entity];
@@ -56,13 +56,13 @@ namespace GameEngine
 
             void entityDestroyed(Entity entity) override
             {
-                if (_assignedEntity.find(entity) != _assignedEntity.end())
+                if (_assignedEntities.find(entity) != _assignedEntities.end())
                     removeComponent(entity);
             };
 
         private:
             std::vector<CompType> _componentArray;
-            std::set<Entity> _asignedEntites;
+            std::set<Entity> _assignedEntities;
     };
 }
 
