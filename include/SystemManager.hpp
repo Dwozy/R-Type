@@ -27,7 +27,7 @@ namespace GameEngine
 
                 if (_systems.find(typeId) != _systems.end())
                     throw Error::SystemAlreadyRegisterError();
-                system = make_shared<SysType>(gameEngine);
+                system = std::make_shared<SysType>(gameEngine);
                 _systems.insert({ typeId, system });
                 return system;
             };

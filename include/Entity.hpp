@@ -16,7 +16,6 @@
 namespace GameEngine
 {
     using Entity = std::uint32_t;
-    // const Entity MAX_ENTITY = 1000;
 
     using Signature = std::bitset<MAX_COMPONENT>;
 

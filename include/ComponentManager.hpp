@@ -30,11 +30,12 @@ namespace GameEngine
                 if (_componentIds.find(typeId) != _componentIds.end())
                     throw Error::ComponentAlreadyRegisterError();
                 _componentIds.insert({ typeId, _nbComponents });
-                _components.insert({ typeId, make_shared<ComponentArray<CompType>>(_maxEntities) });
+                _nbComponents++;
+                _components.insert({ typeId, std::make_shared<ComponentArray<CompType>>(_maxEntities) });
             };
 
             template<typename CompType>
-            const ComponentId &getComponentId() const
+            const ComponentId &getComponentId()
             {
                 std::string typeId(typeid(CompType).name());
 
@@ -51,14 +52,6 @@ namespace GameEngine
 
                 componentArray->assignComponent(entity, component);
             };
-
-            template<typename CompType>
-            void removeComponent(Entity entity)
-            {
-                std::shared_ptr<ComponentArray<CompType>> componentArray = _getComponentArray<CompType>();
-
-                componentArray->removeComponent(entity);
-            }
 
             template<typename CompType>
             CompType &getComponent(Entity entity)

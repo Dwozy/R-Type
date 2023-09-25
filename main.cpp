@@ -1,7 +1,14 @@
-#include "GameEngine/Utils/Vector.hpp"
+#include "GameEngine.hpp"
+#include "Systems/printDTimeSystem.hpp"
 
 int main(int ac, char const * const *av)
 {
-    Vector2 test(1.0f, 1.0f);
+    GameEngine::GameEngine gameEngine(10);
+    GameEngine::Entity test = gameEngine.createEntity();
+    auto sys = gameEngine.registerSystem<GameEngine::printDTimeSystem>();
+
+    sys->entities.insert(test);
+    while (1)
+        sys->update();
     return (0);
 }
