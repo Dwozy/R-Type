@@ -11,8 +11,10 @@
 
 namespace GameEngine
 {
+    /// @brief Number in uint8 which defines the ID of a component.
     using ComponentId = std::uint8_t;
 
+    /// @brief Maximum of component that can be handle. Will mainly be used to allocate the bitset for the Signature.
     const ComponentId MAX_COMPONENT = 1;
 }
 

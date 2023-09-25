@@ -15,8 +15,10 @@
 
 namespace GameEngine
 {
+    /// @brief Number in uint32 with the ID of the entity. Used in the game engine with every managers.
     using Entity = std::uint32_t;
 
+    /// @brief Bitset with the maximum of component it can handle. Each component have an ID, and if this ID is true in the bitset, the entity posseses this component.
     using Signature = std::bitset<MAX_COMPONENT>;
 
     class EntityManager
