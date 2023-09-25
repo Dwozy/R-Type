@@ -13,18 +13,12 @@
 
 namespace GameEngine
 {
-    class SystemLoadingMusic : public ISystem
+    class SystemLoadingMusic : public SystemBase
     {
         public:
-            SystemLoadingMusic(GameEngine &gameEngine): _gameEngine(gameEngine) {};
-            virtual void update() override
-            {
-                for (const Entity &entity : entities)
-                    _updateSingle(entity);
-            };
-            std::set<Entity> entities;
+            SystemLoadingMusic(GameEngine &gameEngine): SystemBase(gameEngine) {};
         protected:
-            virtual void _updateSingle(const Entity &entity) override {};
+           void _updateSingle(const Entity &entity) override {};
     };
 }
 

@@ -11,46 +11,46 @@
     #include <SFML/Graphics.hpp>
 
 namespace GameEngine {
-    class Music
+    class SFMusic
     {
         public:
-            Music();
-            ~Music() = default;
+            SFMusic();
+            ~SFMusic() = default;
         private:
             sf::Music _music;
     };
-    class Text {
+    class SFText {
          public:
-            Text();
-            ~Text() = default;
+            SFText();
+            ~SFText() = default;
         private:
             sf::Text _text;
     };
-    class Font {
+    class SFFont {
         public:
-            Font();
-            ~Font() = default;
+            SFFont();
+            ~SFFont() = default;
         private:
             sf::Font _font;
     };
-    class Texture {
+    class SFTexture {
         public:
-            Texture();
-            ~Texture() = default;
+            SFTexture();
+            ~SFTexture() = default;
         private:
             sf::Texture _texture;
     };
-    class View {
+    class SFView {
         public:
-            View();
-            ~View() = default;
+            SFView();
+            ~SFView() = default;
         private:
             sf::View _View;
     };
-    class Sprite {
+    class SFSprite {
         public:
-            Sprite();
-            ~Sprite() = default;
+            SFSprite();
+            ~SFSprite() = default;
         private:
             sf::Sprite _sprite;
     };

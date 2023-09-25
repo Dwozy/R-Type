@@ -25,6 +25,8 @@ namespace GameEngine
             std::set<Entity> entities;
         protected:
             virtual void _updateSingle(const Entity &entity) override {};
+
+            GameEngine &_gameEngine;
     };
 };
 

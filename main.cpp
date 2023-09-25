@@ -1,17 +1,10 @@
-#include "GameEngine.hpp"
-#include "Systems/printDTimeSystem.hpp"
+#include "ParserJson.hpp"
 
 int main(int ac, char const * const *av)
 {
-    GameEngine::GameEngine gameEngine(10);
-    GameEngine::Entity test = gameEngine.createEntity();
-    auto sys = gameEngine.registerSystem<GameEngine::printDTimeSystem>();
+    JsonParser parse("config.json");
 
-    sys->entities.insert(test);
-    while (1)
-    {
-        sys->update();
-        gameEngine.updateDeltaTime();
-    }
-    return (0);
+    std::cout << parse.getData("MCTEST") << std::endl;
+    std::cout << parse.getData("MAX_COMPONENT") << std::endl;
+    std::cout << parse.getData("realtry") << std::endl;
 }
