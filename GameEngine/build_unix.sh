@@ -2,7 +2,7 @@
 
 build()
 {
-    cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=/home/aldric/Downloads/vcpkg/vcpkg/scripts/buildsystems/vcpkg.cmake
+    cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=../submodules/vcpkg/scripts/buildsystems/vcpkg.cmake
     status=$?
     if [ "$status" -ne 0 ]; then
         exit "$status"
