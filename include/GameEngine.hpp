@@ -22,11 +22,12 @@ namespace GameEngine
             {
                 _entityManager.reset(new EntityManager(_maxEntities));
                 _componentManager.reset(new ComponentManager(_maxEntities));
+                updateDeltaTime();
             };
             ~GameEngine() = default;
 
             Entity createEntity() { return _entityManager->createEntity(); };
-            void destroyEntity(Entity entity) { _entityManager->destroyEntity(entity); };
+            void destroyEntity(Entity entity);
             void setEntitySignature(Entity entity, Signature signature) { _entityManager->setSignature(entity, signature); };
             const Signature &getSignature(Entity entity) const { return _entityManager->getSignature(entity); };
 
@@ -38,12 +39,13 @@ namespace GameEngine
             void assignComponent(Entity entity, CompType component) { _componentManager->assignComponent<CompType>(entity, component); };
             template<typename CompType>
             CompType &getComponent(Entity entity) { _componentManager->getComponent<CompType>(entity); };
-            void entityDestroyed(Entity entity) { _componentManager->entityDestroyed(entity); };
 
             template<typename SysType>
             std::shared_ptr<SysType> registerSystem(){ return _systemManager.registerSystem<SysType>(*this); };
             template<typename SysType>
             std::shared_ptr<SysType> getSystem() { _systemManager.getSystem<SysType>(); };
+            template<typename SysType>
+            void assignSystem(Entity entity) { _systemManager.assignSystem<SysType>(entity); };
 
             const float &getDeltaTime() const { return _deltaTime.getDeltaTime(); };
             void updateDeltaTime() { _deltaTime.update(); };

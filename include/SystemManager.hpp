@@ -43,8 +43,23 @@ namespace GameEngine
                 system = std::static_pointer_cast<SysType>(_systems[typeId]);
                 return system;
             };
+
+            template<typename SysType>
+            void assignSystem(Entity entity)
+            {
+                getSystem<SysType>()->entities.insert(entity);
+            }
+
+            void entityDestroyed(Entity entity)
+            {
+                for (auto &sys : _systems)
+                {
+                    if (sys.second->entities.find(entity) != sys.second->entities.end())
+                        sys.second->entities.erase(entity);
+                }
+            }
         private:
-            std::unordered_map<std::string, std::shared_ptr<ISystem>> _systems;
+            std::unordered_map<std::string, std::shared_ptr<SystemBase>> _systems;
     };
 }
 

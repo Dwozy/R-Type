@@ -14,22 +14,12 @@ namespace GameEngine
 {
     class GameEngine;
 
-    class ISystem
-    {
-        public:
-            ~ISystem() = default;
-
-            virtual void update() = 0;
-        protected:
-            virtual void _updateSingle(const Entity &entity) = 0;
-    };
-
-    class SystemBase : public ISystem
+    class SystemBase
     {
         public:
             SystemBase(GameEngine &gameEngine): _gameEngine(gameEngine) {};
 
-            virtual void update() override
+            virtual void update()
             {
                 for (const Entity &entity : entities)
                     _updateSingle(entity);
@@ -37,7 +27,7 @@ namespace GameEngine
 
             std::set<Entity> entities;
         protected:
-            virtual void _updateSingle(const Entity &entity) override {};
+            virtual void _updateSingle(const Entity &entity) {};
 
             GameEngine &_gameEngine;
     };

@@ -8,7 +8,9 @@ set(LIBRARY_NAME "libGameEngine")
 set(INCLUDES include)
 set(SRCS
     src/Error.cpp
+    src/GameEngine.cpp
     src/EntityManager.cpp
+    src/SafeEntity.cpp
     src/DeltaTime.cpp
 )
 
