@@ -1,9 +1,5 @@
 cmake_minimum_required(VERSION 3.27.1)
 
-if(DEFINED ENV{CMAKE_TOOLCHAIN_FILE})
-    set(CMAKE_TOOLCHAIN_FILE ${CMAKE_TOOLCHAIN_FILE})
-endif()
-
 set(PROJECT_NAME "GameEngine")
 set(LIBRARY_NAME "GameEngine")
 

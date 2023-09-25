@@ -16,7 +16,7 @@ call:build
 exit /b
 
 :build
-cmake -S . -B build
+cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=..\submodules\vcpkg\scripts\buildsystems\vcpkg.cmake
 cmake --build .\build --config Release --clean-first
 goto:eof
 

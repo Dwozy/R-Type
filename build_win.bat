@@ -1,5 +1,10 @@
 @echo off
 
+if "%~1"=="install" (
+    call:install
+    exit /b
+)
+
 if "%~1"=="fclean" (
     call:fclean_all
     exit /b
@@ -19,6 +24,13 @@ type nul > r-type_server.exe
 type nul > r-type_client.exe
 
 exit /b
+
+:install
+    cd .\submodules\vcpkg
+    call bootstrap-vcpkg.bat
+    if %errorlevel% neq 0 exit /b %errorlevel%
+    cd ..\..\
+goto:eof
 
 :build_game_engine
     cd .\GameEngine\
