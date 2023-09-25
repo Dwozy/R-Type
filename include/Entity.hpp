@@ -22,48 +22,14 @@ namespace GameEngine
     class EntityManager
     {
         public:
-            EntityManager(Entity maxEntities): _maxEntities(maxEntities)
-            {
-                _entitiesAvailable.reserve(maxEntities);
-                _entitiesSignatures.reserve(maxEntities);
-                for (Entity entity = 0; entity < _maxEntities; entity++)
-                    _entitiesAvailable.push_back(entity);
-            };
+            EntityManager(Entity maxEntities);
             ~EntityManager() = default;
 
-            Entity createEntity()
-            {
-                Entity entity;
+            Entity createEntity();
+            void destroyEntity(Entity entity);
 
-                if (_entitiesAvailable.empty())
-                    throw Error::NoEntityAvailableError();
-                entity = _entitiesAvailable.front();
-                _entitiesAvailable.erase(_entitiesAvailable.begin());
-                return entity;
-            };
-            void destroyEntity(Entity entity)
-            {
-                if (entity >= _maxEntities)
-                    throw Error::OutOfEntitiesLimitError();
-
-                _entitiesSignatures[entity].reset();
-                _entitiesAvailable.push_back(entity);
-            };
-
-            void setSignature(Entity entity, Signature signature)
-            {
-                if (entity >= _maxEntities)
-                    throw Error::OutOfEntitiesLimitError();
-
-                _entitiesSignatures[entity] = signature;
-            };
-            const Signature &getSignature(Entity entity) const
-            {
-                if (entity >= _maxEntities)
-                    throw Error::OutOfEntitiesLimitError();
-
-                return _entitiesSignatures[entity];
-            };
+            void setSignature(Entity entity, Signature signature);
+            const Signature &getSignature(Entity entity) const;
 
         private:
             std::vector<Entity> _entitiesAvailable;
