@@ -50,7 +50,6 @@ if [ "$1" == "install" ]
 fi
 
 if [ "$1" == "fclean" ]
-if [ "$1" == "fclean" ]
     then
     fclean_all
 fi
