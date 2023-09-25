@@ -1,0 +1,163 @@
+name: Actions
+
+on:
+  repository_dispatch:
+  push:
+    branches:
+    - 'main'
+  pull_request:
+    branches:
+    - 'main'
+
+env:
+  MIRROR_URL: git@github.com:EpitechPromo2026/B-CPP-500-PAR-5-1-rtype-timothe.zheng.git
+  EXECUTABLES_UNIX: r-type_server,r-type_client
+  EXECUTABLES_WIN: r-type_server.exe,r-type_client.exe
+
+permissions:
+  contents: read
+  checks: write
+
+jobs:
+  check_program_compilation_unix:
+    if: success()
+    runs-on: ubuntu-latest
+    container: epitechcontent/epitest-docker:latest
+    name: check_program_compilation_unix
+    steps:
+      - name: Checkout files
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Build vcpkg
+        uses: johnwason/vcpkg-action@v5
+        id: vcpkg
+        with:
+          triplet: x64-linux-release
+          token: ${{ github.token }}
+
+      - name: Set cmake vcpkg env var
+        run: export CMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake"
+
+      - name: Build
+        run: ./build_unix.sh
+        timeout-minutes: 5
+
+      - name: Clean build files
+        run: ./build_unix.sh clean
+
+      - name: Check file existence
+        id: check_files
+        uses: andstor/file-existence-action@v2
+        with:
+          files: "${{ env.EXECUTABLES_UNIX }}"
+          fail: true
+
+  check_program_compilation_win:
+    if: success()
+    runs-on: windows-latest
+    name: check_program_compilation_win
+    steps:
+      - name: Checkout files
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Build vcpkg
+        uses: johnwason/vcpkg-action@v5
+        id: vcpkg
+        with:
+          triplet: x64-windows-release
+          token: ${{ github.token }}
+
+      - name: Set cmake vcpkg env var
+        run: set CMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake"
+
+      - name: Build
+        run: cmd /c build_win.bat
+        timeout-minutes: 5
+
+      - name: Clean build files
+        run: cmd /c build_win.bat clean
+
+      - name: Check file existence
+        id: check_files
+        uses: andstor/file-existence-action@v2
+        with:
+          files: "${{ env.EXECUTABLES_WIN }}"
+          fail: true
+
+  check_style:
+    needs: [check_program_compilation_unix, check_program_compilation_win]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install clang-format
+        run: sudo apt-get install -y clang-format
+
+      - name: Run linters
+        uses: wearerequired/lint-action@v2
+        with:
+          clang_format: true
+          continue_on_error: false
+
+  run_tests_unix:
+    if: success()
+    needs: [check_program_compilation_unix, check_program_compilation_win]
+    runs-on: ubuntu-latest
+    container: epitechcontent/epitest-docker:latest
+    name: run_tests_unix
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      # TODO
+
+  run_tests_win:
+    if: success()
+    needs: [check_program_compilation_unix, check_program_compilation_win]
+    runs-on: windows-latest
+    name: run_tests_win
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      # TODO
+
+  push_to_mirror:
+    if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: [run_tests_unix, run_tests_win, check_style]
+    runs-on: ubuntu-latest
+    name: push_to_mirror
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: pixta-dev/repository-mirroring-action@v1
+        with:
+          target_repo_url:
+            ${{ env.MIRROR_URL }}
+          ssh_private_key:
+            ${{ secrets.GIT_SSH_PRIVATE_KEY }}
+
+  make_deploy_doxygen:
+    if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: [push_to_mirror]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current branch
+        uses: actions/checkout@v2
+      - name: Install doxygen
+        run: sudo apt-get update; sudo apt-get install -y doxygen
+      - name: Create the doxygen
+        run: doxygen Doxyfile
+      - name: Deploy documentation
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./html

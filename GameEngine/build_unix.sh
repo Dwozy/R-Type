@@ -22,9 +22,6 @@ fclean()
     echo "-- Cleaning GameEngine folder"
     rm -rf "./GameEngine"
     echo "-- Cleaning GameEngine folder - done"
-    echo "-- Cleaning libGameEngine.a"
-    rm "./libGameEngine.a"
-    echo "-- Cleaning libGameEngine.a - done"
 }
 
 if [ "$1" == "fclean" ]

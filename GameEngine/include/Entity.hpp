@@ -6,12 +6,12 @@
 */
 
 #ifndef ENTITY_HPP_
-    #define ENTITY_HPP_
-    #include <cstdint>
-    #include <bitset>
-    #include <array>
-    #include <queue>
-    #include "Component.hpp"
+#define ENTITY_HPP_
+#include "Component.hpp"
+#include <array>
+#include <bitset>
+#include <cstdint>
+#include <queue>
 
 namespace GameEngine
 {
@@ -22,43 +22,43 @@ namespace GameEngine
 
     class EntityManager
     {
-        public:
-            EntityManager()
-            {
-                for (Entity entity = 0; entity < MAX_ENTITY; entity++)
-                    _entitiesAvailable.push(entity);
-            };
-
-            ~EntityManager() = default;
-
-            Entity createEntity()
-            {
-                Entity entity;
-
-                // if (_entitiesAvailable.empty())              // Implement custom error
-                    // throw;
-                entity = _entitiesAvailable.front();
-
-                _entitiesAvailable.pop();
-                return entity;
-            };
-
-            void destroyEntity(Entity entity)
-            {
-                // if (entity >= MAX_ENTITY)                    // Implement custom error
-                    // throw;
-
-                // reset signature
+      public:
+        EntityManager()
+        {
+            for (Entity entity = 0; entity < MAX_ENTITY; entity++)
                 _entitiesAvailable.push(entity);
-            }
+        };
 
-            // manage signatures
+        ~EntityManager() = default;
 
-        private:
-            std::queue<Entity> _entitiesAvailable;
-            std::array<Signature, MAX_ENTITY> _entitiesSignatures;
-            Entity _nbEntity = 0;
+        Entity createEntity()
+        {
+            Entity entity;
+
+            // if (_entitiesAvailable.empty())              // Implement custom
+            // error throw;
+            entity = _entitiesAvailable.front();
+
+            _entitiesAvailable.pop();
+            return entity;
+        };
+
+        void destroyEntity(Entity entity)
+        {
+            // if (entity >= MAX_ENTITY)                    // Implement custom
+            // error throw;
+
+            // reset signature
+            _entitiesAvailable.push(entity);
+        }
+
+        // manage signatures
+
+      private:
+        std::queue<Entity> _entitiesAvailable;
+        std::array<Signature, MAX_ENTITY> _entitiesSignatures;
+        Entity _nbEntity = 0;
     };
-}
+} // namespace GameEngine
 
 #endif /* !ENTITY_HPP_ */
