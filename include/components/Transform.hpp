@@ -13,8 +13,8 @@ namespace GameEngine
 {
     struct TransformComponent
     {
-        Vector2 velocity;
-        Vector2 position;
+        Vector2<float> velocity;
+        Vector2<float> position;
     };
 }
 

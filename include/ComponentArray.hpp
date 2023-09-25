@@ -29,7 +29,7 @@ namespace GameEngine
                 _componentArray.reserve(maxEntities);
             };
 
-            void asignComponent(Entity entity, CompType component)
+            void assignComponent(Entity entity, CompType component)
             {
                 if (_assignedEntities.find(entity) != _assignedEntities.end())
                     throw Error::ComponentAlreadyAssignedError();
