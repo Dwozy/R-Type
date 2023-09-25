@@ -1,7 +1,7 @@
-cmake_minimum_required(VERSION 3.16.3)
+cmake_minimum_required(VERSION 3.27.1)
 
 set(PROJECT_NAME "GameEngine")
-set(LIBRARY_NAME "libGameEngine")
+set(LIBRARY_NAME "GameEngine")
 
 set(INCLUDES include)
 set(SRCS
@@ -17,24 +17,20 @@ find_package(SFML COMPONENTS system window graphics CONFIG REQUIRED)
 
 set(CMAKE_CXX_STANDARD 20)
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY /home/sleo/Epitech3/R-Type/GameEngine)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG /home/sleo/Epitech3/R-Type/GameEngine)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE /home/sleo/Epitech3/R-Type/GameEngine)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY /home/sleo/Epitech3/R-Type/GameEngine)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG /home/sleo/Epitech3/R-Type/GameEngine)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE /home/sleo/Epitech3/R-Type/GameEngine)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY /home/sleo/Epitech3/R-Type/GameEngine)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG /home/sleo/Epitech3/R-Type/GameEngine)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE /home/sleo/Epitech3/R-Type/GameEngine)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/lib/)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/lib/)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/lib/)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/lib/)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/lib/)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/lib/)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/lib/)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/lib/)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/lib/)
 
-# FOR STATIC LIBRARY
-add_library(${PROJECT_NAME} STATIC ${SRCS})
-target_include_directories(${PROJECT_NAME} PRIVATE ${INCLUDES})
-file(COPY ${INCLUDES}/ DESTINATION  /home/sleo/Epitech3/R-Type/GameEngine/${PROJECT_NAME})
-target_link_libraries(${PROJECT_NAME} PRIVATE  /home/sleo/Epitech3/R-Type/GameEngine/libGameEngine sfml-system sfml-network sfml-graphics sfml-window)
 
-project(test)
+file(MAKE_DIRECTORY ${PROJECT_NAME})
 
-add_executable(test main.cpp)
-target_include_directories(test PRIVATE  /home/sleo/Epitech3/R-Type/GameEngine/GameEngine)
-target_link_libraries(test PRIVATE /home/sleo/Epitech3/R-Type/GameEngine/libGameEngine.a)
+add_library(${LIBRARY_NAME} STATIC ${SRCS})
+target_link_libraries(${LIBRARY_NAME} INTERFACE sfml-system sfml-network sfml-graphics sfml-window)
+target_include_directories(${PROJECT_NAME} PUBLIC ${INCLUDES})
+file(COPY ${INCLUDES}/ DESTINATION ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include)

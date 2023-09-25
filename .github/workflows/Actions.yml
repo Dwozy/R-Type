@@ -1,0 +1,137 @@
+name: Actions
+
+on:
+  repository_dispatch:
+  push:
+    branches:
+    - 'main'
+  pull_request:
+    branches:
+    - 'main'
+
+env:
+  MIRROR_URL: git@github.com:EpitechPromo2026/B-CPP-500-PAR-5-1-rtype-timothe.zheng.git
+
+permissions:
+  contents: read
+  checks: write
+
+jobs:
+  check_program_compilation:
+    if: success()
+    strategy:
+      max-parallel: 2
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            install_cmd: ./build_unix.sh
+            container: biozzzzz/r-type
+            executables: r-type_server,r-type_client
+          - os: windows-latest
+            install_cmd: cmd /c build_win.bat
+            executables: r-type_server.exe,r-type_client.exe
+    runs-on: ${{ matrix.os }}
+    container: ${{ matrix.container }}
+    name: check_program_compilation
+    steps:
+      - name: Checkout files
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: Install
+        run: ${{ matrix.install_cmd }} install
+        timeout-minutes: 5
+
+      - name: Build
+        run: ${{ matrix.install_cmd }}
+        timeout-minutes: 5
+
+      - name: Clean build files
+        run: ${{ matrix.install_cmd }} clean
+
+      - name: Check file existence
+        id: check_files
+        uses: andstor/file-existence-action@v2
+        with:
+          files: "${{ matrix.executables }}"
+          fail: true
+
+  check_style:
+    needs: [check_program_compilation]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install clang-format
+        run: sudo apt-get install -y clang-format
+
+      - name: Run linters
+        uses: wearerequired/lint-action@v2
+        with:
+          clang_format: true
+          continue_on_error: false
+
+  run_tests:
+    if: success()
+    needs: [check_program_compilation]
+    strategy:
+      max-parallel: 2
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            install_cmd: ./build_unix.sh
+            container: biozzzzz/r-type
+            executables: $ {{ env.EXECUTABLES_UNIX }}
+          - os: windows-latest
+            install_cmd: cmd /c build_win.bat
+            executables: $ {{ env.EXECUTABLES_WIN }}
+    runs-on: ${{ matrix.os }}
+    container: ${{ matrix.container }}
+    name: run_tests
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          submodules: recursive
+      # TODO
+
+  push_to_mirror:
+    if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: [run_tests, check_style]
+    runs-on: ubuntu-latest
+    name: push_to_mirror
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          submodules: recursive
+      - uses: pixta-dev/repository-mirroring-action@v1
+        with:
+          target_repo_url:
+            ${{ env.MIRROR_URL }}
+          ssh_private_key:
+            ${{ secrets.GIT_SSH_PRIVATE_KEY }}
+
+  make_deploy_doxygen:
+    if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: [push_to_mirror]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current branch
+        uses: actions/checkout@v2
+      - name: Install doxygen
+        run: sudo apt-get update; sudo apt-get install -y doxygen
+      - name: Create the doxygen
+        run: doxygen Doxyfile
+      - name: Deploy documentation
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./html

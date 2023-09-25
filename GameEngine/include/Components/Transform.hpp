@@ -16,6 +16,6 @@ namespace GameEngine
         Vector2<float> velocity;
         Vector2<float> position;
     };
-}
+} // namespace GameEngine
 
 #endif /* !TRANSFORM_HPP_ */

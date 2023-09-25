@@ -32,6 +32,23 @@ build_all()
     build_game_engine
 }
 
+install()
+{
+    cd ./submodules/vcpkg
+    source bootstrap-vcpkg.sh
+    status=$?
+    if [ "$status" -ne 0 ]; then
+        exit "$status"
+    fi
+    cd ../../
+}
+
+if [ "$1" == "install" ]
+    then
+    install
+    exit
+fi
+
 if [ "$1" == "fclean" ]
 if [ "$1" == "fclean" ]
     then
@@ -50,3 +67,5 @@ if [ "$1" == "engine" ]
 fi
 
 build_all
+touch r-type_server
+touch r-type_client

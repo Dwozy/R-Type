@@ -7,5 +7,5 @@ GameEngine
 .vscode
 Makefile
 CMakeCache.txt
-CMakeFiles
+.vscode
 build

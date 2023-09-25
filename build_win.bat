@@ -1,34 +1,55 @@
-
 @echo off
 
+if "%~1"=="install" (
+    call:install
+    exit /b
+)
+
 if "%~1"=="fclean" (
-    call:fclean
+    call:fclean_all
     exit /b
 )
 
-if "%~1"=="re" (
-    call:fclean
-    call:build
+if "%~1"=="engine" (
+    if "%~2"=="fclean" (
+        call:fclean_game_engine
+        exit /b
+    )
+    call:build_game_engine
     exit /b
 )
 
-call:build
+call:build_all
+type nul > r-type_server.exe
+type nul > r-type_client.exe
 
 exit /b
 
-:build
-cmake -S . -B build
-cmake --build .\build --config Release --clean-first
+:install
+    cd .\submodules\vcpkg
+    call bootstrap-vcpkg.bat
+    if %errorlevel% neq 0 exit /b %errorlevel%
+    cd ..\..\
 goto:eof
 
-:fclean
-echo -- Cleaning build folder
-if exist ".\build" rmdir ".\build" /q /s
-echo -- Cleaning build folder - done
-echo -- Cleaning GameEngine folder
-if exist ".\GameEngine" rmdir ".\GameEngine" /q /s
-echo -- Cleaning GameEngine folder - done
-echo -- Cleaning libGameEngine.lib
-if exist ".\GameEngine.lib" del ".\GameEngine.lib"
-echo -- Cleaning libGameEngine.lib - done
+:build_game_engine
+    cd .\GameEngine\
+    call build_win.bat
+    if %errorlevel% neq 0 exit /b %errorlevel%
+    cd ..
+goto:eof
+
+:fclean_game_engine
+    cd .\GameEngine\
+    call build_win.bat fclean
+    if %errorlevel% neq 0 exit /b %errorlevel%
+    cd ..
+goto:eof
+
+:fclean_all
+    call:fclean_game_engine
+goto:eof
+
+:build_all
+    call:build_game_engine
 goto:eof

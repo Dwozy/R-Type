@@ -31,9 +31,9 @@ namespace GameEngine
             };
             ~EntityManager() = default;
 
-            Entity createEntity()
-            {
-                Entity entity;
+        Entity createEntity()
+        {
+            Entity entity;
 
                 if (_entitiesAvailable.empty())
                     throw Error::NoEntityAvailableError();
@@ -71,6 +71,6 @@ namespace GameEngine
             Entity _nbEntity = 0;
             Entity _maxEntities;
     };
-}
+} // namespace GameEngine
 
 #endif /* !ENTITY_HPP_ */
