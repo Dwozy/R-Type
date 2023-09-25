@@ -86,7 +86,7 @@ namespace Error {
     /**
      * @brief
      * ComponentNotRegisterError Class Error
-     * Error thrown when trying to register a component who is already registered
+     * Error thrown when trying to access a component that is not registered
      */
     class ComponentNotRegisterError : public std::exception {
         public:
@@ -100,7 +100,7 @@ namespace Error {
     /**
      * @brief
      * ComponentNotRegisterError Class Error
-     * Error thrown when trying to register a component who is already registered
+     * Error thrown when trying to register a system who is already registered
      */
     class SystemAlreadyRegisterError : public std::exception {
         public:
@@ -114,7 +114,7 @@ namespace Error {
     /**
      * @brief
      * ComponentNotRegisterError Class Error
-     * Error thrown when trying to register a component who is already registered
+     * Error thrown when trying to access a system that is not registered
      */
     class SystemNotRegisterError : public std::exception {
         public:
