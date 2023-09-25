@@ -40,6 +40,12 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Init submodules
+        run: |
+          git submodule init
+          git submodule update
+        timeout-minutes: 5
+
       - name: Install
         run: ${{ matrix.install_cmd }} install
         timeout-minutes: 5
