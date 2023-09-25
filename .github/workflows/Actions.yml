@@ -19,11 +19,23 @@ permissions:
   checks: write
 
 jobs:
-  check_program_compilation_unix:
+  check_program_compilation:
     if: success()
-    runs-on: ubuntu-latest
-    container: epitechcontent/epitest-docker:latest
-    name: check_program_compilation_unix
+    strategy:
+      max-parallel: 2
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            install_cmd: ./build_unix.sh
+            container: biozzzzz/r-type
+            executables: $ {{ env.EXECUTABLES_UNIX }}
+          - os: windows-latest
+            install_cmd: cmd /c build_win.bat
+            executables: $ {{ env.EXECUTABLES_WIN }}
+    runs-on: ${{ matrix.os }}
+    container: ${{ matrix.container }}
+    name: check_program_compilation
     steps:
       - name: Checkout files
         uses: actions/checkout@v3
@@ -31,45 +43,21 @@ jobs:
           fetch-depth: 0
 
       - name: Build
-        run: ./build_unix.sh
+        run: ${{ matrix.install_cmd }}
         timeout-minutes: 5
 
       - name: Clean build files
-        run: ./build_unix.sh clean
+        run: ${{ matrix.install_cmd }} clean
 
       - name: Check file existence
         id: check_files
         uses: andstor/file-existence-action@v2
         with:
-          files: "${{ env.EXECUTABLES_UNIX }}"
-          fail: true
-
-  check_program_compilation_win:
-    if: success()
-    runs-on: windows-latest
-    name: check_program_compilation_win
-    steps:
-      - name: Checkout files
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Build
-        run: cmd /c build_win.bat
-        timeout-minutes: 5
-
-      - name: Clean build files
-        run: cmd /c build_win.bat clean
-
-      - name: Check file existence
-        id: check_files
-        uses: andstor/file-existence-action@v2
-        with:
-          files: "${{ env.EXECUTABLES_WIN }}"
+          files: "${{ matrix.executables }}"
           fail: true
 
   check_style:
-    needs: [check_program_compilation_unix, check_program_compilation_win]
+    needs: [check_program_compilation, check_program_compilation]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -88,21 +76,22 @@ jobs:
 
   run_tests_unix:
     if: success()
-    needs: [check_program_compilation_unix, check_program_compilation_win]
-    runs-on: ubuntu-latest
-    container: epitechcontent/epitest-docker:latest
-    name: run_tests_unix
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      # TODO
-
-  run_tests_win:
-    if: success()
-    needs: [check_program_compilation_unix, check_program_compilation_win]
-    runs-on: windows-latest
-    name: run_tests_win
+    needs: [check_program_compilation, check_program_compilation]
+    strategy:
+      max-parallel: 2
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            install_cmd: ./build_unix.sh
+            container: biozzzzz/r-type
+            executables: $ {{ env.EXECUTABLES_UNIX }}
+          - os: windows-latest
+            install_cmd: cmd /c build_win.bat
+            executables: $ {{ env.EXECUTABLES_WIN }}
+    runs-on: ${{ matrix.os }}
+    container: ${{ matrix.container }}
+    name: run_tests
     steps:
       - uses: actions/checkout@v3
         with:
