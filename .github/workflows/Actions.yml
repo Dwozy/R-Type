@@ -41,10 +41,6 @@ jobs:
           fetch-depth: 0
           submodules: recursive
 
-      - name: Install
-        run: ${{ matrix.install_cmd }} install
-        timeout-minutes: 5
-
       - name: Build
         run: ${{ matrix.install_cmd }}
         timeout-minutes: 5
