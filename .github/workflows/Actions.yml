@@ -43,11 +43,11 @@ jobs:
 
       - name: Install Conan
         id: conan
-        if: ${{ matrix.os }} == 'windows-latest'
+        if: matrix.os == 'windows-latest'
         uses: turtlebrowser/get-conan@main
 
       - name: Get Conan profile
-        if: ${{ matrix.os }} == 'windows-latest'
+        if: matrix.os == 'windows-latest'
         run: conan profile detect --force
 
       - name: Build
