@@ -6,14 +6,21 @@
 */
 
 #include "UdpServer.hpp"
+#include "TcpServer.hpp"
+#include <boost/thread.hpp>
 
 int main(int ac, char const *av[])
 {
-    asio::io_context io_context;
+    boost::asio::io_context IOContext;
+
     try {
         if (ac != 2)
             return 84;
-        UdpServer server(io_context, atoi(av[1]));
+        boost::asio::signal_set signal(IOContext, SIGINT, SIGTERM);
+        signal.async_wait(boost::bind(&boost::asio::io_service::stop, &IOContext));
+        Network::TcpServer tcpServer(IOContext, atoi(av[1]));
+        Network::UdpServer udpServer(IOContext, atoi(av[1]));
+        IOContext.run();
     } catch (std::exception &e) {
         std::cerr << e.what() << std::endl;
     }

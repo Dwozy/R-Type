@@ -6,9 +6,12 @@
 ##
 
 SRC_SERVER			= 		server/src/main.cpp	\
-							server/src/UdpServer.cpp
+							server/src/UdpServer.cpp	\
+							server/src/TcpServer.cpp	\
+							server/src/ClientSession.cpp
 
-SRC_CLIENT			= 		client/src/main.cpp
+SRC_CLIENT			= 		client/src/main.cpp	\
+							client/src/UdpClient.cpp
 
 OBJ_SERVER			=		$(SRC_SERVER:.cpp=.o)
 
@@ -18,11 +21,12 @@ NAME_SERVER			=		r_type_server
 
 NAME_CLIENT			=		r_type_client
 
-LDFLAGS				=		-ldl -rdynamic -pthread
+LDFLAGS				=		-pthread
 
-CXXFLAGS			=		-std=c++20 -Wall -Wextra -DASIO_STANDALONE -pthread
+CXXFLAGS			=		-std=c++20 -Wall -Wextra -DASIO_STANDALONE -pthread -g3
 
-CPPFLAGS			=		-I ./include
+CPPFLAGS			=		-I ./include/Server \
+							-I ./include
 
 CXX					=		g++
 
@@ -44,9 +48,11 @@ fclean: clean
 	$(RM) $(NAME_CLIENT)
 	$(RM) $(NAME_SERVER)
 
-debug:	CXXFLAGS += -g3
+debug: CXXFLAGS += -g3
 debug: re
 
-re:	fclean all
+re: 
+	$(MAKE) fclean
+	$(MAKE) all
 
 .PHONY:	all clean fclean re
