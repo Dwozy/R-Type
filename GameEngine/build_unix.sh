@@ -3,6 +3,7 @@
 build()
 {
     $CONAN_PATH install . --output-folder=build --build=missing -c tools.system.package_manager:mode=install
+    ls
     cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=build/build/Release/generators/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_MAKE_PROGRAM=$CMAKE_MAKE_PROGRAM
     status=$?
     if [ "$status" -ne 0 ]; then

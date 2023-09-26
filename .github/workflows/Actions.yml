@@ -28,9 +28,11 @@ jobs:
             install_cmd: ./build_unix.sh
             container: biozzzzz/r-type
             executables: r-type_server,r-type_client
+            conan_cmd: $CONAN_PATH
           - os: windows-latest
             install_cmd: cmd /c build_win.bat
             executables: r-type_server.exe,r-type_client.exe
+            conan_cmd: conan
     runs-on: ${{ matrix.os }}
     container: ${{ matrix.container }}
     name: check_program_compilation
@@ -47,8 +49,7 @@ jobs:
         uses: turtlebrowser/get-conan@main
 
       - name: Get Conan profile
-        if: matrix.os == 'windows-latest'
-        run: conan profile detect --force
+        run: ${{ matrix.conan_cmd }} profile detect --force
 
       - name: Build
         run: ${{ matrix.install_cmd }}
