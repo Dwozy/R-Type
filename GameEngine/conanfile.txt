@@ -1,0 +1,16 @@
+[requires]
+sfml/2.6.0
+nlohmann_json/3.11.2
+
+[options]
+pkg/sfml:graphics=true
+pkg/sfml:window=True
+pkg/sfml:audio=True
+pkg/sfml:system=True
+
+[generators]
+CMakeDeps
+CMakeToolchain
+
+[layout]
+cmake_layout

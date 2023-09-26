@@ -9,3 +9,5 @@ Makefile
 CMakeCache.txt
 CMakeFiles
 build
+
+CMakeUserPresets.json

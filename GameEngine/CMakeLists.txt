@@ -1,4 +1,5 @@
-cmake_minimum_required(VERSION 3.27.1)
+cmake_minimum_required(VERSION 3.20.1)
+set(CMAKE_CXX_STANDARD 17)
 
 set(PROJECT_NAME "GameEngine")
 set(LIBRARY_NAME "GameEngine")
@@ -8,12 +9,18 @@ set(SRCS
     src/Main.cpp
 )
 
-project(${PROJECT_NAME})
+INCLUDE(CMakeForceCompiler)
+CMAKE_FORCE_C_COMPILER(gcc GNU)
+CMAKE_FORCE_CXX_COMPILER(g++ GNU)
+
+project(${PROJECT_NAME} LANGUAGES CXX)
+
+set(CMAKE_MAKE_PROGRAM $ENV{CMAKE_MAKE_PROGRAM})
+set(CMAKE_C_COMPILER $ENV{CMAKE_C_COMPILER})
+set(CMAKE_CXX_COMPILER $ENV{CMAKE_CXX_COMPILER})
 
 find_package(nlohmann_json CONFIG REQUIRED)
-find_package(SFML COMPONENTS system window graphics CONFIG REQUIRED)
-
-set(CMAKE_CXX_STANDARD 20)
+find_package(SFML COMPONENTS system window graphics audio CONFIG REQUIRED)
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/lib/)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/lib/)
