@@ -1,2 +1,0 @@
-/usr/bin/ar qc /home/M4tYx/Epitech/Tek3/R-Type/libGameEngine.a CMakeFiles/GameEngine.dir/src/Error.cpp.o CMakeFiles/GameEngine.dir/src/GameEngine.cpp.o CMakeFiles/GameEngine.dir/src/EntityManager.cpp.o CMakeFiles/GameEngine.dir/src/SafeEntity.cpp.o CMakeFiles/GameEngine.dir/src/DeltaTime.cpp.o
-/usr/bin/ranlib /home/M4tYx/Epitech/Tek3/R-Type/libGameEngine.a
