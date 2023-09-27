@@ -8,7 +8,8 @@
 #include "UdpServer.hpp"
 
 Network::UdpServer::UdpServer(boost::asio::io_context &IOContext, int port) :
-    _socket(IOContext, boost::asio::ip::udp::endpoint(boost::asio::ip::udp::v4(), port)), _IOContext(IOContext)
+    _socket(IOContext, boost::asio::ip::udp::endpoint(boost::asio::ip::udp::v4(), port)),
+    _IOContext(IOContext)
 {
     receive();
 }
@@ -52,10 +53,5 @@ void Network::UdpServer::sender(std::string buffer)
     if (_listClient.find(_clientEndpoint.port()) == _listClient.end())
         _listClient[_clientEndpoint.port()] = std::move(_clientEndpoint);
     _socket.async_send_to(boost::asio::buffer(message.c_str(), message.length()), _clientEndpoint,
-        [&] (const std::error_code &error, std::size_t) {
-            if (!error) {
-                std::cout << "-----> Receive <------" << std::endl;
-                receive();
-            }
-        });
+        boost::bind(&UdpServer::receive, this));
 }

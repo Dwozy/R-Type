@@ -7,7 +7,6 @@
 
 #include "UdpServer.hpp"
 #include "TcpServer.hpp"
-#include <boost/thread.hpp>
 
 int main(int ac, char const *av[])
 {

@@ -45,5 +45,6 @@ class ClientSession : public boost::enable_shared_from_this<ClientSession> {
     private:
         std::array<char, 1024> _readBuffer;
         boost::asio::ip::tcp::socket _socket;
+
 };
 #endif /* !CLIENTSESSION_HPP_ */

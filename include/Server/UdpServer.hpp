@@ -38,9 +38,9 @@ namespace Network {
 
             boost::asio::ip::udp::socket _socket;
             boost::asio::io_context &_IOContext;
+            std::map<unsigned short, boost::asio::ip::udp::endpoint> _listClient;
             boost::asio::ip::udp::endpoint _clientEndpoint;
             std::array<char, 1024> _readBuffer;
-            std::map<unsigned short, boost::asio::ip::udp::endpoint> _listClient;
     };
 }
 #endif /* !UDPSERVER_HPP_ */

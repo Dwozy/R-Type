@@ -7,7 +7,8 @@
 
 #include "ClientSession.hpp"
 
-ClientSession::ClientSession(boost::asio::io_context &IOContext): _socket(IOContext)
+ClientSession::ClientSession(boost::asio::io_context &IOContext):
+    _socket(IOContext)
 {
 }
 
@@ -47,7 +48,9 @@ void ClientSession::handleRead(const boost::system::error_code &error, std::size
                 get(),
                 boost::placeholders::_1));
     } else {
-        std::cerr << error.message() << std::endl;
+        // Need to know how to tell UDP server that client has disconnected
+        std::cout << "Delete " << _socket.remote_endpoint().port() << std::endl;
+        std::cerr << "The client disconnected" << std::endl;
     }
 }
 

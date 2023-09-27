@@ -37,6 +37,7 @@ namespace Network {
             boost::asio::ip::tcp::acceptor _acceptor;
             boost::asio::ip::tcp::socket _socket;
             boost::asio::io_context &_IOContext;
+            int _port;
             boost::asio::ip::tcp::endpoint _clientEndpoint;
             std::size_t count;
             std::array<char, 1024> _readBuffer;
