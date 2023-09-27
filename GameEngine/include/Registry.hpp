@@ -32,8 +32,6 @@ class Registry {
         template <class Component>
         SparseArray<Component> &getComponent()
         {
-            if (_container.find(std::type_index(typeid(Component))) == _container.end())
-                throw Error::ComponentNotRegisterError();
             SparseArray<Component> &ret = std::any_cast<SparseArray<Component> &>(_container[std::type_index(typeid(Component))]);
             return ret;
         };
@@ -41,8 +39,6 @@ class Registry {
         template <class Component>
         const SparseArray<Component> &getComponent() const
         {
-            if (_container.find(std::type_index(typeid(Component))) == _container.end())
-                throw Error::ComponentNotRegisterError();
             const SparseArray<Component> &ret = std::any_cast<SparseArray<Component> &>(_container.at(std::type_index(typeid(Component))));
             return ret;
         };

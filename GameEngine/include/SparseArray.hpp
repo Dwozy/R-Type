@@ -56,7 +56,6 @@ class SparseArray
         };
         referenceType insert_at(sizeType pos, Component &&component)
         {
-            std::cout << pos << std::endl;
             if (_data.size() < pos + 1)
                 _data.resize(pos + 1);
             _data[pos] = component;

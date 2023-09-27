@@ -9,6 +9,7 @@
 #include <cstdlib>
 #include "SparseArray.hpp"
 #include "Registry.hpp"
+#include "systems/PositionSystem.hpp"
 
 int main()
 {
@@ -31,32 +32,43 @@ int main()
 
     Registry registry;
     Entity entity = registry.spawnEntity();
-    Entity entity2 = registry.spawnEntity();
-    Entity entity3 = registry.spawnEntity();
-    Entity entity4 = registry.spawnEntity();
-    Entity entity5 = registry.spawnEntity();
+    registry.registerComponent<GameEngine::PositionComponent>();
+    registry.registerComponent<GameEngine::VelocityComponent>();
+    GameEngine::PositionComponent pos = { GameEngine::Vector2<float>(0.0f, 0.0f) };
+    GameEngine::VelocityComponent vel = { GameEngine::Vector2<float>(1.0f, 1.0f) };
+    registry.addComponent<GameEngine::PositionComponent>(entity, std::move(pos));
+    registry.addComponent<GameEngine::VelocityComponent>(entity, std::move(vel));
 
-    registry.killEntity(entity3);
-    entity3 = registry.spawnEntity();
-    std::cout << "ENTITY3: " << entity3 << std::endl;
-    std::cout << "ENTITY4: " << entity4 << std::endl;
-    std::cout << "ENTITY5: " << entity5 << std::endl;
-    auto &sa = registry.registerComponent<int>();
-    // sa.insert_at(entity, 5);
-    // sa.insert_at(10, 10);
-    // registry.addComponent<int>(entity, 5);
-    registry.removeComponent<int>(entity);
-    registry.registerComponent<float>().insert_at(entity2, 2);
-    auto &array = registry.getComponent<int>();
-    // array.emplace_at(1, 2, 3, 4);
-    registry.emplaceComponent<int>(entity3, entity2, entity4);
-    // registry.addComponent<int>(entity5, 10);
-    for (std::size_t i = 0; i < array.size(); i++)
+    while (1)
     {
-        if (array[i].has_value())
-            std::cout << i << ". " << array[i].value() << std::endl;
-        else
-            std::cout << i << ". none" << std::endl;
+        GameEngine::positionSystem(registry);
     }
+    // Entity entity2 = registry.spawnEntity();
+    // Entity entity3 = registry.spawnEntity();
+    // Entity entity4 = registry.spawnEntity();
+    // Entity entity5 = registry.spawnEntity();
+
+    // registry.killEntity(entity3);
+    // entity3 = registry.spawnEntity();
+    // std::cout << "ENTITY3: " << entity3 << std::endl;
+    // std::cout << "ENTITY4: " << entity4 << std::endl;
+    // std::cout << "ENTITY5: " << entity5 << std::endl;
+    // auto &sa = registry.registerComponent<int>();
+    // // sa.insert_at(entity, 5);
+    // // sa.insert_at(10, 10);
+    // // registry.addComponent<int>(entity, 5);
+    // registry.removeComponent<int>(entity);
+    // registry.registerComponent<float>().insert_at(entity2, 2);
+    // auto &array = registry.getComponent<int>();
+    // // array.emplace_at(1, 2, 3, 4);
+    // registry.emplaceComponent<int>(entity3, entity2, entity4);
+    // // registry.addComponent<int>(entity5, 10);
+    // for (std::size_t i = 0; i < array.size(); i++)
+    // {
+    //     if (array[i].has_value())
+    //         std::cout << i << ". " << array[i].value() << std::endl;
+    //     else
+    //         std::cout << i << ". none" << std::endl;
+    // }
     return 0;
 }
