@@ -9,14 +9,18 @@
     #define ENTITY_HPP_
     #include <cstdlib>
 
+class Registry;
+
 class Entity
 {
     public:
-        explicit Entity(std::size_t entity): _entity(entity) {};
+        friend class Registry;
         ~Entity() = default;
 
         operator std::size_t() const { return _entity; };
     private:
+        explicit Entity(std::size_t entity): _entity(entity) {};
+
         std::size_t _entity;
 };
 
