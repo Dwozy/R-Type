@@ -10,6 +10,24 @@
 #include "SparseArray.hpp"
 #include "Registry.hpp"
 
+void testSystem(Registry &registry, SparseArray<int> &ints, SparseArray<float> &floats)
+{
+    for (std::size_t i = 0; i < ints.size(); i++)
+    {
+        if (ints[i].has_value())
+            std::cout << i << ". " << ints[i].value() << std::endl;
+        else
+            std::cout << i << ". none" << std::endl;
+    }
+    for (std::size_t i = 0; i < floats.size(); i++)
+    {
+        if (floats[i].has_value())
+            std::cout << i << ". " << floats[i].value() << std::endl;
+        else
+            std::cout << i << ". none" << std::endl;
+    }
+}
+
 int main()
 {
     // SparseArray<int> array;
@@ -50,13 +68,15 @@ int main()
     auto &array = registry.getComponent<int>();
     // array.emplace_at(1, 2, 3, 4);
     registry.emplaceComponent<int>(entity3, entity2, entity4);
+    registry.addSystem<std::function<void(Registry &, SparseArray<int> &, SparseArray<float> &)>, int, float>(testSystem);
+    registry.runSystems();
     // registry.addComponent<int>(entity5, 10);
-    for (std::size_t i = 0; i < array.size(); i++)
-    {
-        if (array[i].has_value())
-            std::cout << i << ". " << array[i].value() << std::endl;
-        else
-            std::cout << i << ". none" << std::endl;
-    }
+    // for (std::size_t i = 0; i < array.size(); i++)
+    // {
+    //     if (array[i].has_value())
+    //         std::cout << i << ". " << array[i].value() << std::endl;
+    //     else
+    //         std::cout << i << ". none" << std::endl;
+    // }
     return 0;
 }
