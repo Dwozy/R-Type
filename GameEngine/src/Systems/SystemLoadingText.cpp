@@ -2,13 +2,32 @@
 ** EPITECH PROJECT, 2023
 ** R-Type
 ** File description:
-** SystemLoadingAll
+** SystemLoadingText
 */
 
-#include "SystemLoadingText.hpp"
-#include "Components/Font.hpp"
-#include "Components/Text.hpp"
+#ifndef SYSTEMLOADINGTEXT_HPP_
+    #define SYSTEMLOADINGTEXT_HPP_
+    #include <set>
+    #include "Entity.hpp"
+    #include "System.hpp"
 
-void GameEngine::SystemLoadingText::_updateSingle(const Entity &entity)
+namespace GameEngine
 {
-}
+    class SystemLoadingText : public ISystem
+    {
+        public:
+            SystemLoadingText(GameEngine &gameEngine): _gameEngine(gameEngine) {};
+            virtual void update() override
+            {
+                for (const Entity &entity : entities)
+                    _updateSingle(entity);
+            };
+            std::set<Entity> entities;
+        protected:
+            virtual void _updateSingle(const Entity &entity) override {};
+
+            GameEngine &_gameEngine;
+    };
+};
+
+#endif /* !SYSTEMLOADINGTEXT_HPP_ */

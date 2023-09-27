@@ -5,12 +5,6 @@
 ** SystemLoadingTexture
 */
 
-#ifndef SYSTEMLOADINGTEXTURE_HPP_
-    #define SYSTEMLOADINGTEXTURE_HPP_
-    #include <set>
-    #include "Entity.hpp"
-    #include "System.hpp"
-
 namespace GameEngine
 {
     class SystemLoadingTexture : public ISystem
@@ -29,5 +23,3 @@ namespace GameEngine
             GameEngine &_gameEngine;
     };
 }
-
-#endif /* !SYSTEMLOADINGTEXTURE_HPP_ */

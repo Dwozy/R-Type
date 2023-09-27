@@ -5,11 +5,21 @@
 ** SystemLoadingTexture
 */
 
-#include "SystemLoadingTexture.hpp"
-#include "Components/Sprite.hpp"
-#include "Components/Texture.hpp"
-
-void GameEngine::SystemLoadingTexture::_updateSingle(const Entity &entity)
+namespace GameEngine
 {
-}
+    class SystemLoadingTexture : public ISystem
+    {
+        public:
+            SystemLoadingTexture(GameEngine &gameEngine): _gameEngine(gameEngine) {};
+            virtual void update() override
+            {
+                for (const Entity &entity : entities)
+                    _updateSingle(entity);
+            };
+            std::set<Entity> entities;
+        protected:
+            virtual void _updateSingle(const Entity &entity) override {};
 
+            GameEngine &_gameEngine;
+    };
+}
