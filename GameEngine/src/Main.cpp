@@ -4,8 +4,3 @@
 ** File description:
 ** Main
 */
-
-int test()
-{
-    return 0;
-}
