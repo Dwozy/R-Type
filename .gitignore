@@ -9,3 +9,5 @@ Makefile
 CMakeCache.txt
 .vscode
 build
+
+testFolder

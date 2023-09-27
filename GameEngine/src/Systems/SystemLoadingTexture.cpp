@@ -5,21 +5,24 @@
 ** SystemLoadingTexture
 */
 
+#include "Registry.hpp"
+#include "Components/Texture.hpp"
+#include "Components/Sprite.hpp"
+
 namespace GameEngine
 {
-    class SystemLoadingTexture : public ISystem
-    {
-        public:
-            SystemLoadingTexture(GameEngine &gameEngine): _gameEngine(gameEngine) {};
-            virtual void update() override
-            {
-                for (const Entity &entity : entities)
-                    _updateSingle(entity);
-            };
-            std::set<Entity> entities;
-        protected:
-            virtual void _updateSingle(const Entity &entity) override {};
 
-            GameEngine &_gameEngine;
-    };
+    void SystemLoadingTexture(Registry &r)
+    {
+        auto &Texture = r.getComponent<GameEngine::Texture>();
+        auto &Sprite = r.getComponent<GameEngine::Sprite>();
+        for (size_t i = 0; i < Texture.size() && i < Sprite.size (); ++i) {
+            auto &Tex = Texture[i];
+            auto &Spr = Sprite[i];
+            if (Tex && Spr) {
+                Tex.texture.load(Tex.path);
+                Spr.sprite.load(Tex.getTexture());
+            }
+        }
+    }
 }

@@ -12,19 +12,19 @@
     #include <fstream>
     #include <map>
     #include <string>
-    #include "nolhmann/json.hpp"
+    // #include "nolhmann/json.hpp"
 
-    using json = nlohmann::json;
+    // using json = nlohmann::json;
 
-    class JsonParser
-    {
-        public:
-            JsonParser(const std::string& filename);
-            ~JsonParser() = default;
+    // class JsonParser
+    // {
+    //     public:
+    //         JsonParser(const std::string& filename);
+    //         ~JsonParser() = default;
 
-            std::string getData(const std::string& key);
-        private:
-            std::map<std::string, std::string> _dataMap;
-    };
+    //         std::string getData(const std::string& key);
+    //     private:
+    //         std::map<std::string, std::string> _dataMap;
+    // };
 
 #endif /* !PARSERJSON_HPP_ */

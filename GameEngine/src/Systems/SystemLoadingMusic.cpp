@@ -5,21 +5,19 @@
 ** SystemLoadingMusic
 */
 
-#ifndef SYSTEMLOADINGMUSIC_HPP_
-    #define SYSTEMLOADINGMUSIC_HPP_
-    #include <set>
-    #include "Entity.hpp"
-    #include "System.hpp"
+#include "Registry.hpp"
+#include "Components/Music.hpp"
 
 namespace GameEngine
 {
-    class SystemLoadingMusic : public SystemBase
+    void SystemLoadingMusic(Registry &r)
     {
-        public:
-            SystemLoadingMusic(GameEngine &gameEngine): SystemBase(gameEngine) {};
-        protected:
-           void _updateSingle(const Entity &entity) override {};
-    };
+        auto &Music = r.getComponent<GameEngine::Music>();
+        for (size_t i = 0; i < Music.size(); ++i) {
+            auto &Mus = Music[i];
+            if (Mus) {
+                Mus.music.load(Mus.path);
+            }
+        }
+    }
 }
-
-#endif /* !SYSTEMLOADINGMUSIC_HPP_ */

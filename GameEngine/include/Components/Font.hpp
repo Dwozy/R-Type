@@ -13,7 +13,7 @@
 
 namespace GameEngine {
     struct Font {
-        SFFont Font;
+        SFFont font;
         std::string path;
     };
 }

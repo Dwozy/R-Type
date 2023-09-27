@@ -15,8 +15,10 @@ namespace GameEngine
 {
     struct Text
     {
-        std::string tt;
+        std::string str;
+        size_t size;
         Vector2<int> position;
+        SFText text;
     };
 }
 

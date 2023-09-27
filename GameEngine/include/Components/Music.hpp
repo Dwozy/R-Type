@@ -12,7 +12,6 @@
     #include "utils/sfmlTypes.hpp"
 
 namespace GameEngine {
-
     struct Music {
         SFMusic music;
         std::string path;

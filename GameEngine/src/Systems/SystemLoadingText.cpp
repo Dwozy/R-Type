@@ -5,29 +5,24 @@
 ** SystemLoadingText
 */
 
-#ifndef SYSTEMLOADINGTEXT_HPP_
-    #define SYSTEMLOADINGTEXT_HPP_
-    #include <set>
-    #include "Entity.hpp"
-    #include "System.hpp"
+#include "Registry.hpp"
+#include "Components/Font.hpp"
+#include "Components/Text.hpp"
 
 namespace GameEngine
 {
-    class SystemLoadingText : public ISystem
+
+    void SystemLoadingText(Registry &r)
     {
-        public:
-            SystemLoadingText(GameEngine &gameEngine): _gameEngine(gameEngine) {};
-            virtual void update() override
-            {
-                for (const Entity &entity : entities)
-                    _updateSingle(entity);
-            };
-            std::set<Entity> entities;
-        protected:
-            virtual void _updateSingle(const Entity &entity) override {};
-
-            GameEngine &_gameEngine;
-    };
-};
-
-#endif /* !SYSTEMLOADINGTEXT_HPP_ */
+        auto &Font = r.getComponent<GameEngine::Font>();
+        auto &Text = r.getComponent<GameEngine::Text>();
+        for (size_t i = 0; i < Font.size() && i < Text.size (); ++i) {
+            auto &Fon = Font[i];
+            auto &Tex = Text[i];
+            if (Fon && Tex) {
+                Fon.font.load(Fon.path);
+                Tex.text.load(Tex.str, Fon.getFont(), Tex.size);
+            }
+        }
+    }
+}
