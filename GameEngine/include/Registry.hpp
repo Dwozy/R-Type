@@ -13,6 +13,7 @@
     #include <typeindex>
     #include <functional>
     #include <algorithm>
+    #include <utility>
     #include "SparseArray.hpp"
     #include "Error.hpp"
     #include "Entity.hpp"
@@ -28,14 +29,12 @@ class Registry {
             _deleters.push_back(deleter);
             return ret;
         };
-
         template <class Component>
         SparseArray<Component> &getComponent()
         {
             SparseArray<Component> &ret = std::any_cast<SparseArray<Component> &>(_container[std::type_index(typeid(Component))]);
             return ret;
         };
-
         template <class Component>
         const SparseArray<Component> &getComponent() const
         {
@@ -75,6 +74,11 @@ class Registry {
         {
             return getComponent<Component>().insert_at(entity, component);
         };
+        template <typename Component>
+        typename SparseArray<Component>::referenceType addComponent(const Entity &entity, const Component &component)
+        {
+            return getComponent<Component>().insert_at(entity, component);
+        };
         template <typename Component, typename... Params>
         typename SparseArray<Component>::referenceType emplaceComponent(const Entity &entity, Params &&... params)
         {
@@ -85,11 +89,25 @@ class Registry {
         {
             getComponent<Component>().erase(entity);
         };
+
+        template <typename Function, class... Components>
+        void addSystem(const Function &function)
+        {
+            std::function<void()> system = [this, function]() { function(*this, getComponent<Components>()...); };
+
+            _systems.push_back(system);
+        };
+        void runSystems()
+        {
+            for (std::size_t i = 0; i < _systems.size(); i++)
+                _systems[i]();
+        }
     private:
         std::unordered_map<std::type_index, std::any> _container;
         std::vector<std::function<void(Registry &, const Entity &)>> _deleters;
         std::vector<Entity> _aliveEntities;
         std::vector<std::size_t> _emptyIndecies;
+        std::vector<std::function<void()>> _systems;
 };
 
 #endif /* !REGISTRY_HPP_ */
