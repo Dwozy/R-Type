@@ -12,7 +12,7 @@
     #include <fstream>
     #include <map>
     #include <string>
-    #include "nolhmann/json.hpp"
+    #include <nolhmann/json.hpp>
 
     using json = nlohmann::json;
 
