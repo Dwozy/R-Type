@@ -17,9 +17,7 @@ exit /b
 
 :build
 conan install . --output-folder=build --build=missing -c tools.system.package_manager:mode=install
-dir
-dir build
-cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=build\build\Release\generators\conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
+cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=build\build\generators\conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
 cmake --build .\build --config Release --clean-first
 goto:eof
 
