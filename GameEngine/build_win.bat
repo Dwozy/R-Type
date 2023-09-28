@@ -17,7 +17,7 @@ exit /b
 
 :build
 set CONAN_BUILD_DIR=build\build\generators
-conan install . --output-folder=build --build=missing -c tools.system.package_manager:mode=install -g visual_studio
+conan install . --output-folder=build --build=missing -c tools.system.package_manager:mode=install -g MSBuildDeps
 cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=%CONAN_BUILD_DIR%\conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
 cmake --build .\build --config Release --clean-first
 goto:eof
