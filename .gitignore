@@ -1,10 +1,9 @@
 .vscode
-
-
-r-type_client
-r-type_server
+r-type_client*
+r-type_server*
 *.o
 *.gcno
 *.gcda
 build
 idea
+
