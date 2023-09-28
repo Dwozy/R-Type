@@ -38,7 +38,7 @@ RUN ./bin/conan
 ENV CMAKE_MAKE_PROGRAM="/usr/bin/make"
 ENV CMAKE_C_COMPILER="/usr/local/bin/gcc"
 ENV CMAKE_CXX_COMPILER="/usr/local/bin/g++"
-ENV CONAN_PATH="/usr/app/bin/conan"
+ENV PATH="$PATH:/usr/app/bin"
 
 # Create conan profile
 RUN ./bin/conan profile detect --force
