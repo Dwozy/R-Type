@@ -16,7 +16,7 @@ call:build
 exit /b
 
 :build
-setx CONAN_BUILD_DIR "build\build\generators"
+set CONAN_BUILD_DIR="build\build\generators"
 conan install . --output-folder=build --build=missing -c tools.system.package_manager:mode=install
 cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=%CONAN_BUILD_DIR%\conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
 cmake --build .\build --config Release --clean-first
