@@ -2,7 +2,9 @@
 
 build()
 {
-    cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=../submodules/vcpkg/scripts/buildsystems/vcpkg.cmake
+    export CONAN_BUILD_DIR=build/build/Release/generators
+    conan install . --output-folder=build --build=missing -c tools.system.package_manager:mode=install
+    cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=$CONAN_BUILD_DIR/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_MAKE_PROGRAM=$CMAKE_MAKE_PROGRAM
     status=$?
     if [ "$status" -ne 0 ]; then
         exit "$status"

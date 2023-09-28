@@ -1,0 +1,13 @@
+*.a
+*.lib
+*.cmake
+
+GameEngine
+
+.vscode
+Makefile
+CMakeCache.txt
+CMakeFiles
+build
+
+CMakeUserPresets.json

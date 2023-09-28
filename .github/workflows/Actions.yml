@@ -41,9 +41,13 @@ jobs:
           fetch-depth: 0
           submodules: recursive
 
-      - name: Install
-        run: ${{ matrix.install_cmd }} install
-        timeout-minutes: 5
+      - name: Install Conan
+        id: conan
+        if: matrix.os == 'windows-latest'
+        uses: turtlebrowser/get-conan@main
+
+      - name: Get Conan profile
+        run: conan profile detect --force
 
       - name: Build
         run: ${{ matrix.install_cmd }}
