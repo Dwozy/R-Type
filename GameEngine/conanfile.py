@@ -1,5 +1,6 @@
 from conan import ConanFile, tools
 from conan.tools.cmake import cmake_layout
+from conan.tools.microsoft import MSBuildDeps
 
 class GameEngineRecipe(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
@@ -43,8 +44,4 @@ class GameEngineRecipe(ConanFile):
                 for src_dir in dependency.cpp_info.includedirs:
                     self.output.info(f"{tools.files.copy(self, '*.hpp', src_dir, dest_dir)}")
                     self.output.info(f"{tools.files.copy(self, '*.inl', src_dir, dest_dir)}")
-                    # tools.files.copy(self, "*.hpp", src_dir, dest_dir)
         self.output.success("Header files copied.")
-    #     tools.files.mkdir("./include/libs")
-    #             copy()
-    # copy(pattern="*.hpp", src=src_dir, dst=dest_dir)
