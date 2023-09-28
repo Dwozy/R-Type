@@ -23,8 +23,10 @@ class UdpClient {
         boost::asio::ip::udp::socket _socket;
         boost::asio::ip::udp::endpoint &_serverEndpoint;
         boost::asio::io_context &_IOContext;
+
         std::array<char, 1024> _readBuffer;
         void handleReceive(const boost::system::error_code &error, std::size_t recvBytes);
+        void sender(const boost::system::error_code &error);
         void receive();
         void run();
 };

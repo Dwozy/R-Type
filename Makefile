@@ -17,16 +17,16 @@ OBJ_SERVER			=		$(SRC_SERVER:.cpp=.o)
 
 OBJ_CLIENT			=		$(SRC_CLIENT:.cpp=.o)
 
-NAME_SERVER			=		r_type_server
+NAME_SERVER			=		r-type_server
 
-NAME_CLIENT			=		r_type_client
+NAME_CLIENT			=		r-type_client
 
 LDFLAGS				=		-pthread
 
 CXXFLAGS			=		-std=c++20 -Wall -Wextra -DASIO_STANDALONE -pthread -g3
 
 CPPFLAGS			=		-I ./include/Server \
-							-I ./include
+							-I ./include/Client
 
 CXX					=		g++
 

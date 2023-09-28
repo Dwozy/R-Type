@@ -9,9 +9,11 @@
 
 Network::UdpServer::UdpServer(boost::asio::io_context &IOContext, int port) :
     _socket(IOContext, boost::asio::ip::udp::endpoint(boost::asio::ip::udp::v4(), port)),
-    _IOContext(IOContext)
+    _IOContext(IOContext),
+    _timer(IOContext)
 {
     receive();
+    startTimer();
 }
 
 Network::UdpServer::~UdpServer()
@@ -28,7 +30,9 @@ void Network::UdpServer::handleReceive(const boost::system::error_code &error, s
     if (!error) {
         std::cout << "Received " << recvBytes << " bytes of data" << std::endl;
         std::cout << "data: " << std::string(_readBuffer.begin(), _readBuffer.begin() + recvBytes);
-        sender(std::string(_readBuffer.begin(), _readBuffer.begin() + recvBytes));
+        if (_listClient.find(_clientEndpoint.port()) == _listClient.end())
+            _listClient[_clientEndpoint.port()] = std::move(_clientEndpoint);
+        receive();
     }
 }
 
@@ -40,18 +44,23 @@ void Network::UdpServer::receive()
         });
 }
 
-void Network::UdpServer::sender(std::string buffer)
+void Network::UdpServer::startTimer()
 {
-    std::string message = "Sender endpoint : ";
-    message += _clientEndpoint.address().to_string().c_str();
-    message += " on port : ";
-    message += _clientEndpoint.address().to_string();
-    message += " ";
-    message += std::to_string((int) _clientEndpoint.port());
-    message +=  " with message : ";
-    message += buffer;
-    if (_listClient.find(_clientEndpoint.port()) == _listClient.end())
-        _listClient[_clientEndpoint.port()] = std::move(_clientEndpoint);
-    _socket.async_send_to(boost::asio::buffer(message.c_str(), message.length()), _clientEndpoint,
-        boost::bind(&UdpServer::receive, this));
+    _timer.expires_from_now(boost::posix_time::seconds(2));
+    _timer.async_wait(boost::bind(&Network::UdpServer::sender, this));
+}
+
+void Network::UdpServer::sender()
+{
+    for (std::pair<unsigned short, boost::asio::ip::udp::endpoint> client : _listClient) {
+        std::string message = "Sender endpoint : ";
+        message += client.second.address().to_string().c_str();
+        message += " on port : ";
+        message += client.second.address().to_string();
+        message += " ";
+        message += std::to_string((int) client.second.port());
+        message +=  " with message : \n";
+        _socket.send_to(boost::asio::buffer(message.c_str(), message.length()), client.second);
+    }
+    startTimer();
 }
