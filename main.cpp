@@ -10,6 +10,9 @@
 #include "SparseArray.hpp"
 #include "Registry.hpp"
 #include "systems/PositionSystem.hpp"
+#include "systems/ControlSystem.hpp"
+
+#include <SFML/Graphics.hpp>
 
 int main()
 {
@@ -34,15 +37,19 @@ int main()
     Entity entity = registry.spawnEntity();
     registry.registerComponent<GameEngine::PositionComponent>();
     registry.registerComponent<GameEngine::VelocityComponent>();
+    registry.registerComponent<GameEngine::ControllableComponent>();
     GameEngine::PositionComponent pos = { GameEngine::Vector2<float>(0.0f, 0.0f) };
-    GameEngine::VelocityComponent vel = { GameEngine::Vector2<float>(1.0f, 1.0f) };
-    registry.addComponent<GameEngine::PositionComponent>(entity, std::move(pos));
-    registry.addComponent<GameEngine::VelocityComponent>(entity, std::move(vel));
-
-    while (1)
-    {
-        GameEngine::positionSystem(registry);
-    }
+    GameEngine::VelocityComponent vel = { GameEngine::Vector2<float>(0.0f, 0.0f) };
+    GameEngine::ControllableComponent con = {
+        GameEngine::Input::Keyboard::Z,
+        GameEngine::Input::Keyboard::Q,
+        GameEngine::Input::Keyboard::S,
+        GameEngine::Input::Keyboard::D,
+        0.05f
+    };
+    registry.addComponent<GameEngine::PositionComponent>(entity, pos);
+    registry.addComponent<GameEngine::VelocityComponent>(entity, vel);
+    registry.addComponent<GameEngine::ControllableComponent>(entity, con);
     // Entity entity2 = registry.spawnEntity();
     // Entity entity3 = registry.spawnEntity();
     // Entity entity4 = registry.spawnEntity();
@@ -70,5 +77,36 @@ int main()
     //     else
     //         std::cout << i << ". none" << std::endl;
     // }
+
+    sf::Texture texture;
+    texture.loadFromFile("image.png", sf::IntRect(0, 0, 32, 16));
+    sf::Sprite sprite;
+    sprite.setTexture(texture);
+    sf::RenderWindow window(sf::VideoMode(800, 600), "test control system");
+    sf::CircleShape shape(100.f);
+    shape.setFillColor(sf::Color::Green);
+
+    while (window.isOpen())
+    {
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+        GameEngine::controlSystem(registry);
+        GameEngine::positionSystem(registry);
+
+        window.clear();
+        auto &positions = registry.getComponent<GameEngine::PositionComponent>();
+        for (size_t i = 0; i < positions.size(); i++) {
+            auto &pos = positions[i];
+            if (pos) {
+                sprite.setPosition(sf::Vector2f(pos.value().position.x, pos.value().position.y));
+                window.draw(sprite);
+            }
+        }
+        window.display();
+    }
     return 0;
 }
