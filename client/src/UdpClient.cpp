@@ -12,10 +12,6 @@ UdpClient::UdpClient(boost::asio::io_context &IOContext, boost::asio::ip::udp::e
       _serverEndpoint(serverEndpoint),
       _IOContext(IOContext)
 {
-    // boost::asio::signal_set signal(IOContext);
-    // signal.add(SIGINT);
-    // signal.add(SIGTERM);
-    // signal.async_wait([&] (const boost::system::error_code &, int) { IOContext.stop(); });
     run();
 }
 
@@ -27,8 +23,7 @@ UdpClient::~UdpClient()
 void UdpClient::handleReceive(const boost::system::error_code &error, std::size_t recvBytes)
 {
     if (!error) {
-        std::cout << "Received " << recvBytes << " bytes of data" << std::endl;
-        std::cout << "data: " << std::string(_readBuffer.begin(), _readBuffer.begin() + recvBytes) << std::endl;
+        std::cout << std::string(_readBuffer.begin(), _readBuffer.begin() + recvBytes);
         receive();
     }
 }
@@ -41,15 +36,9 @@ void UdpClient::receive()
 
 void UdpClient::run()
 {
-    std::string buff = "Message\n";
-    std::array<char, 1024> data;
+    std::string buff;
+    std::array<char, 1> data;
     std::copy(buff.begin(), buff.end(), data.begin());
-
-    std::cout << "Send message" << std::endl;
-
-    boost::asio::steady_timer timer(e,
-        std::chrono::steady_clock::now() + std::chrono::seconds(60));
-
     _socket.async_send_to(boost::asio::buffer(data, buff.size()), _serverEndpoint,
         boost::bind(&UdpClient::receive, this));
 }

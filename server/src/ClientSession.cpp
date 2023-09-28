@@ -7,8 +7,9 @@
 
 #include "ClientSession.hpp"
 
-ClientSession::ClientSession(boost::asio::io_context &IOContext):
-    _socket(IOContext)
+ClientSession::ClientSession(boost::asio::io_context &IOContext, SafeQueue<std::string> &clientsMessages):
+    _socket(IOContext),
+    _clientsMessages(clientsMessages)
 {
 }
 
@@ -43,6 +44,14 @@ void ClientSession::handleWrite(const boost::system::error_code &error)
 void ClientSession::handleRead(const boost::system::error_code &error, std::size_t transferredBytes)
 {
     if (!error) {
+        std::string identity;
+        identity += _socket.remote_endpoint().address().to_string();
+        identity += " ";
+        identity += std::to_string((int) _socket.remote_endpoint().port());
+        identity += ": ";
+        identity += std::string(_readBuffer.begin(), _readBuffer.begin() + transferredBytes);
+        _clientsMessages.push(identity);
+        std::cout << "Add message from TCP Client" << std::endl;
         boost::asio::async_write(_socket, boost::asio::buffer(_readBuffer, transferredBytes),
             boost::bind(&ClientSession::handleWrite,
                 get(),

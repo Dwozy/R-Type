@@ -14,11 +14,12 @@
     #include <boost/enable_shared_from_this.hpp>
     #include <boost/shared_ptr.hpp>
     #include <boost/asio.hpp>
+    #include "SafeQueue.hpp"
 
 /// @brief Client Session that will handle every client's event
 class ClientSession : public boost::enable_shared_from_this<ClientSession> {
     public:
-        ClientSession(boost::asio::io_context &IOContext);
+        ClientSession(boost::asio::io_context &IOContext, SafeQueue<std::string> &clientsMessages);
         ~ClientSession();
 
         /// @brief Get the socket of the client session
@@ -43,8 +44,9 @@ class ClientSession : public boost::enable_shared_from_this<ClientSession> {
 
     protected:
     private:
-        std::array<char, 1024> _readBuffer;
         boost::asio::ip::tcp::socket _socket;
+        SafeQueue<std::string> &_clientsMessages;
+        std::array<char, 1024> _readBuffer;
 
 };
 #endif /* !CLIENTSESSION_HPP_ */

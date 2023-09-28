@@ -13,13 +13,14 @@
     #include <boost/asio.hpp>
     #include <array>
     #include <map>
+    #include "SafeQueue.hpp"
 
 namespace Network {
 
     /// @brief UdpServer Class that create a UDP server that client can connect to communicate
     class UdpServer {
         public:
-            UdpServer(boost::asio::io_context &IOContext, int port);
+            UdpServer(boost::asio::io_context &IOContext, int port, SafeQueue<std::string> &clientsMessages);
             ~UdpServer();
 
         protected:
@@ -37,12 +38,17 @@ namespace Network {
             /// @param recvBytes corresponding to the number of bytes received
             void handleReceive(const boost::system::error_code &error, std::size_t recvBytes);
 
-            /// @brief Start the timer to broadcast informations to all clients at periodical interval.
-            void startTimer();
+            /// @brief Update information to clients at periodical interval
+            void updateGameInfo();
+
+            /// @brief Update information from TCP server
+            void updateTCPInformation();
 
             boost::asio::ip::udp::socket _socket;
             boost::asio::io_context &_IOContext;
             boost::asio::deadline_timer _timer;
+            boost::asio::deadline_timer _timerTCP;
+            SafeQueue<std::string> &_clientsMessages;
             std::map<unsigned short, boost::asio::ip::udp::endpoint> _listClient;
             boost::asio::ip::udp::endpoint _clientEndpoint;
             std::array<char, 1024> _readBuffer;

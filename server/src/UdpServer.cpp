@@ -7,13 +7,16 @@
 
 #include "UdpServer.hpp"
 
-Network::UdpServer::UdpServer(boost::asio::io_context &IOContext, int port) :
+Network::UdpServer::UdpServer(boost::asio::io_context &IOContext, int port, SafeQueue<std::string> &clientsMessages) :
     _socket(IOContext, boost::asio::ip::udp::endpoint(boost::asio::ip::udp::v4(), port)),
     _IOContext(IOContext),
-    _timer(IOContext)
+    _timer(IOContext),
+    _timerTCP(IOContext),
+    _clientsMessages(clientsMessages)
 {
     receive();
-    startTimer();
+    updateGameInfo();
+    updateTCPInformation();
 }
 
 Network::UdpServer::~UdpServer()
@@ -38,13 +41,26 @@ void Network::UdpServer::handleReceive(const boost::system::error_code &error, s
 
 void Network::UdpServer::receive()
 {
+
     _socket.async_receive_from(boost::asio::buffer(_readBuffer, 1024), _clientEndpoint,
         [&] (const boost::system::error_code &error, std::size_t bytes_received) {
             handleReceive(error, bytes_received);
         });
 }
 
-void Network::UdpServer::startTimer()
+void Network::UdpServer::updateTCPInformation()
+{
+    std::string buff;
+
+    while (_clientsMessages.tryPop(buff)) {
+        for (std::pair<unsigned short, boost::asio::ip::udp::endpoint> client : _listClient)
+            _socket.send_to(boost::asio::buffer(buff.c_str(), buff.length()), client.second);
+    }
+    _timerTCP.expires_from_now(boost::posix_time::seconds(0));
+    _timerTCP.async_wait(boost::bind(&Network::UdpServer::updateTCPInformation, this));
+}
+
+void Network::UdpServer::updateGameInfo()
 {
     _timer.expires_from_now(boost::posix_time::seconds(2));
     _timer.async_wait(boost::bind(&Network::UdpServer::sender, this));
@@ -62,5 +78,5 @@ void Network::UdpServer::sender()
         message +=  " with message : \n";
         _socket.send_to(boost::asio::buffer(message.c_str(), message.length()), client.second);
     }
-    startTimer();
+    updateGameInfo();
 }

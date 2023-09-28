@@ -10,16 +10,17 @@
 
     #include <iostream>
     #include <asio.hpp>
-    #include "ClientSession.hpp"
     #include <boost/make_shared.hpp>
     #include <thread>
+    #include "ClientSession.hpp"
+    #include "SafeQueue.hpp"
 
 namespace Network {
 
     /// @brief This class manages all the TCP server event from clients
     class TcpServer {
         public:
-            TcpServer(boost::asio::io_context &IOContext, int port);
+            TcpServer(boost::asio::io_context &IOContext, int port, SafeQueue<std::string> &clientsMessages);
             ~TcpServer();
 
         protected:
@@ -38,6 +39,7 @@ namespace Network {
             boost::asio::ip::tcp::socket _socket;
             boost::asio::io_context &_IOContext;
             int _port;
+            SafeQueue<std::string> &_clientsMessages;
             boost::asio::ip::tcp::endpoint _clientEndpoint;
             std::size_t count;
             std::array<char, 1024> _readBuffer;

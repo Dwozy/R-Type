@@ -26,7 +26,8 @@ LDFLAGS				=		-pthread
 CXXFLAGS			=		-std=c++20 -Wall -Wextra -DASIO_STANDALONE -pthread -g3
 
 CPPFLAGS			=		-I ./include/Server \
-							-I ./include/Client
+							-I ./include/Client	\
+							-I ./include
 
 CXX					=		g++
 
