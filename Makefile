@@ -11,7 +11,8 @@ SRC_SERVER			= 		server/src/main.cpp	\
 							server/src/ClientSession.cpp
 
 SRC_CLIENT			= 		client/src/main.cpp	\
-							client/src/UdpClient.cpp
+							client/src/UdpClient.cpp	\
+							client/src/TcpClient.cpp
 
 OBJ_SERVER			=		$(SRC_SERVER:.cpp=.o)
 
@@ -23,7 +24,7 @@ NAME_CLIENT			=		r-type_client
 
 LDFLAGS				=		-pthread
 
-CXXFLAGS			=		-std=c++20 -Wall -Wextra -DASIO_STANDALONE -pthread -g3
+CXXFLAGS			=		-std=c++20 -Wall -Wextra -DASIO_STANDALONE -pthread
 
 CPPFLAGS			=		-I ./include/Server \
 							-I ./include/Client	\

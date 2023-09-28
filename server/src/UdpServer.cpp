@@ -21,7 +21,7 @@ Network::UdpServer::UdpServer(boost::asio::io_context &IOContext, int port, Safe
 
 Network::UdpServer::~UdpServer()
 {
-    std::string message = "END OF SERVER\n";
+    std::string message = "Server down";
     for (std::pair<unsigned short, boost::asio::ip::udp::endpoint> elem : _listClient) {
         _socket.send_to(boost::asio::buffer(message.c_str(), message.length()), elem.second);
     }
