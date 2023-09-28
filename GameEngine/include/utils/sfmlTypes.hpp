@@ -11,29 +11,21 @@
     #include <SFML/Graphics.hpp>
 
 namespace GameEngine {
-    class SFMusic
-    {
-        public:
-            SFMusic() {};
-            ~SFMusic() = default;
-            const sf::Music &getMusic() const {
-                return _music;
-            }
-
-        private:
-            sf::Music _music;
-    };
     class SFWindow {
         public:
-            SFWindow() {};
+            SFWindow(int width = 1920, int height = 1080, std::string title = "basic window"): _window(sf::VideoMode(width, height), title) {};
             ~SFWindow() = default;
             const sf::RenderWindow &getWindow() const {
                 return _window;
             }
+            void draw(const sf::Drawable &drawable) {
+                _window.draw(drawable);
+            }
         private:
             sf::RenderWindow _window;
     };
-    class SFText {
+    class SFText
+    {
          public:
             SFText() {};
             ~SFText() = default;
@@ -47,6 +39,20 @@ namespace GameEngine {
             }
         private:
             sf::Text _text;
+    };
+    class SFMusic
+    {
+        public:
+            SFMusic() {};
+            ~SFMusic() = default;
+            const sf::Music &getMusic() const {
+                return _music;
+            }
+            void load(const std::string &filename) {
+                _music.openFromFile(filename);
+            }
+        private:
+            sf::Music _music;
     };
     class SFFont {
         public:

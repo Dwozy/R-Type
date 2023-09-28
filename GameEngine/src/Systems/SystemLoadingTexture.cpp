@@ -5,9 +5,9 @@
 ** SystemLoadingTexture
 */
 
-#include "Registry.hpp"
 #include "Components/Texture.hpp"
 #include "Components/Sprite.hpp"
+#include "Systems.hpp"
 
 namespace GameEngine
 {
@@ -20,8 +20,8 @@ namespace GameEngine
             auto &Tex = Texture[i];
             auto &Spr = Sprite[i];
             if (Tex && Spr) {
-                Tex.texture.load(Tex.path);
-                Spr.sprite.load(Tex.getTexture());
+                Tex.value().texture.load(Tex.value().path);
+                Spr.value().sprite.load(Tex.value().texture.getTexture());
             }
         }
     }

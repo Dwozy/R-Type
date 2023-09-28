@@ -8,13 +8,14 @@
 #ifndef MUSIC_HPP_
     #define MUSIC_HPP_
     #include <string>
-    #include "utils/Vector.hpp"
     #include "utils/sfmlTypes.hpp"
 
-namespace GameEngine {
-    struct Music {
-        SFMusic music;
+namespace GameEngine
+{
+    struct Music
+    {
         std::string path;
+        SFMusic music;
     };
 }
 

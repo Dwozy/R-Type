@@ -5,9 +5,9 @@
 ** SystemLoadingText
 */
 
-#include "Registry.hpp"
 #include "Components/Font.hpp"
 #include "Components/Text.hpp"
+#include "Systems.hpp"
 
 namespace GameEngine
 {
@@ -20,8 +20,8 @@ namespace GameEngine
             auto &Fon = Font[i];
             auto &Tex = Text[i];
             if (Fon && Tex) {
-                Fon.font.load(Fon.path);
-                Tex.text.load(Tex.str, Fon.getFont(), Tex.size);
+                Fon.value().font.load(Fon.value().path);
+                Tex.value().text.load(Tex.value().str, Fon.value().font.getFont(), Tex.value().size);
             }
         }
     }
