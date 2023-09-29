@@ -10,10 +10,14 @@
     #include <SFML/Audio.hpp>
     #include <SFML/Graphics.hpp>
 
+    // maybe remove sftype from function parameter and only take our class
 namespace GameEngine {
     class SFWindow {
         public:
-            SFWindow(int width = 1920, int height = 1080, std::string title = "basic window"): _window(sf::VideoMode(width, height), title) {};
+            SFWindow(int width = 1920, int height = 1080, const std::string &title = "Game window")
+                : _window(sf::VideoMode(width, height), title), _title(title) {}
+            // SFWindow(const SFWindow &other)
+            //     : _window(sf::VideoMode(other._window.getSize().x, other._window.getSize().y), other._title), _title(other._title) {}
             ~SFWindow() = default;
             const sf::RenderWindow &getWindow() const {
                 return _window;
@@ -21,9 +25,14 @@ namespace GameEngine {
             void draw(const sf::Drawable &drawable) {
                 _window.draw(drawable);
             }
+            void create(int width, int height, const std::string &title) {
+                _window.create(sf::VideoMode(width, height), title);
+                _title = title;
+            }
         private:
             sf::RenderWindow _window;
-    };
+            std::string _title;
+        };
     class SFText
     {
          public:
@@ -40,19 +49,28 @@ namespace GameEngine {
         private:
             sf::Text _text;
     };
-    class SFMusic
-    {
+    class SFMusic {
         public:
-            SFMusic() {};
+            SFMusic() {}
             ~SFMusic() = default;
+            // SFMusic(const SFMusic &other) {
+            //     if (!other.getFilename().empty()) {
+            //         load(other.getFilename());
+            //     }
+            // }
             const sf::Music &getMusic() const {
                 return _music;
             }
             void load(const std::string &filename) {
                 _music.openFromFile(filename);
+                _filename = filename;
+            }
+            const std::string &getFilename() const {
+                return _filename;
             }
         private:
             sf::Music _music;
+            std::string _filename;
     };
     class SFFont {
         public:
