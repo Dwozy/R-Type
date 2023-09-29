@@ -11,6 +11,7 @@
 #include "Registry.hpp"
 #include "systems/PositionSystem.hpp"
 #include "systems/ControlSystem.hpp"
+#include "components/CameraComponent.hpp"
 
 #include <SFML/Graphics.hpp>
 
@@ -35,9 +36,11 @@ int main()
 
     Registry registry;
     Entity entity = registry.spawnEntity();
+    Entity camera = registry.spawnEntity();
     registry.registerComponent<GameEngine::PositionComponent>();
     registry.registerComponent<GameEngine::VelocityComponent>();
     registry.registerComponent<GameEngine::ControllableComponent>();
+    registry.registerComponent<GameEngine::CameraComponent>();
     GameEngine::PositionComponent pos = { GameEngine::Vector2<float>(0.0f, 0.0f) };
     GameEngine::VelocityComponent vel = { GameEngine::Vector2<float>(0.0f, 0.0f) };
     GameEngine::ControllableComponent con = {
@@ -47,9 +50,13 @@ int main()
         GameEngine::Input::Keyboard::D,
         0.05f
     };
+    GameEngine::CameraComponent cam = {
+        GameEngine::View{ GameEngine::Rect<float>(0.0f, 0.0f, 32.0f, 32.0f) }
+    };
     registry.addComponent<GameEngine::PositionComponent>(entity, pos);
     registry.addComponent<GameEngine::VelocityComponent>(entity, vel);
     registry.addComponent<GameEngine::ControllableComponent>(entity, con);
+    registry.addComponent<GameEngine::CameraComponent>(camera, cam);
     // Entity entity2 = registry.spawnEntity();
     // Entity entity3 = registry.spawnEntity();
     // Entity entity4 = registry.spawnEntity();
@@ -83,8 +90,13 @@ int main()
     sf::Sprite sprite;
     sprite.setTexture(texture);
     sf::RenderWindow window(sf::VideoMode(800, 600), "test control system");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+
+    auto &cameras = registry.getComponent<GameEngine::CameraComponent>();
+    for (size_t i = 0; i < cameras.size(); i++) {
+        auto &c = cameras[i];
+        if (c)
+            window.setView(c.value().view.getBaseView());
+    }
 
     while (window.isOpen())
     {

@@ -19,7 +19,6 @@ namespace GameEngine
             auto &pos = positions[i];
             auto &vel = velocities[i];
             if (pos && vel)
-                std::cout << vel.value().velocity.x << " " << vel.value().velocity.y << std::endl;
                 pos.value().position += vel.value().velocity;
         }
     }
