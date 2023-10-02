@@ -9,19 +9,22 @@
     #define ENTITY_HPP_
     #include <cstdlib>
 
-class Registry;
-
-class Entity
+namespace GameEngine
 {
-    public:
-        friend class Registry;
-        ~Entity() = default;
+    class Registry;
 
-        operator std::size_t() const { return _entity; };
-    private:
-        explicit Entity(std::size_t entity): _entity(entity) {};
+    class Entity
+    {
+        public:
+            friend class Registry;
+            ~Entity() = default;
 
-        std::size_t _entity;
-};
+            operator std::size_t() const { return _entity; };
+        private:
+            explicit Entity(std::size_t entity): _entity(entity) {};
+
+            std::size_t _entity;
+    };
+}
 
 #endif /* !ENTITY_HPP_ */

@@ -13,10 +13,10 @@ namespace GameEngine
 {
     struct ControllableComponent
     {
-        GameEngine::Input::Keyboard::Key key_up;
-        GameEngine::Input::Keyboard::Key key_left;
-        GameEngine::Input::Keyboard::Key key_down;
-        GameEngine::Input::Keyboard::Key key_right;
+        Input::Keyboard::Key key_up;
+        Input::Keyboard::Key key_left;
+        Input::Keyboard::Key key_down;
+        Input::Keyboard::Key key_right;
         float speed = 1.0f;
     };
 }

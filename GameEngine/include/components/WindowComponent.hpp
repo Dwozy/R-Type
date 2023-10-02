@@ -8,7 +8,7 @@
 #ifndef WINDOW_HPP_
     #define WINDOW_HPP_
     #include "utils/Vector.hpp"
-    #include "utils/sfmlTypes.hpp"
+    #include "utils/SfmlTypes.hpp"
 
 namespace GameEngine {
     struct WindowComponent {
