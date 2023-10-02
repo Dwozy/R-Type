@@ -16,8 +16,8 @@ namespace GameEngine
 {
     struct TextureComponent
     {
-        SFTexture texture;
-        SFSprite sprite;
+        Texture texture;
+        Sprite sprite;
         bool isRendered;
         size_t renderLayer;
     };

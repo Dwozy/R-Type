@@ -12,10 +12,10 @@
 
 namespace GameEngine
 {
-    struct Music
+    struct MusicComponent
     {
         std::string path;
-        SFMusic music;
+        Music music;
     };
 }
 

@@ -11,9 +11,9 @@
     #include "utils/sfmlTypes.hpp"
 
 namespace GameEngine {
-    struct Window {
+    struct WindowComponent {
         Vector2<int> size;
-        SFWindow window;
+        Window window;
     };
 }
 

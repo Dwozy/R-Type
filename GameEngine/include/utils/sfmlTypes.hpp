@@ -14,13 +14,13 @@
     // maybe remove sftype from function parameter and only take our class
 namespace GameEngine
 {
-    class SFWindow {
+    class Window {
         public:
-            SFWindow(int width = 1920, int height = 1080, const std::string &title = "Game window")
+            Window(int width = 1920, int height = 1080, const std::string &title = "Game window")
                 : _window(sf::VideoMode(width, height), title), _title(title) {}
-            // SFWindow(const SFWindow &other)
+            // Window(const Window &other)
             //     : _window(sf::VideoMode(other._window.getSize().x, other._window.getSize().y), other._title), _title(other._title) {}
-            ~SFWindow() = default;
+            ~Window() = default;
             const sf::RenderWindow &getWindow() const {
                 return _window;
             }
@@ -35,11 +35,11 @@ namespace GameEngine
             sf::RenderWindow _window;
             std::string _title;
         };
-    class SFText
+    class Text
     {
          public:
-            SFText() {};
-            ~SFText() = default;
+            Text() {};
+            ~Text() = default;
             const sf::Text &getText() const {
                 return _text;
             }
@@ -51,11 +51,11 @@ namespace GameEngine
         private:
             sf::Text _text;
     };
-    class SFMusic {
+    class Music {
         public:
-            SFMusic() {}
-            ~SFMusic() = default;
-            // SFMusic(const SFMusic &other) {
+            Music() {}
+            ~Music() = default;
+            // Music(const Music &other) {
             //     if (!other.getFilename().empty()) {
             //         load(other.getFilename());
             //     }
@@ -74,10 +74,10 @@ namespace GameEngine
             sf::Music _music;
             std::string _filename;
     };
-    class SFFont {
+    class Font {
         public:
-            SFFont() {};
-            ~SFFont() = default;
+            Font() {};
+            ~Font() = default;
             const sf::Font &getFont() const {
                 return _font;
             };
@@ -87,10 +87,10 @@ namespace GameEngine
         private:
             sf::Font _font;
     };
-    class SFTexture {
+    class Texture {
         public:
-            SFTexture() {};
-            ~SFTexture() = default;
+            Texture() {};
+            ~Texture() = default;
             const sf::Texture &getTexture() const
             {
                 return _texture;
@@ -103,24 +103,14 @@ namespace GameEngine
         private:
             sf::Texture _texture;
     };
-    class SFView {
+    class Sprite {
         public:
-            SFView() {};
-            ~SFView() = default;
-            const sf::View &getView() const  {
-                return _view;
-            };
-        private:
-            sf::View _view;
-    };
-    class SFSprite {
-        public:
-            SFSprite() {};
-            ~SFSprite() = default;
+            Sprite() {};
+            ~Sprite() = default;
             const sf::Sprite &getSprite() const {
                 return _sprite;
             };
-            void load(const SFTexture &texture, bool resetRect = false)
+            void load(const Texture &texture, bool resetRect = false)
             {
                 //check if texture loaded befor the set
                 _sprite.setTexture(texture.getTexture(), resetRect);
@@ -133,4 +123,4 @@ namespace GameEngine
             sf::Sprite _sprite;
     };
 }
-#endif /* !SFMLTYPES_HPP_ */
+#endif /* !MLTYPES_HPP_ */

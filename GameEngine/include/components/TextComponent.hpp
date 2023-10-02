@@ -13,12 +13,12 @@
 
 namespace GameEngine
 {
-    struct Text
+    struct TextComponent
     {
         std::string str;
         size_t size;
         Vector2<int> position;
-        SFText text;
+        Text text;
         bool isRendered;
         size_t renderLayer;
     };

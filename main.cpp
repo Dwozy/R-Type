@@ -34,7 +34,7 @@ int main()
     registry.registerComponent<GameEngine::ControllableComponent>();
     registry.registerComponent<GameEngine::CameraComponent>();
     registry.registerComponent<GameEngine::TextureComponent>();
-    registry.registerComponent<GameEngine::Text>();
+    registry.registerComponent<GameEngine::TextComponent>();
     GameEngine::PositionComponent pos = { GameEngine::Vector2<float>(0.0f, 0.0f) };
     GameEngine::VelocityComponent vel = { GameEngine::Vector2<float>(0.0f, 0.0f) };
     GameEngine::ControllableComponent con = {
@@ -52,9 +52,9 @@ int main()
     registry.addComponent<GameEngine::ControllableComponent>(entity, con);
     registry.addComponent<GameEngine::CameraComponent>(camera, cam);
 
-    GameEngine::SFTexture texture;
+    GameEngine::Texture texture;
     texture.load("image.png", GameEngine::Rect<int>(0, 0, 32, 16));
-    GameEngine::SFSprite sprite;
+    GameEngine::Sprite sprite;
     sprite.load(texture);
     registry.addComponent<GameEngine::TextureComponent>(entity, GameEngine::TextureComponent{ texture, sprite, true, 1 });
 

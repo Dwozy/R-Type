@@ -12,9 +12,9 @@
     #include "utils/sfmlTypes.hpp"
 
 namespace GameEngine {
-    struct Font {
+    struct FontComponent {
         std::string path;
-        SFFont font;
+        Font font;
     };
 }
 #endif /* !FONT_HPP_ */

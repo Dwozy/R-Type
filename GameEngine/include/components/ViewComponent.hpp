@@ -12,9 +12,9 @@
 
 namespace GameEngine
 {
-    struct View
+    struct ViewComponent
     {
-        SFView view;
+        // View view;
     };
 }
 #endif /* !VIEW_HPP_ */
