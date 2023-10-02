@@ -13,7 +13,7 @@
 
 namespace GameEngine
 {
-    void positionSystem(Registry &registry);
+    void positionSystem(Registry &registry, SparseArray<GameEngine::PositionComponent> &positions, SparseArray<GameEngine::VelocityComponent> &velocities);
 }
 
 #endif /* !POSITIONSYSTEM_HPP_ */

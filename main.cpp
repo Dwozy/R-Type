@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <cstdlib>
+#include <functional>
 #include "SparseArray.hpp"
 #include "Registry.hpp"
 #include "systems/PositionSystem.hpp"
@@ -98,6 +99,9 @@ int main()
             window.setView(c.value().view.getBaseView());
     }
 
+    registry.addSystem<std::function<void(Registry &, SparseArray<GameEngine::VelocityComponent> &, SparseArray<GameEngine::ControllableComponent> &)>, GameEngine::VelocityComponent, GameEngine::ControllableComponent>(GameEngine::controlSystem);
+    registry.addSystem<std::function<void(Registry &, SparseArray<GameEngine::PositionComponent> &, SparseArray<GameEngine::VelocityComponent> &)>, GameEngine::PositionComponent, GameEngine::VelocityComponent>(GameEngine::positionSystem);
+
     while (window.isOpen())
     {
         sf::Event event;
@@ -106,9 +110,7 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-        GameEngine::controlSystem(registry);
-        GameEngine::positionSystem(registry);
-
+        registry.runSystems();
         window.clear();
         auto &positions = registry.getComponent<GameEngine::PositionComponent>();
         for (size_t i = 0; i < positions.size(); i++) {

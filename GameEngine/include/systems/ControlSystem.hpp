@@ -13,7 +13,7 @@
 
 namespace GameEngine
 {
-    void controlSystem(Registry &registry);
+    void controlSystem(Registry &registry, SparseArray<GameEngine::VelocityComponent> &velocities, SparseArray<GameEngine::ControllableComponent> &controllable);
 }
 
 #endif /* !CONTROLSYSTEM_HPP_ */
