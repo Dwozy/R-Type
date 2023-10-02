@@ -9,12 +9,12 @@
 #include <cstdlib>
 #include "SparseArray.hpp"
 #include "Registry.hpp"
-#include "Components/Font.hpp"
-#include "Components/Texture.hpp"
-#include "Components/Sprite.hpp"
+#include "Components/FontComponent.hpp"
+#include "Components/TextureComponent.hpp"
+#include "Components/SpriteComponent.hpp"
 #include "Components/RenderableComponent.hpp"
-#include "Components/Text.hpp"
-#include "Components/Window.hpp"
+#include "Components/TextComponent.hpp"
+#include "Components/WindowComponent.hpp"
 #include "utils/Vector.hpp"
 #include <utility>
 #include "Systems.hpp"

@@ -6,8 +6,8 @@
 */
 #include "Systems.hpp"
 #include "Components/RenderableComponent.hpp"
-#include "Components/Text.hpp"
-#include "Components/Sprite.hpp"
+#include "Components/TextComponent.hpp"
+#include "Components/SpriteComponent.hpp"
 #include <SFML/Graphics.hpp>
 #include <variant>
 #include <vector>

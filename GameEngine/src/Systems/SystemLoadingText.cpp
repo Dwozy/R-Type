@@ -5,8 +5,8 @@
 ** SystemLoadingText
 */
 
-#include "Components/Font.hpp"
-#include "Components/Text.hpp"
+#include "Components/FontComponent.hpp"
+#include "Components/TextComponent.hpp"
 #include "Systems.hpp"
 
 namespace GameEngine

@@ -5,8 +5,8 @@
 ** SystemLoadingTexture
 */
 
-#include "Components/Texture.hpp"
-#include "Components/Sprite.hpp"
+#include "Components/TextureComponent.hpp"
+#include "Components/SpriteComponent.hpp"
 #include "Systems.hpp"
 
 namespace GameEngine

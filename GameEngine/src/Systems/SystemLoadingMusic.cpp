@@ -5,7 +5,7 @@
 ** SystemLoadingMusic
 */
 
-#include "Components/Music.hpp"
+#include "Components/MusicComponent.hpp"
 #include "Systems.hpp"
 
 namespace GameEngine
