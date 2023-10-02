@@ -7,6 +7,7 @@ set(LIBRARY_NAME "GameEngine")
 set(INCLUDES include)
 set(SRCS
     src/Error.cpp
+    src/DeltaTime.cpp
     src/systems/ControlSystem.cpp
     src/systems/DrawSystem.cpp
     src/systems/PositionSystem.cpp
