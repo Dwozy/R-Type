@@ -1,0 +1,40 @@
+cmake_minimum_required(VERSION 3.20.1)
+set(CMAKE_CXX_STANDARD 20)
+
+set(PROJECT_NAME "R-Type")
+set(BINARY_NAME "r-type")
+
+set(INCLUDES include)
+set(SRCS
+    src/main.cpp
+)
+
+set(CMAKE_MAKE_PROGRAM $ENV{CMAKE_MAKE_PROGRAM})
+set(CMAKE_CXX_COMPILER $ENV{CMAKE_CXX_COMPILER})
+
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/)
+
+project(${PROJECT_NAME} LANGUAGES CXX)
+add_executable(${BINARY_NAME} ${SRCS})
+target_link_libraries(${BINARY_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/../GameEngine/GameEngine/lib/libGameEngine.a sfml-system sfml-network sfml-graphics sfml-window)
+target_include_directories(${BINARY_NAME} PRIVATE ${INCLUDES} ${CMAKE_SOURCE_DIR}/../GameEngine/GameEngine/include)
+
+
+# find_package(nlohmann_json CONFIG REQUIRED)
+# find_package(SFML COMPONENTS system window graphics audio CONFIG REQUIRED)
+
+
+# file(MAKE_DIRECTORY ${PROJECT_NAME})
+
+# add_library(${LIBRARY_NAME} STATIC ${SRCS})
+# target_link_libraries(${LIBRARY_NAME} INTERFACE sfml-system sfml-network sfml-graphics sfml-window)
+# target_include_directories(${PROJECT_NAME} PUBLIC ${INCLUDES} $ENV{CONAN_BUILD_DIR}/include)
+# file(COPY ${INCLUDES}/ DESTINATION ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include)

@@ -6,9 +6,10 @@ set(LIBRARY_NAME "GameEngine")
 
 set(INCLUDES include)
 set(SRCS
-    src/Entity.cpp
     src/Error.cpp
-    src/sfml/renderer.cpp
+    src/systems/ControlSystem.cpp
+    src/systems/DrawSystem.cpp
+    src/systems/PositionSystem.cpp
 )
 
 set(CMAKE_MAKE_PROGRAM $ENV{CMAKE_MAKE_PROGRAM})
@@ -16,8 +17,8 @@ set(CMAKE_CXX_COMPILER $ENV{CMAKE_CXX_COMPILER})
 
 project(${PROJECT_NAME} LANGUAGES CXX)
 
-find_package(nlohmann_json CONFIG REQUIRED)
-find_package(SFML COMPONENTS system window graphics audio CONFIG REQUIRED)
+# find_package(nlohmann_json CONFIG REQUIRED)
+# find_package(SFML COMPONENTS system window graphics audio CONFIG REQUIRED)
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/lib/)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/lib/)
