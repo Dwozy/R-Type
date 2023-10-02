@@ -10,7 +10,7 @@
     #include "Registry.hpp"
     #include "components/PositionComponent.hpp"
     #include "components/VelocityComponent.hpp"
-    #include "Components/TextureComponent.hpp"
+    #include "components/TextureComponent.hpp"
 
 namespace GameEngine
 {

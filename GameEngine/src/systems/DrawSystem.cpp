@@ -10,8 +10,8 @@
 #include <utility>
 #include <algorithm>
 #include "Systems.hpp"
-#include "Components/TextureComponent.hpp"
-#include "Components/TextComponent.hpp"
+#include "components/TextureComponent.hpp"
+#include "components/TextComponent.hpp"
 
 namespace GameEngine
 {
