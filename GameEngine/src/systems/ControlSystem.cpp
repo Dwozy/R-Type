@@ -9,7 +9,7 @@
 
 namespace GameEngine
 {
-    void controlSystem(Registry &registry, SparseArray<GameEngine::VelocityComponent> &velocities, SparseArray<GameEngine::ControllableComponent> &controllable)
+    void controlSystem(GameEngine &gameEngine, SparseArray<VelocityComponent> &velocities, SparseArray<ControllableComponent> &controllable)
     {
         for (size_t i = 0; i < controllable.size() && i < velocities.size (); i++) {
             auto &con = controllable[i];

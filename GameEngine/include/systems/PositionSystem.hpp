@@ -11,10 +11,11 @@
     #include "components/PositionComponent.hpp"
     #include "components/VelocityComponent.hpp"
     #include "components/TextureComponent.hpp"
+    #include "GameEngine.hpp"
 
 namespace GameEngine
 {
-    void positionSystem(Registry &registry, SparseArray<GameEngine::PositionComponent> &positions, SparseArray<GameEngine::VelocityComponent> &velocities, SparseArray<GameEngine::TextureComponent> &textures);
+    void positionSystem(GameEngine &gameEngine, SparseArray<PositionComponent> &positions, SparseArray<VelocityComponent> &velocities, SparseArray<TextureComponent> &textures);
 }
 
 #endif /* !POSITIONSYSTEM_HPP_ */

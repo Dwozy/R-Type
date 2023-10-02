@@ -10,10 +10,11 @@
     #include "Registry.hpp"
     #include "components/ControllableComponent.hpp"
     #include "components/VelocityComponent.hpp"
+    #include "GameEngine.hpp"
 
 namespace GameEngine
 {
-    void controlSystem(Registry &registry, SparseArray<GameEngine::VelocityComponent> &velocities, SparseArray<GameEngine::ControllableComponent> &controllable);
+    void controlSystem(GameEngine &gameEngine, SparseArray<VelocityComponent> &velocities, SparseArray<ControllableComponent> &controllable);
 }
 
 #endif /* !CONTROLSYSTEM_HPP_ */

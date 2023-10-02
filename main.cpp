@@ -14,27 +14,28 @@
 #include "Registry.hpp"
 #include "systems/PositionSystem.hpp"
 #include "systems/ControlSystem.hpp"
+#include "systems/DrawSystem.hpp"
 #include "components/CameraComponent.hpp"
 #include "components/FontComponent.hpp"
 #include "components/TextureComponent.hpp"
 #include "components/TextComponent.hpp"
 #include "components/WindowComponent.hpp"
 #include "utils/Vector.hpp"
-#include "Systems.hpp"
-
+#include "GameEngine.hpp"
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Demo");
-    Registry registry;
-    Entity entity = registry.spawnEntity();
-    Entity camera = registry.spawnEntity();
-    registry.registerComponent<GameEngine::PositionComponent>();
-    registry.registerComponent<GameEngine::VelocityComponent>();
-    registry.registerComponent<GameEngine::ControllableComponent>();
-    registry.registerComponent<GameEngine::CameraComponent>();
-    registry.registerComponent<GameEngine::TextureComponent>();
-    registry.registerComponent<GameEngine::TextComponent>();
+    // sf::RenderWindow window(sf::VideoMode(800, 600), "Demo");
+    // Registry registry;
+    GameEngine::GameEngine gameEngine(600, 600, "Demo");
+    GameEngine::Entity entity = gameEngine.registry.spawnEntity();
+    GameEngine::Entity camera = gameEngine.registry.spawnEntity();
+    gameEngine.registry.registerComponent<GameEngine::PositionComponent>();
+    gameEngine.registry.registerComponent<GameEngine::VelocityComponent>();
+    gameEngine.registry.registerComponent<GameEngine::ControllableComponent>();
+    gameEngine.registry.registerComponent<GameEngine::CameraComponent>();
+    gameEngine.registry.registerComponent<GameEngine::TextureComponent>();
+    gameEngine.registry.registerComponent<GameEngine::TextComponent>();
     GameEngine::PositionComponent pos = { GameEngine::Vector2<float>(0.0f, 0.0f) };
     GameEngine::VelocityComponent vel = { GameEngine::Vector2<float>(0.0f, 0.0f) };
     GameEngine::ControllableComponent con = {
@@ -42,42 +43,43 @@ int main()
         GameEngine::Input::Keyboard::Q,
         GameEngine::Input::Keyboard::S,
         GameEngine::Input::Keyboard::D,
-        0.05f
+        100.0f
     };
     GameEngine::CameraComponent cam = {
         GameEngine::View{ GameEngine::Rect<float>(0.0f, 0.0f, 32.0f, 32.0f) }
     };
-    registry.addComponent<GameEngine::PositionComponent>(entity, pos);
-    registry.addComponent<GameEngine::VelocityComponent>(entity, vel);
-    registry.addComponent<GameEngine::ControllableComponent>(entity, con);
-    registry.addComponent<GameEngine::CameraComponent>(camera, cam);
+    gameEngine.registry.addComponent<GameEngine::PositionComponent>(entity, pos);
+    gameEngine.registry.addComponent<GameEngine::VelocityComponent>(entity, vel);
+    gameEngine.registry.addComponent<GameEngine::ControllableComponent>(entity, con);
+    gameEngine.registry.addComponent<GameEngine::CameraComponent>(camera, cam);
 
     GameEngine::Texture texture;
     texture.load("image.png", GameEngine::Rect<int>(0, 0, 32, 16));
     GameEngine::Sprite sprite;
     sprite.load(texture);
-    registry.addComponent<GameEngine::TextureComponent>(entity, GameEngine::TextureComponent{ texture, sprite, true, 1 });
+    gameEngine.registry.addComponent<GameEngine::TextureComponent>(entity, GameEngine::TextureComponent{ texture, sprite, true, 1 });
 
-    auto &cameras = registry.getComponent<GameEngine::CameraComponent>();
+    auto &cameras = gameEngine.registry.getComponent<GameEngine::CameraComponent>();
     for (size_t i = 0; i < cameras.size(); i++) {
         auto &c = cameras[i];
         if (c)
-            window.setView(c.value().view.getBaseView());
+            gameEngine.window.setView(c.value().view);
     }
 
-    registry.addSystem<std::function<void(Registry &, SparseArray<GameEngine::VelocityComponent> &, SparseArray<GameEngine::ControllableComponent> &)>, GameEngine::VelocityComponent, GameEngine::ControllableComponent>(GameEngine::controlSystem);
-    registry.addSystem<std::function<void(Registry &, SparseArray<GameEngine::PositionComponent> &, SparseArray<GameEngine::VelocityComponent> &, SparseArray<GameEngine::TextureComponent> &)>, GameEngine::PositionComponent, GameEngine::VelocityComponent, GameEngine::TextureComponent>(GameEngine::positionSystem);
+    gameEngine.registry.addSystem<std::function<void(GameEngine::GameEngine &, SparseArray<GameEngine::VelocityComponent> &, SparseArray<GameEngine::ControllableComponent> &)>, GameEngine::VelocityComponent, GameEngine::ControllableComponent>(GameEngine::controlSystem, gameEngine);
+    gameEngine.registry.addSystem<std::function<void(GameEngine::GameEngine &, SparseArray<GameEngine::PositionComponent> &, SparseArray<GameEngine::VelocityComponent> &, SparseArray<GameEngine::TextureComponent> &)>, GameEngine::PositionComponent, GameEngine::VelocityComponent, GameEngine::TextureComponent>(GameEngine::positionSystem, gameEngine);
+    gameEngine.registry.addSystem<std::function<void(GameEngine::GameEngine &, SparseArray<GameEngine::TextComponent> &, SparseArray<GameEngine::TextureComponent> &)>, GameEngine::TextComponent, GameEngine::TextureComponent>(GameEngine::drawSystem, gameEngine);
 
-    while (window.isOpen())
+    while (gameEngine.window.isOpen())
     {
+        gameEngine.deltaTime.update();
         sf::Event event;
-        while (window.pollEvent(event))
+        while (gameEngine.window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
-                window.close();
+                gameEngine.window.close();
         }
-        registry.runSystems();
-        GameEngine::SystemDraw(registry, window);
+        gameEngine.registry.runSystems();
     }
     return 0;
 }

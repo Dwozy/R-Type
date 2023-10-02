@@ -9,7 +9,7 @@
 
 namespace GameEngine
 {
-    void positionSystem(Registry &registry, SparseArray<GameEngine::PositionComponent> &positions, SparseArray<GameEngine::VelocityComponent> &velocities, SparseArray<GameEngine::TextureComponent> &textures)
+    void positionSystem(GameEngine &gameEngine, SparseArray<PositionComponent> &positions, SparseArray<VelocityComponent> &velocities, SparseArray<TextureComponent> &textures)
     {
         for (size_t i = 0; i < positions.size() && i < velocities.size (); i++) {
             auto &pos = positions[i];
@@ -17,7 +17,7 @@ namespace GameEngine
             auto &tex = textures[i];
             if (pos && vel && tex)
             {
-                pos.value().position += vel.value().velocity;
+                pos.value().position += vel.value().velocity * gameEngine.deltaTime.getDeltaTime();
                 tex.value().sprite.setPosition(pos.value().position);
             }
         }

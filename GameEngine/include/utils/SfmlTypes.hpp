@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2023
 ** R-Type
 ** File description:
-** sfmlTypes
+** SfmlTypes
 */
 
 #ifndef SFMLTYPES_HPP_
@@ -10,31 +10,62 @@
     #include <SFML/Audio.hpp>
     #include <SFML/Graphics.hpp>
     #include "utils/Rect.hpp"
+    #include "View.hpp"
+    #include "utils/Vector.hpp"
 
     // maybe remove sftype from function parameter and only take our class
 namespace GameEngine
 {
-    class Window {
+    class Window
+    {
         public:
             Window(int width = 1920, int height = 1080, const std::string &title = "Game window")
                 : _window(sf::VideoMode(width, height), title), _title(title) {}
             // Window(const Window &other)
             //     : _window(sf::VideoMode(other._window.getSize().x, other._window.getSize().y), other._title), _title(other._title) {}
             ~Window() = default;
-            const sf::RenderWindow &getWindow() const {
+            const sf::RenderWindow &getWindow() const
+            {
                 return _window;
             }
-            void draw(const sf::Drawable &drawable) {
+            void draw(const sf::Drawable &drawable)
+            {
                 _window.draw(drawable);
             }
-            void create(int width, int height, const std::string &title) {
+            void setView(const View &view)
+            {
+                _window.setView(view.getBaseView());
+            };
+            bool isOpen() const
+            {
+                return _window.isOpen();
+            }
+            bool pollEvent(sf::Event &event)
+            {
+                return _window.pollEvent(event);
+            }
+            void close()
+            {
+                _window.close();
+            }
+            void display()
+            {
+                _window.display();
+            };
+            void clear()
+            {
+                _window.clear();
+            };
+            void create(int width, int height, const std::string &title)
+            {
                 _window.create(sf::VideoMode(width, height), title);
                 _title = title;
             }
         private:
             sf::RenderWindow _window;
             std::string _title;
-        };
+    };
+
     class Text
     {
          public:
@@ -51,7 +82,9 @@ namespace GameEngine
         private:
             sf::Text _text;
     };
-    class Music {
+
+    class Music
+    {
         public:
             Music() {}
             ~Music() = default;
@@ -74,7 +107,9 @@ namespace GameEngine
             sf::Music _music;
             std::string _filename;
     };
-    class Font {
+
+    class Font
+    {
         public:
             Font() {};
             ~Font() = default;
@@ -87,7 +122,9 @@ namespace GameEngine
         private:
             sf::Font _font;
     };
-    class Texture {
+
+    class Texture
+    {
         public:
             Texture() {};
             ~Texture() = default;
@@ -103,7 +140,9 @@ namespace GameEngine
         private:
             sf::Texture _texture;
     };
-    class Sprite {
+
+    class Sprite
+    {
         public:
             Sprite() {};
             ~Sprite() = default;

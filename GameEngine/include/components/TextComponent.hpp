@@ -9,7 +9,7 @@
     #define TEXT_HPP_
     #include <string>
     #include "utils/Vector.hpp"
-    #include "utils/sfmlTypes.hpp"
+    #include "utils/SfmlTypes.hpp"
 
 namespace GameEngine
 {

@@ -9,7 +9,7 @@
     #define TEXTURE_HPP_
     #include <string>
     #include "utils/Vector.hpp"
-    #include "utils/sfmlTypes.hpp"
+    #include "utils/SfmlTypes.hpp"
     #include "utils/Rect.hpp"
 
 namespace GameEngine

@@ -8,7 +8,7 @@
 #ifndef VIEW_HPP_
     #define VIEW_HPP_
     #include "utils/Vector.hpp"
-    #include "utils/sfmlTypes.hpp"
+    #include "utils/SfmlTypes.hpp"
 
 namespace GameEngine
 {

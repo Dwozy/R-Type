@@ -9,22 +9,20 @@
 #include <vector>
 #include <utility>
 #include <algorithm>
-#include "Systems.hpp"
+#include "systems/DrawSystem.hpp"
 #include "components/TextureComponent.hpp"
 #include "components/TextComponent.hpp"
 
 namespace GameEngine
 {
-    void SystemDraw(Registry &r, sf::RenderWindow &window)
+    void drawSystem(GameEngine &gameEngine, SparseArray<TextComponent> &texts, SparseArray<TextureComponent> &textures)
     {
-        auto &text = r.getComponent<GameEngine::TextComponent>();
-        auto &textures = r.getComponent<GameEngine::TextureComponent>();
-        std::vector<std::variant<GameEngine::TextureComponent, GameEngine::TextComponent>> rend;
-        window.clear();
+        std::vector<std::variant<TextureComponent, TextComponent>> rend;
+        gameEngine.window.clear();
 
-        for (size_t i = 0; i < text.size(); i++)
+        for (size_t i = 0; i < texts.size(); i++)
         {
-            auto &tex = text[i];
+            auto &tex = texts[i];
             if (tex)
                 rend.push_back(tex.value());
         }
@@ -36,32 +34,32 @@ namespace GameEngine
                 rend.push_back(tex.value());
         }
 
-        std::sort(rend.begin(), rend.end(), [](const std::variant<GameEngine::TextureComponent, GameEngine::TextComponent> &a, const std::variant<GameEngine::TextureComponent, GameEngine::TextComponent> &b)
+        std::sort(rend.begin(), rend.end(), [](const std::variant<TextureComponent, TextComponent> &a, const std::variant<TextureComponent, TextComponent> &b)
         {
-            if (std::holds_alternative<GameEngine::TextureComponent>(a) && std::holds_alternative<GameEngine::TextureComponent>(b))
-                return std::get<GameEngine::TextureComponent>(a).renderLayer < std::get<GameEngine::TextureComponent>(b).renderLayer;
-            if (std::holds_alternative<GameEngine::TextureComponent>(a) && std::holds_alternative<GameEngine::TextComponent>(b))
-                return std::get<GameEngine::TextureComponent>(a).renderLayer < std::get<GameEngine::TextComponent>(b).renderLayer;
-            if (std::holds_alternative<GameEngine::TextComponent>(a) && std::holds_alternative<GameEngine::TextureComponent>(b))
-                return std::get<GameEngine::TextComponent>(a).renderLayer < std::get<GameEngine::TextureComponent>(b).renderLayer;
-            if (std::holds_alternative<GameEngine::TextComponent>(a) && std::holds_alternative<GameEngine::TextComponent>(b))
-                return std::get<GameEngine::TextComponent>(a).renderLayer < std::get<GameEngine::TextComponent>(b).renderLayer;
+            if (std::holds_alternative<TextureComponent>(a) && std::holds_alternative<TextureComponent>(b))
+                return std::get<TextureComponent>(a).renderLayer < std::get<TextureComponent>(b).renderLayer;
+            if (std::holds_alternative<TextureComponent>(a) && std::holds_alternative<TextComponent>(b))
+                return std::get<TextureComponent>(a).renderLayer < std::get<TextComponent>(b).renderLayer;
+            if (std::holds_alternative<TextComponent>(a) && std::holds_alternative<TextureComponent>(b))
+                return std::get<TextComponent>(a).renderLayer < std::get<TextureComponent>(b).renderLayer;
+            if (std::holds_alternative<TextComponent>(a) && std::holds_alternative<TextComponent>(b))
+                return std::get<TextComponent>(a).renderLayer < std::get<TextComponent>(b).renderLayer;
             return false;
         });
 
         for (const auto &item : rend)
         {
-            if (std::holds_alternative<GameEngine::TextureComponent>(item))
+            if (std::holds_alternative<TextureComponent>(item))
             {
-                const auto &tex = std::get<GameEngine::TextureComponent>(item);
-                window.draw(tex.sprite.getSprite());
+                const auto &tex = std::get<TextureComponent>(item);
+                gameEngine.window.draw(tex.sprite.getSprite());
             }
-            else if (std::holds_alternative<GameEngine::TextComponent>(item))
+            else if (std::holds_alternative<TextComponent>(item))
             {
-                const auto &tex = std::get<GameEngine::TextComponent>(item);
-                window.draw(tex.text.getText());
+                const auto &tex = std::get<TextComponent>(item);
+                gameEngine.window.draw(tex.text.getText());
             }
         }
-        window.display();
+        gameEngine.window.display();
     }
 }
