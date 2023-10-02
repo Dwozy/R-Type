@@ -1,0 +1,13 @@
+{
+    "GameEngine": {
+        "MAX_ENTITY" : 1000,
+        "MAX_COMPONENT": 1,
+        "MCTEST" : "TEST",
+        "realtry": false,
+        "MCTESTRE": {
+            "x": 3,
+            "y": 5,
+            "try": true
+        }
+    }
+}

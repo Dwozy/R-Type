@@ -8,33 +8,24 @@
 #include <iostream>
 #include <cstdlib>
 #include <functional>
+#include <SFML/Graphics.hpp>
+#include <utility>
 #include "SparseArray.hpp"
 #include "Registry.hpp"
 #include "systems/PositionSystem.hpp"
 #include "systems/ControlSystem.hpp"
 #include "components/CameraComponent.hpp"
+#include "Components/FontComponent.hpp"
+#include "Components/TextureComponent.hpp"
+#include "Components/TextComponent.hpp"
+#include "Components/WindowComponent.hpp"
+#include "utils/Vector.hpp"
+#include "Systems.hpp"
 
-#include <SFML/Graphics.hpp>
 
 int main()
 {
-    // SparseArray<int> array;
-
-    // const auto &at = array.insert_at(10, 5);
-    // const auto &at = array[10];
-    // std::cout << std::addressof(at) << std::endl;
-    // std::cout << array.size() << std::endl;
-    // for (std::size_t i = 0; i < array.size(); i++)
-    // {
-    //     if (array[i].has_value())
-    //         std::cout << i << ". " << array[i].value() << std::endl;
-    //     else
-    //         std::cout << i << ". none" << std::endl;
-    // }
-    // std::cout << array.getIndex(at) << std::endl;
-
-
-
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Demo");
     Registry registry;
     Entity entity = registry.spawnEntity();
     Entity camera = registry.spawnEntity();
@@ -42,6 +33,8 @@ int main()
     registry.registerComponent<GameEngine::VelocityComponent>();
     registry.registerComponent<GameEngine::ControllableComponent>();
     registry.registerComponent<GameEngine::CameraComponent>();
+    registry.registerComponent<GameEngine::TextureComponent>();
+    registry.registerComponent<GameEngine::Text>();
     GameEngine::PositionComponent pos = { GameEngine::Vector2<float>(0.0f, 0.0f) };
     GameEngine::VelocityComponent vel = { GameEngine::Vector2<float>(0.0f, 0.0f) };
     GameEngine::ControllableComponent con = {
@@ -58,39 +51,12 @@ int main()
     registry.addComponent<GameEngine::VelocityComponent>(entity, vel);
     registry.addComponent<GameEngine::ControllableComponent>(entity, con);
     registry.addComponent<GameEngine::CameraComponent>(camera, cam);
-    // Entity entity2 = registry.spawnEntity();
-    // Entity entity3 = registry.spawnEntity();
-    // Entity entity4 = registry.spawnEntity();
-    // Entity entity5 = registry.spawnEntity();
 
-    // registry.killEntity(entity3);
-    // entity3 = registry.spawnEntity();
-    // std::cout << "ENTITY3: " << entity3 << std::endl;
-    // std::cout << "ENTITY4: " << entity4 << std::endl;
-    // std::cout << "ENTITY5: " << entity5 << std::endl;
-    // auto &sa = registry.registerComponent<int>();
-    // // sa.insert_at(entity, 5);
-    // // sa.insert_at(10, 10);
-    // // registry.addComponent<int>(entity, 5);
-    // registry.removeComponent<int>(entity);
-    // registry.registerComponent<float>().insert_at(entity2, 2);
-    // auto &array = registry.getComponent<int>();
-    // // array.emplace_at(1, 2, 3, 4);
-    // registry.emplaceComponent<int>(entity3, entity2, entity4);
-    // // registry.addComponent<int>(entity5, 10);
-    // for (std::size_t i = 0; i < array.size(); i++)
-    // {
-    //     if (array[i].has_value())
-    //         std::cout << i << ". " << array[i].value() << std::endl;
-    //     else
-    //         std::cout << i << ". none" << std::endl;
-    // }
-
-    sf::Texture texture;
-    texture.loadFromFile("image.png", sf::IntRect(0, 0, 32, 16));
-    sf::Sprite sprite;
-    sprite.setTexture(texture);
-    sf::RenderWindow window(sf::VideoMode(800, 600), "test control system");
+    GameEngine::SFTexture texture;
+    texture.load("image.png", GameEngine::Rect<int>(0, 0, 32, 16));
+    GameEngine::SFSprite sprite;
+    sprite.load(texture);
+    registry.addComponent<GameEngine::TextureComponent>(entity, GameEngine::TextureComponent{ texture, sprite, true, 1 });
 
     auto &cameras = registry.getComponent<GameEngine::CameraComponent>();
     for (size_t i = 0; i < cameras.size(); i++) {
@@ -100,7 +66,7 @@ int main()
     }
 
     registry.addSystem<std::function<void(Registry &, SparseArray<GameEngine::VelocityComponent> &, SparseArray<GameEngine::ControllableComponent> &)>, GameEngine::VelocityComponent, GameEngine::ControllableComponent>(GameEngine::controlSystem);
-    registry.addSystem<std::function<void(Registry &, SparseArray<GameEngine::PositionComponent> &, SparseArray<GameEngine::VelocityComponent> &)>, GameEngine::PositionComponent, GameEngine::VelocityComponent>(GameEngine::positionSystem);
+    registry.addSystem<std::function<void(Registry &, SparseArray<GameEngine::PositionComponent> &, SparseArray<GameEngine::VelocityComponent> &, SparseArray<GameEngine::TextureComponent> &)>, GameEngine::PositionComponent, GameEngine::VelocityComponent, GameEngine::TextureComponent>(GameEngine::positionSystem);
 
     while (window.isOpen())
     {
@@ -111,16 +77,7 @@ int main()
                 window.close();
         }
         registry.runSystems();
-        window.clear();
-        auto &positions = registry.getComponent<GameEngine::PositionComponent>();
-        for (size_t i = 0; i < positions.size(); i++) {
-            auto &pos = positions[i];
-            if (pos) {
-                sprite.setPosition(sf::Vector2f(pos.value().position.x, pos.value().position.y));
-                window.draw(sprite);
-            }
-        }
-        window.display();
+        GameEngine::SystemDraw(registry, window);
     }
     return 0;
 }

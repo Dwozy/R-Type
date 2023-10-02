@@ -15,12 +15,16 @@ namespace GameEngine
     class Rect
     {
         public:
-            Rect(T left, T top, T width, T height): left(left), top(top), width(width), height(height) {};
+            Rect(T left, T top, T width, T height) { _rect = sf::Rect{ left, top, width, height }; };
             ~Rect() = default;
-            T left;
-            T top;
-            T width;
-            T height;
+            T &left = _rect.left;
+            T &top = _rect.top;
+            T &width = _rect.width;
+            T &height = _rect.height;
+
+            const sf::Rect<T> &getBaseRect() const { return _rect; }
+        private:
+            sf::Rect<T> _rect;
     };
 }
 

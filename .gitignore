@@ -1,1 +1,15 @@
+*.a
+*.lib
+*.cmake
+
+GameEngine/GameEngine
+
 .vscode
+Makefile
+CMakeCache.txt
+.vscode
+build
+
+testFolder
+r-type_client*
+r-type_server*
