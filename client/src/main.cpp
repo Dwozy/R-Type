@@ -7,7 +7,7 @@
 
 #include "TcpClient.hpp"
 #include "UdpClient.hpp"
-#include <boost/asio.hpp>
+#include <asio.hpp>
 #include <boost/thread.hpp>
 #include <iostream>
 
@@ -16,14 +16,13 @@ int main(int ac, char const *av[])
     try {
         if (ac != 3)
             return 84;
-        boost::asio::io_context IOContext;
-        boost::asio::signal_set signal(IOContext, SIGINT, SIGTERM);
-        signal.async_wait(
-            boost::bind(&boost::asio::io_service::stop, &IOContext));
-        boost::asio::ip::udp::endpoint serverUdpEndpoint(
-            boost::asio::ip::address::from_string(av[1]), atoi(av[2]));
-        boost::asio::ip::tcp::endpoint serverTcpEndpoint(
-            boost::asio::ip::address::from_string(av[1]), atoi(av[2]));
+        asio::io_context IOContext;
+        asio::signal_set signal(IOContext, SIGINT, SIGTERM);
+        signal.async_wait(std::bind(&asio::io_service::stop, &IOContext));
+        asio::ip::udp::endpoint serverUdpEndpoint(
+            asio::ip::address::from_string(av[1]), atoi(av[2]));
+        asio::ip::tcp::endpoint serverTcpEndpoint(
+            asio::ip::address::from_string(av[1]), atoi(av[2]));
         UdpClient udpClient(IOContext, serverUdpEndpoint);
         TcpClient tcpClient(IOContext, serverTcpEndpoint);
         IOContext.run();

@@ -11,9 +11,8 @@
 #include "RType.hpp"
 #include "SafeQueue.hpp"
 #include <array>
+#include <asio.hpp>
 #include <boost/archive/binary_oarchive.hpp>
-#include <boost/asio.hpp>
-#include <boost/bind/bind.hpp>
 #include <iostream>
 #include <map>
 
@@ -25,7 +24,7 @@ namespace Network
     class UdpServer
     {
       public:
-        UdpServer(boost::asio::io_context &IOContext, int port,
+        UdpServer(asio::io_context &IOContext, int port,
                   SafeQueue<std::string> &clientsMessages);
         ~UdpServer();
 
@@ -35,16 +34,13 @@ namespace Network
         void receive();
 
         /// @brief Sender function that will send to message to the client
-        /// @param buffer corresponding to the message that will be send to the
-        /// client
-        void sender(std::string buffer);
         void sender();
 
         /// @brief Receive the message from a client that achieve to connect to
         /// the UDP server
         /// @param error Error from the asynchronous waiting message
         /// @param recvBytes corresponding to the number of bytes received
-        void handleReceive(const boost::system::error_code &error,
+        void handleReceive(const asio::error_code &error,
                            std::size_t recvBytes);
 
         /// @brief Update information to clients at periodical interval
@@ -53,15 +49,15 @@ namespace Network
         /// @brief Update information from TCP server
         void updateTCPInformation();
 
-        boost::asio::ip::udp::socket _socket;
-        boost::asio::io_context &_IOContext;
-        boost::asio::deadline_timer _timer;
-        boost::asio::deadline_timer _timerTCP;
+        asio::ip::udp::socket _socket;
+        asio::io_context &_IOContext;
+        asio::steady_timer _timer;
+        asio::steady_timer _timerTCP;
         SafeQueue<std::string> &_clientsMessages;
-        boost::asio::streambuf _streamBuffer;
+        asio::streambuf _streamBuffer;
         std::ostream _os;
-        std::map<unsigned short, boost::asio::ip::udp::endpoint> _listClient;
-        boost::asio::ip::udp::endpoint _clientEndpoint;
+        std::map<unsigned short, asio::ip::udp::endpoint> _listClient;
+        asio::ip::udp::endpoint _clientEndpoint;
         std::array<char, 1024> _readBuffer;
     };
 } // namespace Network

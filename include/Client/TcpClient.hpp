@@ -8,15 +8,14 @@
 #ifndef TCPCLIENT_HPP_
 #define TCPCLIENT_HPP_
 
-#include <boost/asio.hpp>
-#include <boost/bind/bind.hpp>
+#include <asio.hpp>
 #include <iostream>
 
 class TcpClient
 {
   public:
-    TcpClient(boost::asio::io_context &IOContext,
-              boost::asio::ip::tcp::endpoint &serverEndpoint);
+    TcpClient(asio::io_context &IOContext,
+              asio::ip::tcp::endpoint &serverEndpoint);
     ~TcpClient();
 
   protected:
@@ -29,19 +28,18 @@ class TcpClient
 
     /// @brief Handle the write operation to the server
     /// @param error checked if occured
-    void handleWrite(const boost::system::error_code &error);
+    void handleWrite(const asio::error_code &error);
 
     /// @brief Handle the input operation from the stdin
     /// @param error checked if occured
     /// @param recvBytes corresponding the number bytes receive from the server
-    void handleInput(const boost::system::error_code &error,
-                     std::size_t recvBytes);
+    void handleInput(const asio::error_code &error, std::size_t recvBytes);
 
-    boost::asio::io_context &_IOContext;
-    boost::asio::ip::tcp::endpoint &_serverEndpoint;
-    boost::asio::ip::tcp::socket _socket;
-    boost::asio::posix::stream_descriptor _input;
-    boost::asio::streambuf _inputBuffer;
+    asio::io_context &_IOContext;
+    asio::ip::tcp::endpoint &_serverEndpoint;
+    asio::ip::tcp::socket _socket;
+    asio::posix::stream_descriptor _input;
+    asio::streambuf _inputBuffer;
 };
 
 #endif /* !TCPCLIENT_HPP_ */

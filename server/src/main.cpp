@@ -11,14 +11,13 @@
 
 int main(int ac, char const *av[])
 {
-    boost::asio::io_context IOContext;
+    asio::io_context IOContext;
     SafeQueue<std::string> clientsMessages;
     try {
         if (ac != 2)
             return 84;
-        boost::asio::signal_set signal(IOContext, SIGINT, SIGTERM);
-        signal.async_wait(
-            boost::bind(&boost::asio::io_service::stop, &IOContext));
+        asio::signal_set signal(IOContext, SIGINT, SIGTERM);
+        signal.async_wait(std::bind(&asio::io_service::stop, &IOContext));
         Network::TcpServer tcpServer(IOContext, atoi(av[1]),
                                      std::ref(clientsMessages));
         Network::UdpServer udpServer(IOContext, atoi(av[1]),

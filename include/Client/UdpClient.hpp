@@ -9,26 +9,26 @@
 #define UDPCLIENT_HPP_
 
 #include "RType.hpp"
+#include <asio.hpp>
 #include <boost/archive/binary_iarchive.hpp>
-#include <boost/asio.hpp>
-#include <boost/bind/bind.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp>
 #include <iostream>
 
 class UdpClient
 {
   public:
-    UdpClient(boost::asio::io_context &IOContext,
-              boost::asio::ip::udp::endpoint &serverEndpoint);
+    UdpClient(asio::io_context &IOContext,
+              asio::ip::udp::endpoint &serverEndpoint);
     ~UdpClient();
 
   protected:
   private:
-    boost::asio::ip::udp::socket _socket;
-    boost::asio::ip::udp::endpoint &_serverEndpoint;
-    boost::asio::io_context &_IOContext;
+    asio::ip::udp::socket _socket;
+    asio::ip::udp::endpoint &_serverEndpoint;
+    asio::io_context &_IOContext;
     std::istream _is;
     struct rtype::HeaderDataPacket _header;
-    boost::asio::streambuf _streamBuffer;
+    asio::streambuf _streamBuffer;
     std::array<char, 1024> _readBuffer;
 
     /// @brief Handle receive data, handling if the server is down
@@ -39,8 +39,7 @@ class UdpClient
     // recvBytes,
     //     boost::asio::deadline_timer &timeout, boost::archive::binary_iarchive
     //     &binaryArchive);
-    void handleReceive(const boost::system::error_code &error,
-                       std::size_t recvBytes);
+    void handleReceive(const asio::error_code &error, std::size_t recvBytes);
 
     /// @brief Waiting in asynchronous operation to receive information from
     /// server

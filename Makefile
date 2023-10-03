@@ -26,7 +26,7 @@ LDFLAGS				=		-pthread
 
 LIBFLAGS			=		-lboost_serialization
 
-CXXFLAGS			=		-std=c++20 -Wall -Wextra -DASIO_STANDALONE -pthread -g3
+CXXFLAGS			=		-std=c++20 -Wall -Wextra
 
 CPPFLAGS			=		-I ./include/Server \
 							-I ./include/Client	\

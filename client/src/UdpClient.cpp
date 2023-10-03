@@ -7,10 +7,9 @@
 
 #include "UdpClient.hpp"
 
-UdpClient::UdpClient(boost::asio::io_context &IOContext,
-                     boost::asio::ip::udp::endpoint &serverEndpoint)
-    : _socket(IOContext,
-              boost::asio::ip::udp::endpoint(boost::asio::ip::udp::v4(), 0)),
+UdpClient::UdpClient(asio::io_context &IOContext,
+                     asio::ip::udp::endpoint &serverEndpoint)
+    : _socket(IOContext, asio::ip::udp::endpoint(asio::ip::udp::v4(), 0)),
       _serverEndpoint(serverEndpoint), _IOContext(IOContext),
       _is(&_streamBuffer)
 {
@@ -19,7 +18,7 @@ UdpClient::UdpClient(boost::asio::io_context &IOContext,
 
 UdpClient::~UdpClient() { _socket.close(); }
 
-void UdpClient::handleReceive(const boost::system::error_code &error,
+void UdpClient::handleReceive(const asio::error_code &error,
                               std::size_t recvBytes)
 {
     if (!error) {
@@ -38,9 +37,9 @@ void UdpClient::handleReceive(const boost::system::error_code &error,
 
 void UdpClient::handleTimeout()
 {
-    boost::asio::deadline_timer timeout(_IOContext);
-    timeout.expires_from_now(boost::posix_time::seconds(5));
-    timeout.async_wait([&](const boost::system::error_code &error) {
+    asio::steady_timer timeout(_IOContext);
+    timeout.expires_from_now(std::chrono::seconds(5));
+    timeout.async_wait([&](const asio::error_code &error) {
         if (!error) {
             _socket.cancel();
             std::cerr << "Timeout on response from server !" << std::endl;
@@ -55,11 +54,10 @@ void UdpClient::readData(const struct rtype::HeaderDataPacket header)
 
 void UdpClient::receive()
 {
-    boost::asio::streambuf::mutable_buffers_type bufs =
-        _streamBuffer.prepare(67);
+    asio::streambuf::mutable_buffers_type bufs = _streamBuffer.prepare(67);
     _socket.async_receive_from(
         bufs, _serverEndpoint,
-        [&](const boost::system::error_code &error, std::size_t recvBytes) {
+        [&](const asio::error_code &error, std::size_t recvBytes) {
             if (!error) {
                 std::cout << "Size : " << recvBytes << std::endl;
                 if (recvBytes != 67) {
@@ -94,7 +92,6 @@ void UdpClient::run()
     std::string buff;
     std::array<char, 1> data;
     std::copy(buff.begin(), buff.end(), data.begin());
-    _socket.async_send_to(boost::asio::buffer(data, buff.size()),
-                          _serverEndpoint,
-                          boost::bind(&UdpClient::receive, this));
+    _socket.async_send_to(asio::buffer(data, buff.size()), _serverEndpoint,
+                          std::bind(&UdpClient::receive, this));
 }
