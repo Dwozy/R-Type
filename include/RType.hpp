@@ -11,8 +11,14 @@
     #include <utility>
     #include <string>
     #include <map>
+    #include <boost/serialization/serialization.hpp>
+    #include <boost/serialization/binary_object.hpp>
 
 namespace rtype {
+
+    struct Player {
+        std::string name;
+    };
 
     struct Entity {
         std::pair<float, float> position;
@@ -21,8 +27,17 @@ namespace rtype {
         struct Player playerInfo;
     };
 
-    struct Player {
-        std::string name;
+
+    struct HeaderDataPacket {
+        std::string signature = "R-TYPE";
+        std::size_t length;
+
+        template<typename Archive>
+        void serialize(Archive &ar, const unsigned)
+        {
+            ar & signature;
+            ar & length;
+        }
     };
 
     struct Room {
@@ -33,8 +48,6 @@ namespace rtype {
         std::size_t stageLevel;
         std::map<std::size_t, struct Player> listPlayers;
     };
-
-
 }
 
 #endif /* !RTYPE_HPP_ */

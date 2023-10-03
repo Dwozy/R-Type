@@ -24,7 +24,9 @@ NAME_CLIENT			=		r-type_client
 
 LDFLAGS				=		-pthread
 
-CXXFLAGS			=		-std=c++20 -Wall -Wextra -DASIO_STANDALONE -pthread
+LIBFLAGS			=		-lboost_serialization
+
+CXXFLAGS			=		-std=c++20 -Wall -Wextra -DASIO_STANDALONE -pthread -g3
 
 CPPFLAGS			=		-I ./include/Server \
 							-I ./include/Client	\
@@ -37,10 +39,10 @@ MV					=		mv
 all: 	server	client
 
 server:	$(OBJ_SERVER)
-	$(CXX) -o $(NAME_SERVER) $(OBJ_SERVER) $(LDFLAGS)
+	$(CXX) -o $(NAME_SERVER) $(OBJ_SERVER) $(LDFLAGS) $(LIBFLAGS)
 
 client: $(OBJ_CLIENT)
-	$(CXX) -o $(NAME_CLIENT) $(OBJ_CLIENT) $(LDFLAGS)
+	$(CXX) -o $(NAME_CLIENT) $(OBJ_CLIENT) $(LDFLAGS) $(LIBFLAGS)
 
 clean:
 	$(RM) $(OBJ_SERVER)
@@ -53,7 +55,7 @@ fclean: clean
 debug: CXXFLAGS += -g3
 debug: re
 
-re: 
+re:
 	$(MAKE) fclean
 	$(MAKE) all
 

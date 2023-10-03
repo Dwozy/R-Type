@@ -13,7 +13,9 @@
     #include <boost/asio.hpp>
     #include <array>
     #include <map>
+    #include <boost/archive/binary_oarchive.hpp>
     #include "SafeQueue.hpp"
+    #include "RType.hpp"
 
 namespace Network {
 
@@ -49,6 +51,8 @@ namespace Network {
             boost::asio::deadline_timer _timer;
             boost::asio::deadline_timer _timerTCP;
             SafeQueue<std::string> &_clientsMessages;
+            boost::asio::streambuf _streamBuffer;
+            std::ostream _os;
             std::map<unsigned short, boost::asio::ip::udp::endpoint> _listClient;
             boost::asio::ip::udp::endpoint _clientEndpoint;
             std::array<char, 1024> _readBuffer;

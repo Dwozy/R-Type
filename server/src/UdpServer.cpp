@@ -12,7 +12,8 @@ Network::UdpServer::UdpServer(boost::asio::io_context &IOContext, int port, Safe
     _IOContext(IOContext),
     _timer(IOContext),
     _timerTCP(IOContext),
-    _clientsMessages(clientsMessages)
+    _clientsMessages(clientsMessages),
+    _os(&_streamBuffer)
 {
     receive();
     updateGameInfo();
@@ -69,6 +70,7 @@ void Network::UdpServer::updateGameInfo()
 void Network::UdpServer::sender()
 {
     for (std::pair<unsigned short, boost::asio::ip::udp::endpoint> client : _listClient) {
+        std::cout << "Message SEND AS UDP SERVER" << std::endl;
         std::string message = "Sender endpoint : ";
         message += client.second.address().to_string().c_str();
         message += " on port : ";
@@ -76,7 +78,14 @@ void Network::UdpServer::sender()
         message += " ";
         message += std::to_string((int) client.second.port());
         message +=  " with message : \n";
-        _socket.send_to(boost::asio::buffer(message.c_str(), message.length()), client.second);
+        struct rtype::HeaderDataPacket header;
+        header.length = message.length();
+        boost::archive::binary_oarchive binaryArchive(_os);
+        binaryArchive << header;
+        std::cout << _streamBuffer.data().size() << std::endl;
+        std::size_t sendBytes = _socket.send_to(_streamBuffer.data(), client.second);
+        std::cout << sendBytes << std::endl;
+        _streamBuffer.consume(sendBytes);
     }
     updateGameInfo();
 }

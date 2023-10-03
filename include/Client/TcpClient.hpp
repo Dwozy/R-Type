@@ -19,12 +19,6 @@ class TcpClient {
 
     protected:
     private:
-        boost::asio::io_context &_IOContext;
-        boost::asio::ip::tcp::endpoint &_serverEndpoint;
-        boost::asio::ip::tcp::socket _socket;
-        boost::asio::posix::stream_descriptor _input;
-        boost::asio::streambuf _inputBuffer;
-
         /// @brief Connect to the TCP server
         void run();
 
@@ -40,6 +34,11 @@ class TcpClient {
         /// @param recvBytes corresponding the number bytes receive from the server
         void handleInput(const boost::system::error_code &error, std::size_t recvBytes);
 
+        boost::asio::io_context &_IOContext;
+        boost::asio::ip::tcp::endpoint &_serverEndpoint;
+        boost::asio::ip::tcp::socket _socket;
+        boost::asio::posix::stream_descriptor _input;
+        boost::asio::streambuf _inputBuffer;
 };
 
 #endif /* !TCPCLIENT_HPP_ */
