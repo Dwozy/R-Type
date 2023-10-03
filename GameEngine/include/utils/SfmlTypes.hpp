@@ -16,6 +16,10 @@
     // maybe remove sftype from function parameter and only take our class
 namespace GameEngine
 {
+    class event
+    {
+
+    };
     class Window
     {
         public:
