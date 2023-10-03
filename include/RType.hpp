@@ -6,41 +6,44 @@
 */
 
 #ifndef RTYPE_HPP_
-    #define RTYPE_HPP_
+#define RTYPE_HPP_
 
-    #include <utility>
-    #include <string>
-    #include <map>
-    #include <boost/serialization/serialization.hpp>
-    #include <boost/serialization/binary_object.hpp>
+#include <boost/serialization/binary_object.hpp>
+#include <boost/serialization/serialization.hpp>
+#include <map>
+#include <string>
+#include <utility>
 
-namespace rtype {
+namespace rtype
+{
 
-    struct Player {
+    struct Player
+    {
         std::string name;
     };
 
-    struct Entity {
+    struct Entity
+    {
         std::pair<float, float> position;
         std::pair<float, float> direction;
         std::size_t lifePoint;
         struct Player playerInfo;
     };
 
-
-    struct HeaderDataPacket {
+    struct HeaderDataPacket
+    {
         std::string signature = "R-TYPE";
         std::size_t length;
 
-        template<typename Archive>
-        void serialize(Archive &ar, const unsigned)
+        template <typename Archive> void serialize(Archive &ar, const unsigned)
         {
-            ar & signature;
-            ar & length;
+            ar &signature;
+            ar &length;
         }
     };
 
-    struct Room {
+    struct Room
+    {
         std::size_t id; // unique
         std::size_t slots;
         std::size_t slotsLeft;
@@ -48,6 +51,6 @@ namespace rtype {
         std::size_t stageLevel;
         std::map<std::size_t, struct Player> listPlayers;
     };
-}
+} // namespace rtype
 
 #endif /* !RTYPE_HPP_ */
