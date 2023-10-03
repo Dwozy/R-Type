@@ -9,7 +9,7 @@
     #define VIEW_HPP_
     #include "utils/Rect.hpp"
     #include "SFML/Graphics/Rect.hpp"
-    #include <SFML/Graphics.hpp>
+    #include "SFML/Graphics.hpp"
 
 namespace GameEngine
 {

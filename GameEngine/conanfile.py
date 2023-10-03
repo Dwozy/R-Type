@@ -1,6 +1,6 @@
 from conan import ConanFile, tools
 from conan.tools.cmake import cmake_layout
-from conan.tools.microsoft import MSBuildDeps
+from os import environ
 
 class GameEngineRecipe(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
@@ -37,7 +37,7 @@ class GameEngineRecipe(ConanFile):
 
     def generate(self):
         self.output.info("Copying header files")
-        dest_dir = "./include"
+        dest_dir = environ["INCLUDES_DIR"]
         tools.files.mkdir(self, dest_dir)
         for require, dependency in self.dependencies.items():
             if require.direct:

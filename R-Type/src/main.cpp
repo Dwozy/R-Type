@@ -9,6 +9,7 @@
 #include <cstdlib>
 #include <functional>
 #include <SFML/Graphics.hpp>
+#include <SFML/Window/Window.hpp>
 #include <utility>
 #include "SparseArray.hpp"
 #include "Registry.hpp"

@@ -11,9 +11,31 @@ fclean_game_engine()
     cd ..
 }
 
+fclean_game_r-type()
+{
+    cd ./R-Type/
+    source ./build_unix.sh fclean
+    status=$?
+    if [ "$status" -ne 0 ]; then
+        exit "$status"
+    fi
+    cd ..
+}
+
 build_game_engine()
 {
     cd ./GameEngine/
+    source ./build_unix.sh
+    status=$?
+    if [ "$status" -ne 0 ]; then
+        exit "$status"
+    fi
+    cd ..
+}
+
+build_game_r-type()
+{
+    cd ./R-Type/
     source ./build_unix.sh
     status=$?
     if [ "$status" -ne 0 ]; then
@@ -30,6 +52,7 @@ fclean_all()
 build_all()
 {
     build_game_engine
+    build_game_r-type
 }
 
 if [ "$1" == "fclean" ]

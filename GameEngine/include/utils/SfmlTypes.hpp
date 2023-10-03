@@ -7,8 +7,8 @@
 
 #ifndef SFMLTYPES_HPP_
     #define SFMLTYPES_HPP_
-    #include <SFML/Audio.hpp>
-    #include <SFML/Graphics.hpp>
+    #include "SFML/Audio.hpp"
+    #include "SFML/Graphics.hpp"
     #include "utils/Rect.hpp"
     #include "View.hpp"
     #include "utils/Vector.hpp"

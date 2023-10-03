@@ -24,17 +24,5 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/)
 
 project(${PROJECT_NAME} LANGUAGES CXX)
 add_executable(${BINARY_NAME} ${SRCS})
-target_link_libraries(${BINARY_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/../GameEngine/GameEngine/lib/libGameEngine.a sfml-system sfml-network sfml-graphics sfml-window)
-target_include_directories(${BINARY_NAME} PRIVATE ${INCLUDES} ${CMAKE_SOURCE_DIR}/../GameEngine/GameEngine/include)
-
-
-# find_package(nlohmann_json CONFIG REQUIRED)
-# find_package(SFML COMPONENTS system window graphics audio CONFIG REQUIRED)
-
-
-# file(MAKE_DIRECTORY ${PROJECT_NAME})
-
-# add_library(${LIBRARY_NAME} STATIC ${SRCS})
-# target_link_libraries(${LIBRARY_NAME} INTERFACE sfml-system sfml-network sfml-graphics sfml-window)
-# target_include_directories(${PROJECT_NAME} PUBLIC ${INCLUDES} $ENV{CONAN_BUILD_DIR}/include)
-# file(COPY ${INCLUDES}/ DESTINATION ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include)
+target_link_libraries(${BINARY_NAME} PRIVATE sfml-system sfml-network sfml-graphics sfml-window ${CMAKE_SOURCE_DIR}/../GameEngine/GameEngine/lib/libGameEngine.a)
+target_include_directories(${BINARY_NAME} PRIVATE ${INCLUDES} ${CMAKE_SOURCE_DIR}/../GameEngine/GameEngine/include/)
