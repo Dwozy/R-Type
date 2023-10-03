@@ -6,11 +6,11 @@
 */
 
 #ifndef TEXTURE_HPP_
-    #define TEXTURE_HPP_
-    #include <string>
-    #include "utils/Vector.hpp"
-    #include "utils/SfmlTypes.hpp"
-    #include "utils/Rect.hpp"
+#define TEXTURE_HPP_
+#include "utils/Rect.hpp"
+#include "utils/SfmlTypes.hpp"
+#include "utils/Vector.hpp"
+#include <string>
 
 namespace GameEngine
 {
@@ -21,6 +21,6 @@ namespace GameEngine
         bool isRendered;
         size_t renderLayer;
     };
-}
+} // namespace GameEngine
 
 #endif /* !TEXTURE_HPP_ */

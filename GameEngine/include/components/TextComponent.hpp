@@ -6,10 +6,10 @@
 */
 
 #ifndef TEXT_HPP_
-    #define TEXT_HPP_
-    #include <string>
-    #include "utils/Vector.hpp"
-    #include "utils/SfmlTypes.hpp"
+#define TEXT_HPP_
+#include "utils/SfmlTypes.hpp"
+#include "utils/Vector.hpp"
+#include <string>
 
 namespace GameEngine
 {
@@ -22,6 +22,6 @@ namespace GameEngine
         bool isRendered;
         size_t renderLayer;
     };
-}
+} // namespace GameEngine
 
 #endif /* !TEXT_HPP_ */

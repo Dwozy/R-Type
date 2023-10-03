@@ -6,8 +6,8 @@
 */
 
 #ifndef ENTITY_HPP_
-    #define ENTITY_HPP_
-    #include <cstdlib>
+#define ENTITY_HPP_
+#include <cstdlib>
 
 namespace GameEngine
 {
@@ -15,16 +15,17 @@ namespace GameEngine
 
     class Entity
     {
-        public:
-            friend class Registry;
-            ~Entity() = default;
+      public:
+        friend class Registry;
+        ~Entity() = default;
 
-            operator std::size_t() const { return _entity; };
-        private:
-            explicit Entity(std::size_t entity): _entity(entity) {};
+        operator std::size_t() const { return _entity; };
 
-            std::size_t _entity;
+      private:
+        explicit Entity(std::size_t entity) : _entity(entity){};
+
+        std::size_t _entity;
     };
-}
+} // namespace GameEngine
 
 #endif /* !ENTITY_HPP_ */

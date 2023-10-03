@@ -6,8 +6,8 @@
 */
 
 #ifndef CONTROLLABLECOMPONENT_HPP_
-    #define CONTROLLABLECOMPONENT_HPP_
-    #include "Keyboard.hpp"
+#define CONTROLLABLECOMPONENT_HPP_
+#include "Keyboard.hpp"
 
 namespace GameEngine
 {
@@ -19,6 +19,6 @@ namespace GameEngine
         Input::Keyboard::Key key_right;
         float speed = 1.0f;
     };
-}
+} // namespace GameEngine
 
 #endif /* !CONTROLLABLECOMPONENT_HPP_ */
