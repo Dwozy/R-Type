@@ -16,9 +16,14 @@
     // maybe remove sftype from function parameter and only take our class
 namespace GameEngine
 {
-    class event
+    class Event
     {
-
+        public:
+            sf::Event &getEvent() {
+                return _event;
+            }
+        private:
+            sf::Event _event;
     };
     class Window
     {

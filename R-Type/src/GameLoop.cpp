@@ -12,6 +12,7 @@ void gameLoop(GameManager &GameManager)
     while (GameManager.gameEngine.window.isOpen())
     {
         GameManager.gameEngine.deltaTime.update();
+        GameEngine::Event eventtry;
         sf::Event event;
         while (GameManager.gameEngine.window.pollEvent(event))
         {

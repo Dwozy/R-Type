@@ -23,7 +23,7 @@
 class GameManager
 {
     public:
-        GameManager(int width = 1920, int height = 1080, std::string windowName = "default") : gameEngine(width, height, "windowName") {};
+        GameManager(int width = 1920, int height = 1080, std::string windowName = "default") : gameEngine(width, height, windowName) {};
         ~GameManager() = default;
         GameEngine::GameEngine gameEngine;
     private:
