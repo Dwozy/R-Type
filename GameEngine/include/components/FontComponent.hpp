@@ -9,7 +9,7 @@
     #define FONT_HPP_
     #include <string>
     #include "utils/Vector.hpp"
-    #include "utils/SfmlTypes.hpp"
+    #include "utils/RenderInterfaces.hpp"
 
 namespace GameEngine {
     struct FontComponent {

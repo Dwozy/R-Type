@@ -9,9 +9,8 @@
     #define SFMLTYPES_HPP_
     #include <SFML/Audio.hpp>
     #include <SFML/Graphics.hpp>
-    #include "utils/Rect.hpp"
-    #include "View.hpp"
     #include "utils/Vector.hpp"
+    #include "RenderInterfaces.hpp"
 
     // maybe remove sftype from function parameter and only take our class
 namespace GameEngine
@@ -24,6 +23,50 @@ namespace GameEngine
             }
         private:
             sf::Event _event;
+    };
+
+    template <typename T>
+    class Rect : public IRect<T, sf::Rect>
+    {
+        public:
+            Rect(T left, T top, T width, T height) { _rect = sf::Rect{ left, top, width, height }; };
+            ~Rect() = default;
+            T &left = _rect.left;
+            T &top = _rect.top;
+            T &width = _rect.width;
+            T &height = _rect.height;
+
+            const sf::Rect<T> &getBaseRect() const override { return _rect; }
+        private:
+            sf::Rect<T> _rect;
+    };
+
+    class Texture : public ITexture<sf::Texture, sf::Rect>
+    {
+        public:
+            Texture() {};
+            ~Texture() = default;
+            const sf::Texture &getTexture() const override
+            {
+                return _texture;
+            };
+            void load(const std::string &filename, const IRect<int, sf::Rect> &area) override
+            {
+                // add check error here
+                _texture.loadFromFile(filename, area.getBaseRect());
+            }
+        private:
+            sf::Texture _texture;
+    };
+
+    class View : public IView<sf::View>
+    {
+        public:
+            View(const Rect<float> &rect): _view{sf::Rect<float>{rect.left, rect.top, rect.width, rect.height}} {};
+            ~View() = default;
+            const sf::View &getBaseView() const override { return _view; }
+        private:
+            sf::View _view;
     };
     class Window
     {
@@ -117,39 +160,20 @@ namespace GameEngine
             std::string _filename;
     };
 
-    class Font
+    class Font : public IFont<sf::Font>
     {
         public:
             Font() {};
             ~Font() = default;
-            const sf::Font &getFont() const {
+            const sf::Font &getFont() const override {
                 return _font;
             };
-            void load(const std::string &filename) {
+            void load(const std::string &filename) override {
                 _font.loadFromFile(filename);
             }
         private:
             sf::Font _font;
     };
-
-    class Texture
-    {
-        public:
-            Texture() {};
-            ~Texture() = default;
-            const sf::Texture &getTexture() const
-            {
-                return _texture;
-            }
-            void load(const std::string &filename, const Rect<int> &area)
-            {
-                // add check error here
-                _texture.loadFromFile(filename, area.getBaseRect());
-            }
-        private:
-            sf::Texture _texture;
-    };
-
     class Sprite
     {
         public:
