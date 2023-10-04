@@ -6,7 +6,6 @@
 */
 
 #include "systems/PositionSystem.hpp"
-#include <iostream>
 
 namespace GameEngine
 {
@@ -24,6 +23,5 @@ namespace GameEngine
                 tex.value().sprite.setPosition(pos.value().position);
             }
         }
-        std::cout << _deltaTime << std::endl;
     }
 } // namespace GameEngine
