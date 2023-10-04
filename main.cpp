@@ -12,7 +12,7 @@
 #include "components/FontComponent.hpp"
 #include "components/TextComponent.hpp"
 #include "components/TextureComponent.hpp"
-#include "components/WindowComponent.hpp"
+// #include "components/WindowComponent.hpp"
 #include "systems/ControlSystem.hpp"
 #include "systems/DrawSystem.hpp"
 #include "systems/PositionSystem.hpp"
@@ -68,25 +68,26 @@ int main()
             gameEngine.window.setView(c.value().view);
     }
 
+    GameEngine::PositionSystem positionSystem(
+        gameEngine.deltaTime.getDeltaTime());
+    GameEngine::ControlSystem controlSystem;
+    GameEngine::DrawSystem drawSystem(gameEngine.window);
+
     gameEngine.registry.addSystem<
-        std::function<void(GameEngine::GameEngine &,
-                           SparseArray<GameEngine::VelocityComponent> &,
+        std::function<void(SparseArray<GameEngine::VelocityComponent> &,
                            SparseArray<GameEngine::ControllableComponent> &)>,
         GameEngine::VelocityComponent, GameEngine::ControllableComponent>(
-        GameEngine::controlSystem, gameEngine);
+        controlSystem);
     gameEngine.registry.addSystem<
-        std::function<void(GameEngine::GameEngine &,
-                           SparseArray<GameEngine::PositionComponent> &,
+        std::function<void(SparseArray<GameEngine::PositionComponent> &,
                            SparseArray<GameEngine::VelocityComponent> &,
                            SparseArray<GameEngine::TextureComponent> &)>,
         GameEngine::PositionComponent, GameEngine::VelocityComponent,
-        GameEngine::TextureComponent>(GameEngine::positionSystem, gameEngine);
+        GameEngine::TextureComponent>(positionSystem);
     gameEngine.registry.addSystem<
-        std::function<void(GameEngine::GameEngine &,
-                           SparseArray<GameEngine::TextComponent> &,
+        std::function<void(SparseArray<GameEngine::TextComponent> &,
                            SparseArray<GameEngine::TextureComponent> &)>,
-        GameEngine::TextComponent, GameEngine::TextureComponent>(
-        GameEngine::drawSystem, gameEngine);
+        GameEngine::TextComponent, GameEngine::TextureComponent>(drawSystem);
 
     while (gameEngine.window.isOpen()) {
         gameEngine.deltaTime.update();

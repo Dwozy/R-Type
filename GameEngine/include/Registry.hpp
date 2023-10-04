@@ -59,9 +59,9 @@ namespace GameEngine
         {
             std::size_t id;
 
-            if (!_emptyIndecies.empty()) {
-                id = _emptyIndecies.back();
-                _emptyIndecies.pop_back();
+            if (!_emptyIndexes.empty()) {
+                id = _emptyIndexes.back();
+                _emptyIndexes.pop_back();
                 _aliveEntities.insert(_aliveEntities.begin() + id, Entity(id));
                 return _aliveEntities[id];
             }
@@ -76,7 +76,7 @@ namespace GameEngine
                                         _aliveEntities.end(), entity);
 
             Entity id = *idx;
-            _emptyIndecies.push_back(id);
+            _emptyIndexes.push_back(id);
             _aliveEntities.erase(idx);
             for (std::size_t i = 0; i < _deleters.size(); i++)
                 _deleters[i](*this, entity);
@@ -106,10 +106,10 @@ namespace GameEngine
         };
 
         template <typename Function, class... Components>
-        void addSystem(const Function &function, GameEngine &gameEngine)
+        void addSystem(const Function &function)
         {
-            std::function<void()> system = [this, &gameEngine, function]() {
-                function(gameEngine, getComponent<Components>()...);
+            std::function<void()> system = [this, function]() {
+                function(getComponent<Components>()...);
             };
 
             _systems.push_back(system);
@@ -124,7 +124,7 @@ namespace GameEngine
         std::unordered_map<std::type_index, std::any> _container;
         std::vector<std::function<void(Registry &, const Entity &)>> _deleters;
         std::vector<Entity> _aliveEntities;
-        std::vector<std::size_t> _emptyIndecies;
+        std::vector<std::size_t> _emptyIndexes;
         std::vector<std::function<void()>> _systems;
     };
 } // namespace GameEngine

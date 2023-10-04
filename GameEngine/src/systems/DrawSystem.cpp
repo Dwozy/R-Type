@@ -15,11 +15,11 @@
 
 namespace GameEngine
 {
-    void drawSystem(GameEngine &gameEngine, SparseArray<TextComponent> &texts,
-                    SparseArray<TextureComponent> &textures)
+    void DrawSystem::operator()(SparseArray<TextComponent> &texts,
+                                SparseArray<TextureComponent> &textures)
     {
         std::vector<std::variant<TextureComponent, TextComponent>> rend;
-        gameEngine.window.clear();
+        _window.clear();
 
         for (size_t i = 0; i < texts.size(); i++) {
             auto &tex = texts[i];
@@ -58,12 +58,12 @@ namespace GameEngine
         for (const auto &item : rend) {
             if (std::holds_alternative<TextureComponent>(item)) {
                 const auto &tex = std::get<TextureComponent>(item);
-                gameEngine.window.draw(tex.sprite.getSprite());
+                _window.draw(tex.sprite.getSprite());
             } else if (std::holds_alternative<TextComponent>(item)) {
                 const auto &tex = std::get<TextComponent>(item);
-                gameEngine.window.draw(tex.text.getText());
+                _window.draw(tex.text.getText());
             }
         }
-        gameEngine.window.display();
+        _window.display();
     }
 } // namespace GameEngine
