@@ -7,35 +7,45 @@
 
 #include "UdpClient.hpp"
 
-UdpClient::UdpClient(asio::io_context &IOContext,
-                     asio::ip::udp::endpoint &serverEndpoint)
+Network::UdpClient::UdpClient(asio::io_context &IOContext,
+                              asio::ip::udp::endpoint &serverEndpoint)
     : _socket(IOContext, asio::ip::udp::endpoint(asio::ip::udp::v4(), 0)),
       _serverEndpoint(serverEndpoint), _IOContext(IOContext),
-      _is(&_streamBuffer)
+      _is(&_streamBuffer),
+      _isHeader(&_streamBufferHeader),
+      _buffer(_streamBufferHeader.prepare(52))
 {
     run();
 }
 
-UdpClient::~UdpClient() { _socket.close(); }
+Network::UdpClient::~UdpClient() { _socket.close(); }
 
-void UdpClient::handleReceive(const asio::error_code &error,
-                              std::size_t recvBytes)
+void Network::UdpClient::handleReceive(const asio::error_code &error,
+                                       std::size_t recvBytes)
 {
     if (!error) {
-        std::string buff =
-            std::string(_readBuffer.begin(), _readBuffer.begin() + recvBytes);
-        if (buff == "Server down") {
-            _socket.close();
-            _IOContext.stop();
-        } else
-            std::cout << buff;
+        std::cout << "Size : " << recvBytes << std::endl;
+        if (recvBytes != 52) {
+            std::cout << "PETE" << std::endl;
+            _streamBufferHeader.consume(recvBytes);
+            return;
+        }
+        _streamBufferHeader.commit(recvBytes);
+        struct rtype::HeaderDataPacket header;
+        boost::archive::binary_iarchive binaryArchive(_isHeader);
+        binaryArchive >> header;
+        _streamBufferHeader.consume(recvBytes);
+        if (header.magicNumber == rtype::MAGIC_NUMBER) {
+            std::cout << "Good header, can read data" << std::endl;
+            readData(header);
+        }
     } else {
         std::cerr << "Error : " << error.message() << std::endl;
     }
     handleTimeout();
 }
 
-void UdpClient::handleTimeout()
+void Network::UdpClient::handleTimeout()
 {
     asio::steady_timer timeout(_IOContext);
     timeout.expires_from_now(std::chrono::seconds(5));
@@ -45,53 +55,44 @@ void UdpClient::handleTimeout()
             std::cerr << "Timeout on response from server !" << std::endl;
         }
     });
+    receive();
 }
 
-void UdpClient::readData(const struct rtype::HeaderDataPacket header)
+void Network::UdpClient::readData(const struct rtype::HeaderDataPacket header)
 {
-    return;
-}
-
-void UdpClient::receive()
-{
-    asio::streambuf::mutable_buffers_type bufs = _streamBuffer.prepare(67);
+    _buffer = _streamBuffer.prepare(header.payloadSize);
     _socket.async_receive_from(
-        bufs, _serverEndpoint,
+        _buffer, _serverEndpoint,
         [&](const asio::error_code &error, std::size_t recvBytes) {
-            if (!error) {
-                std::cout << "Size : " << recvBytes << std::endl;
-                if (recvBytes != 67) {
-                    std::cout << "PETE" << std::endl;
-                    receive();
-                }
-                _streamBuffer.commit(recvBytes);
-                struct rtype::HeaderDataPacket header;
-                boost::archive::binary_iarchive binaryArchive(_is);
-                binaryArchive >> header;
-                std::string buff = "";
-                _streamBuffer.consume(recvBytes);
-                if (header.signature == "R-TYPE") {
-                    std::cout << "Good header, can read data" << std::endl;
-                    readData(header);
-                }
-                if (buff == "Server down") {
-                    _socket.close();
-                    _IOContext.stop();
-                } else
-                    std::cout << buff << std::endl;
-                ;
-            } else {
-                std::cerr << "Error : " << error.message() << std::endl;
+            if (error)
+                return;
+            _streamBuffer.commit(recvBytes);
+            boost::archive::binary_iarchive binaryArchive(_is);
+            std::string message;
+            binaryArchive >> message;
+            std::cout << message << std::endl;
+            if (message == "Server down") {
+                _socket.close();
+                _IOContext.stop();
             }
-            receive();
+            _streamBuffer.consume(recvBytes);
         });
 }
 
-void UdpClient::run()
+void Network::UdpClient::receive()
+{
+    _buffer = _streamBufferHeader.prepare(52);
+    _socket.async_receive_from(_buffer, _serverEndpoint,
+                               std::bind(&Network::UdpClient::handleReceive,
+                                         this, std::placeholders::_1,
+                                         std::placeholders::_2));
+}
+
+void Network::UdpClient::run()
 {
     std::string buff;
     std::array<char, 1> data;
     std::copy(buff.begin(), buff.end(), data.begin());
     _socket.async_send_to(asio::buffer(data, buff.size()), _serverEndpoint,
-                          std::bind(&UdpClient::receive, this));
+                          std::bind(&Network::UdpClient::receive, this));
 }

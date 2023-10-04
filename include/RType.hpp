@@ -17,6 +17,8 @@
 namespace rtype
 {
 
+    const uint32_t MAGIC_NUMBER = 0xA54CDEF5;
+
     struct Player
     {
         std::string name;
@@ -32,13 +34,15 @@ namespace rtype
 
     struct HeaderDataPacket
     {
-        std::string signature = "R-TYPE";
-        std::size_t length;
+        uint32_t magicNumber = MAGIC_NUMBER;
+        uint8_t packetType;
+        uint16_t payloadSize;
 
         template <typename Archive> void serialize(Archive &ar, const unsigned)
         {
-            ar &signature;
-            ar &length;
+            ar &magicNumber;
+            ar &packetType;
+            ar &payloadSize;
         }
     };
 

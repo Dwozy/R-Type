@@ -23,8 +23,8 @@ int main(int ac, char const *av[])
             asio::ip::address::from_string(av[1]), atoi(av[2]));
         asio::ip::tcp::endpoint serverTcpEndpoint(
             asio::ip::address::from_string(av[1]), atoi(av[2]));
-        UdpClient udpClient(IOContext, serverUdpEndpoint);
-        TcpClient tcpClient(IOContext, serverTcpEndpoint);
+        Network::UdpClient udpClient(IOContext, serverUdpEndpoint);
+        Network::TcpClient tcpClient(IOContext, serverTcpEndpoint);
         IOContext.run();
     } catch (std::exception &e) {
         std::cerr << "Exception: " << e.what() << std::endl;
