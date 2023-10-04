@@ -15,10 +15,19 @@
 
 namespace GameEngine
 {
-    void positionSystem(GameEngine &gameEngine,
-                        SparseArray<PositionComponent> &positions,
+    class PositionSystem
+    {
+      public:
+        PositionSystem(const float &deltaTime) : _deltaTime(deltaTime){};
+        ~PositionSystem() = default;
+
+        void operator()(SparseArray<PositionComponent> &positions,
                         SparseArray<VelocityComponent> &velocities,
                         SparseArray<TextureComponent> &textures);
-}
+
+      private:
+        const float &_deltaTime;
+    };
+} // namespace GameEngine
 
 #endif /* !POSITIONSYSTEM_HPP_ */

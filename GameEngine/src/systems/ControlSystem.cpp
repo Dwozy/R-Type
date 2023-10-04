@@ -9,9 +9,9 @@
 
 namespace GameEngine
 {
-    void controlSystem(GameEngine &gameEngine,
-                       SparseArray<VelocityComponent> &velocities,
-                       SparseArray<ControllableComponent> &controllable)
+    void
+    ControlSystem::operator()(SparseArray<VelocityComponent> &velocities,
+                              SparseArray<ControllableComponent> &controllable)
     {
         for (size_t i = 0; i < controllable.size() && i < velocities.size();
              i++) {

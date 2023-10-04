@@ -14,9 +14,15 @@
 
 namespace GameEngine
 {
-    void controlSystem(GameEngine &gameEngine,
-                       SparseArray<VelocityComponent> &velocities,
-                       SparseArray<ControllableComponent> &controllable);
-}
+    class ControlSystem
+    {
+      public:
+        ControlSystem(){};
+        ~ControlSystem() = default;
+
+        void operator()(SparseArray<VelocityComponent> &velocities,
+                        SparseArray<ControllableComponent> &controllable);
+    };
+} // namespace GameEngine
 
 #endif /* !CONTROLSYSTEM_HPP_ */

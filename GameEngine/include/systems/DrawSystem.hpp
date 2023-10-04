@@ -14,8 +14,18 @@
 
 namespace GameEngine
 {
-    void drawSystem(GameEngine &gameEngine, SparseArray<TextComponent> &texts,
-                    SparseArray<TextureComponent> &textures);
-}
+    class DrawSystem
+    {
+      public:
+        DrawSystem(Window &window) : _window(window){};
+        ~DrawSystem() = default;
+
+        void operator()(SparseArray<TextComponent> &texts,
+                        SparseArray<TextureComponent> &textures);
+
+      private:
+        Window &_window;
+    };
+} // namespace GameEngine
 
 #endif /* !DRAWSYSTEM_HPP_ */
