@@ -9,11 +9,11 @@
 
 namespace GameEngine
 {
-    EventListener &EventMananger::addListener(EventType eventType)
+    EventHandler &EventMananger::addHandler(GameEngine::Event eventType)
     {
-        EventListener listener;
+        EventHandler handler;
 
-        _listeners.insert({ eventType, listener });
-        return listener;
+        _handlers.insert({ eventType, handler });
+        return getHandler(eventType);
     }
 }

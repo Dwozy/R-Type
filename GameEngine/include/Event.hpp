@@ -13,12 +13,21 @@
 
 namespace GameEngine
 {
-
     using EventType = std::size_t;
 
-    class EventListener
+    enum class Event: EventType
+    {
+        WindowCloseEvent = 0,
+    };
+
+    class EventHandler
     {
         public:
+            void publish()
+            {
+                for (std::function<void()> callback: _callbacks)
+                    callback();
+            }
             template <typename Function>
             void subscribe(Function function)
             {
@@ -34,13 +43,13 @@ namespace GameEngine
     class EventMananger
     {
         public:
-            void addListener(EventType eventType, const EventListener listener) { _listeners.insert({ eventType, listener }); }
-            EventListener &addListener(const EventType eventType);
-            void removeListener(const EventType eventType) { _listeners.erase(eventType); }
-            EventListener &getListener(const EventType eventType) { return _listeners.at(eventType); }
+            void addHandler(Event eventType, const EventHandler handler) { _handlers.insert({ eventType, handler }); }
+            EventHandler &addHandler(const Event eventType);
+            void removeHandler(const Event eventType) { _handlers.erase(eventType); }
+            EventHandler &getHandler(const Event eventType) { return _handlers.at(eventType); }
 
         private:
-            std::unordered_map<EventType, EventListener> _listeners;
+            std::unordered_map<Event, EventHandler> _handlers;
     };
 
 }

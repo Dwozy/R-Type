@@ -8,6 +8,7 @@
 #include "GameEngine.hpp"
 #include "Registry.hpp"
 #include "SparseArray.hpp"
+#include "Event.hpp"
 #include "components/CameraComponent.hpp"
 #include "components/FontComponent.hpp"
 #include "components/TextComponent.hpp"
@@ -23,10 +24,19 @@
 #include <iostream>
 #include <utility>
 
+void test()
+{
+    std::cout << "Window close Event" << std::endl;
+}
+
 int main()
 {
     // sf::RenderWindow window(sf::VideoMode(800, 600), "Demo");
     // Registry registry;
+    GameEngine::EventMananger eventMananger;
+    GameEngine::EventHandler windowCloseEventHandler = eventMananger.addHandler(GameEngine::Event::WindowCloseEvent);
+    windowCloseEventHandler.subscribe(test);
+
     GameEngine::GameEngine gameEngine(600, 600, "Demo");
     GameEngine::Entity entity = gameEngine.registry.spawnEntity();
     GameEngine::Entity camera = gameEngine.registry.spawnEntity();
@@ -98,5 +108,6 @@ int main()
         }
         gameEngine.registry.runSystems();
     }
+    windowCloseEventHandler.publish();
     return 0;
 }
