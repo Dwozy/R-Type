@@ -10,49 +10,58 @@
     #include <functional>
     #include <unordered_map>
     #include <vector>
+    #include <any>
 
 namespace GameEngine
 {
     using EventType = std::size_t;
+    struct NoEventData{};
 
     enum class Event: EventType
     {
         WindowCloseEvent = 0,
     };
 
+    template <typename EventData=NoEventData>
     class EventHandler
     {
         public:
-            void publish()
-            {
-                for (std::function<void()> callback: _callbacks)
-                    callback();
-            }
+            void publish(EventData event) { _publish(event); }
+            void publish() { _publish(NoEventData{}); }
             template <typename Function>
-            void subscribe(Function function)
+            void subscribe(const Function &function)
             {
-                std::function<void()> callback = [function]() {
-                    function();
-                };
+                std::function<void(const EventData)> callback = function;
                 _callbacks.push_back(function);
             }
         private:
-            std::vector<std::function<void(void)>> _callbacks;
+            void _publish(EventData event);
+            std::vector<std::function<void(const EventData)>> _callbacks;
     };
 
     class EventMananger
     {
         public:
-            void addHandler(Event eventType, const EventHandler handler) { _handlers.insert({ eventType, handler }); }
-            EventHandler &addHandler(const Event eventType);
+            template <class EventData=NoEventData>
+            EventHandler<EventData> &addHandler(Event eventType)
+            {
+                _handlers.insert({ eventType, EventHandler<EventData>()});
+                return getHandler<EventData>(eventType);
+            }
+
             void removeHandler(const Event eventType) { _handlers.erase(eventType); }
-            EventHandler &getHandler(const Event eventType) { return _handlers.at(eventType); }
+            template <class EventData=NoEventData>
+            void publish(const Event eventType, EventData event) { getHandler<EventData>(eventType).publish(event); }
+            template <class EventData=NoEventData>
+            EventHandler<EventData> &getHandler(const Event eventType)
+            {
+                return std::any_cast<EventHandler<EventData> &>(_handlers[eventType]);
+            }
 
         private:
-            std::unordered_map<Event, EventHandler> _handlers;
+            std::unordered_map<Event, std::any> _handlers;
     };
 
 }
-
 
 #endif /* !EVENT_HPP_ */

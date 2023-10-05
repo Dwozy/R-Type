@@ -9,11 +9,9 @@
 
 namespace GameEngine
 {
-    EventHandler &EventMananger::addHandler(GameEngine::Event eventType)
+    void EventHandler::_publish(EventData event)
     {
-        EventHandler handler;
-
-        _handlers.insert({ eventType, handler });
-        return getHandler(eventType);
+        for (std::function<void(const EventData)> callback: _callbacks)
+            callback(event);
     }
 }

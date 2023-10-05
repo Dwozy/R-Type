@@ -24,7 +24,7 @@
 #include <iostream>
 #include <utility>
 
-void test()
+void test(GameEngine::NoEventData event)
 {
     std::cout << "Window close Event" << std::endl;
 }
@@ -34,8 +34,8 @@ int main()
     // sf::RenderWindow window(sf::VideoMode(800, 600), "Demo");
     // Registry registry;
     GameEngine::EventMananger eventMananger;
-    GameEngine::EventHandler windowCloseEventHandler = eventMananger.addHandler(GameEngine::Event::WindowCloseEvent);
-    windowCloseEventHandler.subscribe(test);
+    eventMananger.addHandler(GameEngine::Event::WindowCloseEvent);
+    eventMananger.getHandler(GameEngine::Event::WindowCloseEvent).subscribe(test);
 
     GameEngine::GameEngine gameEngine(600, 600, "Demo");
     GameEngine::Entity entity = gameEngine.registry.spawnEntity();
@@ -108,6 +108,6 @@ int main()
         }
         gameEngine.registry.runSystems();
     }
-    windowCloseEventHandler.publish();
+    eventMananger.getHandler(GameEngine::Event::WindowCloseEvent).publish();
     return 0;
 }
