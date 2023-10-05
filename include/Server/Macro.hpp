@@ -8,11 +8,11 @@
 #ifndef MACRO_HPP_
 #define MACRO_HPP_
 
-class Macro {
-    public:
-
-    protected:
-    private:
+class Macro
+{
+  public:
+  protected:
+  private:
 };
 
 #endif /* !MACRO_HPP_ */
