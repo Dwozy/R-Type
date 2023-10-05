@@ -49,21 +49,23 @@ namespace Network
         /// @brief Update information from TCP server
         void updateTCPInformation();
 
-        void sendHeader(std::size_t size, const asio::ip::udp::endpoint &clientEndpoint);
+        void sendHeader(uint16_t payloadSize, uint8_t packetType,
+                        const asio::ip::udp::endpoint &clientEndpoint);
 
-        template<typename Data>
-        void sendArchiveData(Data data, const asio::ip::udp::endpoint &clientEndpoint)
+        template <typename Data>
+        void sendArchiveData(Data data,
+                             const asio::ip::udp::endpoint &clientEndpoint)
         {
             asio::streambuf streamBuffer;
             std::ostream os(&streamBuffer);
             boost::archive::binary_oarchive binaryArchive(os);
 
             binaryArchive << data;
+            std::cout << streamBuffer.data().size() << std::endl;
             _socket.send_to(streamBuffer.data(), clientEndpoint);
         }
 
-        template<typename Data>
-        uint16_t getArchiveDataSize(Data data)
+        template <typename Data> uint16_t getArchiveDataSize(Data data)
         {
             asio::streambuf streamBuffer;
             std::ostream os(&streamBuffer);

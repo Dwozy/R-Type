@@ -48,12 +48,20 @@ namespace rtype
 
     struct Room
     {
-        std::size_t id; // unique
-        std::size_t slots;
-        std::size_t slotsLeft;
-        std::string name;
-        std::size_t stageLevel;
-        std::map<std::size_t, struct Player> listPlayers;
+        uint16_t id; // unique
+        uint8_t slots;
+        uint8_t slotsLeft;
+        uint8_t stageLevel;
+        // std::string name;
+        // std::map<std::size_t, struct Player> listPlayers;
+
+        template <typename Archive> void serialize(Archive &ar, const unsigned)
+        {
+            ar &id;
+            ar &slots;
+            ar &slotsLeft;
+            ar &stageLevel;
+        }
     };
 } // namespace rtype
 

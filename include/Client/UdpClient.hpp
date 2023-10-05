@@ -23,20 +23,21 @@ namespace Network
                   asio::ip::udp::endpoint &serverEndpoint);
         ~UdpClient();
 
-      protected:
-      private:
         asio::ip::udp::socket _socket;
         asio::ip::udp::endpoint &_serverEndpoint;
         asio::io_context &_IOContext;
         std::istream _is;
+        asio::streambuf _streamBuffer;
+
+      protected:
+      private:
         std::istream _isHeader;
         asio::streambuf _streamBufferHeader;
-        asio::streambuf _streamBuffer;
         asio::streambuf::mutable_buffers_type _buffer;
         struct rtype::HeaderDataPacket _header;
         std::array<char, 1024> _readBuffer;
-        std::unordered_map<
-            std::size_t, std::function<void(Network::UdpClient &)>>
+        std::unordered_map<std::size_t, std::function<void(Network::UdpClient &,
+                                                           uint16_t size)>>
             _commands;
 
         /// @brief Handle receive data, handling if the server is down
@@ -53,7 +54,7 @@ namespace Network
         /// @brief Waiting in asynchronous operation to receive information from
         /// server
         /// @param timeout activates when exceed
-        void receive();
+        void readHeader();
 
         /// @brief Connect to the UDP server
         void run();
@@ -63,6 +64,11 @@ namespace Network
 
         /// @brief Read data from a header
         void readData(const struct rtype::HeaderDataPacket header);
+
+        void handleData(const struct rtype::HeaderDataPacket &header);
     };
+
+    void getRoom(Network::UdpClient &, uint16_t size);
+    void getString(Network::UdpClient &, uint16_t size);
 } // namespace Network
 #endif /* !UDPCLIENT_HPP_ */

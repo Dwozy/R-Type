@@ -23,9 +23,9 @@ Network::UdpServer::~UdpServer()
     std::string message = "Server down";
     for (std::pair<unsigned short, asio::ip::udp::endpoint> client :
          _listClient) {
-            uint16_t size = getArchiveDataSize<std::string>(message);
-            sendHeader(size, client.second);
-            sendArchiveData<std::string>(message, client.second);
+        uint16_t size = getArchiveDataSize<std::string>(message);
+        sendHeader(size, 2, client.second);
+        sendArchiveData<std::string>(message, client.second);
     }
     _socket.close();
 }
@@ -62,7 +62,7 @@ void Network::UdpServer::updateTCPInformation()
              _listClient) {
 
             uint16_t size = getArchiveDataSize<std::string>(buff);
-            sendHeader(size, client.second);
+            sendHeader(size, 2, client.second);
             sendArchiveData<std::string>(buff, client.second);
         }
     }
@@ -72,11 +72,13 @@ void Network::UdpServer::updateTCPInformation()
 }
 
 void Network::UdpServer::sendHeader(
-    std::size_t size, const asio::ip::udp::endpoint &clientEndpoint)
+    uint16_t payloadSize, uint8_t packetType,
+    const asio::ip::udp::endpoint &clientEndpoint)
 {
     struct rtype::HeaderDataPacket header;
 
-    header.payloadSize = size;
+    header.payloadSize = payloadSize;
+    header.packetType = packetType;
     sendArchiveData<struct rtype::HeaderDataPacket>(header, clientEndpoint);
 }
 
@@ -93,7 +95,7 @@ void Network::UdpServer::sender()
         message += " with message : \n";
 
         uint16_t size = getArchiveDataSize<std::string>(message);
-        sendHeader(size, client.second);
+        sendHeader(size, 2, client.second);
         sendArchiveData<std::string>(message, client.second);
     }
     updateGameInfo();
