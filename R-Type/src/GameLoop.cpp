@@ -14,9 +14,9 @@ void gameLoop(GameManager &GameManager)
         GameManager.gameEngine.deltaTime.update();
         GameEngine::Event eventtry;
         sf::Event event;
-        while (GameManager.gameEngine.window.pollEvent(event))
+        while (GameManager.gameEngine.window.pollEvent(eventtry))
         {
-            if (event.type == sf::Event::Closed)
+            if (eventtry.type == GameEngine::Event::EvenType::WindowCloseEvent)
                 GameManager.gameEngine.window.close();
         }
         GameManager.gameEngine.registry.runSystems();

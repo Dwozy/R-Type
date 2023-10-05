@@ -15,12 +15,43 @@
     // maybe remove sftype from function parameter and only take our class
 namespace GameEngine
 {
-    class Event
+    using EventType = std::size_t;
+
+    enum class EventT: EventType
+    {
+        WindowCloseEvent = 0,
+        Resized,
+        LostFocus,
+        GainedFocus,
+        TextEntered,
+        KeyPressed,
+        KeyReleased,
+        MouseWheelMoved,
+        MouseWheelScrolled,
+        MouseButtonPressed,
+        MouseButtonReleased,
+        MouseMoved,
+        MouseEntered,
+        MouseLeft,
+        JoystickButtonPressed,
+        JoystickButtonReleased,
+        JoystickMoved,
+        JoystickConnected,
+        JoystickDisconnected,
+        TouchBegan,
+        TouchMoved,
+        TouchEnded,
+        SensorChanged,
+    };
+
+    class Event: public IEvent<sf::Event>
     {
         public:
-            sf::Event &getEvent() {
+            sf::Event &getEvent() override {
                 return _event;
             }
+            sf::Event::EventType &type = _event.type;
+            EventT EvenType;
         private:
             sf::Event _event;
     };
@@ -68,47 +99,45 @@ namespace GameEngine
         private:
             sf::View _view;
     };
-    class Window
+
+    class Window : public IWindow<sf::RenderWindow, sf::View, sf::Event>
     {
         public:
             Window(int width = 1920, int height = 1080, const std::string &title = "Game window")
                 : _window(sf::VideoMode(width, height), title), _title(title) {}
-            // Window(const Window &other)
-            //     : _window(sf::VideoMode(other._window.getSize().x, other._window.getSize().y), other._title), _title(other._title) {}
-            ~Window() = default;
-            const sf::RenderWindow &getWindow() const
+            const sf::RenderWindow &getWindow() const override
             {
                 return _window;
             }
-            void draw(const sf::Drawable &drawable)
+            void draw(const sf::Drawable &drawable) override
             {
                 _window.draw(drawable);
             }
-            void setView(const View &view)
+            void setView(const IView<sf::View> &view) override
             {
                 _window.setView(view.getBaseView());
             };
-            bool isOpen() const
+            bool isOpen() const override
             {
                 return _window.isOpen();
             }
-            bool pollEvent(sf::Event &event)
+            bool pollEvent(IEvent<sf::Event> &event) override
             {
-                return _window.pollEvent(event);
+                return _window.pollEvent(event.getEvent());
             }
-            void close()
+            void close() override
             {
                 _window.close();
             }
-            void display()
+            void display() override
             {
                 _window.display();
             };
-            void clear()
+            void clear() override
             {
                 _window.clear();
             };
-            void create(int width, int height, const std::string &title)
+            void create(int width, int height, const std::string &title) override
             {
                 _window.create(sf::VideoMode(width, height), title);
                 _title = title;
@@ -174,20 +203,20 @@ namespace GameEngine
         private:
             sf::Font _font;
     };
-    class Sprite
+    class Sprite : public ISprite<sf::Sprite, sf::Texture, sf::Rect>
     {
         public:
             Sprite() {};
-            ~Sprite() = default;
-            const sf::Sprite &getSprite() const {
+            const sf::Sprite &getSprite() const override
+            {
                 return _sprite;
             };
-            void load(const Texture &texture, bool resetRect = false)
+            void load(const ITexture<sf::Texture, sf::Rect> &texture, bool resetRect = false) override
             {
                 //check if texture loaded befor the set
                 _sprite.setTexture(texture.getTexture(), resetRect);
             };
-            void setPosition(const Vector2<float> position)
+            void setPosition(const Vector2<float> position) override
             {
                 _sprite.setPosition(sf::Vector2f{ position.x, position.y });
             };
