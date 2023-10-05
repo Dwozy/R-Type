@@ -35,7 +35,11 @@ namespace GameEngine
                 _callbacks.push_back(function);
             }
         private:
-            void _publish(EventData event);
+            void _publish(EventData event)
+            {
+                for (std::function<void(const EventData)> callback: _callbacks)
+                    callback(event);
+            }
             std::vector<std::function<void(const EventData)>> _callbacks;
     };
 
