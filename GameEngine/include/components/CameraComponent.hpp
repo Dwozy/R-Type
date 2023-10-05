@@ -15,6 +15,6 @@ namespace GameEngine
     {
         View view;
     };
-}
+} // namespace GameEngine
 
 #endif /* !CAMERACOMPONENT_HPP_ */

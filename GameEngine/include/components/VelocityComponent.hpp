@@ -6,8 +6,8 @@
 */
 
 #ifndef VELOCITYCOMPONENT_HPP_
-    #define VELOCITYCOMPONENT_HPP_
-    #include "utils/Vector.hpp"
+#define VELOCITYCOMPONENT_HPP_
+#include "utils/Vector.hpp"
 
 namespace GameEngine
 {
@@ -15,6 +15,6 @@ namespace GameEngine
     {
         Vector2<float> velocity;
     };
-}
+} // namespace GameEngine
 
 #endif /* !VELOCITYCOMPONENT_HPP_ */

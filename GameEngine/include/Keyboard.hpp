@@ -6,8 +6,8 @@
 */
 
 #ifndef INPUT_HPP_
-    #define INPUT_HPP_
-    #include <SFML/Window/Keyboard.hpp>
+#define INPUT_HPP_
+#include <SFML/Window/Keyboard.hpp>
 
 namespace GameEngine
 {
@@ -15,8 +15,7 @@ namespace GameEngine
     {
         namespace Keyboard
         {
-            enum Key
-            {
+            enum Key {
                 A = sf::Keyboard::A,
                 B = sf::Keyboard::B,
                 C = sf::Keyboard::C,
@@ -114,9 +113,12 @@ namespace GameEngine
                 Pause = sf::Keyboard::Pause
             };
 
-            static bool isKeyPressed(const Key key) { return sf::Keyboard::isKeyPressed(sf::Keyboard::Key(key)); }
-        }
-    }
-}
+            static bool isKeyPressed(const Key key)
+            {
+                return sf::Keyboard::isKeyPressed(sf::Keyboard::Key(key));
+            }
+        } // namespace Keyboard
+    }     // namespace Input
+} // namespace GameEngine
 
 #endif /* !INPUT_HPP_ */

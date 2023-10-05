@@ -11,10 +11,12 @@
     #include "utils/Vector.hpp"
     #include "utils/RenderInterfaces.hpp"
 
-namespace GameEngine {
-    struct FontComponent {
+namespace GameEngine
+{
+    struct FontComponent
+    {
         std::string path;
         Font font;
     };
-}
+} // namespace GameEngine
 #endif /* !FONT_HPP_ */

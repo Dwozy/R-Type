@@ -19,6 +19,6 @@ namespace GameEngine
         bool isRendered;
         size_t renderLayer;
     };
-}
+} // namespace GameEngine
 
 #endif /* !TEXTURE_HPP_ */

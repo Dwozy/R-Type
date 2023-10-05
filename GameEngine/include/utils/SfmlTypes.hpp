@@ -12,7 +12,7 @@
     #include "utils/Vector.hpp"
     #include "RenderInterfaces.hpp"
 
-    // maybe remove sftype from function parameter and only take our class
+// maybe remove sftype from function parameter and only take our class
 namespace GameEngine
 {
     using EventType = std::size_t;
@@ -149,44 +149,42 @@ namespace GameEngine
 
     class Text
     {
-         public:
-            Text() {};
-            ~Text() = default;
-            const sf::Text &getText() const {
-                return _text;
-            }
-            void load(const std::string &text,const sf::Font &font, size_t size){
-                _text.setString(text);
-                _text.setFont(font);
-                _text.setCharacterSize(size);
-            }
-        private:
-            sf::Text _text;
+      public:
+        Text(){};
+        ~Text() = default;
+        const sf::Text &getText() const { return _text; }
+        void load(const std::string &text, const sf::Font &font, size_t size)
+        {
+            _text.setString(text);
+            _text.setFont(font);
+            _text.setCharacterSize(size);
+        }
+
+      private:
+        sf::Text _text;
     };
 
     class Music
     {
-        public:
-            Music() {}
-            ~Music() = default;
-            // Music(const Music &other) {
-            //     if (!other.getFilename().empty()) {
-            //         load(other.getFilename());
-            //     }
-            // }
-            const sf::Music &getMusic() const {
-                return _music;
-            }
-            void load(const std::string &filename) {
-                _music.openFromFile(filename);
-                _filename = filename;
-            }
-            const std::string &getFilename() const {
-                return _filename;
-            }
-        private:
-            sf::Music _music;
-            std::string _filename;
+      public:
+        Music() {}
+        ~Music() = default;
+        // Music(const Music &other) {
+        //     if (!other.getFilename().empty()) {
+        //         load(other.getFilename());
+        //     }
+        // }
+        const sf::Music &getMusic() const { return _music; }
+        void load(const std::string &filename)
+        {
+            _music.openFromFile(filename);
+            _filename = filename;
+        }
+        const std::string &getFilename() const { return _filename; }
+
+      private:
+        sf::Music _music;
+        std::string _filename;
     };
 
     class Font : public IFont<sf::Font>
@@ -223,5 +221,5 @@ namespace GameEngine
         private:
             sf::Sprite _sprite;
     };
-}
+} // namespace GameEngine
 #endif /* !MLTYPES_HPP_ */

@@ -9,8 +9,13 @@
 
 namespace Error
 {
-    ComponentNotRegisterError::ComponentNotRegisterError(): message("This component hasn't been registered") {}
+    ComponentNotRegisterError::ComponentNotRegisterError()
+        : message("This component hasn't been registered")
+    {
+    }
     ComponentNotRegisterError::~ComponentNotRegisterError() {}
-    char const *ComponentNotRegisterError::what() const noexcept { return message.c_str(); }
-}
-
+    char const *ComponentNotRegisterError::what() const noexcept
+    {
+        return message.c_str();
+    }
+} // namespace Error
