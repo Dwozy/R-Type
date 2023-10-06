@@ -2,7 +2,7 @@
 
 build()
 {
-    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_MAKE_PROGRAM=$CMAKE_MAKE_PROGRAM
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
     status=$?
     if [ "$status" -ne 0 ]; then
         exit "$status"

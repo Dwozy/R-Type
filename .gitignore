@@ -15,5 +15,5 @@ r-type_client*
 r-type_server*
 
 a.out
-GameEngine/include/nlohmann
-GameEngine/include/SFML
+*/include/nlohmann
+*/include/SFML

@@ -9,8 +9,22 @@ set(SRCS
     src/main.cpp
 )
 
-set(CMAKE_MAKE_PROGRAM $ENV{CMAKE_MAKE_PROGRAM})
-set(CMAKE_CXX_COMPILER $ENV{CMAKE_CXX_COMPILER})
+include(FetchContent)
+FetchContent_Declare(SFML
+    GIT_REPOSITORY https://github.com/SFML/SFML.git
+    GIT_TAG 2.6.x)
+FetchContent_MakeAvailable(SFML)
+
+FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download/v3.11.2/json.tar.xz)
+FetchContent_MakeAvailable(json)
+
+FetchContent_Declare(
+  asiocmake
+  GIT_REPOSITORY "https://github.com/OlivierLDff/asio.cmake"
+  GIT_TAG        "main"
+)
+FetchContent_MakeAvailable(asiocmake)
+
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/)
@@ -24,5 +38,8 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/)
 
 project(${PROJECT_NAME} LANGUAGES CXX)
 add_executable(${BINARY_NAME} ${SRCS})
-target_link_libraries(${BINARY_NAME} PRIVATE sfml-system sfml-network sfml-graphics sfml-window ${CMAKE_SOURCE_DIR}/../GameEngine/GameEngine/lib/libGameEngine.a)
+target_link_libraries(${BINARY_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/../GameEngine/GameEngine/lib/libGameEngine.a)
+target_link_libraries(${BINARY_NAME} PRIVATE sfml-graphics sfml-audio sfml-system sfml-window)
+target_link_libraries(${BINARY_NAME} PRIVATE nlohmann_json::nlohmann_json)
+target_link_libraries(${BINARY_NAME} PRIVATE asio::asio)
 target_include_directories(${BINARY_NAME} PRIVATE ${INCLUDES} ${CMAKE_SOURCE_DIR}/../GameEngine/GameEngine/include/)

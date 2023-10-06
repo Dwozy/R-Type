@@ -63,7 +63,3 @@ class GameEngineRecipe(ConanFile):
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
-        # if self.settings.os == "Linux":
-        #     system("
-        # else:
-        #     self.output.warning("BRUH")
