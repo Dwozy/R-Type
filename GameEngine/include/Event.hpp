@@ -43,7 +43,7 @@ namespace GameEngine
             std::vector<std::function<void(const EventData)>> _callbacks;
     };
 
-    class EventMananger
+    class EventManager
     {
         public:
             template <class EventData=NoEventData>

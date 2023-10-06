@@ -16,6 +16,12 @@
 #include "utils/Vector.hpp"
 #include "GameEngine.hpp"
 #include "GameManager.hpp"
+#include "Event.hpp"
+
+void test(GameEngine::NoEventData event)
+{
+    std::cout << "Window close Event" << std::endl;
+}
 
 int main(int argc, char const *argv[])
 {
@@ -29,6 +35,10 @@ int main(int argc, char const *argv[])
         100.0f
     });
     CreateCamera(GameManager);
+    GameEngine::EventManager eventManager;
+    eventManager.addHandler(GameEngine::Event::WindowCloseEvent);
+    eventManager.getHandler(GameEngine::Event::WindowCloseEvent).subscribe(test);
+    eventManager.getHandler(GameEngine::Event::WindowCloseEvent).publish();
     RegisterSystems(GameManager);
     gameLoop(GameManager);
     return 0;

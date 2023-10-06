@@ -12,11 +12,10 @@ void gameLoop(GameManager &GameManager)
     while (GameManager.gameEngine.window.isOpen())
     {
         GameManager.gameEngine.deltaTime.update();
-        GameEngine::Event eventtry;
-        sf::Event event;
+        GameEngine::SEvent eventtry;
         while (GameManager.gameEngine.window.pollEvent(eventtry))
         {
-            if (eventtry.type == GameEngine::Event::EvenType::WindowCloseEvent)
+            if (static_cast<size_t>(eventtry.type) == static_cast<size_t>(GameEngine::EventT::WindowCloseEvent))
                 GameManager.gameEngine.window.close();
         }
         GameManager.gameEngine.registry.runSystems();

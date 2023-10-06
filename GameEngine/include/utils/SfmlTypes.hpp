@@ -26,25 +26,15 @@ namespace GameEngine
         TextEntered,
         KeyPressed,
         KeyReleased,
-        MouseWheelMoved,
         MouseWheelScrolled,
         MouseButtonPressed,
         MouseButtonReleased,
         MouseMoved,
         MouseEntered,
         MouseLeft,
-        JoystickButtonPressed,
-        JoystickButtonReleased,
-        JoystickMoved,
-        JoystickConnected,
-        JoystickDisconnected,
-        TouchBegan,
-        TouchMoved,
-        TouchEnded,
-        SensorChanged,
     };
 
-    class Event: public IEvent<sf::Event>
+    class SEvent: public IEvent<sf::Event>
     {
         public:
             sf::Event &getEvent() override {
@@ -100,7 +90,7 @@ namespace GameEngine
             sf::View _view;
     };
 
-    class Window : public IWindow<sf::RenderWindow, sf::View, sf::Event>
+    class Window : public IWindow<sf::RenderWindow, sf::View, sf::Event, sf::Drawable>
     {
         public:
             Window(int width = 1920, int height = 1080, const std::string &title = "Game window")

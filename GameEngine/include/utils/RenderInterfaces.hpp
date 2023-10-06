@@ -60,13 +60,13 @@ namespace GameEngine
             ~IView() = default;
             virtual const T &getBaseView() const = 0;
     };
-    template<class T, class Vt, class Et>
+    template<class T, class Vt, class Et, class D>
     class IWindow
     {
         public:
         virtual ~IWindow() = default;
         virtual const T &getWindow() const = 0;
-        virtual void draw(const sf::Drawable &drawable) = 0;
+        virtual void draw(const D &drawable) = 0;
         virtual void setView(const IView<Vt> &view) = 0;
         virtual bool isOpen() const = 0;
         virtual bool pollEvent(IEvent<Et> &event) = 0;

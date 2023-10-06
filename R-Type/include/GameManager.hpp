@@ -15,7 +15,6 @@
     #include "components/FontComponent.hpp"
     #include "components/TextureComponent.hpp"
     #include "components/TextComponent.hpp"
-    #include "components/WindowComponent.hpp"
     #include "components/PositionComponent.hpp"
     #include "components/VelocityComponent.hpp"
     #include "components/ControllableComponent.hpp"
