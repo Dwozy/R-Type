@@ -2,15 +2,14 @@
 
 build()
 {
-    export CONAN_BUILD_DIR=build/build/Release/generators
+    export CMAKE_MAKE_PROGRAM=$(which make)
+    export CMAKE_CXX_COMPILER=$(which g++)
     export INCLUDES_DIR=$(pwd)/include
-    sudo -E conan install . --output-folder=build --build=missing -c tools.system.package_manager:mode=install
-    sudo -E cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=$CONAN_BUILD_DIR/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_MAKE_PROGRAM=$CMAKE_MAKE_PROGRAM
+    conan build . --output-folder=. --build=missing
     status=$?
     if [ "$status" -ne 0 ]; then
         exit "$status"
     fi
-    sudo -E cmake --build ./build --config Release --clean-first
     status=$?
     if [ "$status" -ne 0 ]; then
         exit "$status"

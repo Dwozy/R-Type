@@ -1,9 +1,6 @@
 cmake_minimum_required(VERSION 3.20.1)
 set(CMAKE_CXX_STANDARD 17)
 
-set(CMAKE_MAKE_PROGRAM $ENV{CMAKE_MAKE_PROGRAM})
-set(CMAKE_CXX_COMPILER $ENV{CMAKE_CXX_COMPILER})
-
 set(PROJECT_NAME "GameEngine")
 set(LIBRARY_NAME "GameEngine")
 
@@ -18,8 +15,7 @@ set(SRCS
 
 project(${PROJECT_NAME} LANGUAGES CXX)
 
-find_package(nlohmann_json CONFIG REQUIRED)
-find_package(SFML COMPONENTS system window graphics audio CONFIG REQUIRED)
+link_directories(${CMAKE_CURRENT_BINARY_DIR}/libs)
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/lib/)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/lib/)
@@ -34,6 +30,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/l
 file(MAKE_DIRECTORY ${PROJECT_NAME})
 
 add_library(${LIBRARY_NAME} STATIC ${SRCS})
-target_link_libraries(${LIBRARY_NAME} PUBLIC sfml-system sfml-network sfml-graphics sfml-window)
+file(GLOB CONAN_LIBS ${CMAKE_CURRENT_BINARY_DIR}/libs/*.a)
+target_link_libraries(${LIBRARY_NAME} PUBLIC ${CONAN_LIBS})
 target_include_directories(${PROJECT_NAME} PUBLIC ${INCLUDES})
 file(COPY ${INCLUDES}/ DESTINATION ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include)
