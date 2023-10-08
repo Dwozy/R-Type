@@ -53,7 +53,7 @@ int main(int argc, char const *argv[])
     gameEngine.registry.addComponent<GameEngine::CameraComponent>(camera, cam);
 
     GameEngine::Texture texture;
-    texture.load("../image.png", GameEngine::Rect<int>(0, 0, 32, 16));
+    texture.load("assets/image.png", GameEngine::Rect<int>(0, 0, 32, 16));
     GameEngine::Sprite sprite;
     sprite.load(texture);
     gameEngine.registry.addComponent<GameEngine::TextureComponent>(entity, GameEngine::TextureComponent{ texture, sprite, true, 1 });

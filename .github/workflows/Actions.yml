@@ -30,7 +30,7 @@ jobs:
             executables: r-type_server,r-type_client
           - os: windows-latest
             install_cmd: cmd /c build_win.bat
-            executables: r-type_server.exe,r-type_client.exe
+            executables: r-type_server.lnk,r-type_client.lnk
     runs-on: ${{ matrix.os }}
     container: ${{ matrix.container }}
     name: check_program_compilation

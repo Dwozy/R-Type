@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.20.1)
 set(CMAKE_CXX_STANDARD 20)
 
 set(PROJECT_NAME "R-Type")
-set(BINARY_NAME "r-type")
+set(BINARY_NAME "r-type_client")
 
 set(INCLUDES include)
 set(SRCS
@@ -38,7 +38,12 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/)
 
 project(${PROJECT_NAME} LANGUAGES CXX)
 add_executable(${BINARY_NAME} ${SRCS})
-target_link_libraries(${BINARY_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/../GameEngine/GameEngine/lib/libGameEngine.a)
+if (UNIX)
+    target_link_libraries(${BINARY_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/../GameEngine/GameEngine/lib/libGameEngine.a)
+endif (UNIX)
+if (MSVC)
+    target_link_libraries(${BINARY_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/../GameEngine/GameEngine/lib/GameEngine.lib)
+endif (MSVC)
 target_link_libraries(${BINARY_NAME} PRIVATE sfml-graphics sfml-audio sfml-system sfml-window)
 target_link_libraries(${BINARY_NAME} PRIVATE nlohmann_json::nlohmann_json)
 target_link_libraries(${BINARY_NAME} PRIVATE asio::asio)

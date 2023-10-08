@@ -17,3 +17,5 @@ r-type_server*
 a.out
 */include/nlohmann
 */include/SFML
+
+.vs
