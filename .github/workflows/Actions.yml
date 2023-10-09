@@ -51,7 +51,7 @@ jobs:
 
       - name: Build
         run: ${{ matrix.install_cmd }}
-        timeout-minutes: 5
+        timeout-minutes: 10
 
       - name: Clean build files
         run: ${{ matrix.install_cmd }} clean
