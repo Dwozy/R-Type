@@ -15,10 +15,10 @@ build()
 fclean()
 {
     echo "-- Cleaning build folder"
-    sudo rm -rf "./build"
+    rm -rf "./build"
     echo "-- Cleaning build folder - done"
     echo "-- Cleaning GameEngine folder"
-    sudo rm -rf "./GameEngine"
+    rm -rf "./GameEngine"
     echo "-- Cleaning GameEngine folder - done"
 }
 

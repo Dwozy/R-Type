@@ -54,7 +54,7 @@ jobs:
         timeout-minutes: 10
 
       - name: Clean build files
-        run: ${{ matrix.install_cmd }} clean
+        run: ${{ matrix.install_cmd }} fclean
 
       - name: Check file existence
         id: check_files
