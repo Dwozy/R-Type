@@ -27,10 +27,10 @@ jobs:
           - os: ubuntu-latest
             install_cmd: ./build_unix.sh
             container: biozzzzz/r-type
-            executables: r-type_server,r-type_client
+            executables: server/r-type_server,R-Type/r-type_client
           - os: windows-latest
             install_cmd: cmd /c build_win.bat
-            executables: r-type_server.lnk,r-type_client.lnk
+            executables: server\r-type_server.exe,R-Type\r-type_client.exe
     runs-on: ${{ matrix.os }}
     container: ${{ matrix.container }}
     name: check_program_compilation
@@ -54,7 +54,7 @@ jobs:
         timeout-minutes: 10
 
       - name: Clean build files
-        run: ${{ matrix.install_cmd }} fclean
+        run: ${{ matrix.install_cmd }} clean
 
       - name: Check file existence
         id: check_files
