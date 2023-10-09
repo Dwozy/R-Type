@@ -25,23 +25,29 @@ Pascal string (noted Pstring) are string not null terminated, with the number of
 - #### Player related events:
     - #### Move*
       Data represent position and normalised movement vector:
-      |x|y|dx|dy|
-      |---|---|---|---|
-      |Float|Float|Float|Float|
+      |id|x|y|dx|dy|
+      |---|---|---|---|---|
+      |Uint16|Float|Float|Float|Float|
     - #### Shoot*
       Data represent position and normalised directional vector:
-      |x|y|dx|dy|
-      |---|---|---|---|
-      |Float|Float|Float|Float|
+      |id|x|y|dx|dy|
+      |---|---|---|---|---|
+      |Uint16|Float|Float|Float|Float|
     - #### Take damage*
+      [id|
+      |---|
+      Uint16
       No Additional data
     - #### Die
+      |id|
+      |---|
+      Uint16
       No Additional data
     - #### Take bonus*
       Data represent position and bonus type:
-      |x|y|bonus_id|
-      |---|---|---|
-      |Float|Float|Uint8|
+      |id|x|y|bonus_id|
+      |---|---|---|---|
+      |Uint16|Float|Float|Uint8|
 
 - #### Room related events:
     - #### Create room**
