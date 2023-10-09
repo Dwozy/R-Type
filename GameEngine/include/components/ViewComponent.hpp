@@ -6,9 +6,9 @@
 */
 
 #ifndef VIEW_HPP_
-    #define VIEW_HPP_
-    #include "utils/Vector.hpp"
-    #include "utils/SfmlTypes.hpp"
+#define VIEW_HPP_
+#include "utils/SfmlTypes.hpp"
+#include "utils/Vector.hpp"
 
 namespace GameEngine
 {
@@ -16,5 +16,5 @@ namespace GameEngine
     {
         // View view;
     };
-}
+} // namespace GameEngine
 #endif /* !VIEW_HPP_ */

@@ -22,7 +22,4 @@ void GameEngine::DeltaTime::update()
     _lastTime = now;
 }
 
-const float &GameEngine::DeltaTime::getDeltaTime() const
-{
-    return _deltaTime;
-}
+const float &GameEngine::DeltaTime::getDeltaTime() const { return _deltaTime; }

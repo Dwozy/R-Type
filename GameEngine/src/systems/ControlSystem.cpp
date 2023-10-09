@@ -9,13 +9,14 @@
 
 namespace GameEngine
 {
-    void controlSystem(GameEngine &gameEngine, SparseArray<VelocityComponent> &velocities, SparseArray<ControllableComponent> &controllable)
+    void controlSystem(GameEngine &gameEngine, SparseArray<VelocityComponent> &velocities,
+        SparseArray<ControllableComponent> &controllable)
     {
-        for (size_t i = 0; i < controllable.size() && i < velocities.size (); i++) {
+        for (size_t i = 0; i < controllable.size() && i < velocities.size(); i++) {
             auto &con = controllable[i];
             auto &vel = velocities[i];
             if (con && vel) {
-                vel.value().velocity = Vector2<float> (0.0f, 0.0f);
+                vel.value().velocity = Vector2<float>(0.0f, 0.0f);
                 if (Input::Keyboard::isKeyPressed(con.value().key_up))
                     vel.value().velocity += Vector2<float>(0.0f, -1.0f);
                 if (Input::Keyboard::isKeyPressed(con.value().key_left))
@@ -32,4 +33,4 @@ namespace GameEngine
             }
         }
     }
-}
+} // namespace GameEngine

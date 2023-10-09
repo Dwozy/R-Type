@@ -6,9 +6,9 @@
 */
 
 #ifndef MUSIC_HPP_
-    #define MUSIC_HPP_
-    #include <string>
-    #include "utils/SfmlTypes.hpp"
+#define MUSIC_HPP_
+#include "utils/SfmlTypes.hpp"
+#include <string>
 
 namespace GameEngine
 {
@@ -17,6 +17,6 @@ namespace GameEngine
         std::string path;
         Music music;
     };
-}
+} // namespace GameEngine
 
 #endif /* !MUSIC_HPP_ */

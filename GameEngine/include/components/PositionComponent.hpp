@@ -6,8 +6,8 @@
 */
 
 #ifndef POSITIONCOMPONENT_HPP_
-    #define POSITIONCOMPONENT_HPP_
-    #include "utils/Vector.hpp"
+#define POSITIONCOMPONENT_HPP_
+#include "utils/Vector.hpp"
 
 namespace GameEngine
 {
@@ -15,6 +15,6 @@ namespace GameEngine
     {
         Vector2<float> position;
     };
-}
+} // namespace GameEngine
 
 #endif /* !POSITIONCOMPONENT_HPP_ */

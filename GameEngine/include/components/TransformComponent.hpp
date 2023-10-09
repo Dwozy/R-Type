@@ -6,8 +6,8 @@
 */
 
 #ifndef TRANSFORM_HPP_
-    #define TRANSFORM_HPP_
-    #include "utils/Vector.hpp"
+#define TRANSFORM_HPP_
+#include "utils/Vector.hpp"
 
 namespace GameEngine
 {
