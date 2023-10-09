@@ -62,7 +62,9 @@ RUN apt update                  \
     libxcb-cursor-dev       \
     libxcb-util-dev         \
     libxcb-util0-dev        \
-    libopenal-dev
+    libopenal-dev           \
+    libvorbis-dev           \
+    libflac-dev
 
 # Install Conan
 RUN python3 -m venv /usr/app        \
