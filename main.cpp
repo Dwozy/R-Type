@@ -13,6 +13,7 @@
 #include "components/TextComponent.hpp"
 #include "components/TextureComponent.hpp"
 // #include "components/WindowComponent.hpp"
+#include "systems/CollisionSystem.hpp"
 #include "systems/ControlSystem.hpp"
 #include "systems/DrawSystem.hpp"
 #include "systems/PositionSystem.hpp"
@@ -22,6 +23,8 @@
 #include <functional>
 #include <iostream>
 #include <utility>
+
+void test(SparseArray<GameEngine::PositionComponent> &positions) {}
 
 int main()
 {
@@ -36,6 +39,7 @@ int main()
     gameEngine.registry.registerComponent<GameEngine::CameraComponent>();
     gameEngine.registry.registerComponent<GameEngine::TextureComponent>();
     gameEngine.registry.registerComponent<GameEngine::TextComponent>();
+    gameEngine.registry.registerComponent<GameEngine::CollisionComponent>();
     GameEngine::PositionComponent pos = {
         GameEngine::Vector2<float>(0.0f, 0.0f)};
     GameEngine::VelocityComponent vel = {
@@ -44,13 +48,20 @@ int main()
         GameEngine::Input::Keyboard::Z, GameEngine::Input::Keyboard::Q,
         GameEngine::Input::Keyboard::S, GameEngine::Input::Keyboard::D, 100.0f};
     GameEngine::CameraComponent cam = {
-        GameEngine::View{GameEngine::Rect<float>(0.0f, 0.0f, 32.0f, 32.0f)}};
+        GameEngine::View{GameEngine::Rect<float>(0.0f, 0.0f, 600.0f, 600.0f)}};
+    GameEngine::CollisionComponent col;
+    col.addAction<
+        std::function<void(SparseArray<GameEngine::PositionComponent> &)>,
+        GameEngine::PositionComponent>(
+        gameEngine.registry, test);
     gameEngine.registry.addComponent<GameEngine::PositionComponent>(entity,
                                                                     pos);
     gameEngine.registry.addComponent<GameEngine::VelocityComponent>(entity,
                                                                     vel);
     gameEngine.registry.addComponent<GameEngine::ControllableComponent>(entity,
                                                                         con);
+    gameEngine.registry.addComponent<GameEngine::CollisionComponent>(entity,
+                                                                     col);
     gameEngine.registry.addComponent<GameEngine::CameraComponent>(camera, cam);
 
     GameEngine::Texture texture;
@@ -72,6 +83,7 @@ int main()
         gameEngine.deltaTime.getDeltaTime());
     GameEngine::ControlSystem controlSystem;
     GameEngine::DrawSystem drawSystem(gameEngine.window);
+    GameEngine::CollisionSystem collisionSystem;
 
     gameEngine.registry.addSystem<
         std::function<void(SparseArray<GameEngine::VelocityComponent> &,
@@ -88,6 +100,9 @@ int main()
         std::function<void(SparseArray<GameEngine::TextComponent> &,
                            SparseArray<GameEngine::TextureComponent> &)>,
         GameEngine::TextComponent, GameEngine::TextureComponent>(drawSystem);
+    gameEngine.registry.addSystem<
+        std::function<void(SparseArray<GameEngine::CollisionComponent> &)>,
+        GameEngine::CollisionComponent>(collisionSystem);
 
     while (gameEngine.window.isOpen()) {
         gameEngine.deltaTime.update();
