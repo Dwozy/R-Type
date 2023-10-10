@@ -38,14 +38,10 @@ void ClientSession::handleRead(const asio::error_code &error,
                                std::size_t transferredBytes)
 {
     if (!error) {
-        std::string identity;
-        identity += _socket.remote_endpoint().address().to_string();
-        identity += " ";
-        identity += std::to_string((int)_socket.remote_endpoint().port());
-        identity += ": ";
-        identity += std::string(_readBuffer.begin(),
-                                _readBuffer.begin() + transferredBytes);
-        _clientsMessages.push(identity);
+        std::string message;
+        message += std::string(_readBuffer.begin(),
+                               _readBuffer.begin() + transferredBytes);
+        _clientsMessages.push(message);
         std::cout << "Add message from TCP Client" << std::endl;
         asio::async_write(_socket, asio::buffer(_readBuffer, transferredBytes),
                           std::bind(&ClientSession::handleWrite, get(),

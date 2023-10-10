@@ -8,7 +8,6 @@
 #include "TcpClient.hpp"
 #include "UdpClient.hpp"
 #include <asio.hpp>
-#include <boost/thread.hpp>
 #include <iostream>
 
 int main(int ac, char const *av[])

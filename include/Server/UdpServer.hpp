@@ -8,11 +8,11 @@
 #ifndef UDPSERVER_HPP_
 #define UDPSERVER_HPP_
 
+#include "Communication.hpp"
 #include "RType.hpp"
 #include "SafeQueue.hpp"
 #include <array>
 #include <asio.hpp>
-#include <boost/archive/binary_oarchive.hpp>
 #include <iostream>
 #include <map>
 
@@ -49,32 +49,6 @@ namespace Network
         /// @brief Update information from TCP server
         void updateTCPInformation();
 
-        void sendHeader(uint16_t payloadSize, uint8_t packetType,
-                        const asio::ip::udp::endpoint &clientEndpoint);
-
-        template <typename Data>
-        void sendArchiveData(Data data,
-                             const asio::ip::udp::endpoint &clientEndpoint)
-        {
-            asio::streambuf streamBuffer;
-            std::ostream os(&streamBuffer);
-            boost::archive::binary_oarchive binaryArchive(os);
-
-            binaryArchive << data;
-            std::cout << streamBuffer.data().size() << std::endl;
-            _socket.send_to(streamBuffer.data(), clientEndpoint);
-        }
-
-        template <typename Data> uint16_t getArchiveDataSize(Data data)
-        {
-            asio::streambuf streamBuffer;
-            std::ostream os(&streamBuffer);
-            boost::archive::binary_oarchive binaryArchive(os);
-
-            binaryArchive << data;
-            return streamBuffer.data().size();
-        }
-
         asio::ip::udp::socket _socket;
         asio::io_context &_IOContext;
         asio::steady_timer _timer;
@@ -82,7 +56,9 @@ namespace Network
         SafeQueue<std::string> &_clientsMessages;
         std::map<unsigned short, asio::ip::udp::endpoint> _listClient;
         asio::ip::udp::endpoint _clientEndpoint;
-        std::array<char, 1024> _readBuffer;
+        Network::Communication _communication;
+        asio::streambuf _streamBuffer;
+        asio::streambuf::mutable_buffers_type _buffer;
     };
 } // namespace Network
 #endif /* !UDPSERVER_HPP_ */

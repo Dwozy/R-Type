@@ -11,8 +11,7 @@ Network::UdpClient::UdpClient(asio::io_context &IOContext,
                               asio::ip::udp::endpoint &serverEndpoint)
     : _socket(IOContext, asio::ip::udp::endpoint(asio::ip::udp::v4(), 0)),
       _serverEndpoint(serverEndpoint), _IOContext(IOContext),
-      _is(&_streamBuffer), _isHeader(&_streamBufferHeader),
-      _buffer(_streamBufferHeader.prepare(52))
+      _buffer(_streamBuffer.prepare(rtype::HEADER_SIZE))
 {
     _commands.emplace(1, getRoom);
     _commands.emplace(2, getString);
@@ -21,43 +20,25 @@ Network::UdpClient::UdpClient(asio::io_context &IOContext,
 
 void Network::getRoom(Network::UdpClient &client, uint16_t size)
 {
-    asio::streambuf streamBuffer;
-    std::istream is(&streamBuffer);
-    asio::streambuf::mutable_buffers_type buffer = streamBuffer.prepare(size);
     struct rtype::Room room;
-    boost::archive::binary_iarchive binaryUnarchive(is);
 
-    client._socket.async_receive_from(
-        buffer, client._serverEndpoint,
-        [&](const asio::error_code &error, std::size_t recvBytes) {
-            if (!error) {
-                streamBuffer.commit(recvBytes);
-                binaryUnarchive >> room;
-            }
-        });
+    memcpy(&room, client._buffer.data(), size);
+    std::cout << "----------" << std::endl;
+    std::cout << "Room : " << std::endl;
+    std::cout << "Id : " << room.id << " with "
+              << static_cast<std::size_t>(room.slotsLeft) << "/"
+              << static_cast<std::size_t>(room.slots) << " lefts." << std::endl;
+    std::cout << "Stage level : " << room.stageLevel << std::endl;
+    std::cout << "----------" << std::endl;
 }
 
 void Network::getString(Network::UdpClient &client, uint16_t size)
 {
-    std::cout << "Get String" << std::endl;
-    asio::streambuf::mutable_buffers_type buffer =
-        client._streamBuffer.prepare(size);
-    client._socket.async_receive_from(
-        buffer, client._serverEndpoint,
-        [&](const asio::error_code &error, std::size_t recvBytes) {
-            if (!error) {
-                client._streamBuffer.commit(recvBytes);
-                std::string message;
-                boost::archive::binary_iarchive binaryUnarchive(client._is);
-                binaryUnarchive >> message;
-                client._streamBuffer.consume(recvBytes);
-                std::cout << message << std::endl;
-                if (message == "Server down") {
-                    client._socket.close();
-                    client._IOContext.stop();
-                }
-            }
-        });
+    std::vector<uint8_t> data(size);
+
+    memcpy(data.data(), client._buffer.data(), size);
+    std::string message(data.begin(), data.end());
+    std::cout << "Message : " << message << std::endl;
 }
 
 Network::UdpClient::~UdpClient() { _socket.close(); }
@@ -75,85 +56,49 @@ void Network::UdpClient::handleTimeout()
     readHeader();
 }
 
-void Network::UdpClient::readData(const struct rtype::HeaderDataPacket header)
+void Network::UdpClient::handleData(
+    const asio::error_code &error, std::size_t,
+    const struct rtype::HeaderDataPacket &header)
 {
-    _buffer = _streamBuffer.prepare(header.payloadSize);
-    _socket.async_receive_from(
-        _buffer, _serverEndpoint,
-        [&](const asio::error_code &error, std::size_t recvBytes) {
-            if (error)
-                return;
-            _streamBuffer.commit(recvBytes);
-            boost::archive::binary_iarchive binaryArchive(_is);
-            std::string message;
-            binaryArchive >> message;
-            std::cout << message << std::endl;
-            if (message == "Server down") {
-                _socket.close();
-                _IOContext.stop();
-            }
-            _streamBuffer.consume(recvBytes);
-        });
+    if (!error) {
+        if (_commands.find(header.packetType) != _commands.end()) {
+            std::cout << header.payloadSize << std::endl;
+            _commands.at(header.packetType)(*this, header.payloadSize);
+        } else {
+            std::cerr << "Packet Type doesn't exist !" << std::endl;
+        }
+        handleTimeout();
+    }
 }
 
 void Network::UdpClient::handleReceive(const asio::error_code &error,
                                        std::size_t recvBytes)
 {
     if (!error) {
-        std::cout << "Size : " << recvBytes << std::endl;
-        if (recvBytes != 52) {
-            std::cout << "PETE" << std::endl;
-            _streamBufferHeader.consume(recvBytes);
-            return;
+        _streamBuffer.commit(recvBytes);
+        std::memcpy(&_header, _buffer.data(), recvBytes);
+        if (_header.magicNumber != rtype::MAGIC_NUMBER) {
+            std::cerr << "Invalid Magic Number Packet" << std::endl;
+            handleTimeout();
         }
-        _streamBufferHeader.commit(recvBytes);
-        struct rtype::HeaderDataPacket header;
-        boost::archive::binary_iarchive binaryArchive(_isHeader);
-        binaryArchive >> header;
-        _streamBufferHeader.consume(recvBytes);
-        if (header.magicNumber == rtype::MAGIC_NUMBER) {
-            std::cout << "Good header, can read data" << std::endl;
-            readData(header);
-        }
+        _streamBuffer.consume(recvBytes);
+        _buffer = _streamBuffer.prepare(_header.payloadSize);
+        _socket.async_receive_from(_buffer, _serverEndpoint,
+                                   std::bind(&Network::UdpClient::handleData,
+                                             this, std::placeholders::_1,
+                                             std::placeholders::_2, _header));
     } else {
         std::cerr << "Error : " << error.message() << std::endl;
     }
-    handleTimeout();
-}
-
-void Network::UdpClient::handleData(
-    const struct rtype::HeaderDataPacket &header)
-{
-    if (_commands.find(header.packetType) != _commands.end()) {
-        std::cout << header.payloadSize << std::endl;
-        _commands.at(header.packetType)(*this, header.payloadSize);
-    } else {
-        std::cerr << "Packet Type doesn't exist !" << std::endl;
-    }
-    handleTimeout();
 }
 
 void Network::UdpClient::readHeader()
 {
-    _buffer = _streamBufferHeader.prepare(52);
-    _socket.async_receive_from(
-        _buffer, _serverEndpoint,
-        [&](const asio::error_code &error, std::size_t recvBytes) {
-            if (!error) {
-                std::cout << "Done" << std::endl;
-                _streamBufferHeader.commit(recvBytes);
-                struct rtype::HeaderDataPacket header;
-                boost::archive::binary_iarchive binaryUnarchive(_isHeader);
-                binaryUnarchive >> header;
-                _streamBufferHeader.consume(recvBytes);
-                if (header.magicNumber != rtype::MAGIC_NUMBER) {
-                    std::cerr << "Invalid Magic Number Packet" << std::endl;
-                    handleTimeout();
-                }
-                std::cout << "Handle data" << std::endl;
-                handleData(header);
-            }
-        });
+    _buffer = _streamBuffer.prepare(rtype::HEADER_SIZE);
+    _socket.async_receive_from(_buffer, _serverEndpoint,
+                               std::bind(&Network::UdpClient::handleReceive,
+                                         this, std::placeholders::_1,
+                                         std::placeholders::_2));
 }
 
 void Network::UdpClient::run()

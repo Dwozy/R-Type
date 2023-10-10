@@ -12,7 +12,7 @@ SRC_SERVER			= 		server/src/main.cpp	\
 
 SRC_CLIENT			= 		client/src/main.cpp	\
 							client/src/UdpClient.cpp	\
-							client/src/TcpClient.cpp
+							client/src/TcpClient.cpp	\
 
 OBJ_SERVER			=		$(SRC_SERVER:.cpp=.o)
 
@@ -26,7 +26,7 @@ LDFLAGS				=		-pthread
 
 LIBFLAGS			=		-lboost_serialization
 
-CXXFLAGS			=		-std=c++20 -Wall -Wextra
+CXXFLAGS			=		-std=c++20 -Wall -Wextra -g3
 
 CPPFLAGS			=		-I ./include/Server \
 							-I ./include/Client	\
