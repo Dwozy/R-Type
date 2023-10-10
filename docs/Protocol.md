@@ -35,12 +35,10 @@ Pascal string (noted Pstring) are string not null terminated, with the number of
       |id|
       |---|
       |16-bit unsigned integer|
-      No Additional data
     - #### Die
       |id|
       |---|
       |16-bit unsigned integer|
-      No Additional data
     - #### Take bonus*
       Data represent position and bonus type:
       |id|x|y|bonus_id|
@@ -48,7 +46,7 @@ Pascal string (noted Pstring) are string not null terminated, with the number of
       |16-bit unsigned integer|Float|Float|8-bit unsigned integer|
 
 - #### Room related events:
-    - #### Create room**
+    - #### Create room*
       Data represent room:
       |room_name|
       |---|
@@ -121,5 +119,3 @@ Pascal string (noted Pstring) are string not null terminated, with the number of
       |Pstring|
 
 *: sent by client, redistributed by server in the corresponding room with the id of the sender
-
-**: sent by client, but not redistributed
