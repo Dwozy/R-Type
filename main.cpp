@@ -40,7 +40,7 @@ void test(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponen
         auto &col = collisions[i];
         auto &pos = positions[i];
 
-        if (!col || !pos)
+        if (!col || !pos || !col.value().isActive)
             continue;
         selfCol.value().collider.handleCollisionFromRect(
             selfPos.value().position, col.value().collider, pos.value().position);
@@ -82,7 +82,8 @@ int main()
 
     gameEngine.registry.addComponent<GameEngine::PositionComponent>(
         collision, GameEngine::PositionComponent{GameEngine::Vector2<float>(100, 100)});
-    gameEngine.registry.addComponent<GameEngine::CollisionComponent>(collision, col);
+    GameEngine::CollisionComponent collisionCol = {.collider = rect, .layer = 0, .isActive = true};
+    gameEngine.registry.addComponent<GameEngine::CollisionComponent>(collision, collisionCol);
 
     GameEngine::Texture texture;
     texture.load("image.png", GameEngine::Rect<int>(0, 0, 32, 16));
