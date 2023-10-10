@@ -7,14 +7,14 @@
 
 #ifndef TRANSFORM_HPP_
 #define TRANSFORM_HPP_
-#include "Utils/Vector.hpp"
+#include "utils/Vector.hpp"
 
 namespace GameEngine
 {
     struct TransformComponent
     {
-        Vector2 velocity;
-        Vector2 position;
+        Vector2<float> velocity;
+        Vector2<float> position;
     };
 } // namespace GameEngine
 
