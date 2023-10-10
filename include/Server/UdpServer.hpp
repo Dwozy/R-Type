@@ -24,8 +24,7 @@ namespace Network
     class UdpServer
     {
       public:
-        UdpServer(asio::io_context &IOContext, int port,
-                  SafeQueue<std::string> &clientsMessages);
+        UdpServer(asio::io_context &IOContext, int port, SafeQueue<std::string> &clientsMessages);
         ~UdpServer();
 
       protected:
@@ -40,8 +39,7 @@ namespace Network
         /// the UDP server
         /// @param error Error from the asynchronous waiting message
         /// @param recvBytes corresponding to the number of bytes received
-        void handleReceive(const asio::error_code &error,
-                           std::size_t recvBytes);
+        void handleReceive(const asio::error_code &error, std::size_t recvBytes);
 
         /// @brief Update information to clients at periodical interval
         void updateGameInfo();

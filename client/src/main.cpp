@@ -18,10 +18,8 @@ int main(int ac, char const *av[])
         asio::io_context IOContext;
         asio::signal_set signal(IOContext, SIGINT, SIGTERM);
         signal.async_wait(std::bind(&asio::io_service::stop, &IOContext));
-        asio::ip::udp::endpoint serverUdpEndpoint(
-            asio::ip::address::from_string(av[1]), atoi(av[2]));
-        asio::ip::tcp::endpoint serverTcpEndpoint(
-            asio::ip::address::from_string(av[1]), atoi(av[2]));
+        asio::ip::udp::endpoint serverUdpEndpoint(asio::ip::address::from_string(av[1]), atoi(av[2]));
+        asio::ip::tcp::endpoint serverTcpEndpoint(asio::ip::address::from_string(av[1]), atoi(av[2]));
         Network::UdpClient udpClient(IOContext, serverUdpEndpoint);
         Network::TcpClient tcpClient(IOContext, serverTcpEndpoint);
         IOContext.run();

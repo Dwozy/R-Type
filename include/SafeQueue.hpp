@@ -13,7 +13,8 @@
 
 /// @brief A queue class that is thread safe
 /// @tparam T The type contained in the queue
-template <typename T> class SafeQueue : public ISafeQueue<T>
+template <typename T>
+class SafeQueue : public ISafeQueue<T>
 {
   public:
     SafeQueue() = default;

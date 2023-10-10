@@ -7,14 +7,12 @@
 
 #include "UdpClient.hpp"
 
-Network::UdpClient::UdpClient(asio::io_context &IOContext,
-                              asio::ip::udp::endpoint &serverEndpoint)
-    : _socket(IOContext, asio::ip::udp::endpoint(asio::ip::udp::v4(), 0)),
-      _serverEndpoint(serverEndpoint), _IOContext(IOContext),
-      _buffer(_streamBuffer.prepare(rtype::HEADER_SIZE))
+Network::UdpClient::UdpClient(asio::io_context &IOContext, asio::ip::udp::endpoint &serverEndpoint)
+    : _socket(IOContext, asio::ip::udp::endpoint(asio::ip::udp::v4(), 0)), _serverEndpoint(serverEndpoint),
+      _IOContext(IOContext), _buffer(_streamBuffer.prepare(rtype::HEADER_SIZE))
 {
-    _commands.emplace(static_cast<uint8_t> (rtype::PacketType::ROOM), getRoom);
-    _commands.emplace(static_cast<uint8_t> (rtype::PacketType::STRING), getString);
+    _commands.emplace(static_cast<uint8_t>(rtype::PacketType::ROOM), getRoom);
+    _commands.emplace(static_cast<uint8_t>(rtype::PacketType::STRING), getString);
     run();
 }
 
@@ -25,8 +23,7 @@ void Network::getRoom(Network::UdpClient &client, uint16_t size)
     memcpy(&room, client._buffer.data(), size);
     std::cout << "----------" << std::endl;
     std::cout << "Room : " << std::endl;
-    std::cout << "Id : " << room.id << " with "
-              << static_cast<std::size_t>(room.slotsLeft) << "/"
+    std::cout << "Id : " << room.id << " with " << static_cast<std::size_t>(room.slotsLeft) << "/"
               << static_cast<std::size_t>(room.slots) << " lefts." << std::endl;
     std::cout << "Stage level : " << room.stageLevel << std::endl;
     std::cout << "----------" << std::endl;
@@ -57,8 +54,7 @@ void Network::UdpClient::handleTimeout()
 }
 
 void Network::UdpClient::handleData(
-    const asio::error_code &error, std::size_t,
-    const struct rtype::HeaderDataPacket &header)
+    const asio::error_code &error, std::size_t, const struct rtype::HeaderDataPacket &header)
 {
     if (!error) {
         if (_commands.find(header.packetType) != _commands.end()) {
@@ -71,8 +67,7 @@ void Network::UdpClient::handleData(
     }
 }
 
-void Network::UdpClient::handleReceive(const asio::error_code &error,
-                                       std::size_t recvBytes)
+void Network::UdpClient::handleReceive(const asio::error_code &error, std::size_t recvBytes)
 {
     if (!error) {
         _streamBuffer.commit(recvBytes);
@@ -84,9 +79,7 @@ void Network::UdpClient::handleReceive(const asio::error_code &error,
         _streamBuffer.consume(recvBytes);
         _buffer = _streamBuffer.prepare(_header.payloadSize);
         _socket.async_receive_from(_buffer, _serverEndpoint,
-                                   std::bind(&Network::UdpClient::handleData,
-                                             this, std::placeholders::_1,
-                                             std::placeholders::_2, _header));
+            std::bind(&Network::UdpClient::handleData, this, std::placeholders::_1, std::placeholders::_2, _header));
     } else {
         std::cerr << "Error : " << error.message() << std::endl;
     }
@@ -96,9 +89,7 @@ void Network::UdpClient::readHeader()
 {
     _buffer = _streamBuffer.prepare(rtype::HEADER_SIZE);
     _socket.async_receive_from(_buffer, _serverEndpoint,
-                               std::bind(&Network::UdpClient::handleReceive,
-                                         this, std::placeholders::_1,
-                                         std::placeholders::_2));
+        std::bind(&Network::UdpClient::handleReceive, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 void Network::UdpClient::run()
@@ -106,6 +97,6 @@ void Network::UdpClient::run()
     std::string buff;
     std::array<char, 1> data;
     std::copy(buff.begin(), buff.end(), data.begin());
-    _socket.async_send_to(asio::buffer(data, buff.size()), _serverEndpoint,
-                          std::bind(&Network::UdpClient::readHeader, this));
+    _socket.async_send_to(
+        asio::buffer(data, buff.size()), _serverEndpoint, std::bind(&Network::UdpClient::readHeader, this));
 }

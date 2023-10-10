@@ -9,7 +9,8 @@
 
 /// @brief Interface for queue that is thread safe
 /// @tparam T The type contained in the queue
-template <typename T> class ISafeQueue
+template <typename T>
+class ISafeQueue
 {
   public:
     /// Destructor

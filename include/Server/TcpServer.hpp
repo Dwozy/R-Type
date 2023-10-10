@@ -21,8 +21,7 @@ namespace Network
     class TcpServer
     {
       public:
-        TcpServer(asio::io_context &IOContext, int port,
-                  SafeQueue<std::string> &clientsMessages);
+        TcpServer(asio::io_context &IOContext, int port, SafeQueue<std::string> &clientsMessages);
         ~TcpServer();
 
       protected:
@@ -34,8 +33,7 @@ namespace Network
         /// @brief Handle the connected client by starting its session
         /// @param clientSession the client session
         /// @param error The error that can occured when client disconnect
-        void handleAccept(std::shared_ptr<ClientSession> clientSession,
-                          const asio::error_code &error);
+        void handleAccept(std::shared_ptr<ClientSession> clientSession, const asio::error_code &error);
 
         asio::ip::tcp::acceptor _acceptor;
         asio::ip::tcp::socket _socket;

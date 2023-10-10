@@ -16,8 +16,7 @@ namespace Network
     class TcpClient
     {
       public:
-        TcpClient(asio::io_context &IOContext,
-                  asio::ip::tcp::endpoint &serverEndpoint);
+        TcpClient(asio::io_context &IOContext, asio::ip::tcp::endpoint &serverEndpoint);
         ~TcpClient();
 
       protected:

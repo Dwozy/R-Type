@@ -16,8 +16,7 @@
 class ClientSession : public std::enable_shared_from_this<ClientSession>
 {
   public:
-    ClientSession(asio::io_context &IOContext,
-                  SafeQueue<std::string> &clientsMessages);
+    ClientSession(asio::io_context &IOContext, SafeQueue<std::string> &clientsMessages);
     ~ClientSession();
 
     /// @brief Get the socket of the client session
@@ -34,8 +33,7 @@ class ClientSession : public std::enable_shared_from_this<ClientSession>
     /// @brief handles the asynchronous wait on read for the client session
     /// @param error checked if error occures
     /// @param transferredBytes corresponding to the received bytes from client
-    void handleRead(const asio::error_code &error,
-                    std::size_t transferredBytes);
+    void handleRead(const asio::error_code &error, std::size_t transferredBytes);
 
     /// @brief handles the asynchronous wait on write to the client session
     /// @param error checked if error occures

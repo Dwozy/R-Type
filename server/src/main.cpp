@@ -18,10 +18,8 @@ int main(int ac, char const *av[])
             return 84;
         asio::signal_set signal(IOContext, SIGINT, SIGTERM);
         signal.async_wait(std::bind(&asio::io_service::stop, &IOContext));
-        Network::TcpServer tcpServer(IOContext, atoi(av[1]),
-                                     std::ref(clientsMessages));
-        Network::UdpServer udpServer(IOContext, atoi(av[1]),
-                                     std::ref(clientsMessages));
+        Network::TcpServer tcpServer(IOContext, atoi(av[1]), std::ref(clientsMessages));
+        Network::UdpServer udpServer(IOContext, atoi(av[1]), std::ref(clientsMessages));
         IOContext.run();
     } catch (std::exception &e) {
         std::cerr << e.what() << std::endl;

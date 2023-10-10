@@ -18,8 +18,7 @@ namespace Network
     class UdpClient
     {
       public:
-        UdpClient(asio::io_context &IOContext,
-                  asio::ip::udp::endpoint &serverEndpoint);
+        UdpClient(asio::io_context &IOContext, asio::ip::udp::endpoint &serverEndpoint);
         ~UdpClient();
 
         asio::ip::udp::socket _socket;
@@ -31,9 +30,7 @@ namespace Network
       protected:
       private:
         struct rtype::HeaderDataPacket _header;
-        std::unordered_map<uint8_t, std::function<void(Network::UdpClient &,
-                                                           uint16_t size)>>
-            _commands;
+        std::unordered_map<uint8_t, std::function<void(Network::UdpClient &, uint16_t size)>> _commands;
 
         /// @brief Handle receive data, handling if the server is down
         /// @param error check if occured
@@ -43,8 +40,7 @@ namespace Network
         // std::size_t recvBytes,
         //     boost::asio::deadline_timer &timeout,
         //     boost::archive::binary_iarchive &binaryArchive);
-        void handleReceive(const asio::error_code &error,
-                           std::size_t recvBytes);
+        void handleReceive(const asio::error_code &error, std::size_t recvBytes);
 
         /// @brief Waiting in asynchronous operation to receive information from
         /// server
@@ -57,8 +53,8 @@ namespace Network
         /// @brief Restart the timeout
         void handleTimeout();
 
-        void handleData(const asio::error_code &error, std::size_t recvBytes,
-                        const struct rtype::HeaderDataPacket &header);
+        void handleData(
+            const asio::error_code &error, std::size_t recvBytes, const struct rtype::HeaderDataPacket &header);
     };
 
     void getRoom(Network::UdpClient &, uint16_t size);
