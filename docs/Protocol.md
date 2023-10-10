@@ -3,15 +3,13 @@
 ### Data stucture:
 Data must be sent to server in this format:
 
-|Size of data|Type of Event|Additional data|
+|Magic Number|PacketType|Payload Size|
 |---|---|---|
-|Uint16|Uint16|{...}|
+|Unsigned integer 32 bytes|Unsigned integer 8 bytes|Unsigned integer 16 bytes|
 
-Data will be received in the client in this format:
-
-|Size of data|Original Sender Id|Type of Event|Additional data|
-|---|---|---|---|
-|Uint16|Uint16 (0 if sent directly by the server)|Uint16|{...}||
+|Data body|
+|---|
+|See Below|
 
 ### Pascal string:
 
@@ -19,7 +17,7 @@ Pascal string (noted Pstring) are string not null terminated, with the number of
 
 |Size of string|String|
 |---|---|
-|Uint16|string (not null terminated)|
+|Unsigned integer 16 bytes|string (not null terminated)|
 
 ### Event types:
 - #### Player related events:
@@ -27,27 +25,27 @@ Pascal string (noted Pstring) are string not null terminated, with the number of
       Data represent position and normalised movement vector:
       |id|x|y|dx|dy|
       |---|---|---|---|---|
-      |Uint16|Float|Float|Float|Float|
+      |Unsigned integer 16 bytes|Float|Float|Float|Float|
     - #### Shoot*
       Data represent position and normalised directional vector:
       |id|x|y|dx|dy|
       |---|---|---|---|---|
-      |Uint16|Float|Float|Float|Float|
+      |Unsigned integer 16 bytes|Float|Float|Float|Float|
     - #### Take damage*
-      [id|
+      |id|
       |---|
-      Uint16
+      |Unsigned integer 16 bytes|
       No Additional data
     - #### Die
       |id|
       |---|
-      Uint16
+      |Unsigned integer 16 bytes|
       No Additional data
     - #### Take bonus*
       Data represent position and bonus type:
       |id|x|y|bonus_id|
       |---|---|---|---|
-      |Uint16|Float|Float|Uint8|
+      |Unsigned integer 16 bytes|Float|Float|Unsigned integer 8 bytes|
 
 - #### Room related events:
     - #### Create room**
@@ -59,7 +57,7 @@ Pascal string (noted Pstring) are string not null terminated, with the number of
       Data represent list of available room:
       |number of rooms|room_name|players in room|...|
       |---|---|---|---|
-      |Uint16|Pstring|Uint8|...|
+      |Unsigned integer 16 bytes|Pstring|Unsigned integer 8 bytes|...|
     - #### Join*
       Data represent room:
       |room_name|
@@ -71,39 +69,39 @@ Pascal string (noted Pstring) are string not null terminated, with the number of
       Data represent stage chosen:
       |stage_number|
       |---|
-      |Uint8|
+      |Unsigned integer 8 bytes|
 
 - #### Enemy related events:
     - #### Spawn
       Data represent position of the enemy and its id:
-      |x|y|enemy_id|
+      |enemy_id|x|y|
       |---|---|---|
-      |Float|Float|Uint16|
+      |Unsigned integer 16 bytes|Float|Float|
     - #### Move
       Data represent movement vector:
-      |x|y|
-      |---|---|
-      |Float|Float|
+      |enemy_id|x|y|
+      |---|---|---|
+      |Unsigned integer 16 bytes|Float|Float|
     - #### Shoot
       Data represent position and normalised directional vector:
-      |x|y|dx|dy|
-      |---|---|---|---|
-      |Float|Float|Float|Float|
+      |enemy_id|x|y|dx|dy|
+      |---|---|---|---|---|
+      |Unsigned integer 16 bytes|Float|Float|Float|Float|
     - #### Take damage*
       Data represent enemy:
       |enemy_id|
       |---|
-      |Uint16|
+      |Unsigned integer 16 bytes|
     - #### Die
       Data represent enemy:
       |enemy_id|
       |---|
-      |Uint16|
+      |Unsigned integer 16 bytes|
     - #### Drop bonus
       Data represent position of the enemy, its id and the bonus:
       |x|y|enemy_id|bonus_id|
       |---|---|---|---|
-      |Float|Float|Uint16|Uint8|
+      |Float|Float|Unsigned integer 16 bytes|Unsigned integer 8 bytes|
 
 - #### Stage related events:
     - #### Start
