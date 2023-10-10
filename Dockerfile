@@ -66,21 +66,8 @@ RUN apt update                  \
     libvorbis-dev           \
     libflac-dev
 
-# Install Conan
-RUN python3 -m venv /usr/app        \
-    && pwd                          \
-    && chmod +x bin/activate        \
-    && ./bin/activate               \
-    && ./bin/pip install conan
-
-# Check Conan installation
-RUN ./bin/conan
-
-# Export Conan and CMake env variables
+# Export CMake env variables
 ENV CMAKE_MAKE_PROGRAM="/usr/bin/make"
 ENV CMAKE_C_COMPILER="/usr/local/bin/gcc"
 ENV CMAKE_CXX_COMPILER="/usr/local/bin/g++"
 ENV PATH="$PATH:/usr/app/bin"
-
-# Create conan profile
-RUN ./bin/conan profile detect --force
