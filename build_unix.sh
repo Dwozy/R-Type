@@ -1,53 +1,42 @@
 #!/bin/bash
 
-fclean_game_engine()
+clean_all()
 {
-    cd ./GameEngine/
-    source ./build_unix.sh fclean
-    status=$?
-    if [ "$status" -ne 0 ]; then
-        exit "$status"
-    fi
-    cd ..
-}
-
-build_game_engine()
-{
-    cd ./GameEngine/
-    source ./build_unix.sh
-    status=$?
-    if [ "$status" -ne 0 ]; then
-        exit "$status"
-    fi
-    cd ..
-}
-
-fclean_all()
-{
-    fclean_game_engine
+    echo "-- Cleaning build folder"
+    rm -rf "./build"
+    echo "-- Cleaning build folder - done"
 }
 
 build_all()
 {
-    build_game_engine
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    status=$?
+    if [ "$status" -ne 0 ]; then
+        exit "$status"
+    fi
+    cmake --build ./build --config Release --clean-first
+    status=$?
+    if [ "$status" -ne 0 ]; then
+        exit "$status"
+    fi
 }
+
+if [ "$1" == "clean" ]
+    then
+    clean_all
+    exit 0
+fi
 
 if [ "$1" == "fclean" ]
     then
-    fclean_all
-fi
-
-if [ "$1" == "engine" ]
-    then
-    if [ "$2" == "fclean" ]
-        then
-        fclean_game_engine
-        exit
-    fi
-    build_game_engine
-    exit
+    clean_all
+    rm -rf GameEngine/GameEngine
+    rm R-Type/r-type_client
+    rm server/r-type_server
+    exit 0
 fi
 
 build_all
-touch r-type_server
-touch r-type_client
+#TMP
+mkdir -p server
+touch server/r-type_server

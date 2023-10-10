@@ -1,0 +1,5 @@
+.vscode
+r-type*
+*.dll
+
+CMakeUserPresets.json
