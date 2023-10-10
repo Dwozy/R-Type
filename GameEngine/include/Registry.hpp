@@ -10,6 +10,7 @@
 #include "Entity.hpp"
 #include "Error.hpp"
 #include "SparseArray.hpp"
+#include "Error.hpp"
 #include <algorithm>
 #include <any>
 #include <functional>
@@ -63,7 +64,7 @@ namespace GameEngine
                 return Entity(id);
             }
             if (_nbEntities > _maxEntities)
-                throw;
+                throw Error::TooMuchEntitiesError();
             id = _nbEntities;
             _nbEntities++;
             return Entity(id);
