@@ -13,8 +13,8 @@ Network::UdpClient::UdpClient(asio::io_context &IOContext,
       _serverEndpoint(serverEndpoint), _IOContext(IOContext),
       _buffer(_streamBuffer.prepare(rtype::HEADER_SIZE))
 {
-    _commands.emplace(1, getRoom);
-    _commands.emplace(2, getString);
+    _commands.emplace(static_cast<uint8_t> (rtype::PacketType::ROOM), getRoom);
+    _commands.emplace(static_cast<uint8_t> (rtype::PacketType::STRING), getString);
     run();
 }
 

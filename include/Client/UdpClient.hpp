@@ -31,7 +31,7 @@ namespace Network
       protected:
       private:
         struct rtype::HeaderDataPacket _header;
-        std::unordered_map<std::size_t, std::function<void(Network::UdpClient &,
+        std::unordered_map<uint8_t, std::function<void(Network::UdpClient &,
                                                            uint16_t size)>>
             _commands;
 
