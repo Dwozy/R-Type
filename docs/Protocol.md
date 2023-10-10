@@ -46,23 +46,36 @@ Pascal string (noted Pstring) are string not null terminated, with the number of
       |16-bit unsigned integer|Float|Float|8-bit unsigned integer|
 
 - #### Room related events:
-    - #### Create room*
-      Data represent room:
+    - #### (Client) Create room*
+      Data represent room name:
       |room_name|
       |---|
       |Pstring|
-    - #### Get rooms
-      Data represent list of available room:
-      |number of rooms|room_name|players in room|...|
-      |---|---|---|---|
-      |16-bit unsigned integer|Pstring|8-bit unsigned integer|...|
+    - #### Get room information
+      Data represent room information:
+      |room_id|room slots|slots left|
+      |---|---|---|
+      |16-bit unsigned integer|8-bit unsigned integer|8-bit unsigned integer|
+    - #### Get room name
+      Name of the room:
+      |room_name|
+      |---|
+      |Pstring|
     - #### Join*
       Data represent room:
-      |room_name|
+      |room_id|
       |---|
-      |Pstring|
+      |16-bit unsigned integer|
     - #### Leave*
-      No Additional data
+      Data represent room:
+      |room_id|
+      |---|
+      |16-bit unsigned integer|
+    - ### Delete room*
+      Data represent room:
+      |room id|
+      |---|
+      |16-bit unsigned integer|
     - #### Choice stage*
       Data represent stage chosen:
       |stage_number|
