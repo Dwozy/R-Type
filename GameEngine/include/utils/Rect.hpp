@@ -7,59 +7,80 @@
 
 #ifndef RECT_HPP_
 #define RECT_HPP_
+// #include "Circle.hpp"
 #include "utils/Vector.hpp"
-#include "Circle.hpp"
+#include <SFML/Graphics/Rect.hpp>
 #include <algorithm>
 #include <cmath>
 
 namespace GameEngine
 {
-    class Circle;
+    // class Circle;
 
-    template <typename T> class Rect
+    template <typename T>
+    class Rect
     {
       public:
-        Rect(T left, T top, T width, T height)
-        {
-            _rect = sf::Rect{left, top, width, height};
-        };
+        Rect(T l, T t, T w, T h) : left(l), top(t), width(w), height(h){};
         ~Rect() = default;
-        T &left = _rect.left;
-        T &top = _rect.top;
-        T &width = _rect.width;
-        T &height = _rect.height;
+        T left;
+        T top;
+        T width;
+        T height;
 
-        const sf::Rect<T> &getBaseRect() const { return _rect; };
+        const sf::Rect<T> getBaseRect() const { return sf::Rect<T>(left, top, width, height); };
 
-        bool isColliding(const Vector2<T> &pos, const Rect<T> &rect,
-                         const Vector2<T> &rectPos) const
+        bool isColliding(const Vector2<T> &pos, const Rect<T> &rect, const Vector2<T> &rectPos) const
         {
             T posX = pos.x + left;
             T posY = pos.y + top;
             T rectPosX = rectPos.x + rect.left;
             T rectPosY = rectPos.y + rect.top;
 
-            return (posX < rectPosX + rect.width && posX + width > rectPosX &&
-                    posY < rectPosY + rect.height && posY + height > rectPosY);
+            return (posX < rectPosX + rect.width && posX + width > rectPosX && posY < rectPosY + rect.height &&
+                    posY + height > rectPosY);
         };
-        bool isColliding(const Vector2<T> &pos, const Circle &circle,
-                         const Vector2<T> &circlePos) const
+
+        void handleCollisionFromRect(Vector2<T> &pos, const Rect<T> &rect, const Vector2<T> &rectPos)
         {
-            float posX = left + pos.x;
-            float posY = top + pos.y;
-            float circlePosX = circle.center.x + circlePos.x;
-            float circlePosY = circle.center.y + circlePos.y;
-            float x = std::clamp(posX, posX + width, circlePosX);
-            float y = std::clamp(posY, posY + height, circlePosY);
-            float dist =
-                std::sqrt(std::pow(x - posX, 2) + std::pow(y - posY, 2));
+            if (!isColliding(pos, rect, rectPos))
+                return;
+            Vector2<T> center(pos.x + (width / 2), pos.y + (height / 2));
+            Vector2<T> rectCenter(rectPos.x + (rect.width / 2), rectPos.y + (rect.height / 2));
+            T diffX = center.x - rectCenter.x;
+            T diffY = center.y - rectCenter.y;
 
-            return (dist < circle.radius);
-        };
+            if (std::abs(diffX / width) > std::abs(diffY / height)) {
+                if (diffX < 0)
+                    pos.x = rectPos.x - width;
+                else
+                    pos.x = rectPos.x + rect.width;
+            } else {
+                if (diffY < 0)
+                    pos.y = rectPos.y - height;
+                else
+                    pos.y = rectPos.y + rect.height;
+            }
+        }
+        // bool isColliding(const Vector2<T> &pos, const Circle &circle,
+        //                  const Vector2<T> &circlePos) const
+        // {
+        //     float posX = left + pos.x;
+        //     float posY = top + pos.y;
+        //     float circlePosX = circle.center.x + circlePos.x;
+        //     float circlePosY = circle.center.y + circlePos.y;
+        //     float x = std::clamp(posX, posX + width, circlePosX);
+        //     float y = std::clamp(posY, posY + height, circlePosY);
+        //     float dist =
+        //         std::sqrt(std::pow(x - posX, 2) + std::pow(y - posY, 2));
 
-      private:
-        sf::Rect<T> _rect;
+        //     return (dist < circle.radius);
+        // };
     };
+
+    using Rectf = Rect<float>;
+    using Recti = Rect<int>;
+
 } // namespace GameEngine
 
 #endif /* !RECT_HPP_ */

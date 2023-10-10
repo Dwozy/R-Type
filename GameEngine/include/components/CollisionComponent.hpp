@@ -7,28 +7,28 @@
 
 #ifndef COLLISIONCOMPONENT_HPP_
 #define COLLISIONCOMPONENT_HPP_
+#include "Registry.hpp"
 #include <functional>
 #include <vector>
-#include "Registry.hpp"
 
 namespace GameEngine
 {
-    class CollisionComponent
+    struct CollisionComponent
     {
-        public:
-            CollisionComponent() {};
-            ~CollisionComponent() = default;
-            std::vector<std::function<void()>> actions;
-            std::size_t layer;
+        Rectf collider;
+        std::vector<std::function<void(const std::size_t &entityId)>> actions;
+        std::size_t layer;
+        bool isActive = true;
 
-            template <typename Function, class... Components>
-            void addAction(const Registry &registry, const Function &function)
-            {
-                std::function<void()> action = [this, function, registry]() {
-                    function(registry.getComponent<Components>()...);
+        template <typename Function, class... Components>
+        void addAction(Registry &registry, const Function &function)
+        {
+            std::function<void(const std::size_t &entityId)> action =
+                [function, &registry](const std::size_t &entityId) {
+                    function(entityId, registry.getComponent<Components>()...);
                 };
-                actions.push_back(action);
-            };
+            actions.push_back(action);
+        };
     };
 } // namespace GameEngine
 

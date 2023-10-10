@@ -19,7 +19,7 @@ namespace GameEngine
         CollisionSystem(){};
         ~CollisionSystem() = default;
 
-        void operator()(SparseArray<CollisionComponent> &collisions) {};
+        void operator()(SparseArray<CollisionComponent> &collisions);
     };
 }
 
