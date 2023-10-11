@@ -20,6 +20,13 @@ namespace GameEngine
     enum class Event: EventType
     {
         WindowCloseEvent = 0,
+        EnnemiesSpawnedEvent = 1,
+        EnnemiesMoveEvent = 2,
+        EnnemiesDieEvent = 3,
+        PlayerMoveEvent =  4,
+        PlayerSpawnedEvent = 5,
+        PlayersDieEvent = 6,
+        ShoothrowEvent = 7,
     };
 
     template <typename EventData=NoEventData>

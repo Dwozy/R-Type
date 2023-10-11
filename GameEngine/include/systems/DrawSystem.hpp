@@ -10,6 +10,7 @@
 #include "GameEngine.hpp"
 #include "components/TextComponent.hpp"
 #include "components/TextureComponent.hpp"
+#include "components/TextureAnimatedComponent.hpp"
 #include <SFML/Graphics.hpp>
 
 namespace GameEngine
@@ -21,7 +22,8 @@ namespace GameEngine
         ~DrawSystem() = default;
 
         void operator()(SparseArray<TextComponent> &texts,
-                        SparseArray<TextureComponent> &textures);
+                        SparseArray<TextureComponent> &textures,
+                        SparseArray<TextureAnimatedComponent> &texturesA);
 
       private:
         Window &_window;

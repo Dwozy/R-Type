@@ -50,16 +50,14 @@ namespace GameEngine
     class Rect : public IRect<T, sf::Rect>
     {
         public:
-            Rect(T left, T top, T width, T height) { _rect = sf::Rect{ left, top, width, height }; };
-            ~Rect() = default;
-            T &left = _rect.left;
-            T &top = _rect.top;
-            T &width = _rect.width;
-            T &height = _rect.height;
+        Rect(T l, T t, T w, T h) : left(l), top(t), width(w), height(h){};
+        ~Rect() = default;
+        T left;
+        T top;
+        T width;
+        T height;
 
-            const sf::Rect<T> &getBaseRect() const override { return _rect; }
-        private:
-            sf::Rect<T> _rect;
+        const sf::Rect<T> getBaseRect() const override { return sf::Rect<T>(left, top, width, height); };
     };
 
     class Texture : public ITexture<sf::Texture, sf::Rect>

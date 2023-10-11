@@ -14,7 +14,6 @@ void RegisterComponent(GameManager &GameManager)
     GameManager.gameEngine.registry.registerComponent<GameEngine::ControllableComponent>();
     GameManager.gameEngine.registry.registerComponent<GameEngine::CameraComponent>();
     GameManager.gameEngine.registry.registerComponent<GameEngine::TextureComponent>();
+    GameManager.gameEngine.registry.registerComponent<GameEngine::TextureAnimatedComponent>();
     GameManager.gameEngine.registry.registerComponent<GameEngine::TextComponent>();
 }
-
-

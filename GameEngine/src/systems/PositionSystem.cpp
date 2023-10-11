@@ -24,6 +24,6 @@ namespace GameEngine
                 tex.value().sprite.setPosition(pos.value().position);
             }
         }
-        std::cout << _deltaTime << std::endl;
+        //std::cout << _deltaTime << std::endl;
     }
 } // namespace GameEngine

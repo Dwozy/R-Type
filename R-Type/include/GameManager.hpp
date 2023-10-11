@@ -8,17 +8,9 @@
 #ifndef GAMEMANAGER_HPP_
     #define GAMEMANAGER_HPP_
     #include "GameEngine.hpp"
-    #include "systems/PositionSystem.hpp"
-    #include "systems/ControlSystem.hpp"
-    #include "systems/DrawSystem.hpp"
-    #include "components/CameraComponent.hpp"
-    #include "components/FontComponent.hpp"
-    #include "components/TextureComponent.hpp"
-    #include "components/TextComponent.hpp"
-    #include "components/PositionComponent.hpp"
-    #include "components/VelocityComponent.hpp"
-    #include "components/ControllableComponent.hpp"
+    #include "Ennemies.hpp"
     #include <cstddef>
+
 class GameManager
 {
     public:

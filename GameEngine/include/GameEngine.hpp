@@ -10,6 +10,17 @@
 #include "Registry.hpp"
 #include "utils/DeltaTime.hpp"
 #include "utils/SfmlTypes.hpp"
+#include "systems/PositionSystem.hpp"
+#include "systems/ControlSystem.hpp"
+#include "systems/DrawSystem.hpp"
+#include "components/CameraComponent.hpp"
+#include "components/FontComponent.hpp"
+#include "components/TextureComponent.hpp"
+#include "components/TextComponent.hpp"
+#include "components/PositionComponent.hpp"
+#include "components/VelocityComponent.hpp"
+#include "components/ControllableComponent.hpp"
+#include "components/TextureAnimatedComponent.hpp"
 
 namespace GameEngine
 {

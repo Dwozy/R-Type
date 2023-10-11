@@ -27,7 +27,8 @@ void RegisterSystems(GameManager &GameManager)
         GameEngine::TextureComponent>(positionSystem);
     GameManager.gameEngine.registry.addSystem<
         std::function<void(SparseArray<GameEngine::TextComponent> &,
-                           SparseArray<GameEngine::TextureComponent> &)>,
-        GameEngine::TextComponent, GameEngine::TextureComponent>(drawSystem);
+                           SparseArray<GameEngine::TextureComponent> &,
+                           SparseArray<GameEngine::TextureAnimatedComponent> &)>,
+        GameEngine::TextComponent, GameEngine::TextureComponent, GameEngine::TextureAnimatedComponent>(drawSystem);
 }
 

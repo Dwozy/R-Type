@@ -26,7 +26,7 @@ namespace GameEngine
     {
         public:
             ~IRect() = default;
-            virtual const M<T> &getBaseRect() const = 0;
+            virtual const M<T> getBaseRect() const = 0;
     };
 
     template<class T, template <typename> class rectT>
