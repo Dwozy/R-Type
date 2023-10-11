@@ -59,18 +59,22 @@ int main(int argc, char const *argv[])
             gameEngine.window.setView(c.value().view);
     }
 
+    GameEngine::PositionSystem positionSystem(gameEngine.deltaTime.getDeltaTime());
     gameEngine.registry
-        .addSystem<std::function<void(GameEngine::GameEngine &, SparseArray<GameEngine::VelocityComponent> &,
-                       SparseArray<GameEngine::ControllableComponent> &)>,
-            GameEngine::VelocityComponent, GameEngine::ControllableComponent>(GameEngine::controlSystem, gameEngine);
-    gameEngine.registry
-        .addSystem<std::function<void(GameEngine::GameEngine &, SparseArray<GameEngine::PositionComponent> &,
+        .addSystem<std::function<void(SparseArray<GameEngine::PositionComponent> &,
                        SparseArray<GameEngine::VelocityComponent> &, SparseArray<GameEngine::TextureComponent> &)>,
             GameEngine::PositionComponent, GameEngine::VelocityComponent, GameEngine::TextureComponent>(
-            GameEngine::positionSystem, gameEngine);
-    gameEngine.registry.addSystem<std::function<void(GameEngine::GameEngine &, SparseArray<GameEngine::TextComponent> &,
+            positionSystem);
+
+    GameEngine::ControlSystem controlSystem;
+    gameEngine.registry.addSystem<std::function<void(SparseArray<GameEngine::VelocityComponent> &,
+                                      SparseArray<GameEngine::ControllableComponent> &)>,
+        GameEngine::VelocityComponent, GameEngine::ControllableComponent>(controlSystem);
+
+    GameEngine::DrawSystem drawSystem(gameEngine.window);
+    gameEngine.registry.addSystem<std::function<void(SparseArray<GameEngine::TextComponent> &,
                                       SparseArray<GameEngine::TextureComponent> &)>,
-        GameEngine::TextComponent, GameEngine::TextureComponent>(GameEngine::drawSystem, gameEngine);
+        GameEngine::TextComponent, GameEngine::TextureComponent>(drawSystem);
 
     while (gameEngine.window.isOpen()) {
         gameEngine.deltaTime.update();
