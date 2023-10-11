@@ -17,26 +17,23 @@ namespace Network
     class Communication
     {
       public:
-        void sendData(void *data, std::size_t size, uint8_t packetType, asio::ip::udp::socket &socket,
-            asio::ip::udp::endpoint &clientEndpoint)
+        template <typename Socket, typename Endpoint>
+        void sendData(void *data, std::size_t size, uint8_t packetType, Socket &socket, Endpoint &clientEndpoint)
         {
             struct rtype::HeaderDataPacket header;
 
             header.packetType = packetType;
             header.payloadSize = size;
-
-            socket.async_send_to(asio::buffer(&header, sizeof(header)), clientEndpoint,
-                [&](const asio::error_code &error, std::size_t sendBytes) {
-                    if (!error) {
-                        std::cout << "Send : " << sendBytes << " bytes as header." << std::endl;
-                    }
-                });
-            socket.async_send_to(
-                asio::buffer(data, size), clientEndpoint, [&](const asio::error_code &error, std::size_t sendBytes) {
-                    if (!error)
-                        std::cout << "Send : " << sendBytes << " bytes as data." << std::endl;
-                });
+            sendInformation(data, size, socket, clientEndpoint, header);
         }
+
+        void sendInformation(void *data, std::size_t size, asio::ip::udp::socket &socket,
+            asio::ip::udp::endpoint &clientEndpoint, struct rtype::HeaderDataPacket header);
+
+        void sendInformation(void *data, std::size_t size, asio::ip::tcp::socket &socket, asio::ip::tcp::endpoint &,
+            struct rtype::HeaderDataPacket header);
+
+        inline void receiveData();
     };
 
 }; // namespace Network

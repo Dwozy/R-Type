@@ -10,6 +10,7 @@
 
 #include "Communication.hpp"
 #include "RType.hpp"
+#include "Serialization.hpp"
 #include <asio.hpp>
 #include <iostream>
 
@@ -26,6 +27,12 @@ namespace Network
         asio::io_context &_IOContext;
         asio::streambuf _streamBuffer;
         asio::streambuf::mutable_buffers_type _buffer;
+        std::string _message;
+
+      /// @brief Waiting in asynchronous operation to receive information from
+      /// server
+      /// @param timeout activates when exceed
+      void readHeader();
 
       protected:
       private:
@@ -41,11 +48,6 @@ namespace Network
         //     boost::asio::deadline_timer &timeout,
         //     boost::archive::binary_iarchive &binaryArchive);
         void handleReceive(const asio::error_code &error, std::size_t recvBytes);
-
-        /// @brief Waiting in asynchronous operation to receive information from
-        /// server
-        /// @param timeout activates when exceed
-        void readHeader();
 
         /// @brief Connect to the UDP server
         void run();

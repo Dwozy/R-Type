@@ -18,24 +18,25 @@ Network::UdpClient::UdpClient(asio::io_context &IOContext, asio::ip::udp::endpoi
 
 void Network::getRoom(Network::UdpClient &client, uint16_t size)
 {
-    struct rtype::Room room;
+    struct rtype::Room room = Serialization::deserializeData<struct rtype::Room>(client._buffer, size);
 
-    memcpy(&room, client._buffer.data(), size);
     std::cout << "----------" << std::endl;
     std::cout << "Room : " << std::endl;
-    std::cout << "Id : " << room.id << " with " << static_cast<std::size_t>(room.slotsLeft) << "/"
+    std::cout << "Id : " << room.id << " with " << static_cast<std::size_t>(room.slotsUsed) << "/"
               << static_cast<std::size_t>(room.slots) << " lefts." << std::endl;
     std::cout << "Stage level : " << room.stageLevel << std::endl;
     std::cout << "----------" << std::endl;
+    client._streamBuffer.consume(client._streamBuffer.size());
+    // std::cout << client._message << std::endl;
 }
 
 void Network::getString(Network::UdpClient &client, uint16_t size)
 {
-    std::vector<uint8_t> data(size);
+    std::vector<uint8_t> byteArrayToReceive = Serialization::deserializeData(client._buffer, size);
 
-    memcpy(data.data(), client._buffer.data(), size);
-    std::string message(data.begin(), data.end());
-    std::cout << "Message : " << message << std::endl;
+    std::string message(byteArrayToReceive.begin(), byteArrayToReceive.end());
+    client._message = message;
+    std::cout << "Message : " << client._message << std::endl;
 }
 
 Network::UdpClient::~UdpClient() { _socket.close(); }
@@ -63,6 +64,7 @@ void Network::UdpClient::handleData(
         } else {
             std::cerr << "Packet Type doesn't exist !" << std::endl;
         }
+        _streamBuffer.consume(header.payloadSize);
         handleTimeout();
     }
 }
@@ -74,6 +76,7 @@ void Network::UdpClient::handleReceive(const asio::error_code &error, std::size_
         std::memcpy(&_header, _buffer.data(), recvBytes);
         if (_header.magicNumber != rtype::MAGIC_NUMBER) {
             std::cerr << "Invalid Magic Number Packet" << std::endl;
+            _streamBuffer.consume(recvBytes);
             handleTimeout();
         }
         _streamBuffer.consume(recvBytes);
