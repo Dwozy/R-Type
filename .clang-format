@@ -14,6 +14,8 @@ BraceWrapping:
 
 ColumnLimit: 120
 
+SortIncludes: false
+
 AlignAfterOpenBracket: DontAlign
 AlwaysBreakTemplateDeclarations: Yes
 

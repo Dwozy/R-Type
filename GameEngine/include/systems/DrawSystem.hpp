@@ -20,8 +20,7 @@ namespace GameEngine
         DrawSystem(Window &window) : _window(window){};
         ~DrawSystem() = default;
 
-        void operator()(SparseArray<TextComponent> &texts,
-                        SparseArray<TextureComponent> &textures);
+        void operator()(SparseArray<TextComponent> &texts, SparseArray<TextureComponent> &textures);
 
       private:
         Window &_window;

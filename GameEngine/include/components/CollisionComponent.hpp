@@ -23,10 +23,10 @@ namespace GameEngine
         template <typename Function, class... Components>
         void addAction(Registry &registry, const Function &function)
         {
-            std::function<void(const std::size_t &entityId)> action =
-                [function, &registry](const std::size_t &entityId) {
-                    function(entityId, registry.getComponent<Components>()...);
-                };
+            std::function<void(const std::size_t &entityId)> action = [function, &registry](
+                                                                          const std::size_t &entityId) {
+                function(entityId, registry.getComponent<Components>()...);
+            };
             actions.push_back(action);
         };
     };

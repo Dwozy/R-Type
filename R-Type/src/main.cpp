@@ -18,9 +18,8 @@
 #include "systems/ControlSystem.hpp"
 #include "systems/DrawSystem.hpp"
 #include "systems/PositionSystem.hpp"
+#include "systems/ShowHitboxSystem.hpp"
 #include "utils/Vector.hpp"
-#include <SFML/Graphics.hpp>
-#include <SFML/Window/Window.hpp>
 #include <cstdlib>
 #include <functional>
 #include <iostream>
@@ -104,6 +103,7 @@ int main()
     GameEngine::ControlSystem controlSystem;
     GameEngine::DrawSystem drawSystem(gameEngine.window);
     GameEngine::CollisionSystem collisionSystem;
+    // GameEngine::ShowHitboxSystem hitboxSystem(gameEngine.window);
 
     gameEngine.registry.addSystem<std::function<void(SparseArray<GameEngine::VelocityComponent> &,
                                       SparseArray<GameEngine::ControllableComponent> &)>,
@@ -118,6 +118,9 @@ int main()
     gameEngine.registry
         .addSystem<std::function<void(SparseArray<GameEngine::CollisionComponent> &)>, GameEngine::CollisionComponent>(
             collisionSystem);
+    // gameEngine.registry.addSystem<std::function<void(SparseArray<GameEngine::PositionComponent> &,
+    //                                   SparseArray<GameEngine::CollisionComponent> &)>,
+    //     GameEngine::PositionComponent, GameEngine::CollisionComponent>(hitboxSystem);
 
     while (gameEngine.window.isOpen()) {
         gameEngine.deltaTime.update();

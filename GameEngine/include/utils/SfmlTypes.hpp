@@ -16,11 +16,25 @@
 // maybe remove sftype from function parameter and only take our class
 namespace GameEngine
 {
+    class Color
+    {
+      public:
+        Color(uint8_t red = 0, uint8_t green = 0, uint8_t blue = 0, uint8_t alpha = 255)
+            : r(red), g(green), b(blue), a(alpha){};
+        ~Color() = default;
+
+        const sf::Color getColor() const { return sf::Color(r, g, b, a); }
+
+        uint8_t r;
+        uint8_t g;
+        uint8_t b;
+        uint8_t a;
+    };
+
     class Window
     {
       public:
-        Window(int width = 1920, int height = 1080,
-               const std::string &title = "Game window")
+        Window(int width = 1920, int height = 1080, const std::string &title = "Game window")
             : _window(sf::VideoMode(width, height), title), _title(title)
         {
         }
@@ -31,6 +45,14 @@ namespace GameEngine
         ~Window() = default;
         const sf::RenderWindow &getWindow() const { return _window; }
         void draw(const sf::Drawable &drawable) { _window.draw(drawable); }
+        void drawRect(const Rect<float> &rect, const Vector2<float> &pos, const Color &color)
+        {
+            sf::RectangleShape rectShape(sf::Vector2f(rect.width, rect.height));
+
+            rectShape.setPosition(sf::Vector2f(pos.x, pos.y));
+            rectShape.setFillColor(color.getColor());
+            _window.draw(rectShape);
+        };
         void setView(const View &view) { _window.setView(view.getBaseView()); };
         bool isOpen() const { return _window.isOpen(); }
         bool pollEvent(sf::Event &event) { return _window.pollEvent(event); }
@@ -127,10 +149,7 @@ namespace GameEngine
             // check if texture loaded befor the set
             _sprite.setTexture(texture.getTexture(), resetRect);
         };
-        void setPosition(const Vector2<float> position)
-        {
-            _sprite.setPosition(sf::Vector2f{position.x, position.y});
-        };
+        void setPosition(const Vector2<float> position) { _sprite.setPosition(sf::Vector2f{position.x, position.y}); };
 
       private:
         sf::Sprite _sprite;
