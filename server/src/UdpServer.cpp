@@ -11,6 +11,7 @@ Network::UdpServer::UdpServer(asio::io_context &IOContext, int port, SafeQueue<s
     : _socket(IOContext, asio::ip::udp::endpoint(asio::ip::udp::v4(), port)), _IOContext(IOContext), _timer(IOContext),
       _timerTCP(IOContext), _clientsMessages(clientsMessages), _buffer(_streamBuffer.prepare(1))
 {
+    index = 0;
     receive();
     updateGameInfo();
     updateTCPInformation();
@@ -38,9 +39,9 @@ void Network::UdpServer::handleReceive(const asio::error_code &error, std::size_
 
 void Network::UdpServer::receive()
 {
-    _buffer = _streamBuffer.prepare(1);
+    _buffer = _streamBuffer.prepare(rtype::HEADER_SIZE);
 
-    _socket.async_receive_from(asio::buffer(_buffer), _clientEndpoint,
+    _socket.async_receive_from(_buffer, _clientEndpoint,
         [&](const asio::error_code &error, std::size_t bytes_received) { handleReceive(error, bytes_received); });
 }
 
@@ -50,18 +51,20 @@ void Network::UdpServer::updateTCPInformation()
 
     while (_clientsMessages.tryPop(buff)) {
         for (std::pair<unsigned short, asio::ip::udp::endpoint> client : _listClient) {
-            if (buff == "Room\n") {
+            if (buff == "Create Room\n") {
                 std::cout << "BUFF : " << buff;
                 struct rtype::Room room;
-                room.id = 1;
+                room.id = index;
                 room.slots = 4;
-                room.slotsLeft = 4;
+                room.slotsUsed = 4;
                 room.stageLevel = 1;
-                std::vector<std::byte> byteArrayToSend;
-                byteArrayToSend.resize(sizeof(room));
-                std::memcpy(byteArrayToSend.data(), &room, sizeof(room));
-                _communication.sendData(byteArrayToSend.data(), byteArrayToSend.size(),
+                _listRooms.insert({index, {"Room " + std::to_string(static_cast<std::size_t>(index)), room}});
+                std::cout << "Room " + std::to_string(static_cast<std::size_t>(index)) << std::endl;
+                _communication.sendData(Serialization::serializeData<struct rtype::Room>(room).data(),
+                    Serialization::serializeData<struct rtype::Room>(room).size(),
                     static_cast<uint8_t>(rtype::PacketType::ROOM), _socket, client.second);
+                _communication.sendData(_listRooms.at(index).first.data(), _listRooms.at(index).first.size(),
+                    static_cast<uint8_t>(rtype::PacketType::STRING), _socket, client.second);
             } else
                 _communication.sendData(
                     buff.data(), buff.size(), static_cast<uint8_t>(rtype::PacketType::STRING), _socket, client.second);
@@ -79,7 +82,7 @@ void Network::UdpServer::sender()
         message += " on port : ";
         message += client.second.address().to_string();
         message += " ";
-        message += std::to_string((int)client.second.port());
+        message += std::to_string(static_cast<int>(client.second.port()));
         message += " with message : \n";
 
         message.erase(std::remove(message.begin(), message.end(), '\0'), message.end());

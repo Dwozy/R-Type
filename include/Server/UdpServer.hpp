@@ -11,6 +11,7 @@
 #include "Communication.hpp"
 #include "RType.hpp"
 #include "SafeQueue.hpp"
+#include "Serialization.hpp"
 #include <array>
 #include <asio.hpp>
 #include <iostream>
@@ -57,6 +58,9 @@ namespace Network
         Network::Communication _communication;
         asio::streambuf _streamBuffer;
         asio::streambuf::mutable_buffers_type _buffer;
+        uint16_t index;
+        std::map<uint16_t, std::pair<std::string, struct rtype::Room>> _listRooms;
+        std::map<uint16_t, struct rtype::Entity> _listPlayers;
     };
 } // namespace Network
 #endif /* !UDPSERVER_HPP_ */

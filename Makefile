@@ -8,7 +8,8 @@
 SRC_SERVER			= 		server/src/main.cpp	\
 							server/src/UdpServer.cpp	\
 							server/src/TcpServer.cpp	\
-							server/src/ClientSession.cpp
+							server/src/ClientSession.cpp	\
+							server/src/Communication.cpp
 
 SRC_CLIENT			= 		client/src/main.cpp	\
 							client/src/UdpClient.cpp	\

@@ -17,19 +17,16 @@ namespace rtype
     static const std::size_t HEADER_SIZE = 8;
     static const uint32_t MAGIC_NUMBER = 0xA54CDEF5;
 
-    enum class PacketType : uint8_t { ROOM = 1, STRING = 2 };
-
-    struct Player
-    {
-        std::string name;
-    };
+    enum class PacketType : uint8_t { ROOM = 1, STRING = 2, ENTITY = 3 };
 
     struct Entity
     {
-        std::pair<float, float> position;
-        std::pair<float, float> direction;
-        std::size_t lifePoint;
-        struct Player playerInfo;
+        uint16_t id;
+        uint16_t positionX;
+        uint16_t positionY;
+        uint16_t directionX;
+        uint16_t directionY;
+        uint16_t lifePoint;
     };
 
     struct HeaderDataPacket
@@ -43,7 +40,7 @@ namespace rtype
     {
         uint16_t id; // unique
         uint8_t slots;
-        uint8_t slotsLeft;
+        uint8_t slotsUsed;
         uint8_t stageLevel;
         // std::string name;
         // std::map<std::size_t, struct Player> listPlayers;
