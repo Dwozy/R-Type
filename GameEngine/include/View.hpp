@@ -25,7 +25,12 @@ namespace GameEngine
 
       private:
         sf::View _view;
+        const sf::View &getBaseView() const { return _view; }
+
+      private:
+        sf::View _view;
     };
+} // namespace GameEngine
 } // namespace GameEngine
 
 #endif /* !VIEW_HPP_ */

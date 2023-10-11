@@ -19,6 +19,7 @@ namespace GameEngine
             auto &vel = velocities[i];
             if (con && vel) {
                 vel.value().velocity = Vector2<float>(0.0f, 0.0f);
+                vel.value().velocity = Vector2<float>(0.0f, 0.0f);
                 if (Input::Keyboard::isKeyPressed(con.value().key_up))
                     vel.value().velocity += Vector2<float>(0.0f, -1.0f);
                 if (Input::Keyboard::isKeyPressed(con.value().key_left))
@@ -38,4 +39,5 @@ namespace GameEngine
             }
         }
     }
+} // namespace GameEngine
 } // namespace GameEngine

@@ -7,7 +7,12 @@
 #include "systems/DrawSystem.hpp"
 #include "components/TextComponent.hpp"
 #include "components/TextureComponent.hpp"
+#include "systems/DrawSystem.hpp"
+#include "components/TextComponent.hpp"
+#include "components/TextureComponent.hpp"
 #include <SFML/Graphics.hpp>
+#include <algorithm>
+#include <utility>
 #include <algorithm>
 #include <utility>
 #include <variant>
@@ -22,11 +27,13 @@ namespace GameEngine
         _window.clear();
 
         for (size_t i = 0; i < texts.size(); i++) {
+        for (size_t i = 0; i < texts.size(); i++) {
             auto &tex = texts[i];
             if (tex)
                 rend.push_back(tex.value());
         }
 
+        for (size_t i = 0; i < textures.size(); i++) {
         for (size_t i = 0; i < textures.size(); i++) {
             auto &tex = textures[i];
             if (tex)
@@ -57,6 +64,8 @@ namespace GameEngine
 
         for (const auto &item : rend) {
             if (std::holds_alternative<TextureComponent>(item)) {
+        for (const auto &item : rend) {
+            if (std::holds_alternative<TextureComponent>(item)) {
                 const auto &tex = std::get<TextureComponent>(item);
                 _window.draw(tex.sprite.getSprite());
             } else if (std::holds_alternative<TextComponent>(item)) {
@@ -66,4 +75,5 @@ namespace GameEngine
         }
         _window.display();
     }
+} // namespace GameEngine
 } // namespace GameEngine

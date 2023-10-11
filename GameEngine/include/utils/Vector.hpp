@@ -8,6 +8,8 @@
 #ifndef VECTOR_HPP_
 #define VECTOR_HPP_
 #include <cmath>
+#define VECTOR_HPP_
+#include <cmath>
 
 namespace GameEngine
 {
@@ -45,6 +47,7 @@ namespace GameEngine
         T x;
         T y;
     };
+} // namespace GameEngine
 } // namespace GameEngine
 
 #endif /* !VECTOR_HPP_ */

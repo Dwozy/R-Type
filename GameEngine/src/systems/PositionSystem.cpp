@@ -15,6 +15,7 @@ namespace GameEngine
                                     SparseArray<TextureComponent> &textures)
     {
         for (size_t i = 0; i < positions.size() && i < velocities.size(); i++) {
+        for (size_t i = 0; i < positions.size() && i < velocities.size(); i++) {
             auto &pos = positions[i];
             auto &vel = velocities[i];
             auto &tex = textures[i];
@@ -26,4 +27,5 @@ namespace GameEngine
         }
         std::cout << _deltaTime << std::endl;
     }
+} // namespace GameEngine
 } // namespace GameEngine
