@@ -16,6 +16,7 @@
 #include "systems/ControlSystem.hpp"
 #include "systems/DrawSystem.hpp"
 #include "systems/PositionSystem.hpp"
+#include "Mouse.hpp"
 #include "utils/Vector.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Window.hpp>
