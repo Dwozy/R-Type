@@ -88,6 +88,7 @@ class SparseArray
         throw;
     };
 
+    void resize(const std::size_t &count){ _data.resize(count); }
   private:
     container _data;
 };

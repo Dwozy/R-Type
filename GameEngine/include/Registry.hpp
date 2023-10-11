@@ -10,6 +10,7 @@
 #include "Entity.hpp"
 #include "Error.hpp"
 #include "SparseArray.hpp"
+#include "Error.hpp"
 #include <algorithm>
 #include <any>
 #include <functional>
@@ -20,38 +21,36 @@
 
 namespace GameEngine
 {
-    class GameEngine;
-
     class Registry
     {
       public:
-        template <class Component> SparseArray<Component> &registerComponent()
+        Registry(const std::size_t maxEntities) : _maxEntities(maxEntities){};
+
+        template <class Component>
+        SparseArray<Component> &registerComponent()
         {
-            _container.insert(
-                {std::type_index(typeid(Component)), SparseArray<Component>()});
+            _container.insert({std::type_index(typeid(Component)), SparseArray<Component>()});
             SparseArray<Component> &ret =
-                std::any_cast<SparseArray<Component> &>(
-                    _container[std::type_index(typeid(Component))]);
-            std::function<void(Registry &, const Entity &)> deleter =
-                [](Registry &registry, const Entity &entity) {
-                    registry.getComponent<Component>().erase(entity);
-                };
+                std::any_cast<SparseArray<Component> &>(_container[std::type_index(typeid(Component))]);
+            ret.resize(_maxEntities);
+            std::function<void(Registry &, const Entity &)> deleter = [](Registry &registry, const Entity &entity) {
+                registry.getComponent<Component>().erase(entity);
+            };
             _deleters.push_back(deleter);
             return ret;
         };
-        template <class Component> SparseArray<Component> &getComponent()
+        template <class Component>
+        SparseArray<Component> &getComponent()
         {
             SparseArray<Component> &ret =
-                std::any_cast<SparseArray<Component> &>(
-                    _container[std::type_index(typeid(Component))]);
+                std::any_cast<SparseArray<Component> &>(_container[std::type_index(typeid(Component))]);
             return ret;
         };
         template <class Component>
         const SparseArray<Component> &getComponent() const
         {
             const SparseArray<Component> &ret =
-                std::any_cast<SparseArray<Component> &>(
-                    _container.at(std::type_index(typeid(Component))));
+                std::any_cast<SparseArray<Component> &>(_container.at(std::type_index(typeid(Component))));
             return ret;
         };
 
@@ -62,45 +61,38 @@ namespace GameEngine
             if (!_emptyIndexes.empty()) {
                 id = _emptyIndexes.back();
                 _emptyIndexes.pop_back();
-                _aliveEntities.insert(_aliveEntities.begin() + id, Entity(id));
-                return _aliveEntities[id];
+                return Entity(id);
             }
-            id = _aliveEntities.size();
-            _aliveEntities.push_back(Entity(id));
-            return _aliveEntities.back();
+            if (_nbEntities > _maxEntities)
+                throw Error::TooMuchEntitiesError();
+            id = _nbEntities;
+            _nbEntities++;
+            return Entity(id);
         };
-        Entity entityFromIndex(std::size_t idx) { return _aliveEntities[idx]; };
         void killEntity(const Entity &entity)
         {
-            auto idx = std::lower_bound(_aliveEntities.begin(),
-                                        _aliveEntities.end(), entity);
-
-            Entity id = *idx;
-            _emptyIndexes.push_back(id);
-            _aliveEntities.erase(idx);
+            _emptyIndexes.push_back(entity);
             for (std::size_t i = 0; i < _deleters.size(); i++)
                 _deleters[i](*this, entity);
         };
 
         template <typename Component>
-        typename SparseArray<Component>::referenceType
-        addComponent(const Entity &entity, Component &&component)
+        typename SparseArray<Component>::referenceType addComponent(const Entity &entity, Component &&component)
         {
             return getComponent<Component>().insert_at(entity, component);
         };
         template <typename Component>
-        typename SparseArray<Component>::referenceType
-        addComponent(const Entity &entity, const Component &component)
+        typename SparseArray<Component>::referenceType addComponent(const Entity &entity, const Component &component)
         {
             return getComponent<Component>().insert_at(entity, component);
         };
         template <typename Component, typename... Params>
-        typename SparseArray<Component>::referenceType
-        emplaceComponent(const Entity &entity, Params &&...params)
+        typename SparseArray<Component>::referenceType emplaceComponent(const Entity &entity, Params &&...params)
         {
             return getComponent<Component>().emplace_at(entity, params...);
         };
-        template <typename Component> void removeComponent(const Entity &entity)
+        template <typename Component>
+        void removeComponent(const Entity &entity)
         {
             getComponent<Component>().erase(entity);
         };
@@ -108,9 +100,7 @@ namespace GameEngine
         template <typename Function, class... Components>
         void addSystem(const Function &function)
         {
-            std::function<void()> system = [this, function]() {
-                function(getComponent<Components>()...);
-            };
+            std::function<void()> system = [this, function]() { function(getComponent<Components>()...); };
 
             _systems.push_back(system);
         };
@@ -123,9 +113,10 @@ namespace GameEngine
       private:
         std::unordered_map<std::type_index, std::any> _container;
         std::vector<std::function<void(Registry &, const Entity &)>> _deleters;
-        std::vector<Entity> _aliveEntities;
         std::vector<std::size_t> _emptyIndexes;
         std::vector<std::function<void()>> _systems;
+        std::size_t _maxEntities;
+        std::size_t _nbEntities = 0;
     };
 } // namespace GameEngine
 

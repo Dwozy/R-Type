@@ -16,8 +16,9 @@ namespace GameEngine
     class GameEngine
     {
       public:
-        GameEngine(int width = 1920, int height = 1080, std::string windowName = "default")
-            : window(width, height, windowName)
+        GameEngine(
+            int width = 1920, int height = 1080, std::string windowName = "default", std::size_t maxEntities = 512)
+            : window(width, height, windowName), registry(maxEntities)
         {
             deltaTime.update();
         };
