@@ -40,47 +40,47 @@ namespace GameEngine
                 rend.push_back(texA.value());
         }
 
-        // std::sort(rend.begin(), rend.end(),
-        //           [](const std::variant<TextureComponent, TextComponent, TextureAnimatedComponent> &a,
-        //              const std::variant<TextureComponent, TextComponent, TextureAnimatedComponent> &b) {
-        //               if (std::holds_alternative<TextureComponent>(a) &&
-        //                   std::holds_alternative<TextureComponent>(b))
-        //                   return std::get<TextureComponent>(a).renderLayer <
-        //                          std::get<TextureComponent>(b).renderLayer;
-        //               if (std::holds_alternative<TextureComponent>(a) &&
-        //                   std::holds_alternative<TextComponent>(b))
-        //                   return std::get<TextureComponent>(a).renderLayer <
-        //                          std::get<TextComponent>(b).renderLayer;
-        //               if (std::holds_alternative<TextComponent>(a) &&
-        //                   std::holds_alternative<TextureComponent>(b))
-        //                   return std::get<TextComponent>(a).renderLayer <
-        //                          std::get<TextureComponent>(b).renderLayer;
-        //               if (std::holds_alternative<TextComponent>(a) &&
-        //                   std::holds_alternative<TextComponent>(b))
-        //                   return std::get<TextComponent>(a).renderLayer <
-        //                          std::get<TextComponent>(b).renderLayer;
-        //               if (std::holds_alternative<TextureAnimatedComponent>(a) &&
-        //                   std::holds_alternative<TextureAnimatedComponent>(b))
-        //                   return std::get<TextureAnimatedComponent>(a).renderLayer <
-        //                          std::get<TextureAnimatedComponent>(b).renderLayer;
-        //               if (std::holds_alternative<TextureAnimatedComponent>(a) &&
-        //                   std::holds_alternative<TextureComponent>(b))
-        //                   return std::get<TextureAnimatedComponent>(a).renderLayer <
-        //                          std::get<TextureComponent>(b).renderLayer;
-        //               if (std::holds_alternative<TextureComponent>(a) &&
-        //                   std::holds_alternative<TextureAnimatedComponent>(b))
-        //                   return std::get<TextureComponent>(a).renderLayer <
-        //                          std::get<TextureAnimatedComponent>(b).renderLayer;
-        //               if (std::holds_alternative<TextComponent>(a) &&
-        //                   std::holds_alternative<TextureAnimatedComponent>(b))
-        //                   return std::get<TextComponent>(a).renderLayer <
-        //                          std::get<TextureAnimatedComponent>(b).renderLayer;
-        //               if (std::holds_alternative<TextureAnimatedComponent>(a) &&
-        //                   std::holds_alternative<TextComponent>(b))
-        //                   return std::get<TextureAnimatedComponent>(a).renderLayer <
-        //                          std::get<TextComponent>(b).renderLayer;
-        //               return false;
-        //           });
+        std::sort(rend.begin(), rend.end(),
+                  [](const std::variant<TextureComponent, TextComponent, TextureAnimatedComponent> &a,
+                     const std::variant<TextureComponent, TextComponent, TextureAnimatedComponent> &b) {
+                      if (std::holds_alternative<TextureComponent>(a) &&
+                          std::holds_alternative<TextureComponent>(b))
+                          return std::get<TextureComponent>(a).renderLayer <
+                                 std::get<TextureComponent>(b).renderLayer;
+                      if (std::holds_alternative<TextureComponent>(a) &&
+                          std::holds_alternative<TextComponent>(b))
+                          return std::get<TextureComponent>(a).renderLayer <
+                                 std::get<TextComponent>(b).renderLayer;
+                      if (std::holds_alternative<TextComponent>(a) &&
+                          std::holds_alternative<TextureComponent>(b))
+                          return std::get<TextComponent>(a).renderLayer <
+                                 std::get<TextureComponent>(b).renderLayer;
+                      if (std::holds_alternative<TextComponent>(a) &&
+                          std::holds_alternative<TextComponent>(b))
+                          return std::get<TextComponent>(a).renderLayer <
+                                 std::get<TextComponent>(b).renderLayer;
+                      if (std::holds_alternative<TextureAnimatedComponent>(a) &&
+                          std::holds_alternative<TextureAnimatedComponent>(b))
+                          return std::get<TextureAnimatedComponent>(a).renderLayer <
+                                 std::get<TextureAnimatedComponent>(b).renderLayer;
+                      if (std::holds_alternative<TextureAnimatedComponent>(a) &&
+                          std::holds_alternative<TextureComponent>(b))
+                          return std::get<TextureAnimatedComponent>(a).renderLayer <
+                                 std::get<TextureComponent>(b).renderLayer;
+                      if (std::holds_alternative<TextureComponent>(a) &&
+                          std::holds_alternative<TextureAnimatedComponent>(b))
+                          return std::get<TextureComponent>(a).renderLayer <
+                                 std::get<TextureAnimatedComponent>(b).renderLayer;
+                      if (std::holds_alternative<TextComponent>(a) &&
+                          std::holds_alternative<TextureAnimatedComponent>(b))
+                          return std::get<TextComponent>(a).renderLayer <
+                                 std::get<TextureAnimatedComponent>(b).renderLayer;
+                      if (std::holds_alternative<TextureAnimatedComponent>(a) &&
+                          std::holds_alternative<TextComponent>(b))
+                          return std::get<TextureAnimatedComponent>(a).renderLayer <
+                                 std::get<TextComponent>(b).renderLayer;
+                      return false;
+                  });
 
         for (const auto &item : rend) {
             if (std::holds_alternative<TextureComponent>(item)) {
