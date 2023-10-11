@@ -15,13 +15,11 @@ namespace GameEngine
 {
     class Circle;
 
-    template <typename T> class Rect
+    template <typename T>
+    class Rect
     {
       public:
-        Rect(T left, T top, T width, T height)
-        {
-            _rect = sf::Rect{left, top, width, height};
-        };
+        Rect(T left, T top, T width, T height) { _rect = sf::Rect{left, top, width, height}; };
         ~Rect() = default;
         T &left = _rect.left;
         T &top = _rect.top;

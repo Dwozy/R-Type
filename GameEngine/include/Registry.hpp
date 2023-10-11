@@ -17,17 +17,6 @@
 #include <typeindex>
 #include <unordered_map>
 #include <utility>
-#define REGISTRY_HPP_
-#include "Entity.hpp"
-#include "Error.hpp"
-#include "SparseArray.hpp"
-#include <algorithm>
-#include <any>
-#include <functional>
-#include <string>
-#include <typeindex>
-#include <unordered_map>
-#include <utility>
 
 namespace GameEngine
 {
@@ -66,9 +55,6 @@ namespace GameEngine
             return ret;
         };
 
-        Entity spawnEntity()
-        {
-            std::size_t id;
         Entity spawnEntity()
         {
             std::size_t id;
@@ -141,7 +127,6 @@ namespace GameEngine
         std::vector<std::size_t> _emptyIndexes;
         std::vector<std::function<void()>> _systems;
     };
-} // namespace GameEngine
 } // namespace GameEngine
 
 #endif /* !REGISTRY_HPP_ */

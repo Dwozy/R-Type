@@ -12,12 +12,6 @@
 #include "components/PositionComponent.hpp"
 #include "components/TextureComponent.hpp"
 #include "components/VelocityComponent.hpp"
-#define POSITIONSYSTEM_HPP_
-#include "GameEngine.hpp"
-#include "Registry.hpp"
-#include "components/PositionComponent.hpp"
-#include "components/TextureComponent.hpp"
-#include "components/VelocityComponent.hpp"
 
 namespace GameEngine
 {

@@ -113,10 +113,7 @@ namespace GameEngine
                 Pause = sf::Keyboard::Pause
             };
 
-            static bool isKeyPressed(const Key key)
-            {
-                return sf::Keyboard::isKeyPressed(sf::Keyboard::Key(key));
-            }
+            static bool isKeyPressed(const Key key) { return sf::Keyboard::isKeyPressed(sf::Keyboard::Key(key)); }
         } // namespace Keyboard
     }     // namespace Input
 } // namespace GameEngine

@@ -11,11 +11,6 @@
 #include "Registry.hpp"
 #include "components/ControllableComponent.hpp"
 #include "components/VelocityComponent.hpp"
-#define CONTROLSYSTEM_HPP_
-#include "GameEngine.hpp"
-#include "Registry.hpp"
-#include "components/ControllableComponent.hpp"
-#include "components/VelocityComponent.hpp"
 
 namespace GameEngine
 {

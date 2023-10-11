@@ -48,6 +48,5 @@ namespace GameEngine
         T y;
     };
 } // namespace GameEngine
-} // namespace GameEngine
 
 #endif /* !VECTOR_HPP_ */

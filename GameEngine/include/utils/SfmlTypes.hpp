@@ -12,14 +12,7 @@
 #include "View.hpp"
 #include "utils/Rect.hpp"
 #include "utils/Vector.hpp"
-#define SFMLTYPES_HPP_
-#include "View.hpp"
-#include "utils/Rect.hpp"
-#include "utils/Vector.hpp"
-#include <SFML/Audio.hpp>
-#include <SFML/Graphics.hpp>
 
-// maybe remove sftype from function parameter and only take our class
 // maybe remove sftype from function parameter and only take our class
 namespace GameEngine
 {
@@ -70,42 +63,10 @@ namespace GameEngine
 
       private:
         sf::Text _text;
-      public:
-        Text(){};
-        ~Text() = default;
-        const sf::Text &getText() const { return _text; }
-        void load(const std::string &text, const sf::Font &font, size_t size)
-        {
-            _text.setString(text);
-            _text.setFont(font);
-            _text.setCharacterSize(size);
-        }
-
-      private:
-        sf::Text _text;
     };
 
     class Music
     {
-      public:
-        Music() {}
-        ~Music() = default;
-        // Music(const Music &other) {
-        //     if (!other.getFilename().empty()) {
-        //         load(other.getFilename());
-        //     }
-        // }
-        const sf::Music &getMusic() const { return _music; }
-        void load(const std::string &filename)
-        {
-            _music.openFromFile(filename);
-            _filename = filename;
-        }
-        const std::string &getFilename() const { return _filename; }
-
-      private:
-        sf::Music _music;
-        std::string _filename;
       public:
         Music() {}
         ~Music() = default;
@@ -137,30 +98,10 @@ namespace GameEngine
 
       private:
         sf::Font _font;
-      public:
-        Font(){};
-        ~Font() = default;
-        const sf::Font &getFont() const { return _font; };
-        void load(const std::string &filename) { _font.loadFromFile(filename); }
-
-      private:
-        sf::Font _font;
     };
 
     class Texture
     {
-      public:
-        Texture(){};
-        ~Texture() = default;
-        const sf::Texture &getTexture() const { return _texture; }
-        void load(const std::string &filename, const Rect<int> &area)
-        {
-            // add check error here
-            _texture.loadFromFile(filename, area.getBaseRect());
-        }
-
-      private:
-        sf::Texture _texture;
       public:
         Texture(){};
         ~Texture() = default;
@@ -194,6 +135,5 @@ namespace GameEngine
       private:
         sf::Sprite _sprite;
     };
-} // namespace GameEngine
 } // namespace GameEngine
 #endif /* !MLTYPES_HPP_ */
