@@ -6,6 +6,7 @@
 */
 
 #include "systems/ControlSystem.hpp"
+#include "utils/SfmlTypes.hpp"
 
 namespace GameEngine
 {
@@ -20,13 +21,13 @@ namespace GameEngine
             if (con && vel) {
                 vel.value().velocity = Vector2<float>(0.0f, 0.0f);
                 vel.value().velocity = Vector2<float>(0.0f, 0.0f);
-                if (Input::Keyboard::isKeyPressed(con.value().key_up))
+                if (isKeyPressed(con.value().key_up))
                     vel.value().velocity += Vector2<float>(0.0f, -1.0f);
-                if (Input::Keyboard::isKeyPressed(con.value().key_left))
+                if (isKeyPressed(con.value().key_left))
                     vel.value().velocity += Vector2<float>(-1.0f, 0.0f);
-                if (Input::Keyboard::isKeyPressed(con.value().key_down))
+                if (isKeyPressed(con.value().key_down))
                     vel.value().velocity += Vector2<float>(0.0f, 1.0f);
-                if (Input::Keyboard::isKeyPressed(con.value().key_right))
+                if (isKeyPressed(con.value().key_right))
                     vel.value().velocity += Vector2<float>(1.0f, 0.0f);
                 if (vel.value().velocity.x == 0.0f &&
                     vel.value().velocity.y == 0.0f)
