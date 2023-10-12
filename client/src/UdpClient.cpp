@@ -44,7 +44,7 @@ Network::UdpClient::~UdpClient() { _socket.close(); }
 void Network::UdpClient::handleTimeout()
 {
     asio::steady_timer timeout(_IOContext);
-    timeout.expires_from_now(std::chrono::seconds(5));
+    timeout.expires_after(std::chrono::seconds(5));
     timeout.async_wait([&](const asio::error_code &error) {
         if (!error) {
             _socket.cancel();

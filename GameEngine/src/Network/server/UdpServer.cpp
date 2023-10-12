@@ -69,7 +69,7 @@ namespace GameEngine::Network
                         _socket, client.second);
             }
         }
-        _timerTCP.expires_from_now(std::chrono::seconds(0));
+        _timerTCP.expires_after(std::chrono::seconds(0));
         _timerTCP.async_wait(std::bind(&UdpServer::updateTCPInformation, this));
     }
 
@@ -93,7 +93,7 @@ namespace GameEngine::Network
 
     void UdpServer::updateGameInfo()
     {
-        _timer.expires_from_now(std::chrono::milliseconds(2000));
+        _timer.expires_after(std::chrono::milliseconds(2000));
         _timer.async_wait(std::bind(&UdpServer::sender, this));
     }
 } // namespace GameEngine::Network
