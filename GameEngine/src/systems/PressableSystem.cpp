@@ -11,21 +11,21 @@
 
 namespace GameEngine
 {
-    void PressableSystem::operator()(SparseArray<PositionComponent> &positions, SparseArray<TextureComponent> &textures,
+    void PressableSystem::operator()(SparseArray<TransformComponent> &transforms, SparseArray<TextureComponent> &textures,
         SparseArray<PressableComponent> &pressables)
     {
         Vector2<float> coord = _window.mapPixelToCoords(Input::Mouse::getPosition(_window));
         Vector2<int> mousePos(coord.x, coord.y);
         bool mousePressed = Input::Mouse::isKeyPressed(Input::Mouse::Left);
 
-        for (std::size_t i = 0; i < positions.size(); i++) {
-            auto &pos = positions[i];
+        for (std::size_t i = 0; i < transforms.size(); i++) {
+            auto &tsf = transforms[i];
             auto &tex = textures[i];
             auto &pre = pressables[i];
 
-            if (!pos || !tex || !pre)
+            if (!tsf || !tex || !pre)
                 continue;
-            Vector2<int> intPos(pos.value().position.x, pos.value().position.y);
+            Vector2<int> intPos(tsf.value().position.x, tsf.value().position.y);
             if (pre.value().hitbox.isColliding(intPos, Recti(0, 0, 1, 1), mousePos)) {
                 if (!mousePressed && pre.value().state == pressedState) {
                     tex.value().sprite.setRect(pre.value().textureHovered);

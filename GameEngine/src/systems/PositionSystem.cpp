@@ -9,20 +9,16 @@
 
 namespace GameEngine
 {
-    void PositionSystem::operator()(SparseArray<PositionComponent> &positions,
-                                    SparseArray<VelocityComponent> &velocities,
-                                    SparseArray<TextureComponent> &textures)
+    void PositionSystem::operator()(
+        SparseArray<TransformComponent> &transforms, SparseArray<TextureComponent> &textures)
     {
-        for (size_t i = 0; i < positions.size(); i++) {
-            auto &pos = positions[i];
-            auto &vel = velocities[i];
+        for (size_t i = 0; i < transforms.size(); i++) {
+            auto &tsf = transforms[i];
             auto &tex = textures[i];
-            if (pos && vel && tex) {
-                pos.value().position +=
-                    vel.value().velocity * _deltaTime;
-                tex.value().sprite.setPosition(pos.value().position);
-            } else if (pos && tex)
-                tex.value().sprite.setPosition(pos.value().position);
+            if (tsf)
+                tsf.value().position += tsf.value().velocity * _deltaTime;
+            if (tsf && tex)
+                tex.value().sprite.setPosition(tsf.value().position);
         }
     }
 } // namespace GameEngine

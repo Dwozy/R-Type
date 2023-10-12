@@ -8,7 +8,7 @@
 #ifndef PRESSABLESYSTEM_HPP_
 #define PRESSABLESYSTEM_HPP_
 #include "SparseArray.hpp"
-#include "components/PositionComponent.hpp"
+#include "components/TransformComponent.hpp"
 #include "components/PressableComponent.hpp"
 #include "components/TextureComponent.hpp"
 #include "utils/SfmlTypes.hpp"
@@ -16,7 +16,7 @@
 
 namespace GameEngine
 {
-    using PressableFunction = std::function<void(SparseArray<PositionComponent> &positions,
+    using PressableFunction = std::function<void(SparseArray<TransformComponent> &transforms,
         SparseArray<TextureComponent> &textures, SparseArray<PressableComponent> &pressables)>;
 
     class PressableSystem
@@ -25,7 +25,7 @@ namespace GameEngine
         PressableSystem(Window &window) : _window(window){};
         ~PressableSystem() = default;
 
-        void operator()(SparseArray<PositionComponent> &positions, SparseArray<TextureComponent> &textures,
+        void operator()(SparseArray<TransformComponent> &transforms, SparseArray<TextureComponent> &textures,
             SparseArray<PressableComponent> &pressables);
 
       private:

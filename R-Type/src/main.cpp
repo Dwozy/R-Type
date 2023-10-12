@@ -30,24 +30,23 @@
 #include <utility>
 
 void test(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
-    SparseArray<GameEngine::VelocityComponent> &velocities, SparseArray<GameEngine::PositionComponent> &positions)
+    SparseArray<GameEngine::TransformComponent> &transforms)
 {
     auto &selfCol = collisions[entityId];
-    auto &selfPos = positions[entityId];
-    auto &selfVel = velocities[entityId];
+    auto &selfTsf = transforms[entityId];
 
-    if (!selfCol || !selfPos || !selfVel)
+    if (!selfCol || !selfTsf)
         return;
     for (std::size_t i = 0; i < collisions.size(); i++) {
         if (i == entityId)
             continue;
         auto &col = collisions[i];
-        auto &pos = positions[i];
+        auto &tsf = transforms[i];
 
-        if (!col || !pos || !col.value().isActive)
+        if (!col || !tsf || !col.value().isActive)
             continue;
         selfCol.value().collider.handleCollisionFromRect(
-            selfPos.value().position, col.value().collider, pos.value().position);
+            selfTsf.value().position, col.value().collider, tsf.value().position);
     }
 }
 
@@ -58,34 +57,31 @@ int main()
     GameEngine::Entity collision = gameEngine.registry.spawnEntity();
     GameEngine::Entity button = gameEngine.registry.spawnEntity();
     GameEngine::Entity camera = gameEngine.registry.spawnEntity();
-    gameEngine.registry.registerComponent<GameEngine::PositionComponent>();
-    gameEngine.registry.registerComponent<GameEngine::VelocityComponent>();
+    gameEngine.registry.registerComponent<GameEngine::TransformComponent>();
     gameEngine.registry.registerComponent<GameEngine::ControllableComponent>();
     gameEngine.registry.registerComponent<GameEngine::CameraComponent>();
     gameEngine.registry.registerComponent<GameEngine::TextureComponent>();
     gameEngine.registry.registerComponent<GameEngine::TextComponent>();
     gameEngine.registry.registerComponent<GameEngine::CollisionComponent>();
     gameEngine.registry.registerComponent<GameEngine::PressableComponent>();
-    GameEngine::PositionComponent pos = {GameEngine::Vector2<float>(0.0f, 0.0f)};
-    GameEngine::VelocityComponent vel = {GameEngine::Vector2<float>(0.0f, 0.0f)};
+    GameEngine::TransformComponent tsf = {
+        GameEngine::Vector2<float>(0.0f, 0.0f), GameEngine::Vector2<float>(0.0f, 0.0f)};
     GameEngine::ControllableComponent con = {GameEngine::Input::Keyboard::Z, GameEngine::Input::Keyboard::Q,
         GameEngine::Input::Keyboard::S, GameEngine::Input::Keyboard::D, 100.0f};
     GameEngine::CameraComponent cam = {GameEngine::View{GameEngine::Rect<float>(0.0f, 0.0f, 200.0f, 200.0f)}};
     GameEngine::Rectf rect(0.0, 0.0, 32.0, 16.0);
     GameEngine::CollisionComponent col = {.collider = rect, .layer = 0};
     col.addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
-                      SparseArray<GameEngine::VelocityComponent> &, SparseArray<GameEngine::PositionComponent> &)>,
-        GameEngine::CollisionComponent, GameEngine::VelocityComponent, GameEngine::PositionComponent>(
-        gameEngine.registry, test);
+                      SparseArray<GameEngine::TransformComponent> &)>,
+        GameEngine::CollisionComponent, GameEngine::TransformComponent>(gameEngine.registry, test);
 
-    gameEngine.registry.addComponent<GameEngine::PositionComponent>(entity, pos);
-    gameEngine.registry.addComponent<GameEngine::VelocityComponent>(entity, vel);
+    gameEngine.registry.addComponent<GameEngine::TransformComponent>(entity, tsf);
     gameEngine.registry.addComponent<GameEngine::ControllableComponent>(entity, con);
     gameEngine.registry.addComponent<GameEngine::CollisionComponent>(entity, col);
     gameEngine.registry.addComponent<GameEngine::CameraComponent>(camera, cam);
 
-    gameEngine.registry.addComponent<GameEngine::PositionComponent>(
-        collision, GameEngine::PositionComponent{GameEngine::Vector2<float>(100, 100)});
+    gameEngine.registry.addComponent<GameEngine::TransformComponent>(collision,
+        GameEngine::TransformComponent{GameEngine::Vector2<float>(100, 100), GameEngine::Vector2<float>(0, 0)});
     GameEngine::CollisionComponent collisionCol = {.collider = rect, .layer = 0, .isActive = true};
     gameEngine.registry.addComponent<GameEngine::CollisionComponent>(collision, collisionCol);
 
@@ -105,8 +101,8 @@ int main()
             gameEngine.window.setView(c.value().view);
     }
 
-    gameEngine.registry.addComponent<GameEngine::PositionComponent>(
-        button, GameEngine::PositionComponent{GameEngine::Vector2<float>(0, 100)});
+    gameEngine.registry.addComponent<GameEngine::TransformComponent>(
+        button, GameEngine::TransformComponent{GameEngine::Vector2<float>(0, 100), GameEngine::Vector2<float>(0, 0)});
     GameEngine::Texture buttonTex;
     buttonTex.load("assets/button.png", GameEngine::Rect<int>(0, 0, 144, 16));
     GameEngine::Sprite buttonSpr;
@@ -116,7 +112,8 @@ int main()
         button, GameEngine::TextureComponent{buttonTex, buttonSpr, true, 1});
     gameEngine.registry.addComponent<GameEngine::PressableComponent>(
         button, GameEngine::PressableComponent{GameEngine::Recti(0, 0, 48, 16), GameEngine::Recti(0, 0, 48, 16),
-                    GameEngine::Recti(96, 0, 48, 16), GameEngine::Recti(48, 0, 48, 16), GameEngine::defaultState, [](){ std::cout << "Press" << std::endl; }});
+                    GameEngine::Recti(96, 0, 48, 16), GameEngine::Recti(48, 0, 48, 16), GameEngine::defaultState,
+                    []() { std::cout << "Press" << std::endl; }});
 
     GameEngine::PositionSystem positionSystem(gameEngine.deltaTime.getDeltaTime());
     GameEngine::ControlSystem controlSystem;
@@ -124,17 +121,16 @@ int main()
     GameEngine::CollisionSystem collisionSystem;
     GameEngine::PressableSystem pressableSystem(gameEngine.window);
 
-    gameEngine.registry.addSystem<std::function<void(SparseArray<GameEngine::VelocityComponent> &,
+    gameEngine.registry.addSystem<std::function<void(SparseArray<GameEngine::TransformComponent> &,
                                       SparseArray<GameEngine::ControllableComponent> &)>,
-        GameEngine::VelocityComponent, GameEngine::ControllableComponent>(controlSystem);
-    gameEngine.registry
-        .addSystem<std::function<void(SparseArray<GameEngine::PositionComponent> &,
-                       SparseArray<GameEngine::VelocityComponent> &, SparseArray<GameEngine::TextureComponent> &)>,
-            GameEngine::PositionComponent, GameEngine::VelocityComponent, GameEngine::TextureComponent>(positionSystem);
+        GameEngine::TransformComponent, GameEngine::ControllableComponent>(controlSystem);
+    gameEngine.registry.addSystem<
+        std::function<void(SparseArray<GameEngine::TransformComponent> &, SparseArray<GameEngine::TextureComponent> &)>,
+        GameEngine::TransformComponent, GameEngine::TextureComponent>(positionSystem);
     gameEngine.registry
         .addSystem<std::function<void(SparseArray<GameEngine::CollisionComponent> &)>, GameEngine::CollisionComponent>(
             collisionSystem);
-    gameEngine.registry.addSystem<GameEngine::PressableFunction, GameEngine::PositionComponent,
+    gameEngine.registry.addSystem<GameEngine::PressableFunction, GameEngine::TransformComponent,
         GameEngine::TextureComponent, GameEngine::PressableComponent>(pressableSystem);
     gameEngine.registry.addSystem<
         std::function<void(SparseArray<GameEngine::TextComponent> &, SparseArray<GameEngine::TextureComponent> &)>,
