@@ -8,6 +8,7 @@
 #ifndef GAMEENGINE_HPP_
 #define GAMEENGINE_HPP_
 #include "Registry.hpp"
+#include "SceneManager.hpp"
 #include "utils/DeltaTime.hpp"
 #include "utils/SfmlTypes.hpp"
 
@@ -27,6 +28,7 @@ namespace GameEngine
         Registry registry;
         DeltaTime deltaTime;
         Window window;
+        SceneManager sceneManager;
 
       private:
     };
