@@ -11,14 +11,16 @@
 #include "components/CameraComponent.hpp"
 #include "components/CollisionComponent.hpp"
 #include "components/FontComponent.hpp"
+#include "components/PressableComponent.hpp"
 #include "components/TextComponent.hpp"
 #include "components/TextureComponent.hpp"
 // #include "components/WindowComponent.hpp"
+#include "Mouse.hpp"
 #include "systems/CollisionSystem.hpp"
 #include "systems/ControlSystem.hpp"
 #include "systems/DrawSystem.hpp"
 #include "systems/PositionSystem.hpp"
-#include "Mouse.hpp"
+#include "systems/PressableSystem.hpp"
 #include "utils/Vector.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Window.hpp>
@@ -54,6 +56,7 @@ int main()
     GameEngine::GameEngine gameEngine(600, 600, "Demo");
     GameEngine::Entity entity = gameEngine.registry.spawnEntity();
     GameEngine::Entity collision = gameEngine.registry.spawnEntity();
+    GameEngine::Entity button = gameEngine.registry.spawnEntity();
     GameEngine::Entity camera = gameEngine.registry.spawnEntity();
     gameEngine.registry.registerComponent<GameEngine::PositionComponent>();
     gameEngine.registry.registerComponent<GameEngine::VelocityComponent>();
@@ -62,6 +65,7 @@ int main()
     gameEngine.registry.registerComponent<GameEngine::TextureComponent>();
     gameEngine.registry.registerComponent<GameEngine::TextComponent>();
     gameEngine.registry.registerComponent<GameEngine::CollisionComponent>();
+    gameEngine.registry.registerComponent<GameEngine::PressableComponent>();
     GameEngine::PositionComponent pos = {GameEngine::Vector2<float>(0.0f, 0.0f)};
     GameEngine::VelocityComponent vel = {GameEngine::Vector2<float>(0.0f, 0.0f)};
     GameEngine::ControllableComponent con = {GameEngine::Input::Keyboard::Z, GameEngine::Input::Keyboard::Q,
@@ -101,10 +105,24 @@ int main()
             gameEngine.window.setView(c.value().view);
     }
 
+    gameEngine.registry.addComponent<GameEngine::PositionComponent>(
+        button, GameEngine::PositionComponent{GameEngine::Vector2<float>(0, 100)});
+    GameEngine::Texture buttonTex;
+    buttonTex.load("assets/button.png", GameEngine::Rect<int>(0, 0, 144, 16));
+    GameEngine::Sprite buttonSpr;
+    buttonSpr.load(buttonTex);
+    buttonSpr.setRect(GameEngine::Recti(0, 0, 48, 16));
+    gameEngine.registry.addComponent<GameEngine::TextureComponent>(
+        button, GameEngine::TextureComponent{buttonTex, buttonSpr, true, 1});
+    gameEngine.registry.addComponent<GameEngine::PressableComponent>(
+        button, GameEngine::PressableComponent{GameEngine::Recti(0, 0, 48, 16), GameEngine::Recti(0, 0, 48, 16),
+                    GameEngine::Recti(96, 0, 48, 16), GameEngine::Recti(48, 0, 48, 16), GameEngine::defaultState, [](){ std::cout << "Press" << std::endl; }});
+
     GameEngine::PositionSystem positionSystem(gameEngine.deltaTime.getDeltaTime());
     GameEngine::ControlSystem controlSystem;
     GameEngine::DrawSystem drawSystem(gameEngine.window);
     GameEngine::CollisionSystem collisionSystem;
+    GameEngine::PressableSystem pressableSystem(gameEngine.window);
 
     gameEngine.registry.addSystem<std::function<void(SparseArray<GameEngine::VelocityComponent> &,
                                       SparseArray<GameEngine::ControllableComponent> &)>,
@@ -113,12 +131,14 @@ int main()
         .addSystem<std::function<void(SparseArray<GameEngine::PositionComponent> &,
                        SparseArray<GameEngine::VelocityComponent> &, SparseArray<GameEngine::TextureComponent> &)>,
             GameEngine::PositionComponent, GameEngine::VelocityComponent, GameEngine::TextureComponent>(positionSystem);
-    gameEngine.registry.addSystem<
-        std::function<void(SparseArray<GameEngine::TextComponent> &, SparseArray<GameEngine::TextureComponent> &)>,
-        GameEngine::TextComponent, GameEngine::TextureComponent>(drawSystem);
     gameEngine.registry
         .addSystem<std::function<void(SparseArray<GameEngine::CollisionComponent> &)>, GameEngine::CollisionComponent>(
             collisionSystem);
+    gameEngine.registry.addSystem<GameEngine::PressableFunction, GameEngine::PositionComponent,
+        GameEngine::TextureComponent, GameEngine::PressableComponent>(pressableSystem);
+    gameEngine.registry.addSystem<
+        std::function<void(SparseArray<GameEngine::TextComponent> &, SparseArray<GameEngine::TextureComponent> &)>,
+        GameEngine::TextComponent, GameEngine::TextureComponent>(drawSystem);
 
     while (gameEngine.window.isOpen()) {
         gameEngine.deltaTime.update();
