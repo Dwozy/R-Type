@@ -2,22 +2,22 @@
 
 cmd /c build_win.bat
 
-if not exist ".\artifact" mkdir ".\artifact" 2>nul
-if not exist ".\artifact\server" mkdir ".\artifact\server" 2>nul
-if not exist ".\artifact\client" mkdir ".\artifact\client" 2>nul
-if not exist ".\artifact\client\assets" mkdir ".\artifact\client\assets" 2>nul
+if not exist ".\artifacts" mkdir ".\artifacts" 2>nul
+if not exist ".\artifacts\server" mkdir ".\artifacts\server" 2>nul
+if not exist ".\artifacts\client" mkdir ".\artifacts\client" 2>nul
+if not exist ".\artifacts\client\assets" mkdir ".\artifacts\client\assets" 2>nul
 
 for /R .\build %%f in (*.dll) do (
-	copy %%f .\artifact\server
-	copy %%f .\artifact\client
+	copy %%f .\artifacts\server
+	copy %%f .\artifacts\client
 )
 
-xcopy .\R-Type\assets .\artifact\client\assets /E
+xcopy .\R-Type\assets .\artifacts\client\assets /E
 
-copy .\R-Type\r-type_client.exe .\artifact\client
-copy .\server\r-type_server.exe .\artifact\server
+copy .\R-Type\r-type_client.exe .\artifacts\client
+copy .\server\r-type_server.exe .\artifacts\server
 
-7z a ".\artifact\r-type_client_windows_x86-64.zip" ".\artifact\client\*"
-7z a ".\artifact\r-type_server_windows_x86-64.zip" ".\artifact\server\*"
+7z a ".\artifacts\r-type_client_windows_x86-64.zip" ".\artifacts\client\*"
+7z a ".\artifacts\r-type_server_windows_x86-64.zip" ".\artifacts\server\*"
 
 exit /b

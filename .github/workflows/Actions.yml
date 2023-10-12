@@ -160,11 +160,11 @@ jobs:
         category: [client, server]
         include:
           - os: ubuntu-latest
-            cmd:
+            cmd: build_artifact.sh
             arch: ${{ LINUX_ARCH }}
             container: biozzzzz/r-type
           - os: windows-latest
-            cmd:
+            cmd: cmd /c build_artifact.bat
             arch: ${{ WINDOWS_ARCH }}
     runs-on: ${{ matrix.os }}
     container: ${{ matrix.container }}
