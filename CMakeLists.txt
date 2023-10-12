@@ -29,6 +29,7 @@ set(SRCS_LIB
     GameEngine/src/systems/PositionSystem.cpp
     GameEngine/src/systems/CollisionSystem.cpp
     GameEngine/src/systems/PressableSystem.cpp
+    GameEngine/src/SceneManager.cpp
 )
 
 project(${PROJECT_NAME} LANGUAGES CXX)
