@@ -46,6 +46,7 @@ namespace GameEngine
             virtual const T &getSprite() const = 0;
             virtual void load(const ITexture<TextuT, rectT> &texture, bool resetRect = false) = 0;
             virtual void setPosition(const Vector2<float> position) = 0;
+            virtual void setTextureRect(const IRect<int, rectT> &newRect) = 0;
     };
     template<class T>
     class IEvent

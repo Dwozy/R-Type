@@ -5,15 +5,15 @@
 ** RegisterComponent
 */
 
-#include "GameManager.hpp"
+#include "GameEngine.hpp"
 
-void RegisterComponent(GameManager &GameManager)
+void RegisterComponent(GameEngine::GameEngine &GameEngine)
 {
-    GameManager.gameEngine.registry.registerComponent<GameEngine::PositionComponent>();
-    GameManager.gameEngine.registry.registerComponent<GameEngine::VelocityComponent>();
-    GameManager.gameEngine.registry.registerComponent<GameEngine::ControllableComponent>();
-    GameManager.gameEngine.registry.registerComponent<GameEngine::CameraComponent>();
-    GameManager.gameEngine.registry.registerComponent<GameEngine::TextureComponent>();
-    GameManager.gameEngine.registry.registerComponent<GameEngine::TextureAnimatedComponent>();
-    GameManager.gameEngine.registry.registerComponent<GameEngine::TextComponent>();
+    GameEngine.registry.registerComponent<GameEngine::PositionComponent>();
+    GameEngine.registry.registerComponent<GameEngine::VelocityComponent>();
+    GameEngine.registry.registerComponent<GameEngine::ControllableComponent>();
+    GameEngine.registry.registerComponent<GameEngine::CameraComponent>();
+    GameEngine.registry.registerComponent<GameEngine::TextureComponent>();
+    GameEngine.registry.registerComponent<GameEngine::TextureAnimatedComponent>();
+    GameEngine.registry.registerComponent<GameEngine::TextComponent>();
 }

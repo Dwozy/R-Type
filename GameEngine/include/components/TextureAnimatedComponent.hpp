@@ -19,12 +19,11 @@
             Texture texture;
             Sprite sprite;
             bool animated;
-            Rect<int> baseRect;
-            Rect<int> maxRect;
-            Rect<int> actualRect;
+            std::vector<Rect<int>> textureRects;
             float animationSpeed;
-            DeltaTime animationDeltaTime;
             bool isRendered;
+            float lastUpdate;
+            size_t animeid;
             size_t renderLayer;
         };
     } // namespace GameEngine

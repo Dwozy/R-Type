@@ -199,12 +199,14 @@ namespace GameEngine
             };
             void load(const ITexture<sf::Texture, sf::Rect> &texture, bool resetRect = false) override
             {
-                //check if texture loaded befor the set
                 _sprite.setTexture(texture.getTexture(), resetRect);
             };
             void setPosition(const Vector2<float> position) override
             {
                 _sprite.setPosition(sf::Vector2f{ position.x, position.y });
+            };
+            void setTextureRect(const IRect<int, sf::Rect> &newRect) override {
+                _sprite.setTextureRect(newRect.getBaseRect());
             };
         private:
             sf::Sprite _sprite;

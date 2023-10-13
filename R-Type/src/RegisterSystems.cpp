@@ -5,30 +5,32 @@
 ** RegisterSystems
 */
 
-#include "GameManager.hpp"
+#include "Game.hpp"
 
-void RegisterSystems(GameManager &GameManager)
+void RegisterSystems(GameEngine::GameEngine &GameEngine)
 {
-    GameEngine::PositionSystem positionSystem(
-    GameManager.gameEngine.deltaTime.getDeltaTime());
+    GameEngine::PositionSystem positionSystem(GameEngine.deltaTime.getDeltaTime());
     GameEngine::ControlSystem controlSystem;
-    GameEngine::DrawSystem drawSystem(GameManager.gameEngine.window);
+    GameEngine::DrawSystem drawSystem(GameEngine.window);
+    GameEngine::AnimeSystem animeSystem;
 
-    GameManager.gameEngine.registry.addSystem<
+    GameEngine.registry.addSystem<
         std::function<void(SparseArray<GameEngine::VelocityComponent> &,
                            SparseArray<GameEngine::ControllableComponent> &)>,
         GameEngine::VelocityComponent, GameEngine::ControllableComponent>(
         controlSystem);
-    GameManager.gameEngine.registry.addSystem<
+    GameEngine.registry.addSystem<
         std::function<void(SparseArray<GameEngine::PositionComponent> &,
                            SparseArray<GameEngine::VelocityComponent> &,
                            SparseArray<GameEngine::TextureComponent> &)>,
         GameEngine::PositionComponent, GameEngine::VelocityComponent,
         GameEngine::TextureComponent>(positionSystem);
-    GameManager.gameEngine.registry.addSystem<
+    GameEngine.registry.addSystem<
         std::function<void(SparseArray<GameEngine::TextComponent> &,
                            SparseArray<GameEngine::TextureComponent> &,
                            SparseArray<GameEngine::TextureAnimatedComponent> &)>,
         GameEngine::TextComponent, GameEngine::TextureComponent, GameEngine::TextureAnimatedComponent>(drawSystem);
+    GameEngine.registry.addSystem<
+        std::function<void(SparseArray<GameEngine::TextureAnimatedComponent> &)>, GameEngine::TextureAnimatedComponent>(animeSystem);
 }
 

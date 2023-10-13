@@ -13,6 +13,7 @@
 #include "systems/PositionSystem.hpp"
 #include "systems/ControlSystem.hpp"
 #include "systems/DrawSystem.hpp"
+#include "systems/AnimeSystem.hpp"
 #include "components/CameraComponent.hpp"
 #include "components/FontComponent.hpp"
 #include "components/TextureComponent.hpp"
