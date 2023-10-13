@@ -5,17 +5,17 @@ on:
   push:
     branches:
     - 'main'
+    tags:
+    - v*
   pull_request:
     branches:
     - 'main'
 
 env:
   MIRROR_URL: git@github.com:EpitechPromo2026/B-CPP-500-PAR-5-1-rtype-timothe.zheng.git
-  WINDOWS_ARCH: windows-x86-64
-  LINUX_ARCH: linux-x86-64
 
 permissions:
-  contents: read
+  contents: write
   checks: write
 
 jobs:
@@ -138,6 +138,8 @@ jobs:
     if: success() && github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
     needs: [run_tests, check_style]
     runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
     steps:
       - name: Create Release
         id: create_release
@@ -160,12 +162,12 @@ jobs:
         category: [client, server]
         include:
           - os: ubuntu-latest
-            cmd: build_artifact.sh
-            arch: ${{ LINUX_ARCH }}
+            cmd: ./build_artifact.sh
+            arch: linux_x86-64
             container: biozzzzz/r-type
           - os: windows-latest
             cmd: cmd /c build_artifact.bat
-            arch: ${{ WINDOWS_ARCH }}
+            arch: windows_x86-64
     runs-on: ${{ matrix.os }}
     container: ${{ matrix.container }}
     steps:
@@ -181,6 +183,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
           asset_path: ./artifacts/r-type_${{ matrix.category }}_${{ matrix.arch }}.zip
-          asset_name: r-type_${{ matrix.category }}_${{ matrix.arch }}
+          asset_name: r-type_${{ matrix.category }}_${{ matrix.arch }}.zip
+          asset_content_type: application/zip
