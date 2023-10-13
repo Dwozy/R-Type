@@ -5,6 +5,8 @@ on:
   push:
     branches:
     - 'main'
+    tags:
+    - v*
   pull_request:
     branches:
     - 'main'
@@ -161,11 +163,11 @@ jobs:
         include:
           - os: ubuntu-latest
             cmd: build_artifact.sh
-            arch: ${{ LINUX_ARCH }}
+            arch: ${{ env.LINUX_ARCH }}
             container: biozzzzz/r-type
           - os: windows-latest
             cmd: cmd /c build_artifact.bat
-            arch: ${{ WINDOWS_ARCH }}
+            arch: ${{ env.WINDOWS_ARCH }}
     runs-on: ${{ matrix.os }}
     container: ${{ matrix.container }}
     steps:
