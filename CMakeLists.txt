@@ -40,6 +40,9 @@ set(SRCS_LIB
     GameEngine/src/systems/DrawSystem.cpp
     GameEngine/src/systems/PositionSystem.cpp
     GameEngine/src/Network/server/ACommunication.cpp
+    GameEngine/src/systems/CollisionSystem.cpp
+    GameEngine/src/systems/PressableSystem.cpp
+    GameEngine/src/SceneManager.cpp
 )
 
 project(${PROJECT_NAME} LANGUAGES CXX)

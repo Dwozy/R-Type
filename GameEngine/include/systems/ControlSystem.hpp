@@ -10,12 +10,19 @@
 #include "GameEngine.hpp"
 #include "Registry.hpp"
 #include "components/ControllableComponent.hpp"
-#include "components/VelocityComponent.hpp"
+#include "components/TransformComponent.hpp"
 
 namespace GameEngine
 {
-    void controlSystem(GameEngine &gameEngine, SparseArray<VelocityComponent> &velocities,
-        SparseArray<ControllableComponent> &controllable);
-}
+    class ControlSystem
+    {
+      public:
+        ControlSystem(){};
+        ~ControlSystem() = default;
+
+        void operator()(SparseArray<TransformComponent> &transforms,
+                        SparseArray<ControllableComponent> &controllable);
+    };
+} // namespace GameEngine
 
 #endif /* !CONTROLSYSTEM_HPP_ */

@@ -25,9 +25,7 @@ class SparseArray
     using constIterator = typename container::const_iterator;
 
     SparseArray(){};
-
     SparseArray(const SparseArray &sparseArray) : _data(sparseArray._data){};
-    SparseArray(SparseArray &&sparseArray) noexcept : _data(sparseArray._data){};
 
     ~SparseArray(){};
 
@@ -90,6 +88,7 @@ class SparseArray
         throw;
     };
 
+    void resize(const std::size_t &count){ _data.resize(count); }
   private:
     container _data;
 };
