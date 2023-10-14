@@ -6,11 +6,19 @@
 ##
 
 SRC_SERVER			= 		server/src/main.cpp	\
-							GameEngine/src/Network/server/ACommunication.cpp	\
 							R-Type-server/src/UdpServer.cpp	\
 							R-Type-server/src/TcpServer.cpp	\
 							R-Type-server/src/ClientSession.cpp	\
-							R-Type-server/src/RTypeServer.cpp
+							R-Type-server/src/RTypeServer.cpp	\
+							GameEngine/src/Error.cpp	\
+							GameEngine/src/DeltaTime.cpp	\
+							GameEngine/src/systems/ControlSystem.cpp	\
+							GameEngine/src/systems/DrawSystem.cpp	\
+							GameEngine/src/systems/PositionSystem.cpp	\
+							GameEngine/src/Network/server/ACommunication.cpp	\
+							GameEngine/src/systems/CollisionSystem.cpp	\
+							GameEngine/src/systems/PressableSystem.cpp	\
+							GameEngine/src/SceneManager.cpp	\
 
 SRC_CLIENT			= 		client/src/main.cpp	\
 							client/src/UdpClient.cpp	\
@@ -25,7 +33,7 @@ NAME_SERVER			=		r-type_server
 
 NAME_CLIENT			=		r-type_client
 
-LDFLAGS				=		-pthread
+LDFLAGS				=		-pthread -lsfml-graphics -lsfml-window -lsfml-system
 
 CXXFLAGS			=		-std=c++20 -Wall -Wextra -g3
 

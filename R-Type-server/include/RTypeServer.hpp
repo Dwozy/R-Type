@@ -11,6 +11,7 @@
 #include "RType.hpp"
 #include "SafeQueue.hpp"
 #include "UdpServer.hpp"
+#include "GameEngineServer.hpp"
 #include <asio.hpp>
 
 namespace RType::Server
@@ -27,6 +28,7 @@ namespace RType::Server
 
       protected:
       private:
+        GameEngine::GameEngineServer _gameEngine;
         asio::io_context _IOContext;
         asio::signal_set _signal;
         SafeQueue<std::string> _clientsMessages;

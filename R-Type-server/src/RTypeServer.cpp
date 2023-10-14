@@ -6,20 +6,17 @@
 */
 
 #include "RTypeServer.hpp"
+#include "components/TransformComponent.hpp"
+#include "components/CollisionComponent.hpp"
+#include "components/ControllableComponent.hpp"
 
-RType::Server::RTypeServer::RTypeServer(unsigned short port):
-    _signal(_IOContext, SIGINT, SIGTERM),
-    _udpServer(_IOContext, port, std::ref(_clientsMessages))
+RType::Server::RTypeServer::RTypeServer(unsigned short port)
+    : _signal(_IOContext, SIGINT, SIGTERM), _udpServer(_IOContext, port, std::ref(_clientsMessages))
 {
-    // std::thread gameLoop(&RType::Server::RTypeServer::gameLoop, this);
-
     gameLoop();
-    // gameLoop();
 }
 
-RType::Server::RTypeServer::~RTypeServer()
-{
-}
+RType::Server::RTypeServer::~RTypeServer() {}
 
 void RType::Server::RTypeServer::gameLoop()
 {
