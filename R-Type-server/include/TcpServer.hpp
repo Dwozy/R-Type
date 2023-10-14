@@ -14,7 +14,7 @@
 #include <iostream>
 #include <thread>
 
-namespace GameEngine::Network
+namespace RType::Server
 {
 
     /// @brief This class manages all the TCP server event from clients

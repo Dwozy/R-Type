@@ -5,22 +5,17 @@
 ** main
 */
 
-#include "SafeQueue.hpp"
-#include "TcpServer.hpp"
-#include "UdpServer.hpp"
+#include "RTypeServer.hpp"
+#include <iostream>
 
 int main(int ac, char const *av[])
 {
-    asio::io_context IOContext;
-    SafeQueue<std::string> clientsMessages;
     try {
-        if (ac != 2)
-            return 84;
-        asio::signal_set signal(IOContext, SIGINT, SIGTERM);
-        signal.async_wait(std::bind(&asio::io_service::stop, &IOContext));
-        GameEngine::Network::TcpServer tcpServer(IOContext, atoi(av[1]), std::ref(clientsMessages));
-        GameEngine::Network::UdpServer udpServer(IOContext, atoi(av[1]), std::ref(clientsMessages));
-        IOContext.run();
+        if (ac == 2 && atoi(av[1]) != 0)
+            RType::Server::RTypeServer server(atoi(av[1]));
+        else
+            RType::Server::RTypeServer server;
+
     } catch (std::exception &e) {
         std::cerr << e.what() << std::endl;
     }

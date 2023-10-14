@@ -6,14 +6,16 @@
 ##
 
 SRC_SERVER			= 		server/src/main.cpp	\
-							server/src/UdpServer.cpp	\
-							server/src/TcpServer.cpp	\
-							server/src/ClientSession.cpp	\
-							server/src/Communication.cpp
+							GameEngine/src/Network/server/ACommunication.cpp	\
+							R-Type-server/src/UdpServer.cpp	\
+							R-Type-server/src/TcpServer.cpp	\
+							R-Type-server/src/ClientSession.cpp	\
+							R-Type-server/src/RTypeServer.cpp
 
 SRC_CLIENT			= 		client/src/main.cpp	\
 							client/src/UdpClient.cpp	\
 							client/src/TcpClient.cpp	\
+							GameEngine/src/Network/server/ACommunication.cpp
 
 OBJ_SERVER			=		$(SRC_SERVER:.cpp=.o)
 
@@ -25,13 +27,13 @@ NAME_CLIENT			=		r-type_client
 
 LDFLAGS				=		-pthread
 
-LIBFLAGS			=		-lboost_serialization
-
 CXXFLAGS			=		-std=c++20 -Wall -Wextra -g3
 
-CPPFLAGS			=		-I ./include/Server \
-							-I ./include/Client	\
-							-I ./include
+CPPFLAGS			=		-I ./include/Client	\
+							-I ./GameEngine/include	\
+							-I ./GameEngine/include/Network/Server/	\
+							-I ./R-Type-server/include	\
+							-I ./R-Type/include	\
 
 CXX					=		g++
 
@@ -40,10 +42,10 @@ MV					=		mv
 all: 	server	client
 
 server:	$(OBJ_SERVER)
-	$(CXX) -o $(NAME_SERVER) $(OBJ_SERVER) $(LDFLAGS) $(LIBFLAGS)
+	$(CXX) -o $(NAME_SERVER) $(OBJ_SERVER) $(LDFLAGS)
 
 client: $(OBJ_CLIENT)
-	$(CXX) -o $(NAME_CLIENT) $(OBJ_CLIENT) $(LDFLAGS) $(LIBFLAGS)
+	$(CXX) -o $(NAME_CLIENT) $(OBJ_CLIENT) $(LDFLAGS)
 
 clean:
 	$(RM) $(OBJ_SERVER)

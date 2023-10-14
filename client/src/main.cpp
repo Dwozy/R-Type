@@ -19,9 +19,9 @@ int main(int ac, char const *av[])
         asio::signal_set signal(IOContext, SIGINT, SIGTERM);
         signal.async_wait(std::bind(&asio::io_service::stop, &IOContext));
         asio::ip::udp::endpoint serverUdpEndpoint(asio::ip::address::from_string(av[1]), atoi(av[2]));
-        asio::ip::tcp::endpoint serverTcpEndpoint(asio::ip::address::from_string(av[1]), atoi(av[2]));
-        Network::UdpClient udpClient(IOContext, serverUdpEndpoint);
-        Network::TcpClient tcpClient(IOContext, serverTcpEndpoint);
+        // asio::ip::tcp::endpoint serverTcpEndpoint(asio::ip::address::from_string(av[1]), atoi(av[2]));
+        RType::Client::UdpClient udpClient(IOContext, serverUdpEndpoint);
+        // RType::Client::TcpClient tcpClient(IOContext, serverTcpEndpoint);
         IOContext.run();
     } catch (std::exception &e) {
         std::cerr << "Exception: " << e.what() << std::endl;

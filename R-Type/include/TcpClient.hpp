@@ -11,7 +11,7 @@
 #include <asio.hpp>
 #include <iostream>
 
-namespace Network
+namespace RType::Client
 {
     class TcpClient
     {

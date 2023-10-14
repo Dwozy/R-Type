@@ -12,7 +12,7 @@
 #include <asio.hpp>
 #include <iostream>
 
-namespace GameEngine::Network
+namespace RType::Server
 {
     /// @brief Client Session that will handle every client's event
     class ClientSession : public std::enable_shared_from_this<ClientSession>

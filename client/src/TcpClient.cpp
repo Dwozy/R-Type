@@ -7,21 +7,23 @@
 
 #include "TcpClient.hpp"
 
-Network::TcpClient::TcpClient(asio::io_context &IOContext, asio::ip::tcp::endpoint &serverEndpoint)
-    : _IOContext(IOContext), _serverEndpoint(serverEndpoint), _socket(IOContext), _input(IOContext, ::dup(STDIN_FILENO))
+RType::Client::TcpClient::TcpClient(asio::io_context &IOContext, asio::ip::tcp::endpoint &serverEndpoint)
+    : _IOContext(IOContext), _serverEndpoint(serverEndpoint),
+      _socket(IOContext, _serverEndpoint), _input(IOContext, ::dup(STDIN_FILENO))
 {
     run();
 }
 
-Network::TcpClient::~TcpClient() { _input.close(); }
+RType::Client::TcpClient::~TcpClient() { _input.close(); }
 
-void Network::TcpClient::handleInput(const asio::error_code &error, std::size_t recvBytes)
+void RType::Client::TcpClient::handleInput(const asio::error_code &error, std::size_t recvBytes)
 {
     if (!error) {
         asio::streambuf::const_buffers_type bufs = _inputBuffer.data();
         std::string str(asio::buffers_begin(bufs), asio::buffers_begin(bufs) + recvBytes);
+        std::cout << "String : " << str << std::endl;
         asio::async_write(
-            _socket, asio::buffer(str), std::bind(&Network::TcpClient::handleWrite, this, std::placeholders::_1));
+            _socket, asio::buffer(str), std::bind(&RType::Client::TcpClient::handleWrite, this, std::placeholders::_1));
         _inputBuffer.consume(_inputBuffer.size());
     } else if (error == asio::error::operation_aborted) {
         _socket.close();
@@ -29,21 +31,23 @@ void Network::TcpClient::handleInput(const asio::error_code &error, std::size_t 
     }
 }
 
-void Network::TcpClient::handleWrite(const asio::error_code &error)
+void RType::Client::TcpClient::handleWrite(const asio::error_code &error)
 {
+    std::cout << "Enter" << std::endl;
     if (!error) {
         asio::async_read_until(_input, _inputBuffer, '\n',
-            std::bind(&Network::TcpClient::handleInput, this, std::placeholders::_1, std::placeholders::_2));
+            std::bind(&RType::Client::TcpClient::handleInput, this, std::placeholders::_1, std::placeholders::_2));
     } else if (error == asio::error::operation_aborted) {
-        std::cout << "Server DOWN" << std::endl;
-        _socket.close();
+        std::cout << "WOWOWOOWOWO" << std::endl;
+        // _socket.close();
         _input.close();
     } else {
         _socket.close();
     }
 }
 
-void Network::TcpClient::run()
+void RType::Client::TcpClient::run()
 {
-    _socket.async_connect(_serverEndpoint, std::bind(&Network::TcpClient::handleWrite, this, std::placeholders::_1));
+    std::cout << "Connect to TCP" << std::endl;
+    _socket.async_connect(_serverEndpoint, std::bind(&RType::Client::TcpClient::handleWrite, this, std::placeholders::_1));
 }

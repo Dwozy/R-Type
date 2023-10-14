@@ -39,9 +39,7 @@ set(SRCS_LIB
     GameEngine/src/systems/ControlSystem.cpp
     GameEngine/src/systems/DrawSystem.cpp
     GameEngine/src/systems/PositionSystem.cpp
-    GameEngine/src/Network/server/ClientSession.cpp
-    GameEngine/src/Network/server/TcpServer.cpp
-    GameEngine/src/Network/server/UdpServer.cpp
+    GameEngine/src/Network/server/ACommunication.cpp
 )
 
 project(${PROJECT_NAME} LANGUAGES CXX)
@@ -100,6 +98,10 @@ set(SERVER_FOLDER R-Type-server)
 set(INCLUDES_SERVER ${SERVER_FOLDER}/include)
 set(SRCS_SERVER
     ${SERVER_FOLDER}/src/main.cpp
+    ${SERVER_FOLDER}/src/ClientSession.cpp
+    ${SERVER_FOLDER}/src/RTypeServer.cpp
+    ${SERVER_FOLDER}/src/TcpServer.cpp
+    ${SERVER_FOLDER}/src/UdpServer.cpp
 )
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${SERVER_FOLDER})
