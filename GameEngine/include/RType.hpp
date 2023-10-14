@@ -11,6 +11,7 @@
 #include <map>
 #include <string>
 #include <utility>
+#include <cstdint>
 
 namespace rtype
 {

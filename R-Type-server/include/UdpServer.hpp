@@ -8,7 +8,7 @@
 #ifndef UDPSERVER_HPP_
 #define UDPSERVER_HPP_
 
-#include "ACommunication.hpp"
+#include "Network/Server/ACommunication.hpp"
 #include "RType.hpp"
 #include "SafeQueue.hpp"
 #include "Serialization.hpp"
