@@ -8,9 +8,9 @@
 #include "UdpServer.hpp"
 
 RType::Server::UdpServer::UdpServer(
-    asio::io_context &IOContext, unsigned short port, SafeQueue<std::string> &clientMessages)
+    asio::io_context &IOContext, unsigned short port, SafeQueue<struct rtype::Event> &eventQueue)
     : GameEngine::Network::ACommunication(IOContext, port), _timer(IOContext), _timerTCP(IOContext),
-      _signal(IOContext, SIGINT, SIGTERM), _clientsMessages(clientMessages)
+      _signal(IOContext, SIGINT, SIGTERM), _eventQueue(eventQueue)
 {
     _signal.async_wait(std::bind(&asio::io_context::stop, &IOContext));
     indexPlayer = 0;
@@ -36,9 +36,9 @@ RType::Server::UdpServer::~UdpServer()
     _socket.close();
 }
 
-void RType::Server::UdpServer::handleRoom(uint16_t size)
+void RType::Server::UdpServer::handleRoom(struct rtype::HeaderDataPacket header)
 {
-    struct rtype::Room room = Serialization::deserializeData<struct rtype::Room>(_buffer, size);
+    struct rtype::Room room = Serialization::deserializeData<struct rtype::Room>(_buffer, header.payloadSize);
 
     std::cout << "----------" << std::endl;
     std::cout << "Room : " << std::endl;
@@ -46,22 +46,31 @@ void RType::Server::UdpServer::handleRoom(uint16_t size)
               << static_cast<std::size_t>(room.slots) << " lefts." << std::endl;
     std::cout << "Stage level : " << room.stageLevel << std::endl;
     std::cout << "----------" << std::endl;
-    _streamBuffer.consume(_streamBuffer.size());
     // std::cout << _message << std::endl;
 }
 
-void RType::Server::UdpServer::handleString(uint16_t size)
+void RType::Server::UdpServer::handleString(struct rtype::HeaderDataPacket header)
 {
-    std::vector<uint8_t> byteArrayToReceive = Serialization::deserializeData(_buffer, size);
+    std::vector<uint8_t> byteArrayToReceive = Serialization::deserializeData(_buffer, header.payloadSize);
 
     std::string message(byteArrayToReceive.begin(), byteArrayToReceive.end());
     // _message = message;
     std::cout << "Message : " << message << std::endl;
 }
 
-void RType::Server::UdpServer::handleEntity(uint16_t size)
+void RType::Server::UdpServer::handleMove(struct rtype::HeaderDataPacket header)
 {
-    struct rtype::Entity entity = Serialization::deserializeData<struct rtype::Entity>(_buffer, size);
+    struct rtype::Move moveInfo = Serialization::deserializeData<struct rtype::Move> (_buffer, header.payloadSize);
+    struct rtype::Event event;
+
+    event.packetType = header.packetType;
+    event.data = moveInfo;
+    _eventQueue.push(event);
+}
+
+void RType::Server::UdpServer::handleEntity(struct rtype::HeaderDataPacket header)
+{
+    struct rtype::Entity entity = Serialization::deserializeData<struct rtype::Entity>(_buffer, header.payloadSize);
 
     _listPlayersInfos[entity.id] = entity;
     // if (_listPlayersInfos.find(entity.id) != _listPlayersInfos.end()) {
@@ -76,14 +85,12 @@ void RType::Server::UdpServer::handleEntity(uint16_t size)
     std::cout << "----------------" << std::endl;
 }
 
-void RType::Server::UdpServer::handleConnexion(uint16_t size)
+void RType::Server::UdpServer::handleConnexion(struct rtype::HeaderDataPacket header)
 {
-    struct rtype::Entity entity
-    {
-        .id = indexPlayer++, .positionX = 0, .positionY = 0, .directionX = 0, .directionY = 0, .lifePoint = 10,
-    };
+    struct rtype::Event event = {};
 
-    _listPlayersInfos[entity.id] = entity;
+    event.packetType = header.packetType;
+    _eventQueue.push(event);
 }
 
 std::map<unsigned short, asio::ip::udp::endpoint> RType::Server::UdpServer::getListClients() { return _listClient; }
@@ -95,7 +102,7 @@ void RType::Server::UdpServer::handleData(
         std::cout << static_cast<std::size_t>(header.packetType) << std::endl;
         if (_commands.find(header.packetType) != _commands.end()) {
             std::cout << header.payloadSize << std::endl;
-            _commands.at(header.packetType)(header.payloadSize);
+            _commands.at(header.packetType)(header);
         } else {
             std::cerr << "Packet Type doesn't exist !" << std::endl;
         }

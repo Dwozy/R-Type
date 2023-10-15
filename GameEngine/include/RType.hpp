@@ -12,13 +12,20 @@
 #include <string>
 #include <utility>
 #include <cstdint>
+#include <any>
 
 namespace rtype
 {
     static const std::size_t HEADER_SIZE = 8;
     static const uint32_t MAGIC_NUMBER = 0xA54CDEF5;
 
-    enum class PacketType : uint8_t { ROOM = 1, STRING = 2, ENTITY = 3, CONNEXION = 4 };
+    enum class PacketType : uint8_t { ROOM = 1, STRING = 2, ENTITY = 3, CONNEXION = 4, MOVE = 5, SHOOT = 6 };
+
+    struct Event
+    {
+        uint8_t packetType;
+        std::any data;
+    };
 
     struct Entity
     {
@@ -28,6 +35,20 @@ namespace rtype
         uint16_t directionX;
         uint16_t directionY;
         uint16_t lifePoint;
+    };
+
+    struct Move
+    {
+        uint16_t id;
+        uint16_t directionX;
+        uint16_t directionY;
+    };
+
+    struct Shoot
+    {
+        uint16_t id;
+        uint16_t positionX;
+        uint16_t positionY;
     };
 
     struct HeaderDataPacket

@@ -16,6 +16,7 @@
 #include <asio.hpp>
 #include <iostream>
 #include <map>
+#include "Entity.hpp"
 
 namespace RType::Server
 {
@@ -25,7 +26,7 @@ namespace RType::Server
     class UdpServer : public GameEngine::Network::ACommunication
     {
       public:
-        UdpServer(asio::io_context &IOContext, unsigned short port, SafeQueue<std::string> &clientMessages);
+        UdpServer(asio::io_context &IOContext, unsigned short port, SafeQueue<struct rtype::Event> &eventQueue);
         ~UdpServer();
 
         void handleData(const asio::error_code &error, std::size_t, const struct rtype::HeaderDataPacket &header);
@@ -35,11 +36,13 @@ namespace RType::Server
         /// @brief Sender function that will send to message to the client
         void broadcastInformation();
 
-        void handleRoom(uint16_t);
-        void handleEntity(uint16_t);
-        void handleString(uint16_t);
-        void handleConnexion(uint16_t);
+        void handleRoom(struct rtype::HeaderDataPacket header);
+        void handleEntity(struct rtype::HeaderDataPacket header);
+        void handleString(struct rtype::HeaderDataPacket header);
 
+
+        void handleMove(struct rtype::HeaderDataPacket header);
+        void handleConnexion(struct rtype::HeaderDataPacket header);
       protected:
       private:
 
@@ -49,14 +52,14 @@ namespace RType::Server
         /// @brief Update information from TCP server
         void updateTCPInformation();
 
+        unsigned short indexPlayer;
         asio::steady_timer _timer;
         asio::steady_timer _timerTCP;
         asio::signal_set _signal;
-        SafeQueue<std::string> &_clientsMessages;
+        SafeQueue<struct rtype::Event> &_eventQueue;
         asio::ip::udp::endpoint _clientEndpoint;
-        std::unordered_map<uint8_t, std::function<void(uint16_t size)>> _commands;
+        std::unordered_map<uint8_t, std::function<void(struct rtype::HeaderDataPacket)>> _commands;
         std::map<unsigned short, struct rtype::Entity> _listPlayersInfos;
-        unsigned short indexPlayer;
 
     };
 } // namespace GameEngine::Network

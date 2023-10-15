@@ -26,6 +26,7 @@ namespace RType::Server
 
         void communication(RType::Server::UdpServer &udpserver);
 
+        void handleEvent();
       protected:
       private:
         GameEngine::GameEngineServer _gameEngine;
@@ -35,6 +36,8 @@ namespace RType::Server
         RType::Server::UdpServer _udpServer;
         std::map<struct rtype::Room, std::map<unsigned short, struct rtype::Entity>> _listPlayersInfos;
         std::map<unsigned short, asio::ip::udp::endpoint> _listClients;
+        std::vector<GameEngine::Entity> _listEntities;
+        SafeQueue<struct rtype::Event> _eventQueue;
     };
 } // namespace RType::Server
 #endif /* !RTYPESERVER_HPP_ */
