@@ -30,6 +30,22 @@ namespace Error
 
     /**
      * @brief
+     * ComponentNotInsertedError Class Error
+     * Error thrown when trying to access a component that is not register
+     */
+    class ComponentNotInsertedError : public std::exception
+    {
+      public:
+        ComponentNotInsertedError();
+        ~ComponentNotInsertedError();
+        const char *what() const noexcept override;
+
+      private:
+        std::string message;
+    };
+
+    /**
+     * @brief
      * TooMuchEntitiesError Class Error
      * Error thrown when exceeding the maximum number of entities
      */
