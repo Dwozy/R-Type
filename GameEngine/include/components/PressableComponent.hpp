@@ -12,8 +12,7 @@
 
 namespace GameEngine
 {
-    enum PressableState
-    {
+    enum PressableState {
         defaultState,
         hoveredState,
         pressedState,

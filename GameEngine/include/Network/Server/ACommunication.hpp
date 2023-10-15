@@ -19,7 +19,7 @@ namespace GameEngine::Network
     {
       public:
         ACommunication(asio::io_context &IOContext, unsigned short port);
-        virtual ~ACommunication() {};
+        virtual ~ACommunication(){};
 
         template <typename Socket, typename Endpoint>
         void sendData(void *data, std::size_t size, uint8_t packetType, Socket &socket, Endpoint &endpoint)
@@ -51,6 +51,7 @@ namespace GameEngine::Network
         struct rtype::HeaderDataPacket _header;
         asio::ip::udp::endpoint _endpoint;
         std::map<unsigned short, asio::ip::udp::endpoint> _listClient;
+
       private:
     };
 

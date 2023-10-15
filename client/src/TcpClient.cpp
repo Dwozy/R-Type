@@ -8,8 +8,8 @@
 #include "TcpClient.hpp"
 
 RType::Client::TcpClient::TcpClient(asio::io_context &IOContext, asio::ip::tcp::endpoint &serverEndpoint)
-    : _IOContext(IOContext), _serverEndpoint(serverEndpoint),
-      _socket(IOContext, _serverEndpoint), _input(IOContext, ::dup(STDIN_FILENO))
+    : _IOContext(IOContext), _serverEndpoint(serverEndpoint), _socket(IOContext, _serverEndpoint),
+      _input(IOContext, ::dup(STDIN_FILENO))
 {
     run();
 }
@@ -49,5 +49,6 @@ void RType::Client::TcpClient::handleWrite(const asio::error_code &error)
 void RType::Client::TcpClient::run()
 {
     std::cout << "Connect to TCP" << std::endl;
-    _socket.async_connect(_serverEndpoint, std::bind(&RType::Client::TcpClient::handleWrite, this, std::placeholders::_1));
+    _socket.async_connect(
+        _serverEndpoint, std::bind(&RType::Client::TcpClient::handleWrite, this, std::placeholders::_1));
 }

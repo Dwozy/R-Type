@@ -47,10 +47,10 @@ void RType::Server::RTypeServer::handleEvent()
     while (!_eventQueue.size() != 0) {
         event = _eventQueue.pop();
         switch (event.packetType) {
-            case static_cast<uint8_t> (rtype::PacketType::CONNEXION):
-                break;
-            case static_cast<uint8_t> (rtype::PacketType::MOVE):
-                break;
+        case static_cast<uint8_t>(rtype::PacketType::CONNEXION):
+            break;
+        case static_cast<uint8_t>(rtype::PacketType::MOVE):
+            break;
         }
     }
 }

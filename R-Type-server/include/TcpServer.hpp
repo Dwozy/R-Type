@@ -45,6 +45,6 @@ namespace RType::Server
         std::array<char, 1024> _readBuffer;
         std::vector<std::shared_ptr<ClientSession>> _clients;
     };
-} // namespace GameEngine::Network
+} // namespace RType::Server
 
 #endif /* !TCPSERVER_HPP_ */

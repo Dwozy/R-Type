@@ -47,5 +47,5 @@ namespace RType::Server
         SafeQueue<std::string> &_clientsMessages;
         std::array<char, 1024> _readBuffer;
     };
-};     // namespace GameEngine::Network
+};     // namespace RType::Server
 #endif /* !CLIENTSESSION_HPP_ */

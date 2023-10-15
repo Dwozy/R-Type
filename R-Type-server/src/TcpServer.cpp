@@ -7,8 +7,7 @@
 
 #include "TcpServer.hpp"
 
-RType::Server::TcpServer::TcpServer(
-    asio::io_context &IOContext, int port, SafeQueue<std::string> &clientsMessages)
+RType::Server::TcpServer::TcpServer(asio::io_context &IOContext, int port, SafeQueue<std::string> &clientsMessages)
     : _acceptor(IOContext, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), port)), _socket(IOContext),
       _IOContext(IOContext), _port(port), _clientsMessages(clientsMessages)
 {
@@ -24,8 +23,7 @@ void RType::Server::TcpServer::accept(std::shared_ptr<ClientSession> clientSessi
         std::bind(&RType::Server::TcpServer::handleAccept, this, clientSession, std::placeholders::_1));
 }
 
-void RType::Server::TcpServer::handleAccept(
-    std::shared_ptr<ClientSession> clientSession, const asio::error_code &error)
+void RType::Server::TcpServer::handleAccept(std::shared_ptr<ClientSession> clientSession, const asio::error_code &error)
 {
     if (!error) {
         std::cout << "New Client connected" << std::endl;

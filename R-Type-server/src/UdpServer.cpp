@@ -60,7 +60,7 @@ void RType::Server::UdpServer::handleString(struct rtype::HeaderDataPacket heade
 
 void RType::Server::UdpServer::handleMove(struct rtype::HeaderDataPacket header)
 {
-    struct rtype::Move moveInfo = Serialization::deserializeData<struct rtype::Move> (_buffer, header.payloadSize);
+    struct rtype::Move moveInfo = Serialization::deserializeData<struct rtype::Move>(_buffer, header.payloadSize);
     struct rtype::Event event;
 
     event.packetType = header.packetType;
@@ -135,7 +135,8 @@ void RType::Server::UdpServer::handleData(
 //             } else {
 //                 buff.erase(std::remove(buff.begin(), buff.end(), '\0'), buff.end());
 //                 sendData(
-//                     buff.data(), buff.size(), static_cast<uint8_t>(rtype::PacketType::STRING), _socket, client.second);
+//                     buff.data(), buff.size(), static_cast<uint8_t>(rtype::PacketType::STRING), _socket,
+//                     client.second);
 //             }
 //         }
 //     }

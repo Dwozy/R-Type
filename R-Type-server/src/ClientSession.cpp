@@ -16,16 +16,13 @@ RType::Server::ClientSession::~ClientSession() { _socket.close(); }
 
 asio::ip::tcp::socket &RType::Server::ClientSession::getSocket() { return _socket; }
 
-std::shared_ptr<RType::Server::ClientSession> RType::Server::ClientSession::get()
-{
-    return shared_from_this();
-}
+std::shared_ptr<RType::Server::ClientSession> RType::Server::ClientSession::get() { return shared_from_this(); }
 
 void RType::Server::ClientSession::handleWrite(const asio::error_code &error)
 {
     if (!error) {
-        _socket.async_read_some(asio::buffer(_readBuffer), std::bind(&RType::Server::ClientSession::handleRead,
-                                                               get(), std::placeholders::_1, std::placeholders::_2));
+        _socket.async_read_some(asio::buffer(_readBuffer),
+            std::bind(&RType::Server::ClientSession::handleRead, get(), std::placeholders::_1, std::placeholders::_2));
     } else {
         std::cerr << error.message() << std::endl;
     }
@@ -50,6 +47,6 @@ void RType::Server::ClientSession::handleRead(const asio::error_code &error, std
 
 void RType::Server::ClientSession::start()
 {
-    _socket.async_read_some(asio::buffer(_readBuffer), std::bind(&RType::Server::ClientSession::handleRead, get(),
-                                                           std::placeholders::_1, std::placeholders::_2));
+    _socket.async_read_some(asio::buffer(_readBuffer),
+        std::bind(&RType::Server::ClientSession::handleRead, get(), std::placeholders::_1, std::placeholders::_2));
 }

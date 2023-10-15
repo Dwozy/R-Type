@@ -20,8 +20,7 @@ namespace GameEngine
         ControlSystem(){};
         ~ControlSystem() = default;
 
-        void operator()(SparseArray<TransformComponent> &transforms,
-                        SparseArray<ControllableComponent> &controllable);
+        void operator()(SparseArray<TransformComponent> &transforms, SparseArray<ControllableComponent> &controllable);
     };
 } // namespace GameEngine
 

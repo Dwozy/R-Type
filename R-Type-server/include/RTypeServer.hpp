@@ -27,6 +27,7 @@ namespace RType::Server
         void communication(RType::Server::UdpServer &udpserver);
 
         void handleEvent();
+
       protected:
       private:
         GameEngine::GameEngineServer _gameEngine;

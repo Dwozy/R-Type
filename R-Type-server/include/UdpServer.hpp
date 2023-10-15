@@ -40,12 +40,11 @@ namespace RType::Server
         void handleEntity(struct rtype::HeaderDataPacket header);
         void handleString(struct rtype::HeaderDataPacket header);
 
-
         void handleMove(struct rtype::HeaderDataPacket header);
         void handleConnexion(struct rtype::HeaderDataPacket header);
+
       protected:
       private:
-
         /// @brief Update information to clients at periodical interval
         void updateGameInfo();
 
@@ -60,7 +59,6 @@ namespace RType::Server
         asio::ip::udp::endpoint _clientEndpoint;
         std::unordered_map<uint8_t, std::function<void(struct rtype::HeaderDataPacket)>> _commands;
         std::map<unsigned short, struct rtype::Entity> _listPlayersInfos;
-
     };
-} // namespace GameEngine::Network
+} // namespace RType::Server
 #endif /* !UDPSERVER_HPP_ */
