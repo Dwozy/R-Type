@@ -9,6 +9,8 @@
 #define DRAWSYSTEM_HPP_
 #include "GameEngine.hpp"
 #include "SFML/Graphics.hpp"
+#include "components/TextureComponent.hpp"
+#include "components/TextComponent.hpp"
 
 namespace GameEngine
 {
@@ -19,8 +21,7 @@ namespace GameEngine
         ~DrawSystem() = default;
 
         void operator()(SparseArray<TextComponent> &texts,
-                        SparseArray<TextureComponent> &textures,
-                        SparseArray<TextureAnimatedComponent> &texturesA);
+                        SparseArray<TextureComponent> &textures);
 
       private:
         Window &_window;

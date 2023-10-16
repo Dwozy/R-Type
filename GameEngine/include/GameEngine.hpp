@@ -25,7 +25,6 @@
 #include "components/TextureComponent.hpp"
 #include "components/TextComponent.hpp"
 #include "components/ControllableComponent.hpp"
-#include "components/TextureAnimatedComponent.hpp"
 #include "components/TransformComponent.hpp"
 #include "components/ViewComponent.hpp"
 #include "components/WindowComponent.hpp"

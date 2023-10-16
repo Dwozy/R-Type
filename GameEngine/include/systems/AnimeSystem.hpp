@@ -17,7 +17,7 @@ namespace GameEngine
         public:
             AnimeSystem() {};
             ~AnimeSystem() = default;
-            void operator()(SparseArray<TextureAnimatedComponent> &texture);
+            void operator()(SparseArray<TextureComponent> &texture);
     };
 }
 

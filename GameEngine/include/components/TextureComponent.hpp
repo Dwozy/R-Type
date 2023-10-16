@@ -16,7 +16,12 @@ namespace GameEngine
     {
         Texture texture;
         Sprite sprite;
+        bool animated;
+        std::vector<Rect<int>> textureRects;
+        float animationSpeed;
         bool isRendered;
+        float lastUpdate;
+        size_t animeid;
         size_t renderLayer;
     };
 } // namespace GameEngine
