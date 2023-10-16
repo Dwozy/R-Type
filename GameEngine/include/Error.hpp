@@ -59,6 +59,38 @@ namespace Error
       private:
         std::string message;
     };
+
+    /**
+     * @brief
+     * InvalidSceneNameError Class Error
+     * Error thrown when registering a scene with an invalid name or already used name.
+     */
+    class InvalidSceneNameError : public std::exception
+    {
+      public:
+        InvalidSceneNameError();
+        ~InvalidSceneNameError();
+        const char *what() const noexcept override;
+
+      private:
+        std::string message;
+    };
+
+    /**
+     * @brief
+     * SceneNotRegisterError Class Error
+     * Error thrown when trying to access a scene that is not registered.
+     */
+    class SceneNotRegisterError : public std::exception
+    {
+      public:
+        SceneNotRegisterError();
+        ~SceneNotRegisterError();
+        const char *what() const noexcept override;
+
+      private:
+        std::string message;
+    };
 } // namespace Error
 
 #endif /* !ERROR_HPP_ */

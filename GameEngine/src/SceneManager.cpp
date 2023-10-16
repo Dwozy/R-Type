@@ -6,26 +6,27 @@
 */
 
 #include "SceneManager.hpp"
+#include "Error.hpp"
 
 namespace GameEngine
 {
     void SceneManager::registerScene(const std::string &name, std::unique_ptr<IScene> &&scene)
     {
         if (name == "")
-            throw; // Invalid scene name
+            throw Error::InvalidSceneNameError();
         _scenes.insert({name, std::move(scene)});
     }
     void SceneManager::unregisterScene(const std::string &name)
     {
         if (_scenes.find(name) == _scenes.end())
-            throw; // scene not registered
+            throw Error::SceneNotRegisterError();
         _scenes.erase(name);
     }
 
     void SceneManager::loadScene(const std::string &name)
     {
         if (_scenes.find(name) == _scenes.end())
-            throw; // scene not registered
+            throw Error::SceneNotRegisterError();
         _currentScene = name;
         _scenes[name]->load();
     }

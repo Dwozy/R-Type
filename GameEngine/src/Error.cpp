@@ -20,4 +20,12 @@ namespace Error
     TooMuchEntitiesError::TooMuchEntitiesError() : message("Too much entities have been created") {}
     TooMuchEntitiesError::~TooMuchEntitiesError() {}
     char const *TooMuchEntitiesError::what() const noexcept { return message.c_str(); }
+
+    InvalidSceneNameError::InvalidSceneNameError() : message("The scene name is invalid or already used") {}
+    InvalidSceneNameError::~InvalidSceneNameError() {}
+    char const *InvalidSceneNameError::what() const noexcept { return message.c_str(); }
+
+    SceneNotRegisterError::SceneNotRegisterError() : message("The scene hasn't been registered") {}
+    SceneNotRegisterError::~SceneNotRegisterError() {}
+    char const *SceneNotRegisterError::what() const noexcept { return message.c_str(); }
 } // namespace Error
