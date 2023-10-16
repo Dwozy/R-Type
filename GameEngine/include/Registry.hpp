@@ -81,11 +81,30 @@ namespace GameEngine
             _nbEntities++;
             return Entity(id);
         };
+        /// @brief Spawns a new entity. Entities can't be spawned otherwise.
+        /// @param id Id of the entity to spawn.
+        /// @return The spawned entity.
+        Entity spawnEntity(const std::size_t &id)
+        {
+            if (id > _maxEntities)
+                throw;
+            if (!_emptyIndexes.empty()) {
+                if (std::binary_search(_emptyIndexes.begin(), _emptyIndexes.end(), id))
+                    _emptyIndexes.erase(_emptyIndexes.begin() + id);
+                return Entity(id);
+            }
+            for (; _nbEntities != id; _nbEntities++)
+                _emptyIndexes.push_back(_nbEntities);
+            std::sort(_emptyIndexes.begin(), _emptyIndexes.end());
+            _nbEntities++;
+            return Entity(id);
+        };
         /// @brief Kills the entity given, it destroys all the components to this entity.
         /// @param entity Entity to kill.
         void killEntity(const Entity &entity)
         {
             _emptyIndexes.push_back(entity);
+            std::sort(_emptyIndexes.begin(), _emptyIndexes.end());
             for (std::size_t i = 0; i < _deleters.size(); i++)
                 _deleters[i](*this, entity);
         };
