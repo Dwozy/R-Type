@@ -32,11 +32,8 @@ if [ "$1" == "fclean" ]
     clean_all
     rm -rf GameEngine/GameEngine
     rm R-Type/r-type_client
-    rm server/r-type_server
+    rm R-Type-server/r-type_server
     exit 0
 fi
 
 build_all
-#TMP
-mkdir -p server
-touch server/r-type_server

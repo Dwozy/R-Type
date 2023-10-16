@@ -8,7 +8,7 @@ mkdir -p ./artifacts/server
 cp -r R-Type/assets ./artifacts/client
 
 cp R-Type/r-type_client ./artifacts/client
-cp server/r-type_server ./artifacts/server
+cp R-Type-server/r-type_server ./artifacts/server
 
 echo '#!/bin/bash
 

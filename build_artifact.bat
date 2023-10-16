@@ -15,7 +15,7 @@ for /R .\build %%f in (*.dll) do (
 xcopy .\R-Type\assets .\artifacts\client\assets /E
 
 copy .\R-Type\r-type_client.exe .\artifacts\client
-copy .\server\r-type_server.exe .\artifacts\server
+copy .\R-Type-server\r-type_server.exe .\artifacts\server
 
 (
 	echo "set SCRIPT=^"%TEMP%\%RANDOM%-%RANDOM%-%RANDOM%-%RANDOM%.vbs^""
