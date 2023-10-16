@@ -7,7 +7,6 @@ GameEngine/GameEngine
 .vscode
 Makefile
 CMakeCache.txt
-.vscode
 build
 
 testFolder
@@ -19,5 +18,4 @@ a.out
 */include/SFML
 
 .vs
-
 artifacts*
