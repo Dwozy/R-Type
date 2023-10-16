@@ -9,7 +9,6 @@
 #define COLLISIONSYSTEM_HPP_
 #include "GameEngine.hpp"
 #include "Registry.hpp"
-#include "components/CollisionComponent.hpp"
 
 namespace GameEngine
 {

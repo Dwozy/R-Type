@@ -9,9 +9,6 @@
 #define DRAWSYSTEM_HPP_
 #include "GameEngine.hpp"
 #include "SFML/Graphics.hpp"
-#include "components/TextComponent.hpp"
-#include "components/TextureComponent.hpp"
-#include "components/TextureAnimatedComponent.hpp"
 
 namespace GameEngine
 {

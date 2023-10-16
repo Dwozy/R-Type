@@ -9,7 +9,6 @@
 #define ANIMESYSTEM_HPP_
 #include "GameEngine.hpp"
 #include "Registry.hpp"
-#include "components/TextureAnimatedComponent.hpp"
 
 
 namespace GameEngine
