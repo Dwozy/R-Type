@@ -27,8 +27,13 @@ namespace RType::Server
         void communication(RType::Server::UdpServer &udpserver);
 
         void handleEvent();
+        void handleConnexion();
         void startNetwork(bool &isRunning);
+        void updateEntities();
+        void setPlayerEntity(float posX, float posY, GameEngine::Entity entity, GameEngine::Registry &registry);
 
+        // void collisionCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
+            // SparseArray<GameEngine::TransformComponent> &transforms);
 
       protected:
       private:

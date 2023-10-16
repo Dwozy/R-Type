@@ -19,7 +19,7 @@ namespace rtype
     static const std::size_t HEADER_SIZE = 8;
     static const uint32_t MAGIC_NUMBER = 0xA54CDEF5;
 
-    enum class PacketType : uint8_t { ROOM = 1, STRING = 2, ENTITY = 3, CONNEXION = 4, MOVE = 5, SHOOT = 6 };
+    enum class PacketType : uint8_t { ROOM = 1, STRING = 2, ENTITY = 3, CONNEXION = 4, MOVE = 5, SHOOT = 6, CREATE_PLAYER = 7 };
 
     struct Event
     {
@@ -30,10 +30,10 @@ namespace rtype
     struct Entity
     {
         uint16_t id; // client
-        uint16_t positionX;
-        uint16_t positionY;
-        uint16_t directionX;
-        uint16_t directionY;
+        uint32_t positionX;
+        uint32_t positionY;
+        float directionX;
+        float directionY;
         uint16_t lifePoint;
     };
 

@@ -34,7 +34,7 @@ namespace RType::Server
         std::map<unsigned short, asio::ip::udp::endpoint> getListClients();
 
         /// @brief Sender function that will send to message to the client
-        void broadcastInformation();
+        void broadcastInformation(uint8_t packetType, std::vector<std::byte> dataToSend);
 
         void handleRoom(struct rtype::HeaderDataPacket header);
         void handleEntity(struct rtype::HeaderDataPacket header);

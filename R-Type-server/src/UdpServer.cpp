@@ -35,10 +35,7 @@ RType::Server::UdpServer::~UdpServer()
     _socket.close();
 }
 
-void RType::Server::UdpServer::run()
-{
-    readHeader();
-}
+void RType::Server::UdpServer::run() { readHeader(); }
 
 void RType::Server::UdpServer::handleRoom(struct rtype::HeaderDataPacket header)
 {
@@ -58,7 +55,6 @@ void RType::Server::UdpServer::handleString(struct rtype::HeaderDataPacket heade
     std::vector<uint8_t> byteArrayToReceive = Serialization::deserializeData(_buffer, header.payloadSize);
 
     std::string message(byteArrayToReceive.begin(), byteArrayToReceive.end());
-    // _message = message;
     std::cout << "Message : " << message << std::endl;
 }
 
@@ -77,10 +73,7 @@ void RType::Server::UdpServer::handleEntity(struct rtype::HeaderDataPacket heade
     struct rtype::Entity entity = Serialization::deserializeData<struct rtype::Entity>(_buffer, header.payloadSize);
 
     _listPlayersInfos[entity.id] = entity;
-    // if (_listPlayersInfos.find(entity.id) != _listPlayersInfos.end()) {
-    // _listPlayersInfos. = entity;
-    // } else
-    // _list
+
     std::cout << "----------------" << std::endl;
     std::cout << "Entity number : " << entity.id << std::endl;
     std::cout << "Pos : " << entity.positionX << " - " << entity.positionY << std::endl;
@@ -119,68 +112,10 @@ void RType::Server::UdpServer::handleData(
     }
 }
 
-// void RType::Server::UdpServer::updateTCPInformation()
-// {
-//     std::string buff;
-
-//     while (_clientsMessages.tryPop(buff)) {
-//         for (std::pair<unsigned short, asio::ip::udp::endpoint> client : _listClient) {
-//             std::cout << "BUFF : " << buff;
-//             if (buff == "Create Room\n") {
-//                 struct rtype::Room room;
-//                 // room.id = index;
-//                 room.id = 0;
-//                 room.slots = 4;
-//                 room.slotsUsed = 4;
-//                 room.stageLevel = 1;
-//                 // _listRooms.insert({index, {"Room " + std::to_string(static_cast<std::size_t>(index)), room}});
-//                 // std::cout << "Room " + std::to_string(static_cast<std::size_t>(index)) << std::endl;
-//                 // sendData(Serialization::serializeData<struct rtype::Room>(room).data(),
-//                 // Serialization::serializeData<struct rtype::Room>(room).size(),
-//                 // static_cast<uint8_t>(rtype::PacketType::ROOM), _socket, client.second);
-//                 // sendData(_listRooms.at(index).first.data(), _listRooms.at(index).first.size(),
-//                 // static_cast<uint8_t>(rtype::PacketType::STRING), _socket, client.second);
-//             } else {
-//                 buff.erase(std::remove(buff.begin(), buff.end(), '\0'), buff.end());
-//                 sendData(
-//                     buff.data(), buff.size(), static_cast<uint8_t>(rtype::PacketType::STRING), _socket,
-//                     client.second);
-//             }
-//         }
-//     }
-//     _timerTCP.expires_after(std::chrono::seconds(0));
-//     _timerTCP.async_wait(std::bind(&RType::Server::UdpServer::updateTCPInformation, this));
-// }
-
-void RType::Server::UdpServer::broadcastInformation(/*SafeQueu<>*/)
+void RType::Server::UdpServer::broadcastInformation(uint8_t packetType, std::vector<std::byte> dataToSend)
 {
     for (std::pair<unsigned short, asio::ip::udp::endpoint> client : _listClient) {
-        for (std::pair<unsigned short, struct rtype::Entity> playerInfo : _listPlayersInfos) {
-            std::vector<std::byte> playerInfoBinary =
-                Serialization::serializeData<struct rtype::Entity>(playerInfo.second);
-            sendData<asio::ip::udp::socket, asio::ip::udp::endpoint>(playerInfoBinary.data(), playerInfoBinary.size(),
-                static_cast<uint8_t>(rtype::PacketType::ENTITY), _socket, client.second);
-            _listPlayersInfos[playerInfo.second.id].lifePoint--;
-        }
-        // std::string message = "Sender endpoint : ";
-        // message += client.second.address().to_string().c_str();
-        // message += " on port : ";
-        // message += client.second.address().to_string();
-        // message += " ";
-        // message += std::to_string(static_cast<int>(client.second.port()));
-        // message += " with message : \n";
-
-        // message.erase(std::remove(message.begin(), message.end(), '\0'), message.end());
-
-        // // std::cout << message.data() << std::endl;
-        // sendData<asio::ip::udp::socket, asio::ip::udp::endpoint>(
-        //     message.data(), message.size(), static_cast<uint8_t>(rtype::PacketType::STRING), _socket, client.second);
+        sendData<asio::ip::udp::socket, asio::ip::udp::endpoint>(
+            dataToSend.data(), dataToSend.size(), packetType, _socket, client.second);
     }
-    updateGameInfo();
-}
-
-void RType::Server::UdpServer::updateGameInfo()
-{
-    _timer.expires_after(std::chrono::milliseconds(2000));
-    _timer.async_wait(std::bind(&RType::Server::UdpServer::broadcastInformation, this));
 }
