@@ -27,12 +27,15 @@ namespace RType::Server
         void communication(RType::Server::UdpServer &udpserver);
 
         void handleEvent();
+        void startNetwork(bool &isRunning);
+
 
       protected:
       private:
         GameEngine::GameEngineServer _gameEngine;
         asio::io_context _IOContext;
         asio::signal_set _signal;
+        bool _isRunning;
         SafeQueue<std::string> _clientsMessages;
         RType::Server::UdpServer _udpServer;
         std::map<struct rtype::Room, std::map<unsigned short, struct rtype::Entity>> _listPlayersInfos;

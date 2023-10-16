@@ -43,6 +43,8 @@ namespace RType::Server
         void handleMove(struct rtype::HeaderDataPacket header);
         void handleConnexion(struct rtype::HeaderDataPacket header);
 
+        void run();
+
       protected:
       private:
         /// @brief Update information to clients at periodical interval
@@ -58,6 +60,7 @@ namespace RType::Server
         SafeQueue<struct rtype::Event> &_eventQueue;
         asio::ip::udp::endpoint _clientEndpoint;
         std::unordered_map<uint8_t, std::function<void(struct rtype::HeaderDataPacket)>> _commands;
+        // std::map<unsigned short, struct rtype::Entity> _listPlayersInfos;
         std::map<unsigned short, struct rtype::Entity> _listPlayersInfos;
     };
 } // namespace RType::Server

@@ -12,7 +12,6 @@ RType::Server::UdpServer::UdpServer(
     : GameEngine::Network::ACommunication(IOContext, port), _timer(IOContext), _timerTCP(IOContext),
       _signal(IOContext, SIGINT, SIGTERM), _eventQueue(eventQueue)
 {
-    _signal.async_wait(std::bind(&asio::io_context::stop, &IOContext));
     indexPlayer = 0;
     _commands.emplace(static_cast<uint8_t>(rtype::PacketType::ROOM),
         std::bind(&RType::Server::UdpServer::handleRoom, this, std::placeholders::_1));
@@ -22,8 +21,8 @@ RType::Server::UdpServer::UdpServer(
         std::bind(&RType::Server::UdpServer::handleEntity, this, std::placeholders::_1));
     _commands.emplace(static_cast<uint8_t>(rtype::PacketType::CONNEXION),
         std::bind(&RType::Server::UdpServer::handleConnexion, this, std::placeholders::_1));
-    readHeader();
-    updateGameInfo();
+    // readHeader();
+    // updateGameInfo();
 }
 
 RType::Server::UdpServer::~UdpServer()
@@ -34,6 +33,11 @@ RType::Server::UdpServer::~UdpServer()
             message.data(), message.size(), static_cast<uint8_t>(rtype::PacketType::STRING), _socket, client.second);
     }
     _socket.close();
+}
+
+void RType::Server::UdpServer::run()
+{
+    readHeader();
 }
 
 void RType::Server::UdpServer::handleRoom(struct rtype::HeaderDataPacket header)
@@ -88,6 +92,10 @@ void RType::Server::UdpServer::handleEntity(struct rtype::HeaderDataPacket heade
 void RType::Server::UdpServer::handleConnexion(struct rtype::HeaderDataPacket header)
 {
     struct rtype::Event event = {};
+
+    struct rtype::Entity entity = {indexPlayer, 0, 0, 0, 0, 10};
+    _listPlayersInfos[entity.id] = entity;
+    indexPlayer++;
 
     event.packetType = header.packetType;
     _eventQueue.push(event);

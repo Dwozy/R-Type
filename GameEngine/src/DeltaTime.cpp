@@ -15,11 +15,8 @@ GameEngine::DeltaTime::DeltaTime()
 
 void GameEngine::DeltaTime::update()
 {
-    std::chrono::steady_clock::time_point now =
-        std::chrono::steady_clock::now();
-    std::chrono::duration<float> dTime =
-        std::chrono::duration_cast<std::chrono::duration<float>>(now -
-                                                                 _lastTime);
+    std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
+    std::chrono::duration<float> dTime = std::chrono::duration_cast<std::chrono::duration<float>>(now - _lastTime);
 
     _deltaTime = dTime.count();
     _lastTime = now;

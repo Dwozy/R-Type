@@ -43,6 +43,6 @@ namespace RType::Client
         asio::posix::stream_descriptor _input;
         asio::streambuf _inputBuffer;
     };
-} // namespace Network
+} // namespace RType::Client
 
 #endif /* !TCPCLIENT_HPP_ */
