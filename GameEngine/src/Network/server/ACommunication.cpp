@@ -46,7 +46,6 @@ void GameEngine::Network::ACommunication::sendInformation(void *data, std::size_
 void GameEngine::Network::ACommunication::handleReceive(const asio::error_code &error, std::size_t recvBytes)
 {
     if (!error) {
-        std::cout << "Receive" << std::endl;
         if (_listClient.find(_endpoint.port()) == _listClient.end()) {
             _listClient[_endpoint.port()] = std::move(_endpoint);
         }

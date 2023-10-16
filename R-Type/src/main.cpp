@@ -101,16 +101,18 @@ class GameScene : public GameEngine::IScene
 
         GameEngine::TransformComponent tsf = {
             GameEngine::Vector2<float>(0.0f, 0.0f), GameEngine::Vector2<float>(0.0f, 0.0f)};
-        GameEngine::ControllableComponent con = {GameEngine::Input::Keyboard::Z, GameEngine::Input::Keyboard::Q,
-            GameEngine::Input::Keyboard::S, GameEngine::Input::Keyboard::D, 100.0f};
         GameEngine::Rectf rect(0.0, 0.0, 32.0, 16.0);
         GameEngine::CollisionComponent col = {.collider = rect, .layer = 0};
         col.addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
                           SparseArray<GameEngine::TransformComponent> &)>,
             GameEngine::CollisionComponent, GameEngine::TransformComponent>(_gameEngine.registry, test);
 
+        // GameEngine::ControllableComponent con = {GameEngine::Input::Keyboard::Z, GameEngine::Input::Keyboard::Q,
+        //     GameEngine::Input::Keyboard::S, GameEngine::Input::Keyboard::D, 100.0f};
+        // _gameEngine.registry.addComponent<GameEngine::ControllableComponent>(player, con);
+
+
         _gameEngine.registry.addComponent<GameEngine::TransformComponent>(player, tsf);
-        _gameEngine.registry.addComponent<GameEngine::ControllableComponent>(player, con);
         _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(player, col);
 
         auto &playerTex = _gameEngine.registry.addComponent<GameEngine::TextureComponent>(

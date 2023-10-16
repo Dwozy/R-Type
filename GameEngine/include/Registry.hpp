@@ -18,6 +18,7 @@
 #include <typeindex>
 #include <unordered_map>
 #include <utility>
+#include <iostream>
 
 namespace GameEngine
 {
@@ -74,8 +75,9 @@ namespace GameEngine
             if (id > _maxEntities)
                 throw;
             if (!_emptyIndexes.empty()) {
-                if (std::binary_search(_emptyIndexes.begin(), _emptyIndexes.end(), id))
-                    _emptyIndexes.erase(_emptyIndexes.begin() + id);
+                auto it = std::lower_bound(_emptyIndexes.begin(), _emptyIndexes.end(), id);
+                if (it != _emptyIndexes.end())
+                    _emptyIndexes.erase(it);
                 return Entity(id);
             }
             for (; _nbEntities != id; _nbEntities++)

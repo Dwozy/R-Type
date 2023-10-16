@@ -9,22 +9,16 @@
 #include "UdpClient.hpp"
 #include <asio.hpp>
 #include <iostream>
+#include "RTypeClient.hpp"
 
 int main(int ac, char const *av[])
 {
+    if (ac == 3 && atoi(av[2]) != 0)
+        RType::Client::RTypeClient client(av[1], atoi(av[2]));
+    else
+        RType::Client::RTypeClient client;
     try {
-        if (ac != 3)
-            return 84;
-        asio::io_context IOContext;
-        asio::signal_set signal(IOContext, SIGINT, SIGTERM);
-        signal.async_wait(std::bind(&asio::io_service::stop, &IOContext));
-        asio::ip::udp::endpoint serverUdpEndpoint(asio::ip::address::from_string(av[1]), atoi(av[2]));
-        // asio::ip::tcp::endpoint serverTcpEndpoint(asio::ip::address::from_string(av[1]), atoi(av[2]));
-        RType::Client::UdpClient udpClient(IOContext, serverUdpEndpoint);
-        // RType::Client::TcpClient tcpClient(IOContext, serverTcpEndpoint);
-        IOContext.run();
     } catch (std::exception &e) {
-        std::cerr << "Exception: " << e.what() << std::endl;
+        std::cerr << e.what() << std::endl;
     }
-    return 0;
 }

@@ -8,32 +8,23 @@
 #include "RTypeServer.hpp"
 #include "components/TransformComponent.hpp"
 #include "components/CollisionComponent.hpp"
-#include "components/ControllableComponent.hpp"
-#include "components/CameraComponent.hpp"
-#include "components/TextureComponent.hpp"
-#include "components/TextComponent.hpp"
-#include "components/PressableComponent.hpp"
 
-void test(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
-    SparseArray<GameEngine::TransformComponent> &transforms)
+RType::Server::RTypeServer::RTypeServer(unsigned short port)
+    : _signal(_IOContext, SIGINT, SIGTERM), _udpServer(_IOContext, port, std::ref(_eventQueue))
 {
-    auto &selfCol = collisions[entityId];
-    auto &selfTsf = transforms[entityId];
+    _gameEngine.registry.registerComponent<GameEngine::TransformComponent>();
+    _gameEngine.registry.registerComponent<GameEngine::CollisionComponent>();
 
-    if (!selfCol || !selfTsf)
-        return;
-    for (std::size_t i = 0; i < collisions.size(); i++) {
-        if (i == entityId)
-            continue;
-        auto &col = collisions[i];
-        auto &tsf = transforms[i];
+    _gameEngine.registry.spawnEntity();
 
-        if (!col || !tsf || !col.value().isActive)
-            continue;
-        selfCol.value().collider.handleCollisionFromRect(
-            selfTsf.value().position, col.value().collider, tsf.value().position);
-    }
+    pos = 1;
+    _isRunning = true;
+    std::thread network(&RType::Server::RTypeServer::startNetwork, this, std::ref(_isRunning));
+    network.detach();
+    gameLoop();
 }
+
+RType::Server::RTypeServer::~RTypeServer() {}
 
 void RType::Server::RTypeServer::startNetwork(bool &isRunning)
 {
@@ -43,64 +34,41 @@ void RType::Server::RTypeServer::startNetwork(bool &isRunning)
     isRunning = false;
 }
 
-RType::Server::RTypeServer::RTypeServer(unsigned short port)
-    : _signal(_IOContext, SIGINT, SIGTERM), _udpServer(_IOContext, port, std::ref(_eventQueue))
-{
-    _gameEngine.registry.registerComponent<GameEngine::TransformComponent>();
-    _gameEngine.registry.registerComponent<GameEngine::ControllableComponent>();
-    _gameEngine.registry.registerComponent<GameEngine::CameraComponent>();
-    _gameEngine.registry.registerComponent<GameEngine::TextureComponent>();
-    _gameEngine.registry.registerComponent<GameEngine::TextComponent>();
-    _gameEngine.registry.registerComponent<GameEngine::PressableComponent>();
-    _gameEngine.registry.registerComponent<GameEngine::CollisionComponent>();
-
-    _isRunning = true;
-    std::thread network(&RType::Server::RTypeServer::startNetwork, this, std::ref(_isRunning));
-    network.detach();
-    gameLoop();
-}
-
-void collisionCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
-    SparseArray<GameEngine::TransformComponent> &transforms)
-{
-    auto &selfCol = collisions[entityId];
-    auto &selfTsf = transforms[entityId];
-
-    if (!selfCol || !selfTsf)
-        return;
-    for (std::size_t i = 0; i < collisions.size(); i++) {
-        if (i == entityId)
-            continue;
-        auto &col = collisions[i];
-        auto &tsf = transforms[i];
-
-        if (!col || !tsf || !col.value().isActive)
-            continue;
-        selfCol.value().collider.handleCollisionFromRect(
-            selfTsf.value().position, col.value().collider, tsf.value().position);
-    }
-}
-
-void RType::Server::RTypeServer::setPlayerEntity(
-    float posX, float posY, GameEngine::Entity entity, GameEngine::Registry &registry)
-{
-    GameEngine::TransformComponent tsf = {
-        GameEngine::Vector2<float>(posX, posY), GameEngine::Vector2<float>(0.0f, 0.0f)};
-    registry.addComponent<GameEngine::TransformComponent>(entity, tsf);
-    GameEngine::Rectf rect(0.0, 0.0, 32.0, 16.0);
-    GameEngine::CollisionComponent col = {.collider = rect, .layer = 0};
-    col.addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
-                      SparseArray<GameEngine::TransformComponent> &)>,
-        GameEngine::CollisionComponent, GameEngine::TransformComponent>(registry, collisionCallback);
-    registry.addComponent<GameEngine::CollisionComponent>(entity, col);
-}
-
 void RType::Server::RTypeServer::handleConnexion()
 {
     GameEngine::Entity entity = _gameEngine.registry.spawnEntity();
 
-    setPlayerEntity(0, 0, entity, _gameEngine.registry);
+    std::cout << "Spawn Entity" << std::endl;
+    _entityManager.setEntity(pos * 25, pos * 25, entity, _gameEngine.registry);
+    struct rtype::Entity newEntity = {.id = static_cast<uint16_t> (pos),
+        .positionX = static_cast<uint32_t>(pos * 25),
+        .positionY = static_cast<uint32_t>(pos * 25),
+        .directionX = 0,
+        .directionY = 0};
     _listEntities.push_back(entity);
+    std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::Entity>(newEntity);
+    _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::CONNECTED), dataToSend);
+    std::cout << "Message when new connexion" << std::endl;
+    pos++;
+}
+
+void RType::Server::RTypeServer::handleMove(struct rtype::Event event)
+{
+    struct rtype::Move moveInfo = std::any_cast<struct rtype::Move>(event.data);
+
+    auto &transforms = _gameEngine.registry.getComponent<GameEngine::TransformComponent>();
+
+    if (moveInfo.id > transforms.size())
+        throw;
+    transforms[moveInfo.id]->velocity.x = moveInfo.directionX;
+    transforms[moveInfo.id]->velocity.y = moveInfo.directionY;
+    struct rtype::Entity entity = {.id = static_cast<uint16_t>(moveInfo.id),
+        .positionX = static_cast<uint32_t>(transforms[moveInfo.id]->position.x),
+        .positionY = static_cast<uint32_t>(transforms[moveInfo.id]->position.y),
+        .directionX = transforms[moveInfo.id]->velocity.x,
+        .directionY = transforms[moveInfo.id]->velocity.y};
+    std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::Entity>(entity);
+    _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::ENTITY), dataToSend);
 }
 
 void RType::Server::RTypeServer::handleEvent()
@@ -114,7 +82,7 @@ void RType::Server::RTypeServer::handleEvent()
             handleConnexion();
             break;
         case static_cast<uint8_t>(rtype::PacketType::MOVE):
-            std::cout << "Move" << std::endl;
+            handleMove(event);
             break;
         }
     }
@@ -132,14 +100,11 @@ void RType::Server::RTypeServer::updateEntities()
             .positionX = static_cast<uint32_t>(transform->position.x),
             .positionY = static_cast<uint32_t>(transform->position.y),
             .directionX = transform->velocity.x,
-            .directionY = transform->velocity.y,
-            .lifePoint = 10};
+            .directionY = transform->velocity.y};
         std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::Entity>(entity);
         _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::ENTITY), dataToSend);
     }
 }
-
-RType::Server::RTypeServer::~RTypeServer() {}
 
 void RType::Server::RTypeServer::gameLoop()
 {
@@ -150,7 +115,7 @@ void RType::Server::RTypeServer::gameLoop()
     while (_isRunning) {
         now = std::chrono::steady_clock::now();
         auto _deltaTime = std::chrono::duration_cast<std::chrono::duration<float>>(now - _lastTime);
-        if (!_eventQueue.size() != 0)
+        if (_eventQueue.size() != 0)
             handleEvent();
         if (_deltaTime.count() > 0.1) {
             updateEntities();
