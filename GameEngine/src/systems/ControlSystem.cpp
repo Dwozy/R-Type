@@ -10,8 +10,7 @@
 
 namespace GameEngine
 {
-    void
-    ControlSystem::operator()(SparseArray<TransformComponent> &transforms,
+    void ControlSystem::operator()(SparseArray<TransformComponent> &transforms,
                               SparseArray<ControllableComponent> &controllable)
     {
         for (size_t i = 0; i < controllable.size() && i < transforms.size();

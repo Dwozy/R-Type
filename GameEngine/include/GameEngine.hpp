@@ -43,9 +43,9 @@ namespace GameEngine
         };
         ~GameEngine() = default;
 
+        Window window;
         Registry registry;
         DeltaTime deltaTime;
-        Window window;
         SceneManager sceneManager;
 
       private:

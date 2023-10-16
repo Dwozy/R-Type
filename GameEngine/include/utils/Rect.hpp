@@ -7,7 +7,6 @@
 
 #ifndef RECT_HPP_
 #define RECT_HPP_
-// #include "Circle.hpp"
 #include "RenderInterfaces.hpp"
 #include "utils/Vector.hpp"
 #include <SFML/Graphics/Rect.hpp>
@@ -63,20 +62,6 @@ namespace GameEngine
                     pos.y = rectPos.y + rect.height;
             }
         }
-        // bool isColliding(const Vector2<T> &pos, const Circle &circle,
-        //                  const Vector2<T> &circlePos) const
-        // {
-        //     float posX = left + pos.x;
-        //     float posY = top + pos.y;
-        //     float circlePosX = circle.center.x + circlePos.x;
-        //     float circlePosY = circle.center.y + circlePos.y;
-        //     float x = std::clamp(posX, posX + width, circlePosX);
-        //     float y = std::clamp(posY, posY + height, circlePosY);
-        //     float dist =
-        //         std::sqrt(std::pow(x - posX, 2) + std::pow(y - posY, 2));
-
-        //     return (dist < circle.radius);
-        // };
     };
 
     using Rectf = Rect<float>;
