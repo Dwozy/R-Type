@@ -11,8 +11,8 @@
 
 namespace GameEngine
 {
-    void PressableSystem::operator()(SparseArray<TransformComponent> &transforms, SparseArray<TextureComponent> &textures,
-        SparseArray<PressableComponent> &pressables)
+    void PressableSystem::operator()(SparseArray<TransformComponent> &transforms,
+        SparseArray<TextureComponent> &textures, SparseArray<PressableComponent> &pressables)
     {
         Vector2<float> coord = _window.mapPixelToCoords(Input::Mouse::getPosition(_window));
         Vector2<int> mousePos(coord.x, coord.y);
