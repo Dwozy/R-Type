@@ -101,6 +101,15 @@ class GameScene : public GameEngine::IScene
     {
         GameEngine::Entity player = _gameEngine.registry.spawnEntity();
 
+        // GameEngine::Entity ennemie = GameEngine.registry.spawnEntity();
+        // GameEngine::Texture texture;
+        // GameEngine::Sprite sprite;
+        // texture.load("R-Type/assets/pata_pata.gif", GameEngine::Rect<int>(0, 0 , 532, 32));
+        // sprite.load(texture);
+        // GameEngine.registry.addComponent<GameEngine::TransformComponent>(ennemie, GameEngine::TransformComponent{GameEngine::Vector2<float>(0.0f,0.0f), GameEngine::Vector2<float>(0.0f,0.0f)}),
+        // GameEngine.registry.addComponent<GameEngine::TextureAnimatedComponent>(ennemie, GameEngine::TextureAnimatedComponent{texture, sprite, true,
+        // std::vector<GameEngine::Rect<int>>{GameEngine::Rect<int>(0, 0 , 532, 32), GameEngine::Rect<int>(32, 0, 532, 32), GameEngine::Rect<int>(64, 0, 532, 32), GameEngine::Rect<int>(96, 0, 532, 32)}
+        // , 5, true, 0, 0, 5});
         _entities.push_back(player);
 
         GameEngine::TransformComponent tsf = {
