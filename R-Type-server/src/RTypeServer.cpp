@@ -122,22 +122,20 @@ void RType::Server::RTypeServer::handleEvent()
 
 void RType::Server::RTypeServer::updateEntities()
 {
-    auto &transforms = _gameEngine.registry.getComponent<GameEngine::TransformComponent> ();
-
+    auto &transforms = _gameEngine.registry.getComponent<GameEngine::TransformComponent>();
 
     for (std::size_t i = 0; i < transforms.size(); i++) {
         auto &transform = transforms[i];
-        if (!transform.has_value()) continue;
-        struct rtype::Entity entity = {
-            .id = static_cast<uint16_t> (i),
-            .positionX = static_cast<uint32_t> (transform->position.x),
-            .positionY = static_cast<uint32_t> (transform->position.y),
+        if (!transform.has_value())
+            continue;
+        struct rtype::Entity entity = {.id = static_cast<uint16_t>(i),
+            .positionX = static_cast<uint32_t>(transform->position.x),
+            .positionY = static_cast<uint32_t>(transform->position.y),
             .directionX = transform->velocity.x,
             .directionY = transform->velocity.y,
-            .lifePoint = 10
-        };
+            .lifePoint = 10};
         std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::Entity>(entity);
-        _udpServer.broadcastInformation(static_cast<uint8_t> (rtype::PacketType::ENTITY), dataToSend);
+        _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::ENTITY), dataToSend);
     }
 }
 
