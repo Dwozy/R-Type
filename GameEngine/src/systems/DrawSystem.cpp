@@ -7,7 +7,12 @@
 #include "systems/DrawSystem.hpp"
 #include "components/TextComponent.hpp"
 #include "components/TextureComponent.hpp"
+#include "systems/DrawSystem.hpp"
+#include "components/TextComponent.hpp"
+#include "components/TextureComponent.hpp"
 #include <SFML/Graphics.hpp>
+#include <algorithm>
+#include <utility>
 #include <algorithm>
 #include <utility>
 #include <variant>

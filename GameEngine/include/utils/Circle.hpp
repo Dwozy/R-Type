@@ -13,6 +13,8 @@
 
 // namespace GameEngine
 // {
+//     template <typename T> class Rect;
+
 //     class Circle
 //     {
 //       public:
@@ -21,19 +23,9 @@
 //         ~Circle() = default;
 
 //         bool isColliding(const Vector2<float> &pos, const Rect<float> &rect,
-//                          const Vector2<float> &rectPos) const
-//         {
-//             float posX = center.x + pos.x;
-//             float posY = center.y + pos.y;
-//             float rectPosX = rect.left + rectPos.x;
-//             float rectPosY = rect.top + rectPos.y;
-//             float x = std::clamp(rectPosX, rectPosX + rect.width, posX);
-//             float y = std::clamp(rectPosY, rectPosY + rect.height, posY);
-//             float dist =
-//                 std::sqrtf(std::powf(x - posX, 2) + std::powf(y - posY, 2));
-
-//             return (dist < radius);
-//         };
+//                          const Vector2<float> &rectPos) const;
+//         bool isColliding(const Vector2<float> &pos, const Circle &circle,
+//                          const Vector2<float> &circlePos) const;
 
 //         /// @brief position relative
 //         Vector2<float> center;

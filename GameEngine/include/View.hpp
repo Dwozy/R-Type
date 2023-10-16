@@ -16,9 +16,7 @@ namespace GameEngine
     class View
     {
       public:
-        View(const Rect<float> &rect)
-            : _view{sf::Rect<float>{rect.left, rect.top, rect.width,
-                                    rect.height}} {};
+        View(const Rect<float> &rect) : _view{sf::Rect<float>{rect.left, rect.top, rect.width, rect.height}} {};
         ~View() = default;
 
         const sf::View &getBaseView() const { return _view; }

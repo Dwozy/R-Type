@@ -17,7 +17,6 @@
     #include "components/CameraComponent.hpp"
     #include "utils/Vector.hpp"
     #include "GameEngine.hpp"
-    #include "Game.hpp"
     #include "Event.hpp"
 
 void CreateCamera(GameEngine::GameEngine &GameEngine);

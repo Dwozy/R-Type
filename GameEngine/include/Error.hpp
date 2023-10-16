@@ -27,6 +27,22 @@ namespace Error
       private:
         std::string message;
     };
+
+    /**
+     * @brief
+     * TooMuchEntitiesError Class Error
+     * Error thrown when exceeding the maximum number of entities
+     */
+    class TooMuchEntitiesError : public std::exception
+    {
+      public:
+        TooMuchEntitiesError();
+        ~TooMuchEntitiesError();
+        const char *what() const noexcept override;
+
+      private:
+        std::string message;
+    };
 } // namespace Error
 
 #endif /* !ERROR_HPP_ */

@@ -12,6 +12,13 @@ BraceWrapping:
   BeforeCatch: false
   BeforeWhile: false
 
+ColumnLimit: 120
+
+AlignAfterOpenBracket: DontAlign
+AlwaysBreakTemplateDeclarations: Yes
+
+SortIncludes: false
+
 NamespaceIndentation: All
 IndentWidth: 4
 

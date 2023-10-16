@@ -10,7 +10,7 @@
 #include "GameEngine.hpp"
 #include "Registry.hpp"
 #include "components/ControllableComponent.hpp"
-#include "components/VelocityComponent.hpp"
+#include "components/TransformComponent.hpp"
 
 namespace GameEngine
 {
@@ -20,7 +20,7 @@ namespace GameEngine
         ControlSystem(){};
         ~ControlSystem() = default;
 
-        void operator()(SparseArray<VelocityComponent> &velocities,
+        void operator()(SparseArray<TransformComponent> &transforms,
                         SparseArray<ControllableComponent> &controllable);
     };
 } // namespace GameEngine

@@ -11,7 +11,8 @@
 #include <optional>
 #include <vector>
 
-template <typename Component> class SparseArray
+template <typename Component>
+class SparseArray
 {
   public:
     using valueType = std::optional<Component>;
@@ -24,21 +25,12 @@ template <typename Component> class SparseArray
     using constIterator = typename container::const_iterator;
 
     SparseArray(){};
-
     SparseArray(const SparseArray &sparseArray) : _data(sparseArray._data){};
-    SparseArray(SparseArray &&sparseArray) noexcept
-        : _data(sparseArray._data){};
 
     ~SparseArray(){};
 
-    SparseArray &operator=(const SparseArray &sparseArray)
-    {
-        _data = sparseArray._data;
-    };
-    SparseArray &operator=(SparseArray &&sparseArray) noexcept
-    {
-        _data = sparseArray._data;
-    };
+    SparseArray &operator=(const SparseArray &sparseArray) { _data = sparseArray._data; };
+    SparseArray &operator=(SparseArray &&sparseArray) noexcept { _data = sparseArray._data; };
 
     referenceType operator[](std::size_t idx) { return _data[idx]; };
     constReferenceType operator[](std::size_t idx) const { return _data[idx]; };
@@ -96,6 +88,7 @@ template <typename Component> class SparseArray
         throw;
     };
 
+    void resize(const std::size_t &count){ _data.resize(count); }
   private:
     container _data;
 };

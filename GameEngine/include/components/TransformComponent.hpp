@@ -2,19 +2,20 @@
 ** EPITECH PROJECT, 2023
 ** R-Type
 ** File description:
-** PositionComponent
+** Transform
 */
 
-#ifndef POSITIONCOMPONENT_HPP_
-#define POSITIONCOMPONENT_HPP_
+#ifndef TRANSFORM_HPP_
+#define TRANSFORM_HPP_
 #include "utils/Vector.hpp"
 
 namespace GameEngine
 {
-    struct PositionComponent
+    struct TransformComponent
     {
         Vector2<float> position;
+        Vector2<float> velocity;
     };
 } // namespace GameEngine
 
-#endif /* !POSITIONCOMPONENT_HPP_ */
+#endif /* !TRANSFORM_HPP_ */
