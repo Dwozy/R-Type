@@ -7,6 +7,7 @@
 
 #ifndef RECT_HPP_
 #define RECT_HPP_
+#include "RenderInterfaces.hpp"
 #include "utils/Vector.hpp"
 #include <SFML/Graphics/Rect.hpp>
 #include <algorithm>
@@ -17,9 +18,9 @@ namespace GameEngine
     // class Circle;
 
     template <typename T>
-    class Rect
+    class Rect : public IRect<T, sf::Rect>
     {
-      public:
+        public:
         Rect(T l, T t, T w, T h) : left(l), top(t), width(w), height(h){};
         ~Rect() = default;
         T left;
@@ -27,7 +28,7 @@ namespace GameEngine
         T width;
         T height;
 
-        const sf::Rect<T> getBaseRect() const { return sf::Rect<T>(left, top, width, height); };
+        const sf::Rect<T> getBaseRect() const override { return sf::Rect<T>(left, top, width, height); };
 
         bool isColliding(const Vector2<T> &pos, const Rect<T> &rect, const Vector2<T> &rectPos) const
         {

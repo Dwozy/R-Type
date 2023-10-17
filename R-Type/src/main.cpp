@@ -23,7 +23,11 @@
 #include "systems/DrawSystem.hpp"
 #include "systems/PositionSystem.hpp"
 #include "systems/PressableSystem.hpp"
+#include "systems/AnimeSystem.hpp"
 #include "utils/Vector.hpp"
+
+
+void gameLoop(GameEngine::GameEngine &GameEngine);
 
 void test(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
     SparseArray<GameEngine::TransformComponent> &transforms)
@@ -66,7 +70,7 @@ class MenuScene : public GameEngine::IScene
         _gameEngine.registry.addComponent<GameEngine::TransformComponent>(button,
             GameEngine::TransformComponent{GameEngine::Vector2<float>(0, 100), GameEngine::Vector2<float>(0, 0)});
         auto &texComponent = _gameEngine.registry.addComponent<GameEngine::TextureComponent>(
-            button, GameEngine::TextureComponent{GameEngine::Texture(), GameEngine::Sprite(), true, 1});
+            button, GameEngine::TextureComponent{GameEngine::Texture(), GameEngine::Sprite(), false, std::vector<GameEngine::Rect<int>>{GameEngine::Rect<int>(0, 0, 144, 16)}, 0, true, 0, 0,});
         texComponent.value().texture.load("assets/button.png", GameEngine::Rect<int>(0, 0, 144, 16));
         texComponent.value().sprite.load(texComponent.value().texture);
         texComponent.value().sprite.setRect(GameEngine::Recti(0, 0, 48, 16));
@@ -97,6 +101,15 @@ class GameScene : public GameEngine::IScene
     {
         GameEngine::Entity player = _gameEngine.registry.spawnEntity();
 
+        // GameEngine::Entity ennemie = GameEngine.registry.spawnEntity();
+        // GameEngine::Texture texture;
+        // GameEngine::Sprite sprite;
+        // texture.load("assets/pata_pata.gif", GameEngine::Rect<int>(0, 0 , 532, 32));
+        // sprite.load(texture);
+        // GameEngine.registry.addComponent<GameEngine::TransformComponent>(ennemie, GameEngine::TransformComponent{GameEngine::Vector2<float>(0.0f,0.0f), GameEngine::Vector2<float>(0.0f,0.0f)}),
+        // GameEngine.registry.addComponent<GameEngine::TextureAnimatedComponent>(ennemie, GameEngine::TextureAnimatedComponent{texture, sprite, true,
+        // std::vector<GameEngine::Rect<int>>{GameEngine::Rect<int>(0, 0 , 532, 32), GameEngine::Rect<int>(32, 0, 532, 32), GameEngine::Rect<int>(64, 0, 532, 32), GameEngine::Rect<int>(96, 0, 532, 32)}
+        // , 5, true, 0, 0, 5});
         _entities.push_back(player);
 
         GameEngine::TransformComponent tsf = {
@@ -114,8 +127,8 @@ class GameScene : public GameEngine::IScene
         _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(player, col);
 
         auto &playerTex = _gameEngine.registry.addComponent<GameEngine::TextureComponent>(
-            player, GameEngine::TextureComponent{GameEngine::Texture(), GameEngine::Sprite(), true, 1});
-        playerTex.value().texture.load("assets/image.png", GameEngine::Rect<int>(0, 0, 32, 16));
+            player, GameEngine::TextureComponent{GameEngine::Texture(), GameEngine::Sprite(), true, std::vector<GameEngine::Rect<int>>{GameEngine::Rect<int>(0, 0, 33, 16), GameEngine::Rect<int>(33, 0, 33, 16), GameEngine::Rect<int>(66, 0, 33, 16), GameEngine::Rect<int>(99, 0, 33, 16), GameEngine::Rect<int>(132, 0, 33, 16)}, 0.05, true, 0, 1, 1});
+        playerTex.value().texture.load("assets/image.png", GameEngine::Rect<int>(0, 0, 166, 17));
         playerTex.value().sprite.load(playerTex.value().texture);
 
         GameEngine::Entity collision = _gameEngine.registry.spawnEntity();
@@ -127,7 +140,7 @@ class GameScene : public GameEngine::IScene
         _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(collision, collisionCol);
 
         auto &collisionTex = _gameEngine.registry.addComponent<GameEngine::TextureComponent>(
-            collision, GameEngine::TextureComponent{GameEngine::Texture(), GameEngine::Sprite(), true, 1});
+            collision, GameEngine::TextureComponent{GameEngine::Texture(), GameEngine::Sprite(), false, std::vector<GameEngine::Rect<int>>{GameEngine::Rect<int>(0, 0, 32, 16)}, 0, true, 0, 0,});
         collisionTex.value().texture.load("assets/image.png", GameEngine::Rect<int>(0, 0, 32, 16));
         collisionTex.value().sprite.load(collisionTex.value().texture);
     }
@@ -161,6 +174,7 @@ int main()
 
     GameEngine::PositionSystem positionSystem(gameEngine.deltaTime.getDeltaTime());
     GameEngine::ControlSystem controlSystem;
+    GameEngine::AnimeSystem animeSystem(gameEngine.deltaTime.getDeltaTime());
     GameEngine::DrawSystem drawSystem(gameEngine.window);
     GameEngine::CollisionSystem collisionSystem;
     GameEngine::PressableSystem pressableSystem(gameEngine.window);
@@ -179,12 +193,14 @@ int main()
     gameEngine.registry.addSystem<
         std::function<void(SparseArray<GameEngine::TextComponent> &, SparseArray<GameEngine::TextureComponent> &)>,
         GameEngine::TextComponent, GameEngine::TextureComponent>(drawSystem);
+    gameEngine.registry.addSystem<
+        std::function<void(SparseArray<GameEngine::TextureComponent> &)>, GameEngine::TextureComponent>(animeSystem);
 
     while (gameEngine.window.isOpen()) {
         gameEngine.deltaTime.update();
-        sf::Event event;
+        GameEngine::SEvent event;
         while (gameEngine.window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
+            if (static_cast<size_t>(event.type) == static_cast<size_t>(GameEngine::EventT::WindowCloseEvent))
                 gameEngine.window.close();
         }
         gameEngine.registry.runSystems();

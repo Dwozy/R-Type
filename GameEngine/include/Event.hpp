@@ -24,6 +24,13 @@ namespace GameEngine
     /// @brief enum of all event types
     enum class Event : EventType {
         WindowCloseEvent = 0,
+        EnemiesSpawnedEvent = 1,
+        EnemiesMoveEvent = 2,
+        EnemiesDieEvent = 3,
+        PlayerMoveEvent =  4,
+        PlayerSpawnedEvent = 5,
+        PlayersDieEvent = 6,
+        ShoothrowEvent = 7,
     };
 
     /// @brief class that store all the callback functions for a specific event type
