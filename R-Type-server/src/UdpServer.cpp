@@ -5,6 +5,7 @@
 ** UdpServer
 */
 
+#include "Protocol.hpp"
 #include "UdpServer.hpp"
 
 RType::Server::UdpServer::UdpServer(
@@ -19,6 +20,8 @@ RType::Server::UdpServer::UdpServer(
         std::bind(&RType::Server::UdpServer::handleString, this, std::placeholders::_1));
     _commands.emplace(static_cast<uint8_t>(rtype::PacketType::ENTITY),
         std::bind(&RType::Server::UdpServer::handleEntity, this, std::placeholders::_1));
+    _commands.emplace(static_cast<uint8_t>(rtype::PacketType::MOVE),
+        std::bind(&RType::Server::UdpServer::handleMove, this, std::placeholders::_1));
     _commands.emplace(static_cast<uint8_t>(rtype::PacketType::CONNEXION),
         std::bind(&RType::Server::UdpServer::handleConnexion, this, std::placeholders::_1));
     _commands.emplace(static_cast<uint8_t>(rtype::PacketType::DISCONNEXION),
@@ -60,7 +63,7 @@ void RType::Server::UdpServer::handleString(struct rtype::HeaderDataPacket heade
 
 void RType::Server::UdpServer::handleMove(struct rtype::HeaderDataPacket header)
 {
-    struct rtype::Move moveInfo = Serialization::deserializeData<struct rtype::Move>(_buffer, header.payloadSize);
+    auto moveInfo = Serialization::deserializeData<RType::Protocol::MoveData>(_buffer, header.payloadSize);
     struct rtype::Event event;
 
     event.packetType = header.packetType;

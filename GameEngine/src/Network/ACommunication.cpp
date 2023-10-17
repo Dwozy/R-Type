@@ -8,8 +8,7 @@
 #include "Network/ACommunication.hpp"
 
 GameEngine::Network::ACommunication::ACommunication(asio::io_context &IOContext, unsigned short port)
-    : _socket(IOContext, asio::ip::udp::endpoint(asio::ip::udp::v4(), port)),
-      _buffer(_streamBuffer.prepare(rtype::HEADER_SIZE))
+    : _socket(IOContext, asio::ip::udp::endpoint(asio::ip::udp::v4(), port)), _buffer(_streamBuffer.prepare(0))
 {
 }
 
@@ -69,6 +68,7 @@ void GameEngine::Network::ACommunication::handleReceive(const asio::error_code &
 
 void GameEngine::Network::ACommunication::readHeader()
 {
+    _buffer = _streamBuffer.prepare(rtype::HEADER_SIZE);
     _socket.async_receive_from(_buffer, _endpoint,
         std::bind(
             &GameEngine::Network::ACommunication::handleReceive, this, std::placeholders::_1, std::placeholders::_2));

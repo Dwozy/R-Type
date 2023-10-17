@@ -35,9 +35,17 @@ namespace GameEngine
         /// @param vec the vector to calculate the dot product with
         /// @return the dot product
         float dotProduct(Vector2 vec) { return (x * vec.x + y * vec.y); };
+        /// @brief overload operator == to compare two Vector2
+        /// @param the vector to compare
+        /// @return a boolean for the comparison
+        bool operator==(const Vector2 &other) { return (x == other.x && y == other.y); };
+        /// @brief overload operator != to compare two Vector2
+        /// @param the vector to compare
+        /// @return a boolean for the comparison
+        bool operator!=(const Vector2 &other) { return !(*this == other); };
         /// @brief overload of the + operator
         /// @param vec the vector to add with
-        /// @return the vector resulting of the addition
+        /// @return the vector resulting of the addition>>>>>>> main
         Vector2 operator+(const Vector2 &vec) { return (Vector2(x + vec.x, y + vec.y)); };
         /// @brief overload of the += operator
         /// @param vec the vector to add with

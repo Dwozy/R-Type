@@ -14,7 +14,7 @@ build_all()
     if [ "$status" -ne 0 ]; then
         exit "$status"
     fi
-    cmake --build ./build --config Release --clean-first
+    cmake --build ./build --config Release
     status=$?
     if [ "$status" -ne 0 ]; then
         exit "$status"
