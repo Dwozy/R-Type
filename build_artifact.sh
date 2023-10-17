@@ -2,10 +2,10 @@
 
 ./build_unix.sh
 
-mkdir -p ./artifacts/client
+mkdir -p ./artifacts/client/R-Type
 mkdir -p ./artifacts/server
 
-cp -r R-Type/assets ./artifacts/client
+cp -r R-Type/assets ./artifacts/client/R-Type
 
 cp R-Type/r-type_client ./artifacts/client
 cp R-Type-server/r-type_server ./artifacts/server

@@ -40,7 +40,6 @@ namespace RType::Client
         asio::io_context &_IOContext;
         asio::ip::tcp::endpoint &_serverEndpoint;
         asio::ip::tcp::socket _socket;
-        asio::posix::stream_descriptor _input;
         asio::streambuf _inputBuffer;
     };
 } // namespace RType::Client

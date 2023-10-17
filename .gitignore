@@ -1,6 +1,8 @@
 *.a
 *.o
 *.lib
+*.so
+*.dll
 *.cmake
 
 GameEngine/GameEngine

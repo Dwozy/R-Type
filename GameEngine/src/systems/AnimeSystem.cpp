@@ -6,7 +6,7 @@
 */
 
 #include "systems/AnimeSystem.hpp"
-#include  <iostream>
+#include <iostream>
 #include "utils/SfmlTypes.hpp"
 
 namespace GameEngine
@@ -30,5 +30,4 @@ namespace GameEngine
             tex.value().sprite.setTextureRect(tex.value().textureRects[tex.value().animeid]);
         }
     }
-}
-
+} // namespace GameEngine

@@ -8,10 +8,10 @@
 #ifndef UDPSERVER_HPP_
 #define UDPSERVER_HPP_
 
-#include "Network/Server/ACommunication.hpp"
+#include "Network/ACommunication.hpp"
 #include "RType.hpp"
 #include "SafeQueue.hpp"
-#include "Serialization.hpp"
+#include "Network/Serialization.hpp"
 #include <array>
 #include <asio.hpp>
 #include <iostream>
@@ -20,7 +20,6 @@
 
 namespace RType::Server
 {
-
     /// @brief UdpServer Class that create a UDP server that client can connect
     /// to communicate
     class UdpServer : public GameEngine::Network::ACommunication
@@ -42,6 +41,7 @@ namespace RType::Server
 
         void handleMove(struct rtype::HeaderDataPacket header);
         void handleConnexion(struct rtype::HeaderDataPacket header);
+        void handleDisconnexion(struct rtype::HeaderDataPacket header);
 
         void run();
 

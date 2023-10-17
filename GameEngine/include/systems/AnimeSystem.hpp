@@ -10,7 +10,6 @@
 #include "GameEngine.hpp"
 #include "Registry.hpp"
 
-
 namespace GameEngine
 {
     /// @brief Class representing the sprite sheet animation system
@@ -28,6 +27,6 @@ namespace GameEngine
             const float &_deltaTime;
             float _currentDeltaTime;
     };
-}
+} // namespace GameEngine
 
 #endif /* !ANIMESYSTEM_HPP_ */

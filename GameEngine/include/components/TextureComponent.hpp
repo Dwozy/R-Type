@@ -6,9 +6,9 @@
 */
 
 #ifndef TEXTURE_HPP_
-    #define TEXTURE_HPP_
-    #include "utils/Vector.hpp"
-    #include "utils/SfmlTypes.hpp"
+#define TEXTURE_HPP_
+#include "utils/Vector.hpp"
+#include "utils/SfmlTypes.hpp"
 
 namespace GameEngine
 {

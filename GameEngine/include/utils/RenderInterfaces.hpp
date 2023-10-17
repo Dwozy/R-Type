@@ -6,9 +6,9 @@
 */
 
 #ifndef RENDERINTERFACES_HPP_
-    #define RENDERINTERFACES_HPP_
-    #include <string>
-    #include "utils/Vector.hpp"
+#define RENDERINTERFACES_HPP_
+#include <string>
+#include "utils/Vector.hpp"
 
 namespace GameEngine
 {
@@ -163,6 +163,6 @@ namespace GameEngine
         /// @param title title of the window
         virtual void create(int width, int height, const std::string &title) = 0;
     };
-}
+} // namespace GameEngine
 
 #endif /* !RENDERINTERFACES_HPP_ */
