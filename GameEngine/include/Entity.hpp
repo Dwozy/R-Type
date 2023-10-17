@@ -7,57 +7,24 @@
 
 #ifndef ENTITY_HPP_
 #define ENTITY_HPP_
-#include "Component.hpp"
-#include <array>
-#include <bitset>
-#include <cstdint>
-#include <queue>
+#include <cstdlib>
 
 namespace GameEngine
 {
-    using Entity = std::uint32_t;
-    const Entity MAX_ENTITY = 1000;
+    class Registry;
 
-    using Signature = std::bitset<MAX_COMPONENT>;
-
-    class EntityManager
+    class Entity
     {
       public:
-        EntityManager()
-        {
-            for (Entity entity = 0; entity < MAX_ENTITY; entity++)
-                _entitiesAvailable.push(entity);
-        };
+        friend class Registry;
+        ~Entity() = default;
 
-        ~EntityManager() = default;
-
-        Entity createEntity()
-        {
-            Entity entity;
-
-            // if (_entitiesAvailable.empty())              // Implement custom
-            // error throw;
-            entity = _entitiesAvailable.front();
-
-            _entitiesAvailable.pop();
-            return entity;
-        };
-
-        void destroyEntity(Entity entity)
-        {
-            // if (entity >= MAX_ENTITY)                    // Implement custom
-            // error throw;
-
-            // reset signature
-            _entitiesAvailable.push(entity);
-        }
-
-        // manage signatures
+        operator std::size_t() const { return _entity; };
 
       private:
-        std::queue<Entity> _entitiesAvailable;
-        std::array<Signature, MAX_ENTITY> _entitiesSignatures;
-        Entity _nbEntity = 0;
+        explicit Entity(std::size_t entity) : _entity(entity){};
+
+        std::size_t _entity;
     };
 } // namespace GameEngine
 

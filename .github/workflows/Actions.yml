@@ -5,6 +5,8 @@ on:
   push:
     branches:
     - 'main'
+    tags:
+    - v*
   pull_request:
     branches:
     - 'main'
@@ -13,7 +15,7 @@ env:
   MIRROR_URL: git@github.com:EpitechPromo2026/B-CPP-500-PAR-5-1-rtype-timothe.zheng.git
 
 permissions:
-  contents: read
+  contents: write
   checks: write
 
 jobs:
@@ -27,10 +29,10 @@ jobs:
           - os: ubuntu-latest
             install_cmd: ./build_unix.sh
             container: biozzzzz/r-type
-            executables: r-type_server,r-type_client
+            executables: R-Type-server/r-type_server,R-Type/r-type_client
           - os: windows-latest
             install_cmd: cmd /c build_win.bat
-            executables: r-type_server.exe,r-type_client.exe
+            executables: R-Type-server\r-type_server.exe,R-Type\r-type_client.exe
     runs-on: ${{ matrix.os }}
     container: ${{ matrix.container }}
     name: check_program_compilation
@@ -41,17 +43,9 @@ jobs:
           fetch-depth: 0
           submodules: recursive
 
-      - name: Install Conan
-        id: conan
-        if: matrix.os == 'windows-latest'
-        uses: turtlebrowser/get-conan@main
-
-      - name: Get Conan profile
-        run: conan profile detect --force
-
       - name: Build
         run: ${{ matrix.install_cmd }}
-        timeout-minutes: 5
+        timeout-minutes: 10
 
       - name: Clean build files
         run: ${{ matrix.install_cmd }} clean
@@ -125,7 +119,7 @@ jobs:
 
   make_deploy_doxygen:
     if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: [push_to_mirror]
+    needs: [run_tests, check_style]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout current branch
@@ -139,3 +133,57 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./html
+
+  create_release:
+    if: success() && github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+    needs: [run_tests, check_style]
+    runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+    steps:
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+  add_release_assets:
+    if: success() && github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+    needs: create_release
+    strategy:
+      max-parallel: 4
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        category: [client, server]
+        include:
+          - os: ubuntu-latest
+            cmd: ./build_artifact.sh
+            arch: linux_x86-64
+            container: biozzzzz/r-type
+          - os: windows-latest
+            cmd: cmd /c build_artifact.bat
+            arch: windows_x86-64
+    runs-on: ${{ matrix.os }}
+    container: ${{ matrix.container }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Build artifact
+        run: ${{ matrix.cmd }}
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          asset_path: ./artifacts/r-type_${{ matrix.category }}_${{ matrix.arch }}.zip
+          asset_name: r-type_${{ matrix.category }}_${{ matrix.arch }}.zip
+          asset_content_type: application/zip
