@@ -40,7 +40,7 @@ void RType::Server::RTypeServer::handleConnexion()
 
     std::cout << "Spawn Entity" << std::endl;
     _entityManager.setEntity(pos * 25, pos * 25, entity, _gameEngine.registry);
-    struct rtype::Entity newEntity = {.id = static_cast<uint16_t> (pos),
+    struct rtype::Entity newEntity = {.id = static_cast<uint16_t>(pos),
         .positionX = static_cast<uint32_t>(pos * 25),
         .positionY = static_cast<uint32_t>(pos * 25),
         .directionX = 0,

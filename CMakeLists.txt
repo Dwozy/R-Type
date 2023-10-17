@@ -36,6 +36,7 @@ set(INCLUDES_LIB GameEngine/include)
 set(SRCS_LIB
     GameEngine/src/Error.cpp
     GameEngine/src/DeltaTime.cpp
+    GameEngine/src/EntityManager.cpp
     GameEngine/src/systems/ControlSystem.cpp
     GameEngine/src/systems/DrawSystem.cpp
     GameEngine/src/systems/PositionSystem.cpp
