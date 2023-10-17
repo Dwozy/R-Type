@@ -65,6 +65,7 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
         GameEngine::TextComponent, GameEngine::TextureComponent>(drawSystem);
 
     _isRunning = true;
+    _isPlayer = true;
     std::thread network(&RType::Client::RTypeClient::startNetwork, this, std::ref(_isRunning));
     network.detach();
     gameLoop();
@@ -84,25 +85,21 @@ void RType::Client::RTypeClient::entitySpawn(const struct rtype::Entity entity)
 {
     GameEngine::Entity newEntity = _gameEngine.registry.spawnEntity(entity.id);
 
-    std::cout << "Spawn Entity" << std::endl;
     _entityManager.setPlayerEntity(entity.positionX, entity.positionY, newEntity, _gameEngine.registry);
-    _entityManager.setControlPlayerEntity(newEntity, _gameEngine.registry);
-    std::cout << "End Spawn" << std::endl;
-    // _listEntities.push_back(entity);
+    if (_isPlayer) {
+        _entityManager.setControlPlayerEntity(newEntity, _gameEngine.registry);
+        _isPlayer = false;
+    }
 }
 
 void RType::Client::RTypeClient::updateEntity(const struct rtype::Entity entity)
 {
     auto &transforms = _gameEngine.registry.getComponent<GameEngine::TransformComponent>();
 
-    // std::cout << "Entity" << std::endl;
-    std::cout << "Update" << std::endl;
     if (entity.id > transforms.size())
         throw;
     if (!transforms[entity.id].has_value()) {
-        std::cout << "Create New Identity" << std::endl;
         GameEngine::Entity newEntity = _gameEngine.registry.spawnEntity(entity.id);
-        std::cout << "End New Identity" << std::endl;
         _entityManager.setPlayerEntity(entity.positionX, entity.positionY, newEntity, _gameEngine.registry);
     } else {
         transforms[entity.id]->velocity.x = entity.directionX;
@@ -110,12 +107,6 @@ void RType::Client::RTypeClient::updateEntity(const struct rtype::Entity entity)
         transforms[entity.id]->position.x = entity.positionX;
         transforms[entity.id]->position.y = entity.positionY;
     }
-    std::cout << "End Update" << std::endl;
-    // struct rtype::Entity entity = {.id = static_cast<uint16_t>(entity.id),
-    //     .positionX = static_cast<uint32_t>(transforms[entity.id]->position.x),
-    //     .positionY = static_cast<uint32_t>(transforms[entity.id]->position.y),
-    //     .directionX = transforms[entity.id]->velocity.x,
-    //     .directionY = transforms[entity.id]->velocity.y};
 }
 
 void RType::Client::RTypeClient::handleNewEntity(struct rtype::Event event)

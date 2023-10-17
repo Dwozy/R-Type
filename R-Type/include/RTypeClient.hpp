@@ -41,6 +41,7 @@ namespace RType::Client
         SafeQueue<struct rtype::Event> _eventQueue;
         GameEngine::EntityManager _entityManager;
         bool _isRunning;
+        bool _isPlayer;
     };
 } // namespace RType::Client
 
