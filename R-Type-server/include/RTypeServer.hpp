@@ -30,6 +30,7 @@ namespace RType::Server
         void handleEvent();
         void handleConnexion();
         void handleMove(struct rtype::Event event);
+        void handleDisconnexion(struct rtype::Event event);
         void startNetwork(bool &isRunning);
         void updateEntities();
         void setPlayerEntity(float posX, float posY, GameEngine::Entity entity, GameEngine::Registry &registry);

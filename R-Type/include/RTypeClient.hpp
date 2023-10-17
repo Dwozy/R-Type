@@ -12,6 +12,7 @@
 #include <asio.hpp>
 #include "GameEngine.hpp"
 #include "EntityManager.hpp"
+#include <cstdint>
 
 namespace RType::Client
 {
@@ -31,6 +32,11 @@ namespace RType::Client
         void handleEntity(struct rtype::Event event);
         void updateEntity(const struct rtype::Entity);
 
+        void handleDisconnexion(struct rtype::Event event);
+        void deleteEntity(const struct rtype::EntityId id);
+
+        void handleQuitClient();
+
       protected:
       private:
         GameEngine::GameEngine _gameEngine;
@@ -42,6 +48,7 @@ namespace RType::Client
         GameEngine::EntityManager _entityManager;
         bool _isRunning;
         bool _isPlayer;
+        uint16_t _id;
     };
 } // namespace RType::Client
 

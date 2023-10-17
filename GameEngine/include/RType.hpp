@@ -19,7 +19,17 @@ namespace rtype
     static const std::size_t HEADER_SIZE = 8;
     static const uint32_t MAGIC_NUMBER = 0xA54CDEF5;
 
-    enum class PacketType : uint8_t { ROOM = 1, STRING, ENTITY, CONNEXION, CONNECTED, MOVE, SHOOT, CREATE_PLAYER };
+    enum class PacketType : uint8_t {
+        ROOM = 1,
+        STRING,
+        ENTITY,
+        CONNEXION,
+        CONNECTED,
+        MOVE,
+        SHOOT,
+        CREATE_PLAYER,
+        DISCONNEXION
+    };
 
     struct Event
     {
@@ -41,6 +51,11 @@ namespace rtype
         uint16_t id;
         float directionX;
         float directionY;
+    };
+
+    struct EntityId
+    {
+        uint16_t id;
     };
 
     struct Shoot

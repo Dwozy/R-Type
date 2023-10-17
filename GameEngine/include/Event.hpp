@@ -26,6 +26,7 @@ namespace GameEngine
         WindowCloseEvent = 0,
         GetNewEntity = 1,
         GetEntity = 2,
+        DeleteEntity,
         EnemiesSpawnedEvent = 3,
         EnemiesMoveEvent = 4,
         EnemiesDieEvent = 5,

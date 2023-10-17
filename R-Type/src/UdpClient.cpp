@@ -19,6 +19,8 @@ RType::Client::UdpClient::UdpClient(
         std::bind(&RType::Client::UdpClient::handleEntity, this, std::placeholders::_1));
     _commands.emplace(static_cast<uint8_t>(rtype::PacketType::CONNECTED),
         std::bind(&RType::Client::UdpClient::handleConnexionSuccess, this, std::placeholders::_1));
+    _commands.emplace(static_cast<uint8_t>(rtype::PacketType::DISCONNEXION),
+        std::bind(&RType::Client::UdpClient::handleDisconnexion, this, std::placeholders::_1));
 }
 
 RType::Client::UdpClient::~UdpClient() { _socket.close(); }
@@ -61,6 +63,14 @@ void RType::Client::UdpClient::handleConnexionSuccess(struct rtype::HeaderDataPa
     _eventQueue.push(event);
 }
 
+void RType::Client::UdpClient::handleDisconnexion(struct rtype::HeaderDataPacket header)
+{
+    struct rtype::EntityId entity = Serialization::deserializeData<struct rtype::EntityId>(_buffer, header.payloadSize);
+    struct rtype::Event event = {.packetType = header.packetType, .data = entity};
+
+    _eventQueue.push(event);
+}
+
 void RType::Client::UdpClient::handleData(
     const asio::error_code &error, std::size_t, const struct rtype::HeaderDataPacket &header)
 {
@@ -73,6 +83,12 @@ void RType::Client::UdpClient::handleData(
         _streamBuffer.consume(header.payloadSize);
         readHeader();
     }
+}
+
+void RType::Client::UdpClient::sendDataInformation(std::vector<std::byte> dataInformation, uint8_t packetType)
+{
+    sendData<asio::ip::udp::socket, asio::ip::udp::endpoint>(
+        dataInformation.data(), dataInformation.size(), packetType, _socket, _serverEndpoint);
 }
 
 void RType::Client::UdpClient::run()

@@ -28,6 +28,9 @@ namespace RType::Client
         void handleString(struct rtype::HeaderDataPacket header);
         void handleEntity(struct rtype::HeaderDataPacket header);
         void handleConnexionSuccess(struct rtype::HeaderDataPacket header);
+        void handleDisconnexion(struct rtype::HeaderDataPacket header);
+
+        void sendDataInformation(std::vector<std::byte> dataInformation, uint8_t packetType);
 
         void run();
 

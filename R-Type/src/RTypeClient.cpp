@@ -44,6 +44,11 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
     auto handleUpdate = std::bind(&RType::Client::RTypeClient::updateEntity, this, std::placeholders::_1);
     refHandlerUpdate.subscribe(handleUpdate);
 
+    auto &refHandlerDelete =
+        _gameEngine.eventManager.addHandler<struct rtype::EntityId>(GameEngine::Event::DeleteEntity);
+    auto handleDelete = std::bind(&RType::Client::RTypeClient::deleteEntity, this, std::placeholders::_1);
+    refHandlerDelete.subscribe(handleDelete);
+
     GameEngine::DrawSystem drawSystem(_gameEngine.window);
     GameEngine::PositionSystem positionSystem(_gameEngine.deltaTime.getDeltaTime());
     GameEngine::PressableSystem pressableSystem(_gameEngine.window);
@@ -73,9 +78,17 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
 
 RType::Client::RTypeClient::~RTypeClient() {}
 
+void RType::Client::RTypeClient::handleQuitClient()
+{
+    struct rtype::EntityId entityId = {.id = this->_id};
+    std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::EntityId>(entityId);
+    this->_udpClient.sendDataInformation(dataToSend, static_cast<uint8_t>(rtype::PacketType::DISCONNEXION));
+    this->_IOContext.stop();
+}
+
 void RType::Client::RTypeClient::startNetwork(bool &isRunning)
 {
-    _signal.async_wait(std::bind(&asio::io_context::stop, &_IOContext));
+    _signal.async_wait(std::bind(&RType::Client::RTypeClient::handleQuitClient, this));
     _udpClient.run();
     _IOContext.run();
     isRunning = false;
@@ -89,7 +102,14 @@ void RType::Client::RTypeClient::entitySpawn(const struct rtype::Entity entity)
     if (_isPlayer) {
         _entityManager.setControlPlayerEntity(newEntity, _gameEngine.registry);
         _isPlayer = false;
+        _id = entity.id;
     }
+}
+
+void RType::Client::RTypeClient::deleteEntity(const struct rtype::EntityId entityId)
+{
+    struct GameEngine::Entity entity = _gameEngine.registry.getEntityById(entityId.id);
+    _gameEngine.registry.killEntity(entity);
 }
 
 void RType::Client::RTypeClient::updateEntity(const struct rtype::Entity entity)
@@ -121,6 +141,12 @@ void RType::Client::RTypeClient::handleEntity(struct rtype::Event event)
     _gameEngine.eventManager.getHandler<struct rtype::Entity>(GameEngine::Event::GetEntity).publish(entity);
 }
 
+void RType::Client::RTypeClient::handleDisconnexion(struct rtype::Event event)
+{
+    struct rtype::EntityId entity = std::any_cast<struct rtype::EntityId>(event.data);
+    _gameEngine.eventManager.getHandler<struct rtype::EntityId>(GameEngine::Event::DeleteEntity).publish(entity);
+}
+
 void RType::Client::RTypeClient::handleEvent()
 {
     struct rtype::Event event;
@@ -133,6 +159,9 @@ void RType::Client::RTypeClient::handleEvent()
             break;
         case static_cast<uint8_t>(rtype::PacketType::CONNECTED):
             handleNewEntity(event);
+            break;
+        case static_cast<uint8_t>(rtype::PacketType::DISCONNEXION):
+            handleDisconnexion(event);
             break;
         }
     }
