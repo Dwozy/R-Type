@@ -10,7 +10,7 @@
 
 #include "Network/ACommunication.hpp"
 #include "RType.hpp"
-#include "Serialization.hpp"
+#include "Network/Serialization.hpp"
 #include <asio.hpp>
 #include <iostream>
 #include "SafeQueue.hpp"
