@@ -22,13 +22,10 @@
 #include "components/FontComponent.hpp"
 #include "components/MusicComponent.hpp"
 #include "components/PressableComponent.hpp"
-#include "components/RectCollider.hpp"
 #include "components/TextureComponent.hpp"
 #include "components/TextComponent.hpp"
 #include "components/ControllableComponent.hpp"
 #include "components/TransformComponent.hpp"
-#include "components/ViewComponent.hpp"
-#include "components/WindowComponent.hpp"
 
 namespace GameEngine
 {
