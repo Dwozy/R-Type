@@ -5,7 +5,7 @@
 ** ACommunication
 */
 
-#include "Network/Server/ACommunication.hpp"
+#include "Network/ACommunication.hpp"
 
 GameEngine::Network::ACommunication::ACommunication(asio::io_context &IOContext, unsigned short port)
     : _socket(IOContext, asio::ip::udp::endpoint(asio::ip::udp::v4(), port)),
