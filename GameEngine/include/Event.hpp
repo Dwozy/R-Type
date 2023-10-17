@@ -26,6 +26,13 @@ namespace GameEngine
         WindowCloseEvent = 0,
         GetNewEntity = 1,
         GetEntity = 2,
+        EnemiesSpawnedEvent = 3,
+        EnemiesMoveEvent = 4,
+        EnemiesDieEvent = 5,
+        PlayerMoveEvent =  6,
+        PlayerSpawnedEvent = 7,
+        PlayersDieEvent = 8,
+        ShoothrowEvent = 9,
     };
 
     /// @brief class that store all the callback functions for a specific event type
