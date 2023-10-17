@@ -12,7 +12,6 @@
 
 namespace GameEngine
 {
-
     class EntityManager
     {
       public:

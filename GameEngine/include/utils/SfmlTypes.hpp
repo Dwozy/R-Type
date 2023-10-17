@@ -6,21 +6,20 @@
 */
 
 #ifndef SFMLTYPES_HPP_
-    #define SFMLTYPES_HPP_
-    #include <SFML/Audio.hpp>
-    #include <SFML/Graphics.hpp>
-    #include "utils/Vector.hpp"
-    #include "utils/Rect.hpp"
-    #include "RenderInterfaces.hpp"
-    #include "Keyboard.hpp"
+#define SFMLTYPES_HPP_
+#include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
+#include "utils/Vector.hpp"
+#include "utils/Rect.hpp"
+#include "RenderInterfaces.hpp"
+#include "Keyboard.hpp"
 
 // maybe remove sftype from function parameter and only take our class
 namespace GameEngine
 {
     using EventType = std::size_t;
 
-    enum class EventT: EventType
-    {
+    enum class EventT : EventType {
         WindowCloseEvent = 0,
         Resized,
         LostFocus,
@@ -36,96 +35,73 @@ namespace GameEngine
         MouseLeft,
     };
 
-    class SEvent: public IEvent<sf::Event>
+    class SEvent : public IEvent<sf::Event>
     {
-        public:
-            sf::Event &getEvent() override {
-                return _event;
-            }
-            sf::Event::EventType &type = _event.type;
-            EventT EvenType;
-        private:
-            sf::Event _event;
+      public:
+        sf::Event &getEvent() override { return _event; }
+        sf::Event::EventType &type = _event.type;
+        EventT EvenType;
+
+      private:
+        sf::Event _event;
     };
 
     class Texture : public ITexture<sf::Texture, sf::Rect>
     {
-        public:
-            Texture() {};
-            ~Texture() = default;
-            const sf::Texture &getTexture() const override
-            {
-                return _texture;
-            };
-            void load(const std::string &filename, const IRect<int, sf::Rect> &area) override
-            {
-                // add check error here
-                _texture.loadFromFile(filename, area.getBaseRect());
-            }
-        private:
-            sf::Texture _texture;
+      public:
+        Texture(){};
+        ~Texture() = default;
+        const sf::Texture &getTexture() const override { return _texture; };
+        void load(const std::string &filename, const IRect<int, sf::Rect> &area) override
+        {
+            // add check error here
+            _texture.loadFromFile(filename, area.getBaseRect());
+        }
+
+      private:
+        sf::Texture _texture;
     };
 
     class View : public IView<sf::View>
     {
-        public:
-            View(const Rect<float> &rect): _view{sf::Rect<float>{rect.left, rect.top, rect.width, rect.height}} {};
-            ~View() = default;
-            const sf::View &getBaseView() const override { return _view; }
-        private:
-            sf::View _view;
+      public:
+        View(const Rect<float> &rect) : _view{sf::Rect<float>{rect.left, rect.top, rect.width, rect.height}} {};
+        ~View() = default;
+        const sf::View &getBaseView() const override { return _view; }
+
+      private:
+        sf::View _view;
     };
 
     class Window : public IWindow<sf::RenderWindow, sf::View, sf::Event, sf::Drawable>
     {
-        public:
-            Window(int width = 1920, int height = 1080, const std::string &title = "Game window")
-                : _window(sf::VideoMode(width, height), title), _title(title) {}
-            const sf::RenderWindow &getWindow() const override
-            {
-                return _window;
-            }
-            void draw(const sf::Drawable &drawable) override
-            {
-                _window.draw(drawable);
-            }
-            void setView(const IView<sf::View> &view) override
-            {
-                _window.setView(view.getBaseView());
-            };
-            bool isOpen() const override
-            {
-                return _window.isOpen();
-            }
-            bool pollEvent(IEvent<sf::Event> &event) override
-            {
-                return _window.pollEvent(event.getEvent());
-            }
-            void close() override
-            {
-                _window.close();
-            }
-            void display() override
-            {
-                _window.display();
-            };
-            void clear() override
-            {
-                _window.clear();
-            };
-            void create(int width, int height, const std::string &title) override
-            {
-                _window.create(sf::VideoMode(width, height), title);
-                _title = title;
-            }
-            Vector2<float> mapPixelToCoords(const Vector2<int> &pos)
-            {
-                sf::Vector2f coord = _window.mapPixelToCoords(sf::Vector2i(pos.x, pos.y));
-                return Vector2<float>(coord.x, coord.y);
-            };
-        private:
-            sf::RenderWindow _window;
-            std::string _title;
+      public:
+        Window(int width = 1920, int height = 1080, const std::string &title = "Game window")
+            : _window(sf::VideoMode(width, height), title), _title(title)
+        {
+        }
+        const sf::RenderWindow &getWindow() const override { return _window; }
+        void draw(const sf::Drawable &drawable) override { _window.draw(drawable); }
+        void setView(const IView<sf::View> &view) override { _window.setView(view.getBaseView()); };
+        bool isOpen() const override { return _window.isOpen(); }
+        bool pollEvent(IEvent<sf::Event> &event) override { return _window.pollEvent(event.getEvent()); }
+        void close() override { _window.close(); }
+        void display() override { _window.display(); };
+        void clear() override { _window.clear(); };
+        void create(int width, int height, const std::string &title) override
+        {
+            _window.create(sf::VideoMode(width, height), title);
+            _title = title;
+        }
+        Vector2<float> mapPixelToCoords(const Vector2<int> &pos)
+        {
+            sf::Vector2f coord = _window.mapPixelToCoords(sf::Vector2i(pos.x, pos.y));
+            return Vector2<float>(coord.x, coord.y);
+        };
+
+      private:
+        sf::RenderWindow _window;
+        std::string _title;
     };
 
     class Text
@@ -170,40 +146,36 @@ namespace GameEngine
 
     class Font : public IFont<sf::Font>
     {
-        public:
-            Font() {};
-            ~Font() = default;
-            const sf::Font &getFont() const override {
-                return _font;
-            };
-            void load(const std::string &filename) override {
-                _font.loadFromFile(filename);
-            }
-        private:
-            sf::Font _font;
+      public:
+        Font(){};
+        ~Font() = default;
+        const sf::Font &getFont() const override { return _font; };
+        void load(const std::string &filename) override { _font.loadFromFile(filename); }
+
+      private:
+        sf::Font _font;
     };
     class Sprite : public ISprite<sf::Sprite, sf::Texture, sf::Rect>
     {
-        public:
-            Sprite() {};
-            const sf::Sprite &getSprite() const override
-            {
-                return _sprite;
-            };
-            void load(const ITexture<sf::Texture, sf::Rect> &texture, bool resetRect = false) override
-            {
-                _sprite.setTexture(texture.getTexture(), resetRect);
-            };
-            void setPosition(const Vector2<float> position) override
-            {
-                _sprite.setPosition(sf::Vector2f{ position.x, position.y });
-            };
-            void setTextureRect(const IRect<int, sf::Rect> &newRect) override {
-                _sprite.setTextureRect(newRect.getBaseRect());
-            };
-            void setRect(const Recti &rect) { _sprite.setTextureRect(rect.getBaseRect()); };
-        private:
-            sf::Sprite _sprite;
+      public:
+        Sprite(){};
+        const sf::Sprite &getSprite() const override { return _sprite; };
+        void load(const ITexture<sf::Texture, sf::Rect> &texture, bool resetRect = false) override
+        {
+            _sprite.setTexture(texture.getTexture(), resetRect);
+        };
+        void setPosition(const Vector2<float> position) override
+        {
+            _sprite.setPosition(sf::Vector2f{position.x, position.y});
+        };
+        void setTextureRect(const IRect<int, sf::Rect> &newRect) override
+        {
+            _sprite.setTextureRect(newRect.getBaseRect());
+        };
+        void setRect(const Recti &rect) { _sprite.setTextureRect(rect.getBaseRect()); };
+
+      private:
+        sf::Sprite _sprite;
     };
 
     static const std::unordered_map<Input::Keyboard::Key, sf::Keyboard::Key> sfKeys = {
