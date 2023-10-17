@@ -10,18 +10,19 @@
 #include "GameEngine.hpp"
 #include "Registry.hpp"
 
-
 namespace GameEngine
 {
-    class AnimeSystem {
-        public:
-            AnimeSystem(const float &deltaTime) : _deltaTime(deltaTime), _currentDeltaTime(0.0f) {};
-            ~AnimeSystem() = default;
-            void operator()(SparseArray<TextureComponent> &texture);
-        private:
-            const float &_deltaTime;
-            float _currentDeltaTime;
+    class AnimeSystem
+    {
+      public:
+        AnimeSystem(const float &deltaTime) : _deltaTime(deltaTime), _currentDeltaTime(0.0f){};
+        ~AnimeSystem() = default;
+        void operator()(SparseArray<TextureComponent> &texture);
+
+      private:
+        const float &_deltaTime;
+        float _currentDeltaTime;
     };
-}
+} // namespace GameEngine
 
 #endif /* !ANIMESYSTEM_HPP_ */

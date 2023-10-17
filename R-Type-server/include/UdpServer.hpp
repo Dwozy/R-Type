@@ -20,7 +20,6 @@
 
 namespace RType::Server
 {
-
     /// @brief UdpServer Class that create a UDP server that client can connect
     /// to communicate
     class UdpServer : public GameEngine::Network::ACommunication

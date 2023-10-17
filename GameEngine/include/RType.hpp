@@ -21,14 +21,14 @@ namespace rtype
 
     enum class PacketType : uint8_t {
         ROOM = 1,
-        STRING = 2,
-        ENTITY = 3,
-        CONNEXION = 4,
-        CONNECTED = 5,
-        MOVE = 6,
-        SHOOT = 7,
-        CREATE_PLAYER = 8,
-        DISCONNEXION = 9
+        STRING,
+        ENTITY,
+        CONNEXION,
+        CONNECTED,
+        MOVE,
+        SHOOT,
+        CREATE_PLAYER,
+        DISCONNEXION
     };
 
     struct Event

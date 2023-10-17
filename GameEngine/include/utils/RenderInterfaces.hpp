@@ -6,65 +6,65 @@
 */
 
 #ifndef RENDERINTERFACES_HPP_
-    #define RENDERINTERFACES_HPP_
-    #include <string>
-    #include "utils/Vector.hpp"
+#define RENDERINTERFACES_HPP_
+#include <string>
+#include "utils/Vector.hpp"
 
 namespace GameEngine
 {
-    template<class T>
+    template <class T>
     class IFont
     {
-        public:
-            ~IFont() = default;
-            virtual const T &getFont() const = 0;
-            virtual void load(const std::string &filename)  = 0;
+      public:
+        ~IFont() = default;
+        virtual const T &getFont() const = 0;
+        virtual void load(const std::string &filename) = 0;
     };
 
     template <typename T, template <typename> class M>
     class IRect
     {
-        public:
-            ~IRect() = default;
-            virtual const M<T> getBaseRect() const = 0;
+      public:
+        ~IRect() = default;
+        virtual const M<T> getBaseRect() const = 0;
     };
 
-    template<class T, template <typename> class rectT>
+    template <class T, template <typename> class rectT>
     class ITexture
     {
-        public:
-            ~ITexture() = default;
-            virtual const T &getTexture() const = 0;
-            virtual void load(const std::string &filename, const IRect<int, rectT> &area) = 0;
+      public:
+        ~ITexture() = default;
+        virtual const T &getTexture() const = 0;
+        virtual void load(const std::string &filename, const IRect<int, rectT> &area) = 0;
     };
 
-    template<class T, class TextuT, template <typename> class rectT>
+    template <class T, class TextuT, template <typename> class rectT>
     class ISprite
     {
-        public:
-            ~ISprite() = default;
-            virtual const T &getSprite() const = 0;
-            virtual void load(const ITexture<TextuT, rectT> &texture, bool resetRect = false) = 0;
-            virtual void setPosition(const Vector2<float> position) = 0;
-            virtual void setTextureRect(const IRect<int, rectT> &newRect) = 0;
+      public:
+        ~ISprite() = default;
+        virtual const T &getSprite() const = 0;
+        virtual void load(const ITexture<TextuT, rectT> &texture, bool resetRect = false) = 0;
+        virtual void setPosition(const Vector2<float> position) = 0;
+        virtual void setTextureRect(const IRect<int, rectT> &newRect) = 0;
     };
-    template<class T>
+    template <class T>
     class IEvent
     {
-        public:
-            virtual T &getEvent() = 0;
+      public:
+        virtual T &getEvent() = 0;
     };
-    template<class T>
+    template <class T>
     class IView
     {
-        public:
-            ~IView() = default;
-            virtual const T &getBaseView() const = 0;
+      public:
+        ~IView() = default;
+        virtual const T &getBaseView() const = 0;
     };
-    template<class T, class Vt, class Et, class D>
+    template <class T, class Vt, class Et, class D>
     class IWindow
     {
-        public:
+      public:
         virtual ~IWindow() = default;
         virtual const T &getWindow() const = 0;
         virtual void draw(const D &drawable) = 0;
@@ -76,6 +76,6 @@ namespace GameEngine
         virtual void clear() = 0;
         virtual void create(int width, int height, const std::string &title) = 0;
     };
-}
+} // namespace GameEngine
 
 #endif /* !RENDERINTERFACES_HPP_ */
