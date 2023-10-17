@@ -49,6 +49,17 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
     auto handleDelete = std::bind(&RType::Client::RTypeClient::deleteEntity, this, std::placeholders::_1);
     refHandlerDelete.subscribe(handleDelete);
 
+    auto &refHandlerMove =
+        _gameEngine.eventManager.addHandler<GameEngine::TransformComponent>(GameEngine::Event::PlayerMoveEvent);
+    auto handleUpdateMove = std::bind(&RType::Client::RTypeClient::updatePlayerMovement, this, std::placeholders::_1);
+    refHandlerMove.subscribe(handleUpdateMove);
+
+    auto &refHandlerOtherMove =
+        _gameEngine.eventManager.addHandler<GameEngine::TransformComponent>(GameEngine::Event::PlayerMoveEvent);
+    auto handleUpdateOtherMove =
+        std::bind(&RType::Client::RTypeClient::updatePlayerMovement, this, std::placeholders::_1);
+    refHandlerOtherMove.subscribe(handleUpdateOtherMove);
+
     GameEngine::DrawSystem drawSystem(_gameEngine.window);
     GameEngine::PositionSystem positionSystem(_gameEngine.deltaTime.getDeltaTime());
     GameEngine::PressableSystem pressableSystem(_gameEngine.window);
@@ -75,7 +86,7 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
     network.detach();
     gameLoop();
     struct rtype::EntityId entityId = {.id = this->_id};
-    std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::EntityId>(entityId, sizeof(entityId));
+    std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::EntityId>(entityId);
     _udpClient.sendDataInformation(dataToSend, static_cast<uint8_t>(rtype::PacketType::DISCONNEXION));
 }
 
@@ -98,7 +109,6 @@ void RType::Client::RTypeClient::entitySpawn(const struct rtype::Entity entity)
         _entityManager.setControlPlayerEntity(newEntity, _gameEngine.registry);
         _isPlayer = false;
         _id = entity.id;
-        std::cout << "New Player : " << _id << " !"<< std::endl;
     }
 }
 
@@ -159,6 +169,8 @@ void RType::Client::RTypeClient::handleEvent()
         case static_cast<uint8_t>(rtype::PacketType::DISCONNEXION):
             handleDisconnexion(event);
             break;
+        case static_cast<uint8_t>(rtype::PacketType::MOVE):
+            handleOtherPlayerMovement(event);
         }
     }
 }
@@ -175,5 +187,6 @@ void RType::Client::RTypeClient::gameLoop()
         if (_eventQueue.size() != 0)
             handleEvent();
         _gameEngine.registry.runSystems();
+        handlePlayerMovement();
     }
 }

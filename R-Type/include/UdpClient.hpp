@@ -44,8 +44,7 @@ namespace RType::Client
 
         /// @brief Connect to the UDP server
 
-        void handleData(
-            const asio::error_code &error, std::size_t recvBytes, struct rtype::HeaderDataPacket &header);
+        void handleData(const asio::error_code &error, std::size_t recvBytes, struct rtype::HeaderDataPacket &header);
     };
 } // namespace RType::Client
 #endif /* !UDPCLIENT_HPP_ */

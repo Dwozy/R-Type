@@ -8,6 +8,7 @@
 #ifndef RTYPECLIENT_HPP_
 #define RTYPECLIENT_HPP_
 
+#include "Protocol.hpp"
 #include "UdpClient.hpp"
 #include <asio.hpp>
 #include "GameEngine.hpp"
@@ -34,6 +35,12 @@ namespace RType::Client
 
         void handleDisconnexion(struct rtype::Event event);
         void deleteEntity(const struct rtype::EntityId id);
+
+        void handlePlayerMovement();
+        void updatePlayerMovement(const GameEngine::TransformComponent &transform);
+
+        void handleOtherPlayerMovement(struct rtype::Event event);
+        void updateOtherPlayerMovement(RType::Protocol::MoveData moveData);
 
       protected:
       private:

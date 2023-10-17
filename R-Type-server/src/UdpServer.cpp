@@ -5,10 +5,11 @@
 ** UdpServer
 */
 
+#include "Protocol.hpp"
 #include "UdpServer.hpp"
 
-RType::Server::UdpServer::UdpServer(asio::io_context &IOContext, unsigned short port,
-    SafeQueue<struct rtype::Event> &eventQueue)
+RType::Server::UdpServer::UdpServer(
+    asio::io_context &IOContext, unsigned short port, SafeQueue<struct rtype::Event> &eventQueue)
     : GameEngine::Network::ACommunication(IOContext, port), _timer(IOContext), _timerTCP(IOContext),
       _signal(IOContext, SIGINT, SIGTERM), _eventQueue(eventQueue)
 {
@@ -19,6 +20,8 @@ RType::Server::UdpServer::UdpServer(asio::io_context &IOContext, unsigned short 
         std::bind(&RType::Server::UdpServer::handleString, this, std::placeholders::_1));
     _commands.emplace(static_cast<uint8_t>(rtype::PacketType::ENTITY),
         std::bind(&RType::Server::UdpServer::handleEntity, this, std::placeholders::_1));
+    _commands.emplace(static_cast<uint8_t>(rtype::PacketType::MOVE),
+        std::bind(&RType::Server::UdpServer::handleMove, this, std::placeholders::_1));
     _commands.emplace(static_cast<uint8_t>(rtype::PacketType::CONNEXION),
         std::bind(&RType::Server::UdpServer::handleConnexion, this, std::placeholders::_1));
     _commands.emplace(static_cast<uint8_t>(rtype::PacketType::DISCONNEXION),
@@ -40,7 +43,6 @@ void RType::Server::UdpServer::run() { readHeader(); }
 void RType::Server::UdpServer::handleRoom(struct rtype::HeaderDataPacket header)
 {
     struct rtype::Room room = Serialization::deserializeData<struct rtype::Room>(_buffer, header.payloadSize);
-
 }
 
 void RType::Server::UdpServer::handleString(struct rtype::HeaderDataPacket header)
@@ -52,7 +54,7 @@ void RType::Server::UdpServer::handleString(struct rtype::HeaderDataPacket heade
 
 void RType::Server::UdpServer::handleMove(struct rtype::HeaderDataPacket header)
 {
-    struct rtype::Move moveInfo = Serialization::deserializeData<struct rtype::Move>(_buffer, header.payloadSize);
+    auto moveInfo = Serialization::deserializeData<RType::Protocol::MoveData>(_buffer, header.payloadSize);
     struct rtype::Event event;
 
     event.packetType = header.packetType;
@@ -65,7 +67,6 @@ void RType::Server::UdpServer::handleDisconnexion(struct rtype::HeaderDataPacket
     struct rtype::EntityId entity = Serialization::deserializeData<struct rtype::EntityId>(_buffer, header.payloadSize);
     struct rtype::Event event;
 
-    std::cout << "RECEIVE DISCONNEXION" << std::endl;
     event.packetType = header.packetType;
     event.data = entity;
     _eventQueue.push(event);
@@ -96,8 +97,6 @@ void RType::Server::UdpServer::handleData(
     const asio::error_code &error, std::size_t, struct rtype::HeaderDataPacket &header)
 {
     if (!error) {
-        std::cout << "Header Type : " << static_cast<std::size_t>(header.packetType) << std::endl;
-        std::cout << "Header Payload : " << header.payloadSize << std::endl;
         if (_commands.find(header.packetType) != _commands.end()) {
             _commands.at(header.packetType)(header);
         } else {

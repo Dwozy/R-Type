@@ -10,16 +10,18 @@
 
 #include <asio.hpp>
 #include <vector>
+#include <cstddef>
+#include <cstring>
 
 namespace Serialization
 {
     template <typename Data>
-    std::vector<std::byte> serializeData(Data data, std::size_t size)
+    std::vector<std::byte> serializeData(Data data)
     {
-        std::vector<std::byte> byteArray(size);
+        std::vector<std::byte> byteArray(sizeof(data));
 
-        byteArray.reserve(size);
-        std::memcpy(byteArray.data(), &data, size);
+        byteArray.reserve(sizeof(data));
+        std::memcpy(byteArray.data(), &data, sizeof(data));
         return byteArray;
     }
 

@@ -60,8 +60,8 @@ namespace GameEngine
             std::size_t id;
 
             if (!_emptyIndexes.empty()) {
-                id = _emptyIndexes.back();
-                _emptyIndexes.pop_back();
+                id = _emptyIndexes.front();
+                _emptyIndexes.erase(_emptyIndexes.begin());
                 return Entity(id);
             }
             if (_nbEntities > _maxEntities)

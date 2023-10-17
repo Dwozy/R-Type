@@ -33,10 +33,6 @@ namespace RType::Server
         void handleDisconnexion(struct rtype::Event event);
         void startNetwork(bool &isRunning);
         void updateEntities();
-        void setPlayerEntity(float posX, float posY, GameEngine::Entity entity, GameEngine::Registry &registry);
-
-        // void collisionCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
-        // SparseArray<GameEngine::TransformComponent> &transforms);
 
       protected:
       private:
