@@ -1,6 +1,8 @@
 *.a
 *.o
 *.lib
+*.so
+*.dll
 *.cmake
 
 GameEngine/GameEngine
@@ -13,7 +15,11 @@ build
 testFolder
 r-type_client*
 r-type_server*
-
+*.o
+*.gcno
+*.gcda
+build
+idea
 a.out
 */include/nlohmann
 */include/SFML

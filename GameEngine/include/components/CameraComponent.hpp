@@ -7,7 +7,7 @@
 
 #ifndef CAMERACOMPONENT_HPP_
 #define CAMERACOMPONENT_HPP_
-#include "View.hpp"
+#include "utils/SfmlTypes.hpp"
 
 namespace GameEngine
 {

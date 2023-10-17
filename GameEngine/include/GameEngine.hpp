@@ -11,6 +11,24 @@
 #include "SceneManager.hpp"
 #include "utils/DeltaTime.hpp"
 #include "utils/SfmlTypes.hpp"
+#include "Event.hpp"
+#include "systems/PositionSystem.hpp"
+#include "systems/ControlSystem.hpp"
+#include "systems/DrawSystem.hpp"
+#include "systems/AnimeSystem.hpp"
+#include "components/CameraComponent.hpp"
+#include "components/CollisionComponent.hpp"
+#include "components/ControllableComponent.hpp"
+#include "components/FontComponent.hpp"
+#include "components/MusicComponent.hpp"
+#include "components/PressableComponent.hpp"
+#include "components/RectCollider.hpp"
+#include "components/TextureComponent.hpp"
+#include "components/TextComponent.hpp"
+#include "components/ControllableComponent.hpp"
+#include "components/TransformComponent.hpp"
+#include "components/ViewComponent.hpp"
+#include "components/WindowComponent.hpp"
 
 namespace GameEngine
 {
@@ -32,6 +50,8 @@ namespace GameEngine
         /// @brief Default destructor.
         ~GameEngine() = default;
 
+        /// @brief Event manager for the game engine.
+        EventMananger eventManager;
         /// @brief Registry managing entities, components and systems.
         Registry registry;
         /// @brief Delta time class managing the delta time.

@@ -20,8 +20,7 @@
 
 namespace GameEngine
 {
-    void DrawSystem::operator()(SparseArray<TextComponent> &texts,
-                                SparseArray<TextureComponent> &textures)
+    void DrawSystem::operator()(SparseArray<TextComponent> &texts, SparseArray<TextureComponent> &textures)
     {
         std::vector<std::variant<TextureComponent, TextComponent>> rend;
         _window.clear();
@@ -39,26 +38,18 @@ namespace GameEngine
         }
 
         std::sort(rend.begin(), rend.end(),
-                  [](const std::variant<TextureComponent, TextComponent> &a,
-                     const std::variant<TextureComponent, TextComponent> &b) {
-                      if (std::holds_alternative<TextureComponent>(a) &&
-                          std::holds_alternative<TextureComponent>(b))
-                          return std::get<TextureComponent>(a).renderLayer <
-                                 std::get<TextureComponent>(b).renderLayer;
-                      if (std::holds_alternative<TextureComponent>(a) &&
-                          std::holds_alternative<TextComponent>(b))
-                          return std::get<TextureComponent>(a).renderLayer <
-                                 std::get<TextComponent>(b).renderLayer;
-                      if (std::holds_alternative<TextComponent>(a) &&
-                          std::holds_alternative<TextureComponent>(b))
-                          return std::get<TextComponent>(a).renderLayer <
-                                 std::get<TextureComponent>(b).renderLayer;
-                      if (std::holds_alternative<TextComponent>(a) &&
-                          std::holds_alternative<TextComponent>(b))
-                          return std::get<TextComponent>(a).renderLayer <
-                                 std::get<TextComponent>(b).renderLayer;
-                      return false;
-                  });
+            [](const std::variant<TextureComponent, TextComponent> &a,
+                const std::variant<TextureComponent, TextComponent> &b) {
+                if (std::holds_alternative<TextureComponent>(a) && std::holds_alternative<TextureComponent>(b))
+                    return std::get<TextureComponent>(a).renderLayer < std::get<TextureComponent>(b).renderLayer;
+                if (std::holds_alternative<TextureComponent>(a) && std::holds_alternative<TextComponent>(b))
+                    return std::get<TextureComponent>(a).renderLayer < std::get<TextComponent>(b).renderLayer;
+                if (std::holds_alternative<TextComponent>(a) && std::holds_alternative<TextureComponent>(b))
+                    return std::get<TextComponent>(a).renderLayer < std::get<TextureComponent>(b).renderLayer;
+                if (std::holds_alternative<TextComponent>(a) && std::holds_alternative<TextComponent>(b))
+                    return std::get<TextComponent>(a).renderLayer < std::get<TextComponent>(b).renderLayer;
+                return false;
+            });
 
         for (const auto &item : rend) {
             if (std::holds_alternative<TextureComponent>(item)) {

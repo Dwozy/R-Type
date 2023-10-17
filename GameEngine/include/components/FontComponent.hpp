@@ -7,9 +7,9 @@
 
 #ifndef FONT_HPP_
 #define FONT_HPP_
-#include "utils/SfmlTypes.hpp"
-#include "utils/Vector.hpp"
 #include <string>
+#include "utils/Vector.hpp"
+#include "utils/RenderInterfaces.hpp"
 
 namespace GameEngine
 {

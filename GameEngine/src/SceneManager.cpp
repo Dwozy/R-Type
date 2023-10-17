@@ -37,4 +37,4 @@ namespace GameEngine
         _scenes[_currentScene]->unload();
         _currentScene = "";
     }
-}
+} // namespace GameEngine

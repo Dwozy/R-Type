@@ -29,10 +29,10 @@ jobs:
           - os: ubuntu-latest
             install_cmd: ./build_unix.sh
             container: biozzzzz/r-type
-            executables: server/r-type_server,R-Type/r-type_client
+            executables: R-Type-server/r-type_server,R-Type/r-type_client
           - os: windows-latest
             install_cmd: cmd /c build_win.bat
-            executables: server\r-type_server.exe,R-Type\r-type_client.exe
+            executables: R-Type-server\r-type_server.exe,R-Type\r-type_client.exe
     runs-on: ${{ matrix.os }}
     container: ${{ matrix.container }}
     name: check_program_compilation

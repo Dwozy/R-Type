@@ -11,8 +11,7 @@ namespace GameEngine
 {
     void CollisionSystem::operator()(SparseArray<CollisionComponent> &collisions)
     {
-        for (std::size_t i = 0; i < collisions.size(); i++)
-        {
+        for (std::size_t i = 0; i < collisions.size(); i++) {
             auto &col = collisions[i];
 
             if (!col)
@@ -23,4 +22,4 @@ namespace GameEngine
                 col.value().actions[j](j);
         }
     }
-}
+} // namespace GameEngine
