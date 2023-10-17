@@ -51,7 +51,7 @@ Then you'll have to go the folder and execute the `build_unix.sh` script like th
 $> ./build_unix.sh
 ```
 
-You'll then have the corresponding binary in the R-Type folder for the client and the R-Type-folder for the server.
+You'll then have the corresponding binary in the R-Type folder for the client and the R-Type-server for the server.
 
 ### On Windows
 
@@ -65,7 +65,7 @@ To build from source, you'll have to download the source code from either a rele
 
 Then you'll have to go the folder and execute the `build_win.bat` script by double-clicking on it.
 
-You'll then have the corresponding binary in the R-Type folder for the client and the R-Type-folder for the server.
+You'll then have the corresponding binary in the R-Type folder for the client and the R-Type-server for the server.
 
 # Usage
 **Important**: Always run the executable alongside the .dll files on windows. For Linux, you should run the binary with the .so files alongside it or as is if you're building from source.
