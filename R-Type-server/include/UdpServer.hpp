@@ -11,7 +11,7 @@
 #include "Network/ACommunication.hpp"
 #include "RType.hpp"
 #include "SafeQueue.hpp"
-#include "Serialization.hpp"
+#include "Network/Serialization.hpp"
 #include <array>
 #include <asio.hpp>
 #include <iostream>

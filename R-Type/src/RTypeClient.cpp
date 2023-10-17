@@ -19,7 +19,7 @@
 #include "systems/PressableSystem.hpp"
 
 RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned short port)
-    : _gameEngine(800, 800), _serverUdpEndpoint(asio::ip::address::from_string(address), port),
+    : _gameEngine(800, 800), _serverUdpEndpoint(asio::ip::make_address(address), port),
       _udpClient(_IOContext, _serverUdpEndpoint, std::ref(_eventQueue)), _signal(_IOContext, SIGINT, SIGTERM)
 {
     _gameEngine.registry.registerComponent<GameEngine::TransformComponent>();
