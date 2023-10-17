@@ -39,6 +39,9 @@ namespace RType::Client
 
       protected:
       private:
+        std::size_t _findEntity(const std::size_t &networkId);
+        bool _searchEntity(const std::size_t &networkId);
+
         GameEngine::GameEngine _gameEngine;
         asio::io_context _IOContext;
         asio::ip::udp::endpoint _serverUdpEndpoint;

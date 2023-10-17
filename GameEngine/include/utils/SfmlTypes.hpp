@@ -173,6 +173,7 @@ namespace GameEngine
             _sprite.setTextureRect(newRect.getBaseRect());
         };
         void setRect(const Recti &rect) { _sprite.setTextureRect(rect.getBaseRect()); };
+        void setScale(const float &x, const float &y) { _sprite.setScale(x, y); };
 
       private:
         sf::Sprite _sprite;
