@@ -127,8 +127,8 @@ class GameScene : public GameEngine::IScene
         _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(player, col);
 
         auto &playerTex = _gameEngine.registry.addComponent<GameEngine::TextureComponent>(
-            player, GameEngine::TextureComponent{GameEngine::Texture(), GameEngine::Sprite(), false, std::vector<GameEngine::Rect<int>>{GameEngine::Rect<int>(0, 0, 32, 16)}, 0, true, 0, 1, 1});
-        playerTex.value().texture.load("assets/image.png", GameEngine::Rect<int>(0, 0, 32, 16));
+            player, GameEngine::TextureComponent{GameEngine::Texture(), GameEngine::Sprite(), true, std::vector<GameEngine::Rect<int>>{GameEngine::Rect<int>(0, 0, 33, 16), GameEngine::Rect<int>(33, 0, 33, 16), GameEngine::Rect<int>(66, 0, 33, 16), GameEngine::Rect<int>(99, 0, 33, 16), GameEngine::Rect<int>(132, 0, 33, 16)}, 0.05, true, 0, 1, 1});
+        playerTex.value().texture.load("assets/image.png", GameEngine::Rect<int>(0, 0, 166, 17));
         playerTex.value().sprite.load(playerTex.value().texture);
 
         GameEngine::Entity collision = _gameEngine.registry.spawnEntity();
@@ -174,7 +174,7 @@ int main()
 
     GameEngine::PositionSystem positionSystem(gameEngine.deltaTime.getDeltaTime());
     GameEngine::ControlSystem controlSystem;
-    GameEngine::AnimeSystem animeSystem;
+    GameEngine::AnimeSystem animeSystem(gameEngine.deltaTime.getDeltaTime());
     GameEngine::DrawSystem drawSystem(gameEngine.window);
     GameEngine::CollisionSystem collisionSystem;
     GameEngine::PressableSystem pressableSystem(gameEngine.window);
