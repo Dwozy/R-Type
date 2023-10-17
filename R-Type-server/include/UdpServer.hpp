@@ -28,7 +28,7 @@ namespace RType::Server
         UdpServer(asio::io_context &IOContext, unsigned short port, SafeQueue<struct rtype::Event> &eventQueue);
         ~UdpServer();
 
-        void handleData(const asio::error_code &error, std::size_t, const struct rtype::HeaderDataPacket &header);
+        void handleData(const asio::error_code &error, std::size_t, struct rtype::HeaderDataPacket &header);
 
         std::map<unsigned short, asio::ip::udp::endpoint> getListClients();
 

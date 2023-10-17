@@ -38,7 +38,6 @@ namespace RType::Client
       private:
         asio::io_context &_IOContext;
         asio::ip::udp::endpoint &_serverEndpoint;
-        struct rtype::HeaderDataPacket _header;
         std::unordered_map<uint8_t, std::function<void(struct rtype::HeaderDataPacket header)>> _commands;
         std::map<unsigned short, struct rtype::Entity> _listPlayersInfos;
         SafeQueue<struct rtype::Event> &_eventQueue;
@@ -46,7 +45,7 @@ namespace RType::Client
         /// @brief Connect to the UDP server
 
         void handleData(
-            const asio::error_code &error, std::size_t recvBytes, const struct rtype::HeaderDataPacket &header);
+            const asio::error_code &error, std::size_t recvBytes, struct rtype::HeaderDataPacket &header);
     };
 } // namespace RType::Client
 #endif /* !UDPCLIENT_HPP_ */

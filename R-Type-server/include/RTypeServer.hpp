@@ -52,6 +52,7 @@ namespace RType::Server
         SafeQueue<struct rtype::Event> _eventQueue;
         GameEngine::EntityManager _entityManager;
         float pos;
+        int test;
     };
 } // namespace RType::Server
 #endif /* !RTYPESERVER_HPP_ */

@@ -14,11 +14,12 @@
 namespace Serialization
 {
     template <typename Data>
-    std::vector<std::byte> serializeData(Data data)
+    std::vector<std::byte> serializeData(Data data, std::size_t size)
     {
-        std::vector<std::byte> byteArray(sizeof(data));
+        std::vector<std::byte> byteArray(size);
 
-        std::memcpy(byteArray.data(), &data, sizeof(data));
+        byteArray.reserve(size);
+        std::memcpy(byteArray.data(), &data, size);
         return byteArray;
     }
 
@@ -35,6 +36,7 @@ namespace Serialization
     {
         std::vector<uint8_t> byteArray(size);
 
+        byteArray.reserve(size);
         std::memcpy(byteArray.data(), buffer.data(), size);
         return byteArray;
     }

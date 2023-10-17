@@ -41,14 +41,12 @@ void RType::Server::RTypeServer::handleConnexion()
     std::cout << "Spawn Entity" << std::endl;
     _entityManager.setEntity(pos * 25, pos * 25, entity, _gameEngine.registry);
     struct rtype::Entity newEntity = {.id = static_cast<uint16_t>(pos),
-        .positionX = static_cast<uint32_t>(pos * 25),
-        .positionY = static_cast<uint32_t>(pos * 25),
+        .positionX = pos * 25,
+        .positionY = pos * 25,
         .directionX = 0,
         .directionY = 0};
-    // _listEntities.push_back(entity);
-    std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::Entity>(newEntity);
+    std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::Entity>(newEntity, sizeof(newEntity));
     _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::CONNECTED), dataToSend);
-    std::cout << "Message when new connexion" << std::endl;
     pos++;
 }
 
@@ -63,27 +61,26 @@ void RType::Server::RTypeServer::handleMove(struct rtype::Event event)
     transforms[moveInfo.id]->velocity.x = moveInfo.directionX;
     transforms[moveInfo.id]->velocity.y = moveInfo.directionY;
     struct rtype::Entity entity = {.id = static_cast<uint16_t>(moveInfo.id),
-        .positionX = static_cast<uint32_t>(transforms[moveInfo.id]->position.x),
-        .positionY = static_cast<uint32_t>(transforms[moveInfo.id]->position.y),
+        .positionX = transforms[moveInfo.id]->position.x,
+        .positionY = transforms[moveInfo.id]->position.y,
         .directionX = transforms[moveInfo.id]->velocity.x,
         .directionY = transforms[moveInfo.id]->velocity.y};
-    std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::Entity>(entity);
+    std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::Entity>(entity, sizeof(entity));
     _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::ENTITY), dataToSend);
 }
 
 void RType::Server::RTypeServer::handleDisconnexion(struct rtype::Event event)
 {
-    struct rtype::Entity entity = std::any_cast<struct rtype::Entity>(event.data);
+    struct rtype::EntityId entity = std::any_cast<struct rtype::EntityId>(event.data);
     auto &transforms = _gameEngine.registry.getComponent<GameEngine::TransformComponent>();
-    struct rtype::EntityId deleteEntity = {.id = entity.id};
 
+    pos--;
     if (entity.id > transforms.size())
         throw;
     std::cout << "Destroy !" << std::endl;
-    struct GameEngine::Entity getEntity = _gameEngine.registry.getEntityById(entity.id);
+    GameEngine::Entity getEntity = _gameEngine.registry.getEntityById(entity.id);
     _gameEngine.registry.killEntity(getEntity);
-    pos--;
-    std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::EntityId>(deleteEntity);
+    std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::EntityId>(entity, sizeof(entity));
     _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::DISCONNEXION), dataToSend);
 }
 
@@ -114,13 +111,12 @@ void RType::Server::RTypeServer::updateEntities()
         auto &transform = transforms[i];
         if (!transform.has_value())
             continue;
-        std::cout << "id : " << std::endl;
         struct rtype::Entity entity = {.id = static_cast<uint16_t>(i),
-            .positionX = static_cast<uint32_t>(transform->position.x),
-            .positionY = static_cast<uint32_t>(transform->position.y),
+            .positionX = transform->position.x,
+            .positionY = transform->position.y,
             .directionX = transform->velocity.x,
             .directionY = transform->velocity.y};
-        std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::Entity>(entity);
+        std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::Entity>(entity, sizeof(entity));
         _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::ENTITY), dataToSend);
     }
 }

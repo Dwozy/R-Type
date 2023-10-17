@@ -74,21 +74,16 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
     std::thread network(&RType::Client::RTypeClient::startNetwork, this, std::ref(_isRunning));
     network.detach();
     gameLoop();
+    struct rtype::EntityId entityId = {.id = this->_id};
+    std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::EntityId>(entityId, sizeof(entityId));
+    _udpClient.sendDataInformation(dataToSend, static_cast<uint8_t>(rtype::PacketType::DISCONNEXION));
 }
 
 RType::Client::RTypeClient::~RTypeClient() {}
 
-void RType::Client::RTypeClient::handleQuitClient()
-{
-    struct rtype::EntityId entityId = {.id = this->_id};
-    std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::EntityId>(entityId);
-    this->_udpClient.sendDataInformation(dataToSend, static_cast<uint8_t>(rtype::PacketType::DISCONNEXION));
-    this->_IOContext.stop();
-}
-
 void RType::Client::RTypeClient::startNetwork(bool &isRunning)
 {
-    _signal.async_wait(std::bind(&RType::Client::RTypeClient::handleQuitClient, this));
+    _signal.async_wait(std::bind(&asio::io_context::stop, &_IOContext));
     _udpClient.run();
     _IOContext.run();
     isRunning = false;
@@ -103,6 +98,7 @@ void RType::Client::RTypeClient::entitySpawn(const struct rtype::Entity entity)
         _entityManager.setControlPlayerEntity(newEntity, _gameEngine.registry);
         _isPlayer = false;
         _id = entity.id;
+        std::cout << "New Player : " << _id << " !"<< std::endl;
     }
 }
 

@@ -38,10 +38,10 @@ namespace GameEngine::Network
             struct rtype::HeaderDataPacket &header);
 
       protected:
-        void handleReceive(const asio::error_code &error, std::size_t recvBytes);
+        void handleReceive(const asio::error_code &error, std::size_t recvBytes, struct rtype::HeaderDataPacket &header);
         void readHeader();
         virtual void handleData(
-            const asio::error_code &error, std::size_t, const struct rtype::HeaderDataPacket &header) = 0;
+            const asio::error_code &error, std::size_t, struct rtype::HeaderDataPacket &header) = 0;
         // std::unordered_map<uint8_t, std::function<void(uint16_t)>> _commands;
 
       protected:

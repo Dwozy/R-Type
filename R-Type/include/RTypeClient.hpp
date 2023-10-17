@@ -35,8 +35,6 @@ namespace RType::Client
         void handleDisconnexion(struct rtype::Event event);
         void deleteEntity(const struct rtype::EntityId id);
 
-        void handleQuitClient();
-
       protected:
       private:
         GameEngine::GameEngine _gameEngine;
