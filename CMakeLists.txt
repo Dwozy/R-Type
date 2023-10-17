@@ -71,6 +71,8 @@ set(CLIENT_BINARY_NAME "r-type_client")
 set(INCLUDES_CLIENT R-Type/include)
 set(SRCS_CLIENT
     R-Type/src/main.cpp
+    R-Type/src/RTypeClient.cpp
+    R-Type/src/UdpClient.cpp
 )
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${PROJECT_NAME})
