@@ -47,7 +47,7 @@ namespace RType::Server
         RType::Server::UdpServer _udpServer;
         std::map<struct rtype::Room, std::map<unsigned short, struct rtype::Entity>> _listPlayersInfos;
         std::map<unsigned short, asio::ip::udp::endpoint> _listClients;
-        std::vector<GameEngine::Entity> _listEntities;
+        // std::vector<GameEngine::Entity> _listEntities;
         SafeQueue<struct rtype::Event> _eventQueue;
         GameEngine::EntityManager _entityManager;
         float pos;

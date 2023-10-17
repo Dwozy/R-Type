@@ -45,7 +45,7 @@ void RType::Server::RTypeServer::handleConnexion()
         .positionY = static_cast<uint32_t>(pos * 25),
         .directionX = 0,
         .directionY = 0};
-    _listEntities.push_back(entity);
+    // _listEntities.push_back(entity);
     std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::Entity>(newEntity);
     _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::CONNECTED), dataToSend);
     std::cout << "Message when new connexion" << std::endl;
