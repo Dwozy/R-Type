@@ -25,6 +25,7 @@
 #include "systems/PressableSystem.hpp"
 #include "systems/AnimeSystem.hpp"
 #include "utils/Vector.hpp"
+#include "Event.hpp"
 
 
 void gameLoop(GameEngine::GameEngine &GameEngine);
@@ -200,7 +201,7 @@ int main()
         gameEngine.deltaTime.update();
         GameEngine::SEvent event;
         while (gameEngine.window.pollEvent(event)) {
-            if (static_cast<size_t>(event.type) == static_cast<size_t>(GameEngine::EventT::WindowCloseEvent))
+            if (static_cast<size_t>(event.type) == static_cast<size_t>(GameEngine::Event::WindowCloseEvent))
                 gameEngine.window.close();
         }
         gameEngine.registry.runSystems();
