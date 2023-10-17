@@ -17,7 +17,6 @@ namespace GameEngine
     {
         std::string str;
         size_t size;
-        Vector2<int> position;
         Text text;
         bool isRendered;
         size_t renderLayer;
