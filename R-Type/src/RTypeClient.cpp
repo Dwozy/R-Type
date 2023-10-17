@@ -142,7 +142,7 @@ void RType::Client::RTypeClient::gameLoop()
 {
     while (_isRunning && _gameEngine.window.isOpen()) {
         _gameEngine.deltaTime.update();
-        sf::Event event;
+        GameEngine::SEvent event;
         while (_gameEngine.window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 _gameEngine.window.close();
