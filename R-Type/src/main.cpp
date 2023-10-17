@@ -111,7 +111,6 @@ class GameScene : public GameEngine::IScene
         //     GameEngine::Input::Keyboard::S, GameEngine::Input::Keyboard::D, 100.0f};
         // _gameEngine.registry.addComponent<GameEngine::ControllableComponent>(player, con);
 
-
         _gameEngine.registry.addComponent<GameEngine::TransformComponent>(player, tsf);
         _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(player, col);
 

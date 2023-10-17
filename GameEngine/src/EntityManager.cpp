@@ -33,8 +33,7 @@ void collisionCallback(const std::size_t &entityId, SparseArray<GameEngine::Coll
     }
 }
 
-void GameEngine::EntityManager::setPlayerEntity(
-    float posX, float posY, Entity entity, Registry &registry)
+void GameEngine::EntityManager::setPlayerEntity(float posX, float posY, Entity entity, Registry &registry)
 {
     GameEngine::TransformComponent tsf = {
         GameEngine::Vector2<float>(posX, posY), GameEngine::Vector2<float>(0.0f, 0.0f)};
@@ -58,8 +57,7 @@ void GameEngine::EntityManager::setControlPlayerEntity(Entity entity, Registry &
     registry.addComponent<GameEngine::ControllableComponent>(entity, con);
 }
 
-void GameEngine::EntityManager::setEntity(
-    float posX, float posY, Entity entity, Registry &registry)
+void GameEngine::EntityManager::setEntity(float posX, float posY, Entity entity, Registry &registry)
 {
     GameEngine::TransformComponent tsf = {
         GameEngine::Vector2<float>(posX, posY), GameEngine::Vector2<float>(0.0f, 0.0f)};

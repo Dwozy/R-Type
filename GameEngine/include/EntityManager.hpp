@@ -20,7 +20,6 @@ namespace GameEngine
         void setEntity(float posX, float posY, Entity entity, Registry &registry);
         void setControlPlayerEntity(Entity entity, Registry &registry);
 
-
       protected:
       private:
     };

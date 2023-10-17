@@ -50,8 +50,8 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
 
     GameEngine::ControlSystem controlSystem;
     _gameEngine.registry.addSystem<std::function<void(SparseArray<GameEngine::TransformComponent> &,
-                                    SparseArray<GameEngine::ControllableComponent> &)>,
-    GameEngine::TransformComponent, GameEngine::ControllableComponent>(controlSystem);
+                                       SparseArray<GameEngine::ControllableComponent> &)>,
+        GameEngine::TransformComponent, GameEngine::ControllableComponent>(controlSystem);
 
     _gameEngine.registry.addSystem<
         std::function<void(SparseArray<GameEngine::TransformComponent> &, SparseArray<GameEngine::TextureComponent> &)>,

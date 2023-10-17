@@ -61,7 +61,6 @@ void RType::Client::UdpClient::handleConnexionSuccess(struct rtype::HeaderDataPa
     _eventQueue.push(event);
 }
 
-
 void RType::Client::UdpClient::handleData(
     const asio::error_code &error, std::size_t, const struct rtype::HeaderDataPacket &header)
 {
