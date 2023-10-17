@@ -14,110 +14,137 @@
     #include "RenderInterfaces.hpp"
     #include "Keyboard.hpp"
 
-// maybe remove sftype from function parameter and only take our class
 namespace GameEngine
 {
-    using EventType = std::size_t;
-
-    enum class EventT: EventType
-    {
-        WindowCloseEvent = 0,
-        Resized,
-        LostFocus,
-        GainedFocus,
-        TextEntered,
-        KeyPressed,
-        KeyReleased,
-        MouseWheelScrolled,
-        MouseButtonPressed,
-        MouseButtonReleased,
-        MouseMoved,
-        MouseEntered,
-        MouseLeft,
-    };
-
+    /// @brief Class representing a custom event wrapper for sf::Event
     class SEvent: public IEvent<sf::Event>
     {
         public:
+            /// @brief Default constructor for SEvent
+            SEvent() = default;
+            /// @brief Returns the wrapped sf::Event
+            /// @return Reference to the sf::Event instance
             sf::Event &getEvent() override {
                 return _event;
             }
+            /// @brief Reference to the EventType of the wrapped sf::Event
             sf::Event::EventType &type = _event.type;
-            EventT EvenType;
-        private:
-            sf::Event _event;
-    };
+            private:
+                sf::Event _event;
+        };
 
+    /// @brief Class representing a texture wrapper for sf::Texture with an associated area
     class Texture : public ITexture<sf::Texture, sf::Rect>
     {
         public:
-            Texture() {};
+            /// @brief Default constructor for Texture
+            Texture() = default;
+            /// @brief Destructor for Texture
             ~Texture() = default;
+            /// @brief Returns the wrapped sf::Texture
+            /// @return Reference to the sf::Texture instance
             const sf::Texture &getTexture() const override
             {
                 return _texture;
             };
+            /// @brief Loads a texture from a file with a specified area
+            /// @param filename The path to the texture file
+            /// @param area The area of the texture to load
             void load(const std::string &filename, const IRect<int, sf::Rect> &area) override
             {
-                // add check error here
                 _texture.loadFromFile(filename, area.getBaseRect());
             }
+
         private:
             sf::Texture _texture;
     };
 
+
+    /// @brief Class representing a view wrapper for sf::View
     class View : public IView<sf::View>
     {
         public:
+            /// @brief Constructor for View
+            /// @param rect The rectangle defining the initial position and size of the view
             View(const Rect<float> &rect): _view{sf::Rect<float>{rect.left, rect.top, rect.width, rect.height}} {};
+            /// @brief Destructor for View
             ~View() = default;
+            /// @brief Returns the wrapped sf::View
+            /// @return Reference to the sf::View instance
             const sf::View &getBaseView() const override { return _view; }
         private:
             sf::View _view;
     };
 
+    /// @brief Class representing a window wrapper for sf::RenderWindow with additional functionality
     class Window : public IWindow<sf::RenderWindow, sf::View, sf::Event, sf::Drawable>
     {
         public:
+            /// @brief Constructor for Window
+            /// @param width The width of the window
+            /// @param height The height of the window
+            /// @param title The title of the window
             Window(int width = 1920, int height = 1080, const std::string &title = "Game window")
                 : _window(sf::VideoMode(width, height), title), _title(title) {}
+            /// @brief Returns the wrapped sf::RenderWindow
+            /// @return Reference to the sf::RenderWindow instance
             const sf::RenderWindow &getWindow() const override
             {
                 return _window;
             }
+            /// @brief Draws a sf::Drawable object on the window
+            /// @param drawable The object to be drawn
             void draw(const sf::Drawable &drawable) override
             {
                 _window.draw(drawable);
             }
+
+            /// @brief Sets the view of the window
+            /// @param view The view to set
             void setView(const IView<sf::View> &view) override
             {
                 _window.setView(view.getBaseView());
             };
+            /// @brief Checks if the window is open
+            /// @return True if the window is open, false otherwise
             bool isOpen() const override
             {
                 return _window.isOpen();
             }
+            /// @brief Polls and retrieves the next event
+            /// @param event The event to be filled with the polled event
+            /// @return True if an event was polled, false otherwise
             bool pollEvent(IEvent<sf::Event> &event) override
             {
                 return _window.pollEvent(event.getEvent());
             }
+            /// @brief Closes the window
             void close() override
             {
                 _window.close();
             }
+            /// @brief Displays the contents of the window
             void display() override
             {
                 _window.display();
             };
+            /// @brief Clears the contents of the window
             void clear() override
             {
                 _window.clear();
             };
+            /// @brief Creates a new window with the specified dimensions and title
+            /// @param width The width of the new window
+            /// @param height The height of the new window
+            /// @param title The title of the new window
             void create(int width, int height, const std::string &title) override
             {
                 _window.create(sf::VideoMode(width, height), title);
                 _title = title;
             }
+            /// @brief Maps pixel coordinates to world coordinates
+            /// @param pos The pixel coordinates to map
+            /// @return The corresponding world coordinates
             Vector2<float> mapPixelToCoords(const Vector2<int> &pos)
             {
                 sf::Vector2f coord = _window.mapPixelToCoords(sf::Vector2i(pos.x, pos.y));
@@ -128,12 +155,21 @@ namespace GameEngine
             std::string _title;
     };
 
+    /// @brief Class representing a text wrapper for sf::Text with basic functionality
     class Text
     {
       public:
+        /// @brief Default constructor for Text
         Text(){};
+        /// @brief Destructor for Text
         ~Text() = default;
+        /// @brief Returns the wrapped sf::Text
+        /// @return Reference to the sf::Text instance
         const sf::Text &getText() const { return _text; }
+        /// @brief Loads text with specified font and size
+        /// @param text The string to set for the text
+        /// @param font The font to apply to the text
+        /// @param size The character size of the text
         void load(const std::string &text, const sf::Font &font, size_t size)
         {
             _text.setString(text);
@@ -144,23 +180,26 @@ namespace GameEngine
       private:
         sf::Text _text;
     };
-
+    /// @brief Class representing a music wrapper for sf::Music
     class Music
     {
       public:
+        /// @brief Default constructor for Music
         Music() {}
+        /// @brief Destructor for Music
         ~Music() = default;
-        // Music(const Music &other) {
-        //     if (!other.getFilename().empty()) {
-        //         load(other.getFilename());
-        //     }
-        // }
+        /// @brief Returns the wrapped sf::Music
+        /// @return Reference to the sf::Music instance
         const sf::Music &getMusic() const { return _music; }
+        /// @brief Loads music from a file
+        /// @param filename The path to the music file
         void load(const std::string &filename)
         {
             _music.openFromFile(filename);
             _filename = filename;
         }
+        /// @brief Returns the filename of the loaded music
+        /// @return Reference to the string containing the filename
         const std::string &getFilename() const { return _filename; }
 
       private:
@@ -168,44 +207,69 @@ namespace GameEngine
         std::string _filename;
     };
 
+    /// @brief Class representing a font wrapper for sf::Font
     class Font : public IFont<sf::Font>
     {
         public:
+            /// @brief Default constructor for Font
             Font() {};
+            /// @brief Destructor for Font
             ~Font() = default;
-            const sf::Font &getFont() const override {
+            /// @brief Returns the wrapped sf::Font
+            /// @return Reference to the sf::Font instance
+            const sf::Font &getFont() const override
+            {
                 return _font;
             };
-            void load(const std::string &filename) override {
+            /// @brief Loads the font from a file
+            /// @param filename The path to the font file
+            void load(const std::string &filename) override
+            {
                 _font.loadFromFile(filename);
             }
         private:
             sf::Font _font;
     };
+    /// @brief Class representing a sprite wrapper for sf::Sprite with additional functionality
     class Sprite : public ISprite<sf::Sprite, sf::Texture, sf::Rect>
     {
         public:
+            /// @brief Default constructor for Sprite
             Sprite() {};
+            /// @brief Destructor for Sprite
+            ~Sprite() = default;
+            /// @brief Returns the wrapped sf::Sprite
+            /// @return Reference to the sf::Sprite instance
             const sf::Sprite &getSprite() const override
             {
                 return _sprite;
             };
+            /// @brief Loads the sprite with a specified texture and optional reset of the texture rectangle
+            /// @param texture The texture to apply to the sprite
+            /// @param resetRect Flag indicating whether to reset the texture rectangle
             void load(const ITexture<sf::Texture, sf::Rect> &texture, bool resetRect = false) override
             {
                 _sprite.setTexture(texture.getTexture(), resetRect);
             };
+            /// @brief Sets the position of the sprite
+            /// @param position The new position of the sprite
             void setPosition(const Vector2<float> position) override
             {
                 _sprite.setPosition(sf::Vector2f{ position.x, position.y });
             };
+            /// @brief Sets the texture rectangle of the sprite
+            /// @param newRect The new texture rectangle to set
             void setTextureRect(const IRect<int, sf::Rect> &newRect) override {
                 _sprite.setTextureRect(newRect.getBaseRect());
             };
+            /// @brief Sets the texture rectangle of the sprite using a custom rectangle
+            /// @param rect The custom rectangle defining the new texture rectangle
             void setRect(const Recti &rect) { _sprite.setTextureRect(rect.getBaseRect()); };
         private:
             sf::Sprite _sprite;
     };
 
+    /// @brief Static unordered map that maps custom keyboard keys to corresponding sf::Keyboard::Key values
     static const std::unordered_map<Input::Keyboard::Key, sf::Keyboard::Key> sfKeys = {
         {Input::Keyboard::Key::NO_KEY, sf::Keyboard::Unknown}, {Input::Keyboard::Key::A, sf::Keyboard::A},
         {Input::Keyboard::Key::B, sf::Keyboard::B}, {Input::Keyboard::Key::C, sf::Keyboard::C},
@@ -257,6 +321,9 @@ namespace GameEngine
         {Input::Keyboard::Key::F13, sf::Keyboard::F13}, {Input::Keyboard::Key::F14, sf::Keyboard::F14},
         {Input::Keyboard::Key::F15, sf::Keyboard::F15}, {Input::Keyboard::Key::Pause, sf::Keyboard::Pause}};
 
+    /// @brief Checks if a specific keyboard key is currently pressed
+    /// @param key The key to check for
+    /// @return True if the key is pressed, false otherwise
     static bool isKeyPressed(const Input::Keyboard::Key key) { return sf::Keyboard::isKeyPressed(sfKeys.at(key)); }
 
 } // namespace GameEngine
