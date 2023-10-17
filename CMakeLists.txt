@@ -74,6 +74,7 @@ set(SRCS_CLIENT
     R-Type/src/main.cpp
     R-Type/src/RTypeClient.cpp
     R-Type/src/UdpClient.cpp
+    R-Type/src/Movement.cpp
 )
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${PROJECT_NAME})

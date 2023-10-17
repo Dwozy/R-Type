@@ -37,6 +37,9 @@ namespace RType::Client
 
         void handleQuitClient();
 
+        void handlePlayerMovement();
+        void updatePlayerMovement(const GameEngine::TransformComponent &transform);
+
       protected:
       private:
         GameEngine::GameEngine _gameEngine;
