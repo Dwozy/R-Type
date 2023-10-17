@@ -63,7 +63,7 @@ void RType::Server::RTypeServer::handleMove(struct rtype::Event event)
     std::cerr << "transfrom size: " << transforms.size() << std::endl;
     if (moveInfo.id > transforms.size())
         return;
-    transforms[moveInfo.id]->position = { moveInfo.x, moveInfo.y };
+    transforms[moveInfo.id]->position = {moveInfo.x, moveInfo.y};
     transforms[moveInfo.id]->velocity.x = moveInfo.dx;
     transforms[moveInfo.id]->velocity.y = moveInfo.dy;
     struct rtype::Entity entity = {.id = static_cast<uint16_t>(moveInfo.id),

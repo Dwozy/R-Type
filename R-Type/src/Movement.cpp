@@ -54,7 +54,7 @@ namespace RType::Client
         if (!transforms[entity.id].has_value() && entity.id == _id)
             return;
         std::cerr << "entity: " << entity.id << " after if" << std::endl;
-        transforms[entity.id]->position = { entity.x, entity.y };
-        transforms[entity.id]->velocity = { entity.dx, entity.dy };
+        transforms[entity.id]->position = {entity.x, entity.y};
+        transforms[entity.id]->velocity = {entity.dx, entity.dy};
     }
 } // namespace RType::Client
