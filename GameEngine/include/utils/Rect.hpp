@@ -20,7 +20,7 @@ namespace GameEngine
     template <typename T>
     class Rect : public IRect<T, sf::Rect>
     {
-        public:
+      public:
         Rect(T l, T t, T w, T h) : left(l), top(t), width(w), height(h){};
         ~Rect() = default;
         T left;

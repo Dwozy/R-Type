@@ -7,10 +7,6 @@
 
 #include "NetworkSystem.hpp"
 
-NetworkSystem::NetworkSystem()
-{
-}
+NetworkSystem::NetworkSystem() {}
 
-NetworkSystem::~NetworkSystem()
-{
-}
+NetworkSystem::~NetworkSystem() {}

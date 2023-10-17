@@ -29,7 +29,7 @@ namespace GameEngine
         EnemiesSpawnedEvent = 3,
         EnemiesMoveEvent = 4,
         EnemiesDieEvent = 5,
-        PlayerMoveEvent =  6,
+        PlayerMoveEvent = 6,
         PlayerSpawnedEvent = 7,
         PlayersDieEvent = 8,
         ShoothrowEvent = 9,
