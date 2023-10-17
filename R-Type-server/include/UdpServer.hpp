@@ -8,10 +8,10 @@
 #ifndef UDPSERVER_HPP_
 #define UDPSERVER_HPP_
 
-#include "Network/Server/ACommunication.hpp"
+#include "Network/ACommunication.hpp"
 #include "RType.hpp"
 #include "SafeQueue.hpp"
-#include "Serialization.hpp"
+#include "Network/Serialization.hpp"
 #include <array>
 #include <asio.hpp>
 #include <iostream>

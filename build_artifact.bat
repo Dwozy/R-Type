@@ -5,14 +5,15 @@ cmd /c build_win.bat
 if not exist ".\artifacts" mkdir ".\artifacts" 2>nul
 if not exist ".\artifacts\server" mkdir ".\artifacts\server" 2>nul
 if not exist ".\artifacts\client" mkdir ".\artifacts\client" 2>nul
-if not exist ".\artifacts\client\assets" mkdir ".\artifacts\client\assets" 2>nul
+if not exist ".\artifacts\client\R-Type" mkdir ".\artifacts\clientR-Type" 2>nul
+if not exist ".\artifacts\client\R-Type\assets" mkdir ".\artifacts\client\R-Type\assets" 2>nul
 
 for /R .\build %%f in (*.dll) do (
 	copy %%f .\artifacts\server
 	copy %%f .\artifacts\client
 )
 
-xcopy .\R-Type\assets .\artifacts\client\assets /E
+xcopy .\R-Type\assets .\artifacts\client\R-Type\assets /E
 
 copy .\R-Type\r-type_client.exe .\artifacts\client
 copy .\R-Type-server\r-type_server.exe .\artifacts\server

@@ -11,6 +11,7 @@
 #include "SceneManager.hpp"
 #include "utils/DeltaTime.hpp"
 #include "utils/SfmlTypes.hpp"
+#include "Event.hpp"
 #include "systems/PositionSystem.hpp"
 #include "systems/ControlSystem.hpp"
 #include "systems/DrawSystem.hpp"
@@ -42,6 +43,7 @@ namespace GameEngine
         };
         ~GameEngine() = default;
 
+        EventMananger eventManager;
         Window window;
         Registry registry;
         DeltaTime deltaTime;

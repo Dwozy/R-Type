@@ -36,10 +36,11 @@ set(INCLUDES_LIB GameEngine/include)
 set(SRCS_LIB
     GameEngine/src/Error.cpp
     GameEngine/src/DeltaTime.cpp
+    GameEngine/src/EntityManager.cpp
     GameEngine/src/systems/ControlSystem.cpp
     GameEngine/src/systems/DrawSystem.cpp
     GameEngine/src/systems/PositionSystem.cpp
-    GameEngine/src/Network/server/ACommunication.cpp
+    GameEngine/src/Network/ACommunication.cpp
     GameEngine/src/systems/CollisionSystem.cpp
     GameEngine/src/systems/PressableSystem.cpp
     GameEngine/src/systems/AnimeSystem.cpp
@@ -71,6 +72,8 @@ set(CLIENT_BINARY_NAME "r-type_client")
 set(INCLUDES_CLIENT R-Type/include)
 set(SRCS_CLIENT
     R-Type/src/main.cpp
+    R-Type/src/RTypeClient.cpp
+    R-Type/src/UdpClient.cpp
 )
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${PROJECT_NAME})

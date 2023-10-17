@@ -21,8 +21,6 @@ RType::Server::UdpServer::UdpServer(
         std::bind(&RType::Server::UdpServer::handleEntity, this, std::placeholders::_1));
     _commands.emplace(static_cast<uint8_t>(rtype::PacketType::CONNEXION),
         std::bind(&RType::Server::UdpServer::handleConnexion, this, std::placeholders::_1));
-    // readHeader();
-    // updateGameInfo();
 }
 
 RType::Server::UdpServer::~UdpServer()
@@ -78,7 +76,6 @@ void RType::Server::UdpServer::handleEntity(struct rtype::HeaderDataPacket heade
     std::cout << "Entity number : " << entity.id << std::endl;
     std::cout << "Pos : " << entity.positionX << " - " << entity.positionY << std::endl;
     std::cout << "Direction : " << entity.directionX << " - " << entity.directionY << std::endl;
-    std::cout << "LifePoint : " << entity.lifePoint << std::endl;
     std::cout << "----------------" << std::endl;
 }
 
@@ -86,7 +83,7 @@ void RType::Server::UdpServer::handleConnexion(struct rtype::HeaderDataPacket he
 {
     struct rtype::Event event = {};
 
-    struct rtype::Entity entity = {indexPlayer, 0, 0, 0, 0, 10};
+    struct rtype::Entity entity = {indexPlayer, 0, 0, 0, 0};
     _listPlayersInfos[entity.id] = entity;
     indexPlayer++;
 

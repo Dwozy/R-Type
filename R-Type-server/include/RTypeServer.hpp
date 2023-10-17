@@ -13,6 +13,7 @@
 #include "UdpServer.hpp"
 #include "GameEngineServer.hpp"
 #include <asio.hpp>
+#include "EntityManager.hpp"
 
 namespace RType::Server
 {
@@ -28,12 +29,13 @@ namespace RType::Server
 
         void handleEvent();
         void handleConnexion();
+        void handleMove(struct rtype::Event event);
         void startNetwork(bool &isRunning);
         void updateEntities();
         void setPlayerEntity(float posX, float posY, GameEngine::Entity entity, GameEngine::Registry &registry);
 
         // void collisionCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
-            // SparseArray<GameEngine::TransformComponent> &transforms);
+        // SparseArray<GameEngine::TransformComponent> &transforms);
 
       protected:
       private:
@@ -45,8 +47,10 @@ namespace RType::Server
         RType::Server::UdpServer _udpServer;
         std::map<struct rtype::Room, std::map<unsigned short, struct rtype::Entity>> _listPlayersInfos;
         std::map<unsigned short, asio::ip::udp::endpoint> _listClients;
-        std::vector<GameEngine::Entity> _listEntities;
+        // std::vector<GameEngine::Entity> _listEntities;
         SafeQueue<struct rtype::Event> _eventQueue;
+        GameEngine::EntityManager _entityManager;
+        float pos;
     };
 } // namespace RType::Server
 #endif /* !RTYPESERVER_HPP_ */
