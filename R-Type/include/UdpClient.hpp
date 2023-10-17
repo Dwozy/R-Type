@@ -8,7 +8,7 @@
 #ifndef UDPCLIENT_HPP_
 #define UDPCLIENT_HPP_
 
-#include "ACommunication.hpp"
+#include "Network/ACommunication.hpp"
 #include "RType.hpp"
 #include "Serialization.hpp"
 #include <asio.hpp>
