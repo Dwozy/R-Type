@@ -67,6 +67,8 @@ target_link_libraries(${LIBRARY_NAME} PRIVATE sfml-graphics sfml-audio sfml-syst
 target_link_libraries(${LIBRARY_NAME} PRIVATE nlohmann_json::nlohmann_json)
 target_link_libraries(${LIBRARY_NAME} PRIVATE asio)
 
+set(INCLUDES_GLOBAL include)
+
 set(CLIENT_BINARY_NAME "r-type_client")
 
 set(INCLUDES_CLIENT R-Type/include)
@@ -97,7 +99,7 @@ endif (MSVC)
 target_link_libraries(${CLIENT_BINARY_NAME} PRIVATE sfml-graphics sfml-audio sfml-system sfml-window)
 target_link_libraries(${CLIENT_BINARY_NAME} PRIVATE nlohmann_json::nlohmann_json)
 target_link_libraries(${CLIENT_BINARY_NAME} PRIVATE asio)
-target_include_directories(${CLIENT_BINARY_NAME} PRIVATE ${INCLUDES_CLIENT} ${CMAKE_SOURCE_DIR}/GameEngine/include/)
+target_include_directories(${CLIENT_BINARY_NAME} PRIVATE ${INCLUDES_CLIENT} ${INCLUDES_GLOBAL} ${CMAKE_SOURCE_DIR}/GameEngine/include/)
 
 set(SERVER_BINARY_NAME "r-type_server")
 
@@ -132,4 +134,4 @@ endif (MSVC)
 target_link_libraries(${SERVER_BINARY_NAME} PRIVATE asio)
 target_link_libraries(${SERVER_BINARY_NAME} PRIVATE sfml-graphics sfml-audio sfml-system sfml-window)
 target_link_libraries(${SERVER_BINARY_NAME} PRIVATE nlohmann_json::nlohmann_json)
-target_include_directories(${SERVER_BINARY_NAME} PRIVATE ${INCLUDES_SERVER} ${CMAKE_SOURCE_DIR}/GameEngine/include/)
+target_include_directories(${SERVER_BINARY_NAME} PRIVATE ${INCLUDES_SERVER} ${INCLUDES_GLOBAL} ${CMAKE_SOURCE_DIR}/GameEngine/include/)
