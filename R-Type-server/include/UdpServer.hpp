@@ -42,6 +42,7 @@ namespace RType::Server
 
         void handleMove(struct rtype::HeaderDataPacket header);
         void handleConnexion(struct rtype::HeaderDataPacket header);
+        void handleDisconnexion(struct rtype::HeaderDataPacket header);
 
         void run();
 

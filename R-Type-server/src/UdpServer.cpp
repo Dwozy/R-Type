@@ -21,6 +21,8 @@ RType::Server::UdpServer::UdpServer(
         std::bind(&RType::Server::UdpServer::handleEntity, this, std::placeholders::_1));
     _commands.emplace(static_cast<uint8_t>(rtype::PacketType::CONNEXION),
         std::bind(&RType::Server::UdpServer::handleConnexion, this, std::placeholders::_1));
+    _commands.emplace(static_cast<uint8_t>(rtype::PacketType::DISCONNEXION),
+        std::bind(&RType::Server::UdpServer::handleDisconnexion, this, std::placeholders::_1));
 }
 
 RType::Server::UdpServer::~UdpServer()
@@ -63,6 +65,18 @@ void RType::Server::UdpServer::handleMove(struct rtype::HeaderDataPacket header)
 
     event.packetType = header.packetType;
     event.data = moveInfo;
+    _eventQueue.push(event);
+}
+
+void RType::Server::UdpServer::handleDisconnexion(struct rtype::HeaderDataPacket header)
+{
+    struct rtype::Entity entity = Serialization::deserializeData<struct rtype::Entity>(_buffer, header.payloadSize);
+    struct rtype::Event event;
+
+    std::cout << "RECEIVE DISCONNEXION" << std::endl;
+
+    event.packetType = header.packetType;
+    event.data = entity;
     _eventQueue.push(event);
 }
 

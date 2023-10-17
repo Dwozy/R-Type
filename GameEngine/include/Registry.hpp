@@ -86,6 +86,14 @@ namespace GameEngine
             _nbEntities++;
             return Entity(id);
         };
+        Entity getEntityById(const std::size_t &id) const
+        {
+            if (id > _nbEntities || id > _maxEntities)
+                throw;
+            if (std::binary_search(_emptyIndexes.begin(), _emptyIndexes.end(), id))
+                throw;
+            return Entity(id);
+        };
         void killEntity(const Entity &entity)
         {
             _emptyIndexes.push_back(entity);

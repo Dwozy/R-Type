@@ -20,13 +20,17 @@ namespace RType::Client
     class UdpClient : public GameEngine::Network::ACommunication
     {
       public:
-        UdpClient(asio::io_context &IOContext, asio::ip::udp::endpoint &serverEndpoint, SafeQueue<struct rtype::Event> &eventQueue);
+        UdpClient(asio::io_context &IOContext, asio::ip::udp::endpoint &serverEndpoint,
+            SafeQueue<struct rtype::Event> &eventQueue);
         ~UdpClient();
 
         void handleRoom(struct rtype::HeaderDataPacket header);
         void handleString(struct rtype::HeaderDataPacket header);
         void handleEntity(struct rtype::HeaderDataPacket header);
         void handleConnexionSuccess(struct rtype::HeaderDataPacket header);
+        void handleDisconnexion(struct rtype::HeaderDataPacket header);
+
+        void sendDataInformation(std::vector<std::byte> dataInformation, uint8_t packetType);
 
         void run();
 
