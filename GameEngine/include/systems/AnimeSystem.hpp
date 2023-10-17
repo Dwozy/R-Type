@@ -15,9 +15,12 @@ namespace GameEngine
 {
     class AnimeSystem {
         public:
-            AnimeSystem() {};
+            AnimeSystem(const float &deltaTime) : _deltaTime(deltaTime), _currentDeltaTime(0.0f) {};
             ~AnimeSystem() = default;
             void operator()(SparseArray<TextureComponent> &texture);
+        private:
+            const float &_deltaTime;
+            float _currentDeltaTime;
     };
 }
 
