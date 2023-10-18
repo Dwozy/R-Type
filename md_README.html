@@ -105,7 +105,7 @@ On Linux</h3>
 <p>You should have this installed beforehand.</p>
 <p>To build from source, you'll have to download the source code from either a release or in the <code>Code</code> menu on the repository Github page.</p>
 <p>Then you'll have to go the folder and execute the <code>build_unix.sh</code> script like this: </p><div class="fragment"><div class="line">$&gt; ./build_unix.sh</div>
-</div><!-- fragment --><p>You'll then have the corresponding binary in the R-Type folder for the client and the R-Type-folder for the server.</p>
+</div><!-- fragment --><p>You'll then have the corresponding binary in the R-Type folder for the client and the R-Type-server for the server.</p>
 <h3><a class="anchor" id="autotoc_md7"></a>
 On Windows</h3>
 <p><b>Requiremants</b>:</p><ul>
@@ -115,7 +115,28 @@ On Windows</h3>
 <p>You should have this installed beforehand.</p>
 <p>To build from source, you'll have to download the source code from either a release or in the <code>Code</code> menu on the repository Github page.</p>
 <p>Then you'll have to go the folder and execute the <code>build_win.bat</code> script by double-clicking on it.</p>
-<p>You'll then have the corresponding binary in the R-Type folder for the client and the R-Type-folder for the server. </p>
+<p>You'll then have the corresponding binary in the R-Type folder for the client and the R-Type-server for the server.</p>
+<h1><a class="anchor" id="autotoc_md8"></a>
+Usage</h1>
+<p><b>Important</b>: Always run the executable alongside the .dll files on windows. For Linux, you should run the binary with the .so files alongside it or as is if you're building from source.</p>
+<h2><a class="anchor" id="autotoc_md9"></a>
+Linux</h2>
+<h3><a class="anchor" id="autotoc_md10"></a>
+Server</h3>
+<div class="fragment"><div class="line">$&gt; ./r-type_server [port (default: 8080)]</div>
+</div><!-- fragment --> <h3><a class="anchor" id="autotoc_md11"></a>
+Client</h3>
+<p>You should always run from a folder containing the <code>R-Type/assets</code> folder. </p><div class="fragment"><div class="line">$&gt; ./r-type_client [ip (default: 127.0.0.1)] [port (default: 8080)]</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md12"></a>
+Windows</h2>
+<h3><a class="anchor" id="autotoc_md13"></a>
+Server</h3>
+<div class="fragment"><div class="line">.\r-type_server.exe [port (default: 8080)]</div>
+</div><!-- fragment --><p> You can also double clicking on the executable, however you'll only use the default parameters this way. </p>
+<h3><a class="anchor" id="autotoc_md14"></a>
+Client</h3>
+<p>You should always run from a folder containing the <code>R-Type/assets</code> folder. </p><div class="fragment"><div class="line">./r-type_client.exe [ip (default: 127.0.0.1)] [port (default: 8080)]</div>
+</div><!-- fragment --><p> You can also double clicking on the executable, however you'll only use the default parameters this way. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->
