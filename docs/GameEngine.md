@@ -148,6 +148,54 @@ The game engine class is a class containing all the classes that the game needs.
 
 ### EventManager
 
+Class managing events to comunicate in the game engine.
+Each event can have one or more callbacks that will be called when the event is published.
+
+Each event types are described in the ```Event``` enum with the type ```EventType```.
+
+An ```EventHandler``` is a class that manages the callbacks of one specific event.
+
+When the user want to use the event system, it needs to instantiate an ```EventManager``` and then use the ```addHandler``` method to add an handler (```EventHandler```) for each event that he wants to use.
+
+The ```addHandler``` method take as template the type of the data that will be passed to the callbacks when the event is published and as parameter the type of the event that will be managed.
+
+Event handler exemple
+
+```cpp
+// Create the event manager
+GameEngine::EventMananger eventManager;
+
+// Add a new event handler for the 'MyEvent' event
+eventManager.addHandler<struct MyCallbackDataType>(GameEngine::Event::MyEvent);
+```
+
+To add a callback to an event the user must get the handler of the event and then use the ```subscribe``` methode and give the callback function.
+The callback function must take as parameter the type given in the template of the addHandler methode.
+
+Add event callback exemple
+
+```cpp
+void myCallback(struct MyCallbackDataType)
+{
+    // Do something
+}
+
+// Get the handler of the event
+GameEngine::EventHandler<struct MyCallbackDataType> myHandler =  eventManager.getHandler<struct MyCallbackDataType>(GameEngine::Event::MyEvent)
+
+// Add a callback function
+myHandler.subscribe(myCallback);
+MyCallbackDataType
+```
+
+Then now if the user wants to call the callbacks of the event he must call the ```publish``` methode
+
+Publish event exemple
+```cpp
+// Pass the data to the callbacks
+myHandler.publish(MyCallbackDataType());
+```
+
 ### Registry
 
 This is the Entity Component System described above.
@@ -166,6 +214,7 @@ Class managing scenes for the game, the scene needs to inherit the ```AScene``` 
 GameEngine::GameEngine gameEngine();
 
 // Register components and systems
+
 // Spawn entities and add the components
 // Or
 gameEngine.sceneManager.registerScene("Game", std::make_unique<GameScene>());
