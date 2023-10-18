@@ -24,7 +24,7 @@ namespace Serialization
     {
         std::vector<std::byte> byteArray(sizeof(data));
 
-        byteArray.reserve(sizeof(data));
+        // byteArray.reserve(sizeof(data));
         std::memcpy(byteArray.data(), &data, sizeof(data));
         return byteArray;
     }
@@ -49,7 +49,7 @@ namespace Serialization
     {
         std::vector<uint8_t> byteArray(size);
 
-        byteArray.reserve(size);
+        // byteArray.reserve(size);
         std::memcpy(byteArray.data(), buffer.data(), size);
         return byteArray;
     }

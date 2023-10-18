@@ -77,7 +77,7 @@ void RType::Server::RTypeServer::handleDisconnexion(struct rtype::Event event)
 
     pos--;
     if (entity.id > transforms.size())
-        throw;
+        return;
     GameEngine::Entity getEntity = _gameEngine.registry.getEntityById(entity.id);
     _gameEngine.registry.killEntity(getEntity);
     std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::EntityId>(entity);
