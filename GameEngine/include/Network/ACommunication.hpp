@@ -18,9 +18,19 @@ namespace GameEngine::Network
     class ACommunication
     {
       public:
+        /// @brief Abstract class that will handle communication
+        /// @param IOContext that will be use to create our socket and asynchronous operation
+        /// @param port that will the socket to bind
         ACommunication(asio::io_context &IOContext, unsigned short port);
         virtual ~ACommunication(){};
-
+        /// @brief Set the header to send the value
+        /// @tparam Socket Template that will be use for the socket (TCP, UDP)
+        /// @tparam Endpoint Template that will be use as endpoint (TCP, UDP)
+        /// @param data that will be send
+        /// @param size of the data
+        /// @param packetType that will be used to identified the header
+        /// @param socket owner socket
+        /// @param endpoint sending value to
         template <typename Socket, typename Endpoint>
         void sendData(void *data, std::size_t size, uint8_t packetType, Socket &socket, Endpoint &endpoint)
         {
@@ -30,18 +40,34 @@ namespace GameEngine::Network
             header.payloadSize = size;
             this->sendInformation(data, size, socket, endpoint, header);
         };
-
+        /// @brief send the data to endpoint from the socket
+        /// @param data that will be send
+        /// @param size of the data
+        /// @param socket owner of the sending message (Udp)
+        /// @param endpoint data sending to
+        /// @param header that will determined the type of data
         void sendInformation(void *data, std::size_t size, asio::ip::udp::socket &socket,
             asio::ip::udp::endpoint &endpoint, struct rtype::HeaderDataPacket &header);
-
+        /// @brief send the data to endpoint from the socket
+        /// @param data that will be send
+        /// @param size of the data
+        /// @param socket owner of the sending message (Tcp)
+        /// @param endpoint data sending to
+        /// @param header that will determined the type of data
         void sendInformation(void *data, std::size_t size, asio::ip::tcp::socket &socket, asio::ip::tcp::endpoint &,
             struct rtype::HeaderDataPacket &header);
-
-      protected:
+        /// @brief handle the header information
+        /// @param error if asynchronous operation failed, will be checked
+        /// @param recvBytes corresponding to the ammount of bytes receive
+        /// @param header type of data;
         void handleReceive(
             const asio::error_code &error, std::size_t recvBytes, struct rtype::HeaderDataPacket &header);
+        /// @brief read the header to retrieve informations
         void readHeader();
-        virtual void handleData(const asio::error_code &error, std::size_t, struct rtype::HeaderDataPacket &header) = 0;
+
+      protected:
+        /// @brief function that will be set and used from derived class from this abstract
+        virtual void handleData(const asio::error_code &, std::size_t, struct rtype::HeaderDataPacket &) = 0;
 
       protected:
         asio::streambuf _streamBuffer;

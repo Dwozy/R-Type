@@ -22,16 +22,22 @@ namespace RType::Server
       public:
         RTypeServer(unsigned short port = 8080);
         ~RTypeServer();
-
+        /// @brief GameLoop to run the game
         void gameLoop();
-
-        void communication(RType::Server::UdpServer &udpserver);
-
+        /// @brief Function that will handle every event from the udp server
         void handleEvent();
+        /// @brief Function that will handle the connexion of a client
         void handleConnexion();
+        /// @brief Function that will handle the move from a client
+        /// @param event struct that contain the data (Information about the move)
         void handleMove(struct rtype::Event event);
+        /// @brief Function that will handle the disconnexion of a client
+        /// @param event struct that contain the data (information about the client)
         void handleDisconnexion(struct rtype::Event event);
+        /// @brief Function that will start the Network in a thread
+        /// @param isRunning boolean to know if the server is down
         void startNetwork(bool &isRunning);
+        /// @brief Function that will brodcast informations to all clients
         void updateEntities();
 
       protected:
@@ -44,11 +50,9 @@ namespace RType::Server
         RType::Server::UdpServer _udpServer;
         std::map<struct rtype::Room, std::map<unsigned short, struct rtype::Entity>> _listPlayersInfos;
         std::map<unsigned short, asio::ip::udp::endpoint> _listClients;
-        // std::vector<GameEngine::Entity> _listEntities;
         SafeQueue<struct rtype::Event> _eventQueue;
         GameEngine::EntityManager _entityManager;
         float pos;
-        int test;
     };
 } // namespace RType::Server
 #endif /* !RTYPESERVER_HPP_ */

@@ -91,8 +91,6 @@ void RType::Server::UdpServer::handleConnexion(struct rtype::HeaderDataPacket he
     _eventQueue.push(event);
 }
 
-std::map<unsigned short, asio::ip::udp::endpoint> RType::Server::UdpServer::getListClients() { return _listClient; }
-
 void RType::Server::UdpServer::handleData(
     const asio::error_code &error, std::size_t, struct rtype::HeaderDataPacket &header)
 {
