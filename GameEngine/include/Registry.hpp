@@ -13,6 +13,7 @@
 #include <typeindex>
 #include <unordered_map>
 #include <utility>
+#include <algorithm>
 #include "Entity.hpp"
 #include "Error.hpp"
 #include "SparseArray.hpp"
