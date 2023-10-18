@@ -42,6 +42,9 @@ namespace RType::Client
         void handleOtherPlayerMovement(struct rtype::Event event);
         void updateOtherPlayerMovement(RType::Protocol::MoveData moveData);
 
+        void setGameEngineComponent();
+        void setGameEngineSystem();
+
       protected:
       private:
         GameEngine::GameEngine _gameEngine;

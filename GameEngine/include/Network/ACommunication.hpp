@@ -8,7 +8,7 @@
 #ifndef COMMUNICATION_HPP_
 #define COMMUNICATION_HPP_
 
-#include "RType.hpp"
+#include "../../include/RType.hpp"
 #include <any>
 #include <asio.hpp>
 #include <iostream>
@@ -38,11 +38,10 @@ namespace GameEngine::Network
             struct rtype::HeaderDataPacket &header);
 
       protected:
-        void handleReceive(const asio::error_code &error, std::size_t recvBytes, struct rtype::HeaderDataPacket &header);
+        void handleReceive(
+            const asio::error_code &error, std::size_t recvBytes, struct rtype::HeaderDataPacket &header);
         void readHeader();
-        virtual void handleData(
-            const asio::error_code &error, std::size_t, struct rtype::HeaderDataPacket &header) = 0;
-        // std::unordered_map<uint8_t, std::function<void(uint16_t)>> _commands;
+        virtual void handleData(const asio::error_code &error, std::size_t, struct rtype::HeaderDataPacket &header) = 0;
 
       protected:
         asio::streambuf _streamBuffer;

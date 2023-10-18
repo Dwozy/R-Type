@@ -32,11 +32,12 @@ FetchContent_MakeAvailable(asiocmake)
 message(CHECK_PASS "Done")
 list(POP_BACK CMAKE_MESSAGE_INDENT)
 
+set(INCLUDES_GLOBAL include)
+
 set(INCLUDES_LIB GameEngine/include)
 set(SRCS_LIB
     GameEngine/src/Error.cpp
     GameEngine/src/DeltaTime.cpp
-    GameEngine/src/EntityManager.cpp
     GameEngine/src/systems/ControlSystem.cpp
     GameEngine/src/systems/DrawSystem.cpp
     GameEngine/src/systems/PositionSystem.cpp
@@ -67,16 +68,17 @@ target_link_libraries(${LIBRARY_NAME} PRIVATE sfml-graphics sfml-audio sfml-syst
 target_link_libraries(${LIBRARY_NAME} PRIVATE nlohmann_json::nlohmann_json)
 target_link_libraries(${LIBRARY_NAME} PRIVATE asio)
 
-set(INCLUDES_GLOBAL include)
-
 set(CLIENT_BINARY_NAME "r-type_client")
 
-set(INCLUDES_CLIENT R-Type/include)
+set(CLIENT_FOLDER R-Type)
+
+set(INCLUDES_CLIENT ${CLIENT_FOLDER}/include)
 set(SRCS_CLIENT
-    R-Type/src/main.cpp
-    R-Type/src/RTypeClient.cpp
-    R-Type/src/UdpClient.cpp
-    R-Type/src/Movement.cpp
+    ${CLIENT_FOLDER}/src/main.cpp
+    ${CLIENT_FOLDER}/src/RTypeClient.cpp
+    ${CLIENT_FOLDER}/src/EntityManager.cpp
+    ${CLIENT_FOLDER}/src/UdpClient.cpp
+    ${CLIENT_FOLDER}/src/Movement.cpp
 )
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${PROJECT_NAME})
@@ -107,6 +109,7 @@ set(SERVER_FOLDER R-Type-server)
 
 set(INCLUDES_SERVER ${SERVER_FOLDER}/include)
 set(SRCS_SERVER
+    ${SERVER_FOLDER}/src/EntityManager.cpp
     ${SERVER_FOLDER}/src/main.cpp
     ${SERVER_FOLDER}/src/ClientSession.cpp
     ${SERVER_FOLDER}/src/RTypeServer.cpp

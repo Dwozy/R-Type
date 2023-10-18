@@ -7,8 +7,8 @@
 
 #include "UdpClient.hpp"
 
-RType::Client::UdpClient::UdpClient(asio::io_context &IOContext, asio::ip::udp::endpoint &serverEndpoint,
-    SafeQueue<struct rtype::Event> &eventQueue)
+RType::Client::UdpClient::UdpClient(
+    asio::io_context &IOContext, asio::ip::udp::endpoint &serverEndpoint, SafeQueue<struct rtype::Event> &eventQueue)
     : ACommunication(IOContext, 0), _IOContext(IOContext), _serverEndpoint(serverEndpoint), _eventQueue(eventQueue)
 {
     _commands.emplace(static_cast<uint8_t>(rtype::PacketType::ROOM),
