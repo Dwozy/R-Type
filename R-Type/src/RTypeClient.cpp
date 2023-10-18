@@ -132,7 +132,7 @@ void RType::Client::RTypeClient::updateEntity(const struct rtype::Entity entity)
     auto &transforms = _gameEngine.registry.getComponent<GameEngine::TransformComponent>();
 
     if (entity.id > transforms.size())
-        throw;
+        return;
     if (!transforms[entity.id].has_value()) {
         GameEngine::Entity newEntity = _gameEngine.registry.spawnEntity(entity.id);
         _entityManager.setPlayerEntity(entity.positionX, entity.positionY, newEntity, _gameEngine.registry);
