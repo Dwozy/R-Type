@@ -5,6 +5,7 @@
 ** RTypeServer
 */
 
+#include "Protocol.hpp"
 #include "RTypeServer.hpp"
 #include "components/TransformComponent.hpp"
 #include "components/CollisionComponent.hpp"
@@ -41,8 +42,8 @@ void RType::Server::RTypeServer::handleConnexion()
     std::cout << "Spawn Entity" << std::endl;
     _entityManager.setEntity(pos * 25, pos * 25, entity, _gameEngine.registry);
     struct rtype::Entity newEntity = {.id = static_cast<uint16_t>(pos),
-        .positionX = static_cast<uint32_t>(pos * 25),
-        .positionY = static_cast<uint32_t>(pos * 25),
+        .positionX = pos * 25,
+        .positionY = pos * 25,
         .directionX = 0,
         .directionY = 0};
     // _listEntities.push_back(entity);
@@ -54,17 +55,20 @@ void RType::Server::RTypeServer::handleConnexion()
 
 void RType::Server::RTypeServer::handleMove(struct rtype::Event event)
 {
-    struct rtype::Move moveInfo = std::any_cast<struct rtype::Move>(event.data);
+    auto moveInfo = std::any_cast<RType::Protocol::MoveData>(event.data);
 
     auto &transforms = _gameEngine.registry.getComponent<GameEngine::TransformComponent>();
 
+    std::cerr << "id: " << moveInfo.id << std::endl;
+    std::cerr << "transfrom size: " << transforms.size() << std::endl;
     if (moveInfo.id > transforms.size())
-        throw;
-    transforms[moveInfo.id]->velocity.x = moveInfo.directionX;
-    transforms[moveInfo.id]->velocity.y = moveInfo.directionY;
+        return;
+    transforms[moveInfo.id]->position = {moveInfo.x, moveInfo.y};
+    transforms[moveInfo.id]->velocity.x = moveInfo.dx;
+    transforms[moveInfo.id]->velocity.y = moveInfo.dy;
     struct rtype::Entity entity = {.id = static_cast<uint16_t>(moveInfo.id),
-        .positionX = static_cast<uint32_t>(transforms[moveInfo.id]->position.x),
-        .positionY = static_cast<uint32_t>(transforms[moveInfo.id]->position.y),
+        .positionX = transforms[moveInfo.id]->position.x,
+        .positionY = transforms[moveInfo.id]->position.y,
         .directionX = transforms[moveInfo.id]->velocity.x,
         .directionY = transforms[moveInfo.id]->velocity.y};
     std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::Entity>(entity);
@@ -116,8 +120,8 @@ void RType::Server::RTypeServer::updateEntities()
             continue;
         std::cout << "id : " << std::endl;
         struct rtype::Entity entity = {.id = static_cast<uint16_t>(i),
-            .positionX = static_cast<uint32_t>(transform->position.x),
-            .positionY = static_cast<uint32_t>(transform->position.y),
+            .positionX = transform->position.x,
+            .positionY = transform->position.y,
             .directionX = transform->velocity.x,
             .directionY = transform->velocity.y};
         std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::Entity>(entity);

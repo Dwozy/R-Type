@@ -49,6 +49,17 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
     auto handleDelete = std::bind(&RType::Client::RTypeClient::deleteEntity, this, std::placeholders::_1);
     refHandlerDelete.subscribe(handleDelete);
 
+    auto &refHandlerMove =
+        _gameEngine.eventManager.addHandler<GameEngine::TransformComponent>(GameEngine::Event::PlayerMoveEvent);
+    auto handleUpdateMove = std::bind(&RType::Client::RTypeClient::updatePlayerMovement, this, std::placeholders::_1);
+    refHandlerMove.subscribe(handleUpdateMove);
+
+    // auto &refHandlerOtherMove =
+    //     _gameEngine.eventManager.addHandler<GameEngine::TransformComponent>(GameEngine::Event::PlayerMoveEvent);
+    // auto handleUpdateOtherMove =
+    //     std::bind(&RType::Client::RTypeClient::updatePlayerMovement, this, std::placeholders::_1);
+    // refHandlerOtherMove.subscribe(handleUpdateOtherMove);
+
     GameEngine::DrawSystem drawSystem(_gameEngine.window);
     GameEngine::PositionSystem positionSystem(_gameEngine.deltaTime.getDeltaTime());
     GameEngine::PressableSystem pressableSystem(_gameEngine.window);
@@ -179,5 +190,6 @@ void RType::Client::RTypeClient::gameLoop()
         if (_eventQueue.size() != 0)
             handleEvent();
         _gameEngine.registry.runSystems();
+        handlePlayerMovement();
     }
 }

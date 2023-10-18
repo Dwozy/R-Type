@@ -51,7 +51,7 @@ Then you'll have to go the folder and execute the `build_unix.sh` script like th
 $> ./build_unix.sh
 ```
 
-You'll then have the corresponding binary in the R-Type folder for the client and the R-Type-folder for the server.
+You'll then have the corresponding binary in the R-Type folder for the client and the R-Type-server for the server.
 
 ### On Windows
 
@@ -65,4 +65,31 @@ To build from source, you'll have to download the source code from either a rele
 
 Then you'll have to go the folder and execute the `build_win.bat` script by double-clicking on it.
 
-You'll then have the corresponding binary in the R-Type folder for the client and the R-Type-folder for the server.
+You'll then have the corresponding binary in the R-Type folder for the client and the R-Type-server for the server.
+
+# Usage
+**Important**: Always run the executable alongside the .dll files on windows. For Linux, you should run the binary with the .so files alongside it or as is if you're building from source.
+
+## Linux
+### Server
+```bash
+$> ./r-type_server [port (default: 8080)]
+```
+### Client
+You should always run from a folder containing the `R-Type/assets` folder.
+```bash
+$> ./r-type_client [ip (default: 127.0.0.1)] [port (default: 8080)]
+```
+
+## Windows
+### Server
+```cmd
+.\r-type_server.exe [port (default: 8080)]
+```
+You can also double clicking on the executable, however you'll only use the default parameters this way.
+### Client
+You should always run from a folder containing the `R-Type/assets` folder.
+```cmd
+./r-type_client.exe [ip (default: 127.0.0.1)] [port (default: 8080)]
+```
+You can also double clicking on the executable, however you'll only use the default parameters this way.
