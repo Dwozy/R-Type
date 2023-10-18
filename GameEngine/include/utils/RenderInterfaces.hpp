@@ -14,18 +14,18 @@ namespace GameEngine
 {
     /// @brief Interfaces for the text font
     /// @tparam T type of the font
-    template<class T>
+    template <class T>
     class IFont
     {
-        public:
-            /// @brief Destructor
-            ~IFont() = default;
-            /// @brief Get the font that will be stored
-            /// @return Reference to the font
-            virtual const T &getFont() const = 0;
-            /// @brief Load the font
-            /// @param filename File from which to load the font
-            virtual void load(const std::string &filename)  = 0;
+      public:
+        /// @brief Destructor
+        ~IFont() = default;
+        /// @brief Get the font that will be stored
+        /// @return Reference to the font
+        virtual const T &getFont() const = 0;
+        /// @brief Load the font
+        /// @param filename File from which to load the font
+        virtual void load(const std::string &filename) = 0;
     };
 
     /// @brief Interface for rectangle
@@ -33,30 +33,30 @@ namespace GameEngine
     template <typename T, template <typename> class M>
     class IRect
     {
-        public:
-            /// @brief Destructor
-            ~IRect() = default;
-            /// @brief Get the rectangle stored
-            /// @return rectangle stored
-            virtual const M<T> getBaseRect() const = 0;
+      public:
+        /// @brief Destructor
+        ~IRect() = default;
+        /// @brief Get the rectangle stored
+        /// @return rectangle stored
+        virtual const M<T> getBaseRect() const = 0;
     };
 
     /// @brief Interface for texture
     /// @tparam T type of the texture
     /// @tparam rectT type of rect that will be used
-    template<class T, template <typename> class rectT>
+    template <class T, template <typename> class rectT>
     class ITexture
     {
-        public:
-            /// @brief Destructor
-            ~ITexture() = default;
-            /// @brief Get the texture stored
-            /// @return reference to the texture
-            virtual const T &getTexture() const = 0;
-            /// @brief  load the texture
-            /// @param filename file from which to load the texture
-            /// @param area the area of the texture
-            virtual void load(const std::string &filename, const IRect<int, rectT> &area) = 0;
+      public:
+        /// @brief Destructor
+        ~ITexture() = default;
+        /// @brief Get the texture stored
+        /// @return reference to the texture
+        virtual const T &getTexture() const = 0;
+        /// @brief  load the texture
+        /// @param filename file from which to load the texture
+        /// @param area the area of the texture
+        virtual void load(const std::string &filename, const IRect<int, rectT> &area) = 0;
     };
 
     /// @brief interface for music handling
@@ -64,9 +64,9 @@ namespace GameEngine
     template <typename MusicType>
     class IMusic
     {
-    public:
+      public:
         /// @brief destructor
-       ~IMusic() = default;
+        ~IMusic() = default;
         /// @brief Get the wrapped music instance
         /// @return Reference to the music instance
         virtual const MusicType &getMusic() const = 0;
@@ -79,49 +79,49 @@ namespace GameEngine
     /// @tparam T template type of sprite
     /// @tparam TextuT type of texture
     /// @tparam rectT type of rect
-    template<class T, class TextuT, template <typename> class rectT>
+    template <class T, class TextuT, template <typename> class rectT>
     class ISprite
     {
-        public:
-            /// @brief Destructor
-            ~ISprite() = default;
-            /// @brief Get the sprite stored
-            /// @return return the sprite
-            virtual const T &getSprite() const = 0;
-            /// @brief load the sprite
-            /// @param texture texture from which to load the sprite
-            /// @param resetRect boolean to reset the sprite rectangle
-            virtual void load(const ITexture<TextuT, rectT> &texture, bool resetRect = false) = 0;
-            /// @brief set the position of the sprite
-            /// @param position new position of the sprite
-            virtual void setPosition(const Vector2<float> position) = 0;
-            /// @brief set a new rect forof the sprite
-            /// @param newRect new rect of the sprite
-            virtual void setTextureRect(const IRect<int, rectT> &newRect) = 0;
+      public:
+        /// @brief Destructor
+        ~ISprite() = default;
+        /// @brief Get the sprite stored
+        /// @return return the sprite
+        virtual const T &getSprite() const = 0;
+        /// @brief load the sprite
+        /// @param texture texture from which to load the sprite
+        /// @param resetRect boolean to reset the sprite rectangle
+        virtual void load(const ITexture<TextuT, rectT> &texture, bool resetRect = false) = 0;
+        /// @brief set the position of the sprite
+        /// @param position new position of the sprite
+        virtual void setPosition(const Vector2<float> position) = 0;
+        /// @brief set a new rect forof the sprite
+        /// @param newRect new rect of the sprite
+        virtual void setTextureRect(const IRect<int, rectT> &newRect) = 0;
     };
 
     /// @brief Interface for event
     /// @tparam T type on event
-    template<class T>
+    template <class T>
     class IEvent
     {
-        public:
-            /// @brief Get the event stored
-            /// @return event stored
-            virtual T &getEvent() = 0;
+      public:
+        /// @brief Get the event stored
+        /// @return event stored
+        virtual T &getEvent() = 0;
     };
 
     /// @brief Interface for view
     /// @tparam T type of view
-    template<class T>
+    template <class T>
     class IView
     {
-        public:
-            /// @brief Destructor
-            ~IView() = default;
-            /// @brief Get the view stored
-            /// @return the view
-            virtual const T &getBaseView() const = 0;
+      public:
+        /// @brief Destructor
+        ~IView() = default;
+        /// @brief Get the view stored
+        /// @return the view
+        virtual const T &getBaseView() const = 0;
     };
 
     /// @brief Interface for the window
@@ -129,10 +129,10 @@ namespace GameEngine
     /// @tparam Vt type of view
     /// @tparam Et type of event
     /// @tparam D type of drawable
-    template<class T, class Vt, class Et, class D>
+    template <class T, class Vt, class Et, class D>
     class IWindow
     {
-        public:
+      public:
         /// @brief Destructor
         virtual ~IWindow() = default;
         /// @brief Get the window

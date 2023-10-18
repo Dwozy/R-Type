@@ -28,31 +28,37 @@ namespace RType::Server
         UdpServer(asio::io_context &IOContext, unsigned short port, SafeQueue<struct rtype::Event> &eventQueue);
         ~UdpServer();
 
-        void handleData(const asio::error_code &error, std::size_t, const struct rtype::HeaderDataPacket &header);
-
-        std::map<unsigned short, asio::ip::udp::endpoint> getListClients();
-
-        /// @brief Sender function that will send to message to the client
+        /// @brief Handle the data depends of the header
+        /// @param error if asynchronous operation fails, it will be checked
+        /// @param header that contain the type of data
+        void handleData(const asio::error_code &error, std::size_t, struct rtype::HeaderDataPacket &header);
+        /// @brief Function that will send informations to connected clients
+        /// @param packetType the type of data that will be send
+        /// @param dataToSend that will be send to clients
         void broadcastInformation(uint8_t packetType, std::vector<std::byte> dataToSend);
-
+        /// @brief Handle Room
+        /// @param header that contains the size of the payload
         void handleRoom(struct rtype::HeaderDataPacket header);
+        /// @brief Handle Entity that will be retrieve and push a event
+        /// @param header that contains the size of the payload
         void handleEntity(struct rtype::HeaderDataPacket header);
+        /// @brief Handle String that will be retrieve and push a event
+        /// @param header that contains the size of the payload
         void handleString(struct rtype::HeaderDataPacket header);
-
+        /// @brief Handle Move that will be retrieve and push a event
+        /// @param header that contains the size of the payload
         void handleMove(struct rtype::HeaderDataPacket header);
+        /// @brief Handle Connexion that will be retrieve and push a event
+        /// @param header that contains the size of the payload
         void handleConnexion(struct rtype::HeaderDataPacket header);
+        /// @brief Handle Disconnexion that will be retrieve and push a event
+        /// @param header that contains the size of the payload
         void handleDisconnexion(struct rtype::HeaderDataPacket header);
-
+        /// @brief Start the UDP Server
         void run();
 
       protected:
       private:
-        /// @brief Update information to clients at periodical interval
-        void updateGameInfo();
-
-        /// @brief Update information from TCP server
-        void updateTCPInformation();
-
         unsigned short indexPlayer;
         asio::steady_timer _timer;
         asio::steady_timer _timerTCP;
@@ -60,7 +66,6 @@ namespace RType::Server
         SafeQueue<struct rtype::Event> &_eventQueue;
         asio::ip::udp::endpoint _clientEndpoint;
         std::unordered_map<uint8_t, std::function<void(struct rtype::HeaderDataPacket)>> _commands;
-        // std::map<unsigned short, struct rtype::Entity> _listPlayersInfos;
         std::map<unsigned short, struct rtype::Entity> _listPlayersInfos;
     };
 } // namespace RType::Server

@@ -22,7 +22,7 @@ namespace GameEngine
     template <typename T>
     class Rect : public IRect<T, sf::Rect>
     {
-        public:
+      public:
         /// @brief constructor
         /// @param l left coordinate
         /// @param t top coordinate
@@ -41,8 +41,8 @@ namespace GameEngine
         const sf::Rect<T> getBaseRect() const override { return sf::Rect<T>(left, top, width, height); };
 
         /// @brief check the collision between two objects
-        /// @param pos 
-        /// @param rect 
+        /// @param pos
+        /// @param rect
         /// @param rectPos position of rect
         /// @return boolean that indicates if a collision is made
         bool isColliding(const Vector2<T> &pos, const Rect<T> &rect, const Vector2<T> &rectPos) const
@@ -56,10 +56,10 @@ namespace GameEngine
                     posY + height > rectPosY);
         };
 
-        /// @brief 
-        /// @param pos 
-        /// @param rect 
-        /// @param rectPos 
+        /// @brief
+        /// @param pos
+        /// @param rect
+        /// @param rectPos
         void handleCollisionFromRect(Vector2<T> &pos, const Rect<T> &rect, const Vector2<T> &rectPos)
         {
             if (!isColliding(pos, rect, rectPos))

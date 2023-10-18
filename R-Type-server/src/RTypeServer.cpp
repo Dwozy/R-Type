@@ -39,17 +39,14 @@ void RType::Server::RTypeServer::handleConnexion()
 {
     GameEngine::Entity entity = _gameEngine.registry.spawnEntity();
 
-    std::cout << "Spawn Entity" << std::endl;
     _entityManager.setEntity(pos * 25, pos * 25, entity, _gameEngine.registry);
     struct rtype::Entity newEntity = {.id = static_cast<uint16_t>(pos),
         .positionX = pos * 25,
         .positionY = pos * 25,
         .directionX = 0,
         .directionY = 0};
-    // _listEntities.push_back(entity);
     std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::Entity>(newEntity);
     _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::CONNECTED), dataToSend);
-    std::cout << "Message when new connexion" << std::endl;
     pos++;
 }
 
@@ -59,8 +56,6 @@ void RType::Server::RTypeServer::handleMove(struct rtype::Event event)
 
     auto &transforms = _gameEngine.registry.getComponent<GameEngine::TransformComponent>();
 
-    std::cerr << "id: " << moveInfo.id << std::endl;
-    std::cerr << "transfrom size: " << transforms.size() << std::endl;
     if (moveInfo.id > transforms.size())
         return;
     transforms[moveInfo.id]->position = {moveInfo.x, moveInfo.y};
@@ -77,17 +72,15 @@ void RType::Server::RTypeServer::handleMove(struct rtype::Event event)
 
 void RType::Server::RTypeServer::handleDisconnexion(struct rtype::Event event)
 {
-    struct rtype::Entity entity = std::any_cast<struct rtype::Entity>(event.data);
+    struct rtype::EntityId entity = std::any_cast<struct rtype::EntityId>(event.data);
     auto &transforms = _gameEngine.registry.getComponent<GameEngine::TransformComponent>();
-    struct rtype::EntityId deleteEntity = {.id = entity.id};
 
-    if (entity.id > transforms.size())
-        throw;
-    std::cout << "Destroy !" << std::endl;
-    struct GameEngine::Entity getEntity = _gameEngine.registry.getEntityById(entity.id);
-    _gameEngine.registry.killEntity(getEntity);
     pos--;
-    std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::EntityId>(deleteEntity);
+    if (entity.id > transforms.size())
+        return;
+    GameEngine::Entity getEntity = _gameEngine.registry.getEntityById(entity.id);
+    _gameEngine.registry.killEntity(getEntity);
+    std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::EntityId>(entity);
     _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::DISCONNEXION), dataToSend);
 }
 
@@ -118,7 +111,6 @@ void RType::Server::RTypeServer::updateEntities()
         auto &transform = transforms[i];
         if (!transform.has_value())
             continue;
-        std::cout << "id : " << std::endl;
         struct rtype::Entity entity = {.id = static_cast<uint16_t>(i),
             .positionX = transform->position.x,
             .positionY = transform->position.y,

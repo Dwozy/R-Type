@@ -22,27 +22,47 @@ namespace RType::Client
       public:
         RTypeClient(const std::string &address = "127.0.0.1", unsigned short port = 8080);
         ~RTypeClient();
-
+        /// @brief Start the Network from the client in a thread
+        /// @param isRunning boolean to know if the server is down
         void startNetwork(bool &isRunning);
+        /// @brief Game Loop from the client
         void gameLoop();
+        /// @brief Function that will handle every event from the UDP Client
         void handleEvent();
-
+        /// @brief Function that will handle when new entity needed to be create
+        /// @param event struct that will contain the information about the new entity
         void handleNewEntity(struct rtype::Event event);
+        /// @brief Function that create a new Entity
+        /// @param entity that will contain informations
         void entitySpawn(const struct rtype::Entity);
-
+        /// @brief Function that will handle when entity needed to be update
+        /// @param event struct that will contain the information about the entity
         void handleEntity(struct rtype::Event event);
+        /// @brief Function that update a Entity
+        /// @param entity update the corresponding entity
         void updateEntity(const struct rtype::Entity);
-
+        /// @brief Function that will handle when entity needed to be delete
+        /// @param event struct that will contain the information about the entity
         void handleDisconnexion(struct rtype::Event event);
+        /// @brief Function that delete a Entity
+        /// @param entity delete the corresponding entity
         void deleteEntity(const struct rtype::EntityId id);
-
-        void handleQuitClient();
-
+        /// @brief Function that will handle when entity needed to be move
+        /// @param event struct that will contain the information about the entity
         void handlePlayerMovement();
+        /// @brief Function that delete a Entity
+        /// @param entity delete the corresponding entity
         void updatePlayerMovement(const GameEngine::TransformComponent &transform);
-
+        /// @brief Function that will handle when entity needed to be move
+        /// @param event struct that will contain the information about the entity
         void handleOtherPlayerMovement(struct rtype::Event event);
+        /// @brief Function that delete a Entity
+        /// @param entity delete the corresponding entity
         void updateOtherPlayerMovement(RType::Protocol::MoveData moveData);
+        /// @brief Set every component to the registry of the game engine
+        void setGameEngineComponent();
+        /// @brief Set every system to the registry of the game engine
+        void setGameEngineSystem();
 
       protected:
       private:
