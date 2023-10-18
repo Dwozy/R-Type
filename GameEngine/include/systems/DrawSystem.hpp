@@ -27,8 +27,7 @@ namespace GameEngine
         /// @brief overloaded of () operator, function that draws the textures on the window
         /// @param texts Array that contains the text components of the game
         /// @param textures Array that contains the texture components of the game
-        void operator()(SparseArray<TextComponent> &texts,
-                        SparseArray<TextureComponent> &textures);
+        void operator()(SparseArray<TextComponent> &texts, SparseArray<TextureComponent> &textures);
 
       private:
         Window &_window;
