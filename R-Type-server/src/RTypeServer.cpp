@@ -9,6 +9,7 @@
 #include "RTypeServer.hpp"
 #include "components/TransformComponent.hpp"
 #include "components/CollisionComponent.hpp"
+#include "RType.hpp"
 
 RType::Server::RTypeServer::RTypeServer(unsigned short port)
     : _signal(_IOContext, SIGINT, SIGTERM), _udpServer(_IOContext, port, std::ref(_eventQueue))
@@ -124,18 +125,17 @@ void RType::Server::RTypeServer::updateEntities()
 
 void RType::Server::RTypeServer::gameLoop()
 {
-    std::chrono::steady_clock::time_point _lastTime;
-    std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
-    _lastTime = now;
-
     while (_isRunning) {
-        now = std::chrono::steady_clock::now();
-        auto _deltaTime = std::chrono::duration_cast<std::chrono::duration<float>>(now - _lastTime);
         if (_eventQueue.size() != 0)
             handleEvent();
-        if (_deltaTime.count() > 0.2) {
+        for (auto &transform : _gameEngine.registry.getComponent<GameEngine::TransformComponent>()) {
+            if (!transform.has_value())
+                continue;
+            transform->position += transform->velocity * _gameEngine.deltaTime.getDeltaTime() * rtype::PLAYER_SPEED;
+        }
+        if (_gameEngine.deltaTime.getDeltaTime() > 0.2) {
             updateEntities();
-            _lastTime = now;
+            _gameEngine.deltaTime.update();
         }
     }
 }
