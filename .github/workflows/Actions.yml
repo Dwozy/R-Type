@@ -28,10 +28,12 @@ jobs:
         include:
           - os: ubuntu-latest
             install_cmd: ./build_unix.sh
+            run_tests_cmd: ctest --test-dir ./build
             container: biozzzzz/r-type
             executables: R-Type-server/r-type_server,R-Type/r-type_client
           - os: windows-latest
             install_cmd: cmd /c build_win.bat
+            run_tests_cmd: cmd /c ctest --test-dir .\build
             executables: R-Type-server\r-type_server.exe,R-Type\r-type_client.exe
     runs-on: ${{ matrix.os }}
     container: ${{ matrix.container }}
@@ -46,6 +48,12 @@ jobs:
       - name: Build
         run: ${{ matrix.install_cmd }}
         timeout-minutes: 10
+
+      - name: Run tests
+        run: ${{ matrix.run_tests_cmd }}
+
+      - name: Clean build files
+        run: ${{ matrix.install_cmd }} clean
 
       - name: Check file existence
         id: check_files
@@ -72,49 +80,9 @@ jobs:
           clang_format: true
           continue_on_error: false
 
-  run_tests:
-    if: success()
-    needs: [check_program_compilation]
-    strategy:
-      max-parallel: 2
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-        include:
-          - os: ubuntu-latest
-            run__game_engine_tests_cmd: ./game-engine-tests
-            container: biozzzzz/r-type
-          - os: windows-latest
-            run__game_engine_tests_cmd: cmd /c .\game-engine-tests.exe
-    runs-on: ${{ matrix.os }}
-    container: ${{ matrix.container }}
-    name: run_tests
-    steps:
-      - name: Run GameEngine tests
-        run: ${{ matrix.run__game_engine_tests_cmd }}
-
-  clean:
-    if: success()
-    needs: [check_program_compilation]
-    strategy:
-      max-parallel: 2
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-        include:
-          - os: ubuntu-latest
-            install_cmd: ./build_unix.sh
-            container: biozzzzz/r-type
-          - os: windows-latest
-            install_cmd: cmd /c build_win.bat
-    runs-on: ${{ matrix.os }}
-    container: ${{ matrix.container }}
-    name: run_tests
-    steps:
-      - name: Clean build files
-        run: ${{ matrix.install_cmd }} clean
-
   push_to_mirror:
     if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: [run_tests, check_style]
+    needs: [check_program_compilation, check_style]
     runs-on: ubuntu-latest
     name: push_to_mirror
     steps:
@@ -131,7 +99,7 @@ jobs:
 
   make_deploy_doxygen:
     if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: [run_tests, check_style]
+    needs: [check_program_compilation, check_style]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout current branch
@@ -148,7 +116,7 @@ jobs:
 
   create_release:
     if: success() && github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
-    needs: [run_tests, check_style]
+    needs: [check_program_compilation, check_style]
     runs-on: ubuntu-latest
     outputs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
