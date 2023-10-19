@@ -38,9 +38,9 @@ void GameEngine::Network::ACommunication::handleReceive(
         std::memcpy(&header, _buffer.data(), recvBytes);
         if (header.magicNumber != rtype::MAGIC_NUMBER) {
             std::cerr << "Invalid Magic Number Packet" << std::endl;
-            _streamBuffer.consume(recvBytes);
-            readHeader();
-            return;
+            // _streamBuffer.consume(recvBytes);
+            // readHeader();
+            // return;
         }
         _streamBuffer.consume(recvBytes);
         _buffer = _streamBuffer.prepare(header.payloadSize);

@@ -32,6 +32,7 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
     struct rtype::EntityId entityId = {.id = this->_id};
     std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::EntityId>(entityId);
     _udpClient.sendDataInformation(dataToSend, static_cast<uint8_t>(rtype::PacketType::DISCONNEXION));
+    std::cout << "Player " << _id <<  " died :( !" << std::endl;
 }
 
 RType::Client::RTypeClient::~RTypeClient() {}
@@ -101,11 +102,13 @@ void RType::Client::RTypeClient::entitySpawn(const struct rtype::Entity entity)
 {
     GameEngine::Entity newEntity = _gameEngine.registry.spawnEntity(entity.id);
 
+    std::cout << "Player : " << entity.id << " spawned !" << std::endl;
     _entityManager.setPlayerEntity(entity.positionX, entity.positionY, newEntity, _gameEngine.registry);
     if (_isPlayer) {
         _entityManager.setControlPlayerEntity(newEntity, _gameEngine.registry);
         _isPlayer = false;
         _id = entity.id;
+        std::cout << "I'm the player " << entity.id << std::endl;
     }
 }
 
@@ -125,6 +128,7 @@ void RType::Client::RTypeClient::deleteEntity(const struct rtype::EntityId entit
 {
     struct GameEngine::Entity entity = _gameEngine.registry.getEntityById(entityId.id);
     _gameEngine.registry.killEntity(entity);
+    std::cout << "Player " << _id << " got : Player : " << entityId.id << " died." << std::endl;
 }
 
 void RType::Client::RTypeClient::updateEntity(const struct rtype::Entity entity)
