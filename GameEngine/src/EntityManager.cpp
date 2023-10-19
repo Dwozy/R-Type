@@ -26,7 +26,7 @@ void collisionCallback(const std::size_t &entityId, SparseArray<GameEngine::Coll
         auto &col = collisions[i];
         auto &tsf = transforms[i];
 
-        if (!col || !tsf || !col.value().isActive)
+        if (!col || !tsf || !col.value().isActive || col.value().layer != 0)
             continue;
         selfCol.value().collider.handleCollisionFromRect(
             selfTsf.value().position, col.value().collider, tsf.value().position);
@@ -45,7 +45,7 @@ void GameEngine::EntityManager::setPlayerEntity(float posX, float posY, Entity e
         GameEngine::CollisionComponent, GameEngine::TransformComponent>(registry, collisionCallback);
     registry.addComponent<GameEngine::CollisionComponent>(entity, col);
     auto &playerTex = registry.addComponent<GameEngine::TextureComponent>(
-        entity, GameEngine::TextureComponent{GameEngine::Texture(), GameEngine::Sprite(), true, {}});
+        entity, GameEngine::TextureComponent{GameEngine::Texture(), GameEngine::Sprite(), false, {}, 0, true, 0, 0, 1});
     playerTex.value().texture.load("R-Type/assets/image.png", GameEngine::Rect<int>(0, 0, 32, 16));
     playerTex.value().sprite.load(playerTex.value().texture);
 }

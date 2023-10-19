@@ -19,7 +19,7 @@ namespace GameEngine
             if (!col.value().isActive)
                 continue;
             for (std::size_t j = 0; j < col.value().actions.size(); j++)
-                col.value().actions[j](j);
+                col.value().actions[j](i);
         }
     }
 } // namespace GameEngine
