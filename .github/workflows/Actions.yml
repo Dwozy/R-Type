@@ -85,25 +85,17 @@ jobs:
         include:
           - os: ubuntu-latest
             install_cmd: ./build_unix.sh
-            ls_cmd: cmd /c ls -la
             run_tests_cmd: ./game-engine-tests
             container: biozzzzz/r-type
             executables: $ {{ env.EXECUTABLES_UNIX }}
           - os: windows-latest
             install_cmd: cmd /c build_win.bat
-            ls_cmd: cmd /c dir
             run_tests_cmd: cmd /c .\game-engine-tests.exe
             executables: $ {{ env.EXECUTABLES_WIN }}
     runs-on: ${{ matrix.os }}
     container: ${{ matrix.container }}
     name: run_tests
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          submodules: recursive
-      - name: Ls test
-        run: ${{ matrix.ls_cmd }}
       - name: Run tests
         run: ${{ matrix.run_tests_cmd }}
       # TODO
