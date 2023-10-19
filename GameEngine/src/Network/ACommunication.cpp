@@ -16,11 +16,8 @@ void GameEngine::Network::ACommunication::sendInformation(void *data, std::size_
     asio::ip::udp::endpoint &endpoint, struct rtype::HeaderDataPacket &header)
 {
     socket.async_send_to(asio::buffer(&header, sizeof(rtype::HeaderDataPacket)), endpoint,
-        [&](const asio::error_code &error, std::size_t) {
-            if (!error) {
-                socket.async_send_to(asio::buffer(data, size), endpoint, [&](const asio::error_code &, std::size_t) {});
-            }
-        });
+        [&](const asio::error_code &, std::size_t) {});
+    socket.async_send_to(asio::buffer(data, size), endpoint, [&](const asio::error_code &, std::size_t) {});
 }
 
 void GameEngine::Network::ACommunication::sendInformation(void *data, std::size_t size, asio::ip::tcp::socket &socket,
