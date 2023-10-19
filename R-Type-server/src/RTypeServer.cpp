@@ -126,6 +126,7 @@ void RType::Server::RTypeServer::updateEntities()
 void RType::Server::RTypeServer::gameLoop()
 {
     while (_isRunning) {
+        _gameEngine.deltaTime.update();
         if (_eventQueue.size() != 0)
             handleEvent();
         for (auto &transform : _gameEngine.registry.getComponent<GameEngine::TransformComponent>()) {
@@ -135,7 +136,6 @@ void RType::Server::RTypeServer::gameLoop()
         }
         if (_gameEngine.deltaTime.getDeltaTime() > 0.2) {
             updateEntities();
-            _gameEngine.deltaTime.update();
         }
     }
 }
