@@ -90,7 +90,7 @@ jobs:
             executables: $ {{ env.EXECUTABLES_UNIX }}
           - os: windows-latest
             install_cmd: cmd /c build_win.bat
-            run_tests_cmd: cmd /c game-engine-tests.exe
+            run_tests_cmd: cmd /c .\game-engine-tests.exe
             executables: $ {{ env.EXECUTABLES_WIN }}
     runs-on: ${{ matrix.os }}
     container: ${{ matrix.container }}
