@@ -39,9 +39,9 @@ namespace rtype
 
     struct Entity
     {
-        uint16_t id; // client
-        uint32_t positionX;
-        uint32_t positionY;
+        uint16_t id;
+        float positionX;
+        float positionY;
         float directionX;
         float directionY;
     };

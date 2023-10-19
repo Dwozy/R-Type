@@ -17,19 +17,34 @@ namespace GameEngine
 {
     // class Circle;
 
+    /// @brief class representing a rect
+    /// @tparam T the type contained in the rect
     template <typename T>
     class Rect : public IRect<T, sf::Rect>
     {
       public:
+        /// @brief constructor
+        /// @param l left coordinate
+        /// @param t top coordinate
+        /// @param w the width of the rect
+        /// @param h the height of the rect
         Rect(T l, T t, T w, T h) : left(l), top(t), width(w), height(h){};
+        /// @brief destructor
         ~Rect() = default;
         T left;
         T top;
         T width;
         T height;
 
+        /// @brief get the rect stored in the class
+        /// @return rect of type T
         const sf::Rect<T> getBaseRect() const override { return sf::Rect<T>(left, top, width, height); };
 
+        /// @brief check the collision between two objects
+        /// @param pos
+        /// @param rect
+        /// @param rectPos position of rect
+        /// @return boolean that indicates if a collision is made
         bool isColliding(const Vector2<T> &pos, const Rect<T> &rect, const Vector2<T> &rectPos) const
         {
             T posX = pos.x + left;
@@ -41,6 +56,10 @@ namespace GameEngine
                     posY + height > rectPosY);
         };
 
+        /// @brief
+        /// @param pos
+        /// @param rect
+        /// @param rectPos
         void handleCollisionFromRect(Vector2<T> &pos, const Rect<T> &rect, const Vector2<T> &rectPos)
         {
             if (!isColliding(pos, rect, rectPos))
