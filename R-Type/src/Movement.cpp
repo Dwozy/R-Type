@@ -43,22 +43,4 @@ namespace RType::Client
             _gameEngine.eventManager.getHandler<GameEngine::TransformComponent>(GameEngine::Event::PlayerMoveEvent)
                 .publish(transforms[_id].value());
     }
-
-    void RTypeClient::handleOtherPlayerMovement(struct rtype::Event event)
-    {
-        auto entity = std::any_cast<RType::Protocol::MoveData>(event.data);
-        _gameEngine.eventManager.getHandler<RType::Protocol::MoveData>(GameEngine::Event::DeleteEntity).publish(entity);
-    }
-
-    void RTypeClient::updateOtherPlayerMovement(RType::Protocol::MoveData entity)
-    {
-        auto &transforms = _gameEngine.registry.getComponent<GameEngine::TransformComponent>();
-
-        std::cerr << "entity: " << entity.id << " before if" << std::endl;
-        if (!transforms[entity.id].has_value() && entity.id == _id)
-            return;
-        std::cerr << "entity: " << entity.id << " after if" << std::endl;
-        transforms[entity.id]->position = {entity.x, entity.y};
-        transforms[entity.id]->velocity = {entity.dx, entity.dy};
-    }
 } // namespace RType::Client
