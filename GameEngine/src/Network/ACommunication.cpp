@@ -37,9 +37,9 @@ void GameEngine::Network::ACommunication::handleReceive(
         _streamBuffer.commit(recvBytes);
         std::memcpy(&header, _buffer.data(), recvBytes);
         if (header.magicNumber != rtype::MAGIC_NUMBER) {
-            std::cout << "When PacketType is broke : " << static_cast<std::size_t> (header.packetType) << std::endl;
-            std::cout << "When Body is broke : " << static_cast<std::size_t> (header.payloadSize) << std::endl;
-            std::cerr << "Invalid Magic Number Packet" << std::endl;
+            // std::cout << "When PacketType is broke : " << static_cast<std::size_t> (header.packetType) << std::endl;
+            // std::cout << "When Body is broke : " << static_cast<std::size_t> (header.payloadSize) << std::endl;
+            // std::cerr << "Invalid Magic Number Packet" << std::endl;
             // return;
         }
         _streamBuffer.consume(recvBytes);
