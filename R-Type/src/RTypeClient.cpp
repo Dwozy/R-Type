@@ -24,6 +24,7 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
 {
     setGameEngineComponent();
     setGameEngineSystem();
+    _gameEngine.window.setFramerateLimit(60);
     _isRunning = true;
     _isPlayer = true;
     std::thread network(&RType::Client::RTypeClient::startNetwork, this, std::ref(_isRunning));
