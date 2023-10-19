@@ -28,10 +28,14 @@ jobs:
         include:
           - os: ubuntu-latest
             install_cmd: ./build_unix.sh
+            ls_cmd: cmd /c ls -la
+            run_tests_cmd: ./game-engine-tests
             container: biozzzzz/r-type
             executables: R-Type-server/r-type_server,R-Type/r-type_client
           - os: windows-latest
             install_cmd: cmd /c build_win.bat
+            ls_cmd: cmd /c dir
+            run_tests_cmd: cmd /c .\game-engine-tests.exe
             executables: R-Type-server\r-type_server.exe,R-Type\r-type_client.exe
     runs-on: ${{ matrix.os }}
     container: ${{ matrix.container }}
@@ -56,6 +60,10 @@ jobs:
         with:
           files: "${{ matrix.executables }}"
           fail: true
+      - name: ls test
+        run: ${{ matrix.ls_cmd }}
+      - name: Run tests
+        run: ${{ matrix.run_tests_cmd }}
 
   check_style:
     needs: [check_program_compilation]
