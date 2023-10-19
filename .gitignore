@@ -15,7 +15,8 @@ build
 testFolder
 r-type_client*
 r-type_server*
-game-engine-tests*
+unit_tests*
+
 *.o
 *.gcno
 *.gcda

@@ -148,14 +148,13 @@ target_include_directories(${SERVER_BINARY_NAME} PRIVATE ${INCLUDES_SERVER} ${IN
 
 enable_testing()
 
-set(GAME_ENGINE_TESTS_BINARY_NAME "game-engine-tests")
+set(TESTS_BINARY_NAME "unit_tests")
 
 set(GAME_ENGINE_TESTS_FOLDER GameEngine/tests)
 
 # set(INCLUDES_SERVER ${SERVER_FOLDER}/include)
-set(SRCS_GAME_ENGINE_TESTS
-    ${GAME_ENGINE_TESTS_FOLDER}/hello.cpp
-    ${GAME_ENGINE_TESTS_FOLDER}/hello2.cpp
+set(SRCS_TESTS
+    ${GAME_ENGINE_TESTS_FOLDER}/TestVector.cpp
 )
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR})
@@ -169,17 +168,14 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR})
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR})
 
 add_executable(
-  ${GAME_ENGINE_TESTS_BINARY_NAME}
-  ${SRCS_GAME_ENGINE_TESTS}
+  ${TESTS_BINARY_NAME}
+  ${SRCS_TESTS}
 )
 if (UNIX)
-    target_link_libraries(${GAME_ENGINE_TESTS_BINARY_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/GameEngine/GameEngine/lib/libGameEngine.a)
+    target_link_libraries(${TESTS_BINARY_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/GameEngine/GameEngine/lib/libGameEngine.a)
 endif (UNIX)
 if (MSVC)
-    target_link_libraries(${GAME_ENGINE_TESTS_BINARY_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/GameEngine/GameEngine/lib/GameEngine.lib)
+    target_link_libraries(${TESTS_BINARY_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/GameEngine/GameEngine/lib/GameEngine.lib)
 endif (MSVC)
-target_link_libraries(${GAME_ENGINE_TESTS_BINARY_NAME} PRIVATE GTest::gtest_main)
-target_include_directories(${GAME_ENGINE_TESTS_BINARY_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/GameEngine/include/)
-
-include(GoogleTest)
-gtest_discover_tests(${GAME_ENGINE_TESTS_BINARY_NAME})
+target_link_libraries(${TESTS_BINARY_NAME} PRIVATE GTest::gtest_main)
+target_include_directories(${TESTS_BINARY_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/GameEngine/include/)
