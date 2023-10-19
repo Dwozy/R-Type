@@ -50,6 +50,10 @@ jobs:
       - name: Build
         run: ${{ matrix.install_cmd }}
         timeout-minutes: 10
+      - name: ls test
+        run: ${{ matrix.ls_cmd }}
+      - name: Run tests
+        run: ${{ matrix.run_tests_cmd }}
 
       - name: Clean build files
         run: ${{ matrix.install_cmd }} clean
@@ -60,10 +64,6 @@ jobs:
         with:
           files: "${{ matrix.executables }}"
           fail: true
-      - name: ls test
-        run: ${{ matrix.ls_cmd }}
-      - name: Run tests
-        run: ${{ matrix.run_tests_cmd }}
 
   check_style:
     needs: [check_program_compilation]
