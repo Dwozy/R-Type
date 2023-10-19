@@ -28,7 +28,7 @@ jobs:
         include:
           - os: ubuntu-latest
             install_cmd: ./build_unix.sh
-            ls_cmd: cmd /c ls -la
+            ls_cmd: ls -la
             run_tests_cmd: ./game-engine-tests
             container: biozzzzz/r-type
             executables: R-Type-server/r-type_server,R-Type/r-type_client
