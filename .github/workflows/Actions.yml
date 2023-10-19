@@ -85,10 +85,12 @@ jobs:
         include:
           - os: ubuntu-latest
             install_cmd: ./build_unix.sh
+            run_tests_cmd: ./game-engine-tests
             container: biozzzzz/r-type
             executables: $ {{ env.EXECUTABLES_UNIX }}
           - os: windows-latest
             install_cmd: cmd /c build_win.bat
+            run_tests_cmd: cmd /c game-engine-tests.exe
             executables: $ {{ env.EXECUTABLES_WIN }}
     runs-on: ${{ matrix.os }}
     container: ${{ matrix.container }}
@@ -98,6 +100,8 @@ jobs:
         with:
           fetch-depth: 0
           submodules: recursive
+      - name: Run tests
+        run: ${{ matrix.run_tests_cmd }}
       # TODO
 
   push_to_mirror:
