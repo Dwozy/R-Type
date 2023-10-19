@@ -27,7 +27,7 @@ namespace GameEngine
         ~Vector2() = default;
         /// @brief calculate the length of the vector
         /// @return the length of the vector
-        float length() { return (sqrt(pow(x, 2) + pow(y, 2))); };
+            float length() { return (sqrt(pow(x, 2) + pow(y, 2))); };
         /// @brief normalize the vector
         /// @return the vector normalized
         Vector2 normalize() { return Vector2(x / length(), y / length()); };

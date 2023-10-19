@@ -126,6 +126,8 @@ void RType::Client::RTypeClient::handleDisconnexion(struct rtype::Event event)
 
 void RType::Client::RTypeClient::deleteEntity(const struct rtype::EntityId entityId)
 {
+    if (entityId.id == 0)
+        return;
     struct GameEngine::Entity entity = _gameEngine.registry.getEntityById(entityId.id);
     _gameEngine.registry.killEntity(entity);
     std::cout << "Player " << _id << " got : Player : " << entityId.id << " died." << std::endl;
