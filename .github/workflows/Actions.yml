@@ -28,14 +28,10 @@ jobs:
         include:
           - os: ubuntu-latest
             install_cmd: ./build_unix.sh
-            ls_cmd: ls -la
-            run_tests_cmd: ./game-engine-tests
             container: biozzzzz/r-type
             executables: R-Type-server/r-type_server,R-Type/r-type_client
           - os: windows-latest
             install_cmd: cmd /c build_win.bat
-            ls_cmd: cmd /c dir
-            run_tests_cmd: cmd /c .\game-engine-tests.exe
             executables: R-Type-server\r-type_server.exe,R-Type\r-type_client.exe
     runs-on: ${{ matrix.os }}
     container: ${{ matrix.container }}
@@ -50,13 +46,6 @@ jobs:
       - name: Build
         run: ${{ matrix.install_cmd }}
         timeout-minutes: 10
-      - name: ls test
-        run: ${{ matrix.ls_cmd }}
-      - name: Run tests
-        run: ${{ matrix.run_tests_cmd }}
-
-      - name: Clean build files
-        run: ${{ matrix.install_cmd }} clean
 
       - name: Check file existence
         id: check_files
@@ -92,21 +81,36 @@ jobs:
         os: [ubuntu-latest, windows-latest]
         include:
           - os: ubuntu-latest
-            install_cmd: ./build_unix.sh
-            run_tests_cmd: ./game-engine-tests
+            run__game_engine_tests_cmd: ./game-engine-tests
             container: biozzzzz/r-type
-            executables: $ {{ env.EXECUTABLES_UNIX }}
           - os: windows-latest
-            install_cmd: cmd /c build_win.bat
-            run_tests_cmd: cmd /c .\game-engine-tests.exe
-            executables: $ {{ env.EXECUTABLES_WIN }}
+            run__game_engine_tests_cmd: cmd /c .\game-engine-tests.exe
     runs-on: ${{ matrix.os }}
     container: ${{ matrix.container }}
     name: run_tests
     steps:
-      - name: Run tests
-        run: ${{ matrix.run_tests_cmd }}
-      # TODO
+      - name: Run GameEngine tests
+        run: ${{ matrix.run__game_engine_tests_cmd }}
+
+  clean:
+    if: success()
+    needs: [check_program_compilation]
+    strategy:
+      max-parallel: 2
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            install_cmd: ./build_unix.sh
+            container: biozzzzz/r-type
+          - os: windows-latest
+            install_cmd: cmd /c build_win.bat
+    runs-on: ${{ matrix.os }}
+    container: ${{ matrix.container }}
+    name: run_tests
+    steps:
+      - name: Clean build files
+        run: ${{ matrix.install_cmd }} clean
 
   push_to_mirror:
     if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'

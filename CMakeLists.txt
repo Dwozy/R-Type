@@ -180,6 +180,3 @@ if (MSVC)
 endif (MSVC)
 target_link_libraries(${GAME_ENGINE_TESTS_BINARY_NAME} PRIVATE GTest::gtest_main)
 target_include_directories(${GAME_ENGINE_TESTS_BINARY_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/GameEngine/include/)
-
-# include(GoogleTest)
-# gtest_discover_tests(${GAME_ENGINE_TESTS_BINARY_NAME})
