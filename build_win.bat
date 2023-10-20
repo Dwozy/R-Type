@@ -35,4 +35,5 @@ goto:eof
 
     for /R .\build %%f in (*.dll) do copy %%f .\R-Type
     for /R .\build %%f in (*.dll) do copy %%f .\R-Type-server
+    for /R .\build %%f in (*.dll) do copy %%f .\Tests
 goto:eof
