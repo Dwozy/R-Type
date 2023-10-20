@@ -24,6 +24,7 @@ goto:eof
     call:clean_all
     if exist ".\R-Type\r-type_client.exe" del ".\R-Type\r-type_client.exe"
     if exist ".\R-Type-server\r-type_server.exe" del ".\R-Type-server\r-type_server.exe"
+    if exist "unit_tests.exe" del "unit_tests.exe"
     if exist ".\r-type_client.lnk" del ".\r-type_client.lnk"
     if exist ".\r-type_server.lnk" del ".\r-type_server.lnk"
 goto:eof
@@ -34,4 +35,5 @@ goto:eof
 
     for /R .\build %%f in (*.dll) do copy %%f .\R-Type
     for /R .\build %%f in (*.dll) do copy %%f .\R-Type-server
+    for /R .\build %%f in (*.dll) do copy %%f .\Tests
 goto:eof
