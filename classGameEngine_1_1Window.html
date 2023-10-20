@@ -101,6 +101,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af9a7010a0525cb022f6a1e7b775e9fe2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1Window.html#af9a7010a0525cb022f6a1e7b775e9fe2">setView</a> (const <a class="el" href="classGameEngine_1_1IView.html">IView</a>&lt; sf::View &gt; &amp;view) override</td></tr>
 <tr class="memdesc:af9a7010a0525cb022f6a1e7b775e9fe2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the view of the window.  <a href="classGameEngine_1_1Window.html#af9a7010a0525cb022f6a1e7b775e9fe2">More...</a><br /></td></tr>
 <tr class="separator:af9a7010a0525cb022f6a1e7b775e9fe2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29f2b66291a6eb1fa626348644299252"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1Window.html#a29f2b66291a6eb1fa626348644299252">setFramerateLimit</a> (const float rate) override</td></tr>
+<tr class="memdesc:a29f2b66291a6eb1fa626348644299252"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the maximum framerate of the window.  <a href="classGameEngine_1_1Window.html#a29f2b66291a6eb1fa626348644299252">More...</a><br /></td></tr>
+<tr class="separator:a29f2b66291a6eb1fa626348644299252"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a529c27f7f6bd94ee4773bacb1cb13996"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1Window.html#a529c27f7f6bd94ee4773bacb1cb13996">isOpen</a> () const override</td></tr>
 <tr class="memdesc:a529c27f7f6bd94ee4773bacb1cb13996"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the window is open.  <a href="classGameEngine_1_1Window.html#a529c27f7f6bd94ee4773bacb1cb13996">More...</a><br /></td></tr>
 <tr class="separator:a529c27f7f6bd94ee4773bacb1cb13996"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -489,6 +492,42 @@ Public Member Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>True if an event was polled, false otherwise </dd></dl>
 
 <p>Implements <a class="el" href="classGameEngine_1_1IWindow.html#a9134c52270842c6be938098e24146f46">GameEngine::IWindow&lt; sf::RenderWindow, sf::View, sf::Event, sf::Drawable &gt;</a>.</p>
+
+</div>
+</div>
+<a id="a29f2b66291a6eb1fa626348644299252"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29f2b66291a6eb1fa626348644299252">&#9670;&nbsp;</a></span>setFramerateLimit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GameEngine::Window::setFramerateLimit </td>
+          <td>(</td>
+          <td class="paramtype">const float&#160;</td>
+          <td class="paramname"><em>rate</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the maximum framerate of the window. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rate</td><td>the maximum framerate </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="classGameEngine_1_1IWindow.html#a67127452c9fabe020dee50962043ff99">GameEngine::IWindow&lt; sf::RenderWindow, sf::View, sf::Event, sf::Drawable &gt;</a>.</p>
 
 </div>
 </div>

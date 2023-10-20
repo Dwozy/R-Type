@@ -92,6 +92,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8a597c3913e5874abd88681f5c991d52"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1IWindow.html#a8a597c3913e5874abd88681f5c991d52">setView</a> (const <a class="el" href="classGameEngine_1_1IView.html">IView</a>&lt; Vt &gt; &amp;view)=0</td></tr>
 <tr class="memdesc:a8a597c3913e5874abd88681f5c991d52"><td class="mdescLeft">&#160;</td><td class="mdescRight">set a new view in the window  <a href="classGameEngine_1_1IWindow.html#a8a597c3913e5874abd88681f5c991d52">More...</a><br /></td></tr>
 <tr class="separator:a8a597c3913e5874abd88681f5c991d52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67127452c9fabe020dee50962043ff99"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1IWindow.html#a67127452c9fabe020dee50962043ff99">setFramerateLimit</a> (const float rate)=0</td></tr>
+<tr class="memdesc:a67127452c9fabe020dee50962043ff99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the maximum framerate of the window.  <a href="classGameEngine_1_1IWindow.html#a67127452c9fabe020dee50962043ff99">More...</a><br /></td></tr>
+<tr class="separator:a67127452c9fabe020dee50962043ff99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6040d9a395ca02d32af1dde7d61dc85d"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1IWindow.html#a6040d9a395ca02d32af1dde7d61dc85d">isOpen</a> () const =0</td></tr>
 <tr class="memdesc:a6040d9a395ca02d32af1dde7d61dc85d"><td class="mdescLeft">&#160;</td><td class="mdescRight">check if the window is open  <a href="classGameEngine_1_1IWindow.html#a6040d9a395ca02d32af1dde7d61dc85d">More...</a><br /></td></tr>
 <tr class="separator:a6040d9a395ca02d32af1dde7d61dc85d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -443,6 +446,44 @@ template&lt;class T , class Vt , class Et , class D &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>boolean </dd></dl>
 
 <p>Implemented in <a class="el" href="classGameEngine_1_1Window.html#a7191c1878ef50e7e8730c175d4032326">GameEngine::Window</a>.</p>
+
+</div>
+</div>
+<a id="a67127452c9fabe020dee50962043ff99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67127452c9fabe020dee50962043ff99">&#9670;&nbsp;</a></span>setFramerateLimit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , class Vt , class Et , class D &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classGameEngine_1_1IWindow.html">GameEngine::IWindow</a>&lt; T, Vt, Et, D &gt;::setFramerateLimit </td>
+          <td>(</td>
+          <td class="paramtype">const float&#160;</td>
+          <td class="paramname"><em>rate</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the maximum framerate of the window. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rate</td><td>the maximum framerate </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="classGameEngine_1_1Window.html#a29f2b66291a6eb1fa626348644299252">GameEngine::Window</a>.</p>
 
 </div>
 </div>
