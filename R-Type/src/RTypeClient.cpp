@@ -28,6 +28,7 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
     _isPlayer = true;
     std::thread network(&RType::Client::RTypeClient::startNetwork, this, std::ref(_isRunning));
     network.detach();
+    _gameEngine.prefabManager.loadPrefabFromFile("config/Player.json");
     gameLoop();
     struct rtype::EntityId entityId = {.id = this->_id};
     std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::EntityId>(entityId);

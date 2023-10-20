@@ -53,6 +53,7 @@ set(SRCS_LIB
     GameEngine/src/systems/PressableSystem.cpp
     GameEngine/src/systems/AnimeSystem.cpp
     GameEngine/src/SceneManager.cpp
+    GameEngine/src/utils/PrefabManager.cpp
 )
 
 project(${PROJECT_NAME} LANGUAGES CXX)

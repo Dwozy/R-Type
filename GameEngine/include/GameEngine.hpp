@@ -11,6 +11,7 @@
 #include "SceneManager.hpp"
 #include "utils/DeltaTime.hpp"
 #include "utils/SfmlTypes.hpp"
+#include "utils/PrefabManager.hpp"
 #include "Event.hpp"
 #include "systems/PositionSystem.hpp"
 #include "systems/ControlSystem.hpp"
@@ -57,6 +58,7 @@ namespace GameEngine
         Window window;
         /// @brief Scene manager, use it to register scene, loading and unloading them.
         SceneManager sceneManager;
+        PrefabManager prefabManager;
     };
 } // namespace GameEngine
 
