@@ -53,16 +53,20 @@ namespace RType::Client
         /// @brief Function that delete a Entity
         /// @param entity delete the corresponding entity
         void updatePlayerMovement(const GameEngine::TransformComponent &transform);
-        /// @brief Function that will handle when entity needed to be move
-        /// @param event struct that will contain the information about the entity
-        void handleOtherPlayerMovement(struct rtype::Event event);
-        /// @brief Function that delete a Entity
-        /// @param entity delete the corresponding entity
-        void updateOtherPlayerMovement(RType::Protocol::MoveData moveData);
+
         /// @brief Set every component to the registry of the game engine
         void setGameEngineComponent();
         /// @brief Set every system to the registry of the game engine
         void setGameEngineSystem();
+
+        void setGameEngineCallback();
+
+        void setGameEngine();
+
+        void setConnexionCallback();
+        void setUpdateEntityCallback();
+        void setDeleteEntityCallback();
+        void setMovementEntityCallback();
 
       protected:
       private:

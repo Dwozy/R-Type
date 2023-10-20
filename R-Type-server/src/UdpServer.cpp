@@ -95,10 +95,12 @@ void RType::Server::UdpServer::handleData(
     const asio::error_code &error, std::size_t, struct rtype::HeaderDataPacket &header)
 {
     if (!error) {
-        if (_commands.find(header.packetType) != _commands.end()) {
-            _commands.at(header.packetType)(header);
-        } else {
-            std::cerr << "Packet Type doesn't exist !" << std::endl;
+        if (header.magicNumber == rtype::MAGIC_NUMBER) {
+            if (_commands.find(header.packetType) != _commands.end()) {
+                _commands.at(header.packetType)(header);
+            } else {
+                std::cerr << "Packet Type doesn't exist !" << std::endl;
+            }
         }
         _streamBuffer.consume(header.payloadSize);
         readHeader();

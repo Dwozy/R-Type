@@ -85,7 +85,12 @@ set(SRCS_CLIENT
     ${CLIENT_FOLDER}/src/RTypeClient.cpp
     ${CLIENT_FOLDER}/src/EntityManager.cpp
     ${CLIENT_FOLDER}/src/UdpClient.cpp
-    ${CLIENT_FOLDER}/src/Movement.cpp
+    ${CLIENT_FOLDER}/src/HandleEvent.cpp
+    ${CLIENT_FOLDER}/src/SetGameEngine.cpp
+    ${CLIENT_FOLDER}/src/Event/ConnexionEvent.cpp
+    ${CLIENT_FOLDER}/src/Event/DeleteEntityEvent.cpp
+    ${CLIENT_FOLDER}/src/Event/MoveEntityEvent.cpp
+    ${CLIENT_FOLDER}/src/Event/UpdateEntityEvent.cpp
 )
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${PROJECT_NAME})
