@@ -6,6 +6,7 @@
 *.cmake
 
 GameEngine/GameEngine
+Tests
 
 .vscode
 Makefile
