@@ -30,6 +30,13 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(asiocmake)
 message(CHECK_PASS "Done")
+
+message(CHECK_START "Fetching googletest...")
+FetchContent_Declare(googletest URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip)
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+message(CHECK_PASS "Done")
+
 list(POP_BACK CMAKE_MESSAGE_INDENT)
 
 set(INCLUDES_GLOBAL include)
@@ -138,3 +145,37 @@ target_link_libraries(${SERVER_BINARY_NAME} PRIVATE asio)
 target_link_libraries(${SERVER_BINARY_NAME} PRIVATE sfml-graphics sfml-audio sfml-system sfml-window)
 target_link_libraries(${SERVER_BINARY_NAME} PRIVATE nlohmann_json::nlohmann_json)
 target_include_directories(${SERVER_BINARY_NAME} PRIVATE ${INCLUDES_SERVER} ${INCLUDES_GLOBAL} ${CMAKE_SOURCE_DIR}/GameEngine/include/)
+
+enable_testing()
+
+set(TESTS_BINARY_NAME "unit_tests")
+
+set(GAME_ENGINE_TESTS_FOLDER GameEngine/tests)
+
+# set(INCLUDES_SERVER ${SERVER_FOLDER}/include)
+set(SRCS_TESTS
+    ${GAME_ENGINE_TESTS_FOLDER}/TestVector.cpp
+)
+
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Tests)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/Tests)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/Tests)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Tests)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/Tests)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/Tests)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Tests)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/Tests)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/Tests)
+
+add_executable(
+  ${TESTS_BINARY_NAME}
+  ${SRCS_TESTS}
+)
+if (UNIX)
+    target_link_libraries(${TESTS_BINARY_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/GameEngine/GameEngine/lib/libGameEngine.a)
+endif (UNIX)
+if (MSVC)
+    target_link_libraries(${TESTS_BINARY_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/GameEngine/GameEngine/lib/GameEngine.lib)
+endif (MSVC)
+target_link_libraries(${TESTS_BINARY_NAME} PRIVATE GTest::gtest_main)
+target_include_directories(${TESTS_BINARY_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/GameEngine/include/)
