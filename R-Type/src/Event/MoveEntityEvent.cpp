@@ -1,12 +1,11 @@
 /*
 ** EPITECH PROJECT, 2023
-** R-type
+** MoveEntityEvent.cpp
 ** File description:
-** Movement
+** MoveEntityEvent
 */
 
 #include "RTypeClient.hpp"
-#include <iostream>
 
 namespace RType::Client
 {
@@ -43,5 +42,14 @@ namespace RType::Client
         if (direction != transforms[_id]->velocity.normalize())
             _gameEngine.eventManager.getHandler<GameEngine::TransformComponent>(GameEngine::Event::PlayerMoveEvent)
                 .publish(transforms[_id].value());
+    }
+
+    void RTypeClient::setMovementEntityCallback()
+    {
+        auto &refHandlerMove =
+            _gameEngine.eventManager.addHandler<GameEngine::TransformComponent>(GameEngine::Event::PlayerMoveEvent);
+        auto handleUpdateMove =
+            std::bind(&RType::Client::RTypeClient::updatePlayerMovement, this, std::placeholders::_1);
+        refHandlerMove.subscribe(handleUpdateMove);
     }
 } // namespace RType::Client
