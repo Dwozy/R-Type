@@ -12,9 +12,26 @@
 #include <vector>
 #include <cstddef>
 #include <cstring>
+#include <iostream>
 
 namespace Serialization
 {
+
+    // template <typename Data>
+    // std::ostream &operator<<(std::ostream& os, Data data)
+    // {
+    //     std::vector<std::byte> byteArray = serializeData<Data>(data);
+
+    //     for (byte : byteArray)
+    //         os << byte;
+    //     return os;
+    // }
+    // template <typename Data>
+    // std::istream &operator>>(asio::streambuf::mutable_buffers_type &buffer, Data data)
+    // {
+    //     std::memcpy(&data, buffer.data(), sizeof(data));
+    //     return data;
+    // }
     /// @brief Template to serialize the data
     /// @tparam Data corresponding of the type of data
     /// @param data that need to be serialize
