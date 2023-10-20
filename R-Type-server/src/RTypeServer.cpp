@@ -42,8 +42,8 @@ void RType::Server::RTypeServer::handleConnexion()
 
     _entityManager.setEntity(entity * 25, entity * 25, entity, _gameEngine.registry);
     struct rtype::Entity newEntity = {.id = static_cast<uint16_t>(entity),
-        .positionX = static_cast<float> (entity * 25),
-        .positionY = static_cast<float> (entity * 25),
+        .positionX = static_cast<float>(entity * 25),
+        .positionY = static_cast<float>(entity * 25),
         .directionX = 0,
         .directionY = 0};
     std::cout << "Player " << entity << " spawned !" << std::endl;
@@ -78,10 +78,10 @@ void RType::Server::RTypeServer::handleDisconnexion(struct rtype::Event event)
 
     if (entity.id > transforms.size())
         return;
-    std::cout << "Player " << entity.id <<  " has to die !" << std::endl;
+    std::cout << "Player " << entity.id << " has to die !" << std::endl;
     GameEngine::Entity getEntity = _gameEngine.registry.getEntityById(entity.id);
     _gameEngine.registry.killEntity(getEntity);
-    std::cout << "Player " << getEntity <<  " died !" << std::endl;
+    std::cout << "Player " << getEntity << " died !" << std::endl;
     std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::EntityId>(entity);
     _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::DISCONNEXION), dataToSend);
 }
