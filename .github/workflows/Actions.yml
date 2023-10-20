@@ -19,7 +19,7 @@ permissions:
   checks: write
 
 jobs:
-  check_program_compilation:
+  check_program_compilation_and_test:
     if: success()
     strategy:
       max-parallel: 2
@@ -37,7 +37,7 @@ jobs:
             executables: R-Type-server\r-type_server.exe,R-Type\r-type_client.exe
     runs-on: ${{ matrix.os }}
     container: ${{ matrix.container }}
-    name: check_program_compilation
+    name: check_program_compilation_and_test
     steps:
       - name: Checkout files
         uses: actions/checkout@v3
@@ -63,7 +63,7 @@ jobs:
           fail: true
 
   check_style:
-    needs: [check_program_compilation]
+    needs: [check_program_compilation_and_test]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -82,7 +82,7 @@ jobs:
 
   push_to_mirror:
     if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: [check_program_compilation, check_style]
+    needs: [check_program_compilation_and_test, check_style]
     runs-on: ubuntu-latest
     name: push_to_mirror
     steps:
@@ -99,7 +99,7 @@ jobs:
 
   make_deploy_doxygen:
     if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: [check_program_compilation, check_style]
+    needs: [check_program_compilation_and_test, check_style]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout current branch
@@ -116,7 +116,7 @@ jobs:
 
   create_release:
     if: success() && github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
-    needs: [check_program_compilation, check_style]
+    needs: [check_program_compilation_and_test, check_style]
     runs-on: ubuntu-latest
     outputs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
