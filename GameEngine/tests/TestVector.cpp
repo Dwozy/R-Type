@@ -8,10 +8,7 @@
 #include "utils/Vector.hpp"
 #include <gtest/gtest.h>
 
-TEST(Vector, CreateIntVector)
-{
-    EXPECT_NO_THROW(GameEngine::Vector2<int> vector(0, 0));
-}
+TEST(Vector, CreateIntVector) { EXPECT_NO_THROW(GameEngine::Vector2<int> vector(0, 0)); }
 
 TEST(Vector, IntVectorNullLenght)
 {
