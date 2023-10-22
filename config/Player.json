@@ -3,75 +3,45 @@
     "components": [
         {
             "type": "TransformComponent",
-            "params": []
+            "value": {}
         },
         {
             "type": "ControllableComponent",
-            "params": [
-                {
-                    "name": "key_up",
-                    "value": "Z"
-                },
-                {
-                    "name": "key_left",
-                    "value": "Q"
-                },
-                {
-                    "name": "key_down",
-                    "value": "S"
-                },
-                {
-                    "name": "key_right",
-                    "value": "D"
-                },
-                {
-                    "name": "speed",
-                    "value": 1.0
-                }
-            ]
+            "value": {
+                "key_up": "Z",
+                "key_left": "Q",
+                "key_down": "S",
+                "key_right": "D",
+                "speed": 1.0
+            }
         },
         {
             "type": "TextureComponent",
-            "params": [
-                {
-                    "name": "texture",
-                    "value": {
-                        "path": "R-Type/assets/image.png",
-                        "rect": {
-                            "left": 0,
-                            "top": 0,
-                            "width": 32,
-                            "height": 16
-                        }
+            "value": {
+                "texture": {
+                    "path": "R-Type/assets/image.png",
+                    "area": {
+                        "left": 0,
+                        "top": 0,
+                        "width": 32,
+                        "height": 16
                     }
                 },
-                {
-                    "name": "textureRects",
-                    "value": []
-                },
-                {
-                    "name": "renderLayer",
-                    "value": 0
-                }
-            ]
+                "textureRects": [],
+                "renderLayer": 0
+            }
         },
         {
             "type": "ColliderComponent",
-            "params": [
-                {
-                    "name": "collider",
-                    "value": {
-                        "left": 0.0,
-                        "top": 0.0,
-                        "width": 32.0,
-                        "height": 16.0
-                    }
+            "value": {
+                "collider": {
+                    "left": 0.0,
+                    "top": 0.0,
+                    "width": 32.0,
+                    "height": 16.0
                 },
-                {
-                    "name": "layer",
-                    "value": 0
-                }
-            ]
+                "layer": 0
+            }
         }
     ]
 }

@@ -10,6 +10,7 @@
 
 #include <string>
 #include <unordered_map>
+#include <typeindex>
 #include <nlohmann/json.hpp>
 
 namespace GameEngine
@@ -23,7 +24,7 @@ namespace GameEngine
 
       protected:
       private:
-        std::unordered_map<std::string, nlohmann::json> _prefabsJson;
+        std::unordered_map<std::string, std::pair<std::type_index, std::any>> _prefabs;
     };
 } // namespace GameEngine
 

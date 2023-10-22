@@ -5,7 +5,8 @@
 ** PrefabManager
 */
 
-#include "utils/PrefabManager.hpp"
+#include "PrefabManager.hpp"
+#include "utils/JsonConversion.hpp"
 #include "Error.hpp"
 #include <fstream>
 #include <iostream>
@@ -22,10 +23,14 @@ namespace GameEngine
         nlohmann::json json = nlohmann::json::parse(infile);
         if (!json.contains("name"))
             throw Error::InvalidPrefabFileError();
+        if (!json.contains("components"))
+            throw Error::InvalidPrefabFileError();
         std::string name(json["name"].get<std::string>());
-        if (_prefabsJson.contains(name))
+        if (_prefabs.contains(name))
             throw Error::PrefabNameAlreadyUsedError();
-        _prefabsJson[name] = json;
-        std::cout << _prefabsJson << std::endl;
+        for (auto &component: json["component"]) {
+            if (!component.contains("type"))
+                throw Error::InvalidPrefabFileError();
+        }
     }
 } // namespace GameEngine

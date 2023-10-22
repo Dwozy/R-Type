@@ -11,7 +11,7 @@
 #include "SceneManager.hpp"
 #include "utils/DeltaTime.hpp"
 #include "utils/SfmlTypes.hpp"
-#include "utils/PrefabManager.hpp"
+#include "PrefabManager.hpp"
 #include "Event.hpp"
 #include "systems/PositionSystem.hpp"
 #include "systems/ControlSystem.hpp"
