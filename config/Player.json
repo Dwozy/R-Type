@@ -32,7 +32,7 @@
             }
         },
         {
-            "type": "ColliderComponent",
+            "type": "CollisionComponent",
             "value": {
                 "collider": {
                     "left": 0.0,
