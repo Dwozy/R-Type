@@ -33,9 +33,9 @@ RType::Server::UdpServer::~UdpServer()
     std::string message = "Server down";
     for (std::pair<unsigned short, asio::ip::udp::endpoint> client : _listClient) {
         sendData(
-            message.data(), message.size(), static_cast<uint8_t>(rtype::PacketType::STRING), _socket, client.second);
+            message.data(), message.size(), static_cast<uint8_t>(rtype::PacketType::STRING), _udpSocket , client.second);
     }
-    _socket.close();
+    _udpSocket  .close();
 }
 
 void RType::Server::UdpServer::run() { readHeader(); }
@@ -111,6 +111,6 @@ void RType::Server::UdpServer::broadcastInformation(uint8_t packetType, std::vec
 {
     for (std::pair<unsigned short, asio::ip::udp::endpoint> client : _listClient) {
         sendData<asio::ip::udp::socket, asio::ip::udp::endpoint>(
-            dataToSend.data(), dataToSend.size(), packetType, _socket, client.second);
+            dataToSend.data(), dataToSend.size(), packetType, _udpSocket    , client.second);
     }
 }

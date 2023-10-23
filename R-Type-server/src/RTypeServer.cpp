@@ -12,7 +12,7 @@
 #include "RType.hpp"
 
 RType::Server::RTypeServer::RTypeServer(unsigned short port)
-    : _signal(_IOContext, SIGINT, SIGTERM), _udpServer(_IOContext, port, std::ref(_eventQueue))
+    : _signal(_IOContext, SIGINT, SIGTERM), _udpServer(_IOContext, port, std::ref(_eventQueue)), _tcpServer(_IOContext, port)
 {
     _gameEngine.registry.registerComponent<GameEngine::TransformComponent>();
     _gameEngine.registry.registerComponent<GameEngine::CollisionComponent>();
@@ -31,6 +31,7 @@ RType::Server::RTypeServer::~RTypeServer() {}
 void RType::Server::RTypeServer::startNetwork(bool &isRunning)
 {
     _signal.async_wait(std::bind(&asio::io_context::stop, &_IOContext));
+    _tcpServer.run();
     _udpServer.run();
     _IOContext.run();
     isRunning = false;
@@ -48,6 +49,7 @@ void RType::Server::RTypeServer::handleConnexion()
         .directionY = 0};
     std::cout << "Player " << entity << " spawned !" << std::endl;
     std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::Entity>(newEntity);
+    std::cout << "Has to send " << dataToSend.size() << std::endl;
     _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::CONNECTED), dataToSend);
 }
 
@@ -135,6 +137,7 @@ void RType::Server::RTypeServer::gameLoop()
             transform->position += transform->velocity * _gameEngine.deltaTime.getDeltaTime() * rtype::PLAYER_SPEED;
         }
         if (_gameEngine.deltaTime.getDeltaTime() > 0.2) {
+            std::cout << "Update" << std::endl;
             updateEntities();
         }
     }

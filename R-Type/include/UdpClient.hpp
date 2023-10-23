@@ -47,7 +47,7 @@ namespace RType::Client
         /// @brief Handle the data depends of the header
         /// @param error if asynchronous operation fails, it will be checked
         /// @param header that contain the type of data
-        void handleData(const asio::error_code &error, std::size_t, struct rtype::HeaderDataPacket &header);
+        void handleData(const asio::error_code &error, std::size_t, struct rtype::HeaderDataPacket &);
 
       protected:
       private:

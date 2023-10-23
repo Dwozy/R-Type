@@ -23,7 +23,7 @@ RType::Client::UdpClient::UdpClient(
         std::bind(&RType::Client::UdpClient::handleDisconnexion, this, std::placeholders::_1));
 }
 
-RType::Client::UdpClient::~UdpClient() { _socket.close(); }
+RType::Client::UdpClient::~UdpClient() { _udpSocket.close(); }
 
 void RType::Client::UdpClient::handleRoom(struct rtype::HeaderDataPacket header)
 {
@@ -84,12 +84,12 @@ void RType::Client::UdpClient::handleData(
 void RType::Client::UdpClient::sendDataInformation(std::vector<std::byte> dataInformation, uint8_t packetType)
 {
     sendData<asio::ip::udp::socket, asio::ip::udp::endpoint>(
-        dataInformation.data(), dataInformation.size(), packetType, _socket, _serverEndpoint);
+        dataInformation.data(), dataInformation.size(), packetType, _udpSocket, _serverEndpoint);
 }
 
 void RType::Client::UdpClient::run()
 {
     sendData<asio::ip::udp::socket, asio::ip::udp::endpoint>(
-        0, 0, static_cast<uint8_t>(rtype::PacketType::CONNEXION), _socket, _serverEndpoint);
+        0, 0, static_cast<uint8_t>(rtype::PacketType::CONNEXION), _udpSocket, _serverEndpoint);
     readHeader();
 }
