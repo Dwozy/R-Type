@@ -16,10 +16,35 @@ namespace GameEngine
 
     PrefabManager::PrefabManager()
     {
-        _componentFunctions["TransformComponent"] = [](json json){return std::pair(std::type_index(typeid(TransformComponent)), json.at("value").get<TransformComponent>());};
-        _componentFunctions["ControllableComponent"] = [](json json){return std::pair(std::type_index(typeid(ControllableComponent)), json.at("value").get<ControllableComponent>());};
-        _componentFunctions["TextureComponent"] = [](json json){return std::pair(std::type_index(typeid(TextureComponent)), json.at("value").get<TextureComponent>());};
-        _componentFunctions["CollisionComponent"] = [](json json){return std::pair(std::type_index(typeid(CollisionComponent)), json.at("value").get<CollisionComponent>());};
+        _componentConverters["TransformComponent"] = [](json json) {
+            return std::pair(std::type_index(typeid(TransformComponent)), json.get<TransformComponent>());
+        };
+        _componentConverters["ControllableComponent"] = [](json json) {
+            return std::pair(
+                std::type_index(typeid(ControllableComponent)), json.get<ControllableComponent>());
+        };
+        _componentConverters["TextureComponent"] = [](json json) {
+            return std::pair(std::type_index(typeid(TextureComponent)), json.get<TextureComponent>());
+        };
+        _componentConverters["CollisionComponent"] = [](json json) {
+            return std::pair(std::type_index(typeid(CollisionComponent)), json.get<CollisionComponent>());
+        };
+
+        _componentAdders[typeid(TransformComponent)] = [](Registry &registry, const std::any &component,
+                                                           Entity entity) {
+            return registry.addComponent(entity, std::any_cast<TransformComponent>(component));
+        };
+        _componentAdders[typeid(TextureComponent)] = [](Registry &registry, const std::any &component, Entity entity) {
+            registry.addComponent(entity, std::any_cast<TextureComponent>(component));
+        };
+        _componentAdders[typeid(CollisionComponent)] = [](Registry &registry, const std::any &component,
+                                                           Entity entity) {
+            return registry.addComponent(entity, std::any_cast<CollisionComponent>(component));
+        };
+        _componentAdders[typeid(ControllableComponent)] = [](Registry &registry, const std::any &component,
+                                                              Entity entity) {
+            return registry.addComponent(entity, std::any_cast<ControllableComponent>(component));
+        };
     }
 
     void PrefabManager::loadPrefabFromFile(const std::string &filename)
@@ -38,10 +63,28 @@ namespace GameEngine
         if (_prefabs.contains(name))
             throw Error::PrefabNameAlreadyUsedError();
 
-        for (auto &component: json["component"]) {
-            if (!component.contains("type") || !_componentFunctions.contains(json["type"].get<std::string>()))
+        for (auto &component : json["components"]) {
+            if (!component.contains("type") || !_componentConverters.contains(component["type"].get<std::string>()))
                 throw Error::InvalidPrefabFileError();
-            _prefabs[name].emplace(_componentFunctions[json["type"].get<std::string>()](json.at("value")));
+            _prefabs[name].emplace(_componentConverters[component["type"].get<std::string>()](component.at("value")));
         }
+    }
+
+    Entity PrefabManager::createEntityFromPrefab(const std::string &prefabName, Registry &registry)
+    {
+        auto entity = registry.spawnEntity();
+
+        for (const auto &prefab : _prefabs.at(prefabName))
+            _componentAdders.at(prefab.first)(registry, prefab.second, entity);
+        return entity;
+    }
+
+    Entity PrefabManager::createEntityFromPrefab(const std::string &prefabName, Registry &registry, size_t id)
+    {
+        auto entity = registry.spawnEntity(id);
+
+        for (const auto &prefab : _prefabs.at(prefabName))
+            _componentAdders.at(prefab.first)(registry, prefab.second, entity);
+        return entity;
     }
 } // namespace GameEngine

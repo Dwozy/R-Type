@@ -24,11 +24,12 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
 {
     setGameEngineComponent();
     setGameEngineSystem();
+    _gameEngine.prefabManager.loadPrefabFromFile("config/Player.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("config/NonPlayerStarship.json");
     _isRunning = true;
     _isPlayer = true;
     std::thread network(&RType::Client::RTypeClient::startNetwork, this, std::ref(_isRunning));
     network.detach();
-    _gameEngine.prefabManager.loadPrefabFromFile("config/Player.json");
     gameLoop();
     struct rtype::EntityId entityId = {.id = this->_id};
     std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::EntityId>(entityId);
@@ -100,14 +101,20 @@ void RType::Client::RTypeClient::startNetwork(bool &isRunning)
 
 void RType::Client::RTypeClient::entitySpawn(const struct rtype::Entity entity)
 {
-    GameEngine::Entity newEntity = _gameEngine.registry.spawnEntity(entity.id);
+    // GameEngine::Entity newEntity = _gameEngine.registry.spawnEntity(entity.id);
 
-    _entityManager.setPlayerEntity(entity.positionX, entity.positionY, newEntity, _gameEngine.registry);
+    // _entityManager.setPlayerEntity(entity.positionX, entity.positionY, newEntity, _gameEngine.registry);
+    // if (_isPlayer) {
+    //     _entityManager.setControlPlayerEntity(newEntity, _gameEngine.registry);
+    //     _isPlayer = false;
+    //     _id = entity.id;
+    // }
     if (_isPlayer) {
-        _entityManager.setControlPlayerEntity(newEntity, _gameEngine.registry);
-        _isPlayer = false;
+        _gameEngine.prefabManager.createEntityFromPrefab("player", _gameEngine.registry, entity.id);
         _id = entity.id;
-    }
+        _isPlayer = false;
+    } else
+        _gameEngine.prefabManager.createEntityFromPrefab("non_player_starship", _gameEngine.registry, entity.id);
 }
 
 void RType::Client::RTypeClient::handleNewEntity(struct rtype::Event event)
@@ -135,8 +142,7 @@ void RType::Client::RTypeClient::updateEntity(const struct rtype::Entity entity)
     if (entity.id > transforms.size())
         return;
     if (!transforms[entity.id].has_value()) {
-        GameEngine::Entity newEntity = _gameEngine.registry.spawnEntity(entity.id);
-        _entityManager.setPlayerEntity(entity.positionX, entity.positionY, newEntity, _gameEngine.registry);
+        _gameEngine.prefabManager.createEntityFromPrefab("player", _gameEngine.registry, entity.id);
     } else {
         transforms[entity.id]->velocity.x = entity.directionX;
         transforms[entity.id]->velocity.y = entity.directionY;

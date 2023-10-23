@@ -8,6 +8,7 @@
 #ifndef JSONCONVERSION_HPP_
 #define JSONCONVERSION_HPP_
 #include <nlohmann/json.hpp>
+#include <iostream>
 #include "components/CameraComponent.hpp"
 #include "components/CollisionComponent.hpp"
 #include "components/ControllableComponent.hpp"
@@ -72,10 +73,10 @@ namespace GameEngine
 
     void from_json(const json &j, ControllableComponent &cc)
     {
-        j.at("key_up").get_to(cc.key_up);
-        j.at("key_left").get_to(cc.key_left);
-        j.at("key_down").get_to(cc.key_down);
-        j.at("key_right").get_to(cc.key_right);
+        cc.key_up = Input::Keyboard::strKeyMap.at(j.at("key_up").get<std::string>());
+        cc.key_down = Input::Keyboard::strKeyMap.at(j.at("key_down").get<std::string>());
+        cc.key_left = Input::Keyboard::strKeyMap.at(j.at("key_left").get<std::string>());
+        cc.key_right = Input::Keyboard::strKeyMap.at(j.at("key_right").get<std::string>());
         j.at("speed").get_to(cc.speed);
     }
 

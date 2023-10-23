@@ -1,19 +1,9 @@
 {
-    "name": "player",
+    "name": "non_player_starship",
     "components": [
         {
             "type": "TransformComponent",
             "value": {}
-        },
-        {
-            "type": "ControllableComponent",
-            "value": {
-                "key_up": "Z",
-                "key_left": "Q",
-                "key_down": "S",
-                "key_right": "D",
-                "speed": 100.0
-            }
         },
         {
             "type": "TextureComponent",
