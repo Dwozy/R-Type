@@ -33,7 +33,7 @@ namespace GameEngine
         PlayerMoveEvent,
         PlayerSpawnedEvent,
         PlayersDieEvent,
-        ShoothrowEvent,
+        PlayerShootEvent,
     };
 
     /// @brief class that store all the callback functions for a specific event type

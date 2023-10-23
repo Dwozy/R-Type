@@ -20,6 +20,15 @@ namespace RType::Protocol
         float dx;
         float dy;
     };
+
+    struct ShootData
+    {
+        uint16_t id;
+        float x;
+        float y;
+        float dx;
+        float dy;
+    }
 } // namespace RType::Protocol
 
 #endif

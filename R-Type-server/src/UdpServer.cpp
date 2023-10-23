@@ -40,6 +40,19 @@ RType::Server::UdpServer::~UdpServer()
 
 void RType::Server::UdpServer::run() { readHeader(); }
 
+void RType::Server::UdpServer::handleShoot(struct rtype::HeaderDataPacket header)
+{
+    auto shootInfo = Serialization::deserializeData<RType::Protocol::ShootData>(_buffer, header.payloadSize);
+    std::cout << "x = " << shootInfo.x << " y = " << shootInfo.y << std::endl;
+
+    struct rtype::Event event;
+
+    event.packetType = header.packetType;
+    event.data = shootInfo;
+    _eventQueue.push(event);
+
+}
+
 void RType::Server::UdpServer::handleRoom(struct rtype::HeaderDataPacket header)
 {
     struct rtype::Room room = Serialization::deserializeData<struct rtype::Room>(_buffer, header.payloadSize);

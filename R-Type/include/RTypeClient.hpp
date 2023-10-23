@@ -68,6 +68,10 @@ namespace RType::Client
         void setDeleteEntityCallback();
         void setMovementEntityCallback();
 
+        void shootEvent(const GameEngine::TransformComponent &transform);
+        void handlePlayerShoot();
+        void setShootCallback();
+
       protected:
       private:
         GameEngine::GameEngine _gameEngine;

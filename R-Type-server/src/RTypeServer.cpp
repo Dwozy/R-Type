@@ -71,6 +71,10 @@ void RType::Server::RTypeServer::handleMove(struct rtype::Event event)
     _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::ENTITY), dataToSend);
 }
 
+void RType::Server::RTypeServer::handleShoot(struct rtype::Event event)
+{
+}
+
 void RType::Server::RTypeServer::handleDisconnexion(struct rtype::Event event)
 {
     struct rtype::EntityId entity = std::any_cast<struct rtype::EntityId>(event.data);
@@ -85,6 +89,8 @@ void RType::Server::RTypeServer::handleDisconnexion(struct rtype::Event event)
     std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::EntityId>(entity);
     _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::DISCONNEXION), dataToSend);
 }
+
+
 
 void RType::Server::RTypeServer::handleEvent()
 {
@@ -101,6 +107,9 @@ void RType::Server::RTypeServer::handleEvent()
             break;
         case static_cast<uint8_t>(rtype::PacketType::DISCONNEXION):
             handleDisconnexion(event);
+            break;
+        case static_cast<uint8_t>(rtype::PacketType::SHOOT):
+            handleShoot(event);
             break;
         }
     }
