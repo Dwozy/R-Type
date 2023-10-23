@@ -10,7 +10,8 @@
 #include "systems/DrawSystem.hpp"
 #include "components/TextComponent.hpp"
 #include "components/TextureComponent.hpp"
-#include <SFML/Graphics.hpp>
+#include "utils/SfmlTypes.hpp"
+#include "Mouse.hpp"
 #include <algorithm>
 #include <utility>
 #include <algorithm>
@@ -20,10 +21,34 @@
 
 namespace GameEngine
 {
+    DrawSystem::DrawSystem(EventManager &eventManager, int width, int height, std::string title)
+        : _eventManager(eventManager)
+    {
+        _window = std::make_shared<Window>(width, height, title);
+        auto &isOpenHandler = _eventManager.addHandler<bool &>(Event::WindowIsOpen);
+        auto &pollEventHandler = _eventManager.addHandler<PollEventStruct &>(Event::PollEvent);
+        auto &windowCloseHandler = _eventManager.addHandler<SEvent &>(Event::WindowCloseEvent);
+        auto &getWorldMousePosHandler = _eventManager.addHandler<Vector2<float> &>(Event::GetWorldMousePos);
+        auto &WindowSetViewHandler = _eventManager.addHandler<View &>(Event::WindowSetView);
+
+        _window->setFramerateLimit(60);
+        isOpenHandler.subscribe([this](bool &isOpen) { isOpen = this->_window->isOpen(); });
+        pollEventHandler.subscribe(
+            [this](PollEventStruct &pollEvent) { pollEvent.isEvent = _window->pollEvent(pollEvent.event); });
+        windowCloseHandler.subscribe([this](SEvent &event) {
+            if (event.type == sf::Event::Closed)
+                _window->close();
+        });
+        getWorldMousePosHandler.subscribe([this](Vector2<float> &pos) {
+            pos = this->_window->mapPixelToCoords(Input::Mouse::getPosition(*this->_window));
+        });
+        WindowSetViewHandler.subscribe([this](View &view){ this->_window->setView(view); });
+    }
+
     void DrawSystem::operator()(SparseArray<TextComponent> &texts, SparseArray<TextureComponent> &textures)
     {
         std::vector<std::variant<TextureComponent, TextComponent>> rend;
-        _window.clear();
+        _window->clear();
 
         for (size_t i = 0; i < texts.size(); i++) {
             auto &tex = texts[i];
@@ -54,12 +79,12 @@ namespace GameEngine
         for (const auto &item : rend) {
             if (std::holds_alternative<TextureComponent>(item)) {
                 const auto &tex = std::get<TextureComponent>(item);
-                _window.draw(tex.sprite.getSprite());
+                _window->draw(tex.sprite.getSprite());
             } else if (std::holds_alternative<TextComponent>(item)) {
                 const auto &tex = std::get<TextComponent>(item);
-                _window.draw(tex.text.getText());
+                _window->draw(tex.text.getText());
             }
         }
-        _window.display();
+        _window->display();
     }
 } // namespace GameEngine

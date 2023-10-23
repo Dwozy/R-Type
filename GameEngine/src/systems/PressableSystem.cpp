@@ -14,7 +14,10 @@ namespace GameEngine
     void PressableSystem::operator()(SparseArray<TransformComponent> &transforms,
         SparseArray<TextureComponent> &textures, SparseArray<PressableComponent> &pressables)
     {
-        Vector2<float> coord = _window.mapPixelToCoords(Input::Mouse::getPosition(_window));
+        Vector2<float> coord(0.0, 0.0);
+
+        _eventManager.publish<Vector2<float>>(Event::GetWorldMousePos, coord);
+
         Vector2<int> mousePos(coord.x, coord.y);
         bool mousePressed = Input::Mouse::isKeyPressed(Input::Mouse::Left);
 
