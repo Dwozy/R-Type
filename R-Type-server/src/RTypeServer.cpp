@@ -12,7 +12,8 @@
 #include "RType.hpp"
 
 RType::Server::RTypeServer::RTypeServer(unsigned short port)
-    : _signal(_IOContext, SIGINT, SIGTERM), _udpServer(_IOContext, port, std::ref(_eventQueue)), _tcpServer(_IOContext, port)
+    : _signal(_IOContext, SIGINT, SIGTERM), _udpServer(_IOContext, port, std::ref(_eventQueue)),
+      _tcpServer(_IOContext, port)
 {
     _gameEngine.registry.registerComponent<GameEngine::TransformComponent>();
     _gameEngine.registry.registerComponent<GameEngine::CollisionComponent>();
@@ -48,7 +49,8 @@ void RType::Server::RTypeServer::handleConnexion()
         .directionX = 0,
         .directionY = 0};
     std::cout << "Player " << entity << " spawned !" << std::endl;
-    std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::Entity>(newEntity);
+    std::vector<std::byte> dataToSend =
+        Serialization::serializeData<struct rtype::Entity>(newEntity, sizeof(newEntity));
     std::cout << "Has to send " << dataToSend.size() << std::endl;
     _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::CONNECTED), dataToSend);
 }
@@ -69,7 +71,7 @@ void RType::Server::RTypeServer::handleMove(struct rtype::Event event)
         .positionY = transforms[moveInfo.id]->position.y,
         .directionX = transforms[moveInfo.id]->velocity.x,
         .directionY = transforms[moveInfo.id]->velocity.y};
-    std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::Entity>(entity);
+    std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::Entity>(entity, sizeof(entity));
     _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::ENTITY), dataToSend);
 }
 
@@ -84,7 +86,7 @@ void RType::Server::RTypeServer::handleDisconnexion(struct rtype::Event event)
     GameEngine::Entity getEntity = _gameEngine.registry.getEntityById(entity.id);
     _gameEngine.registry.killEntity(getEntity);
     std::cout << "Player " << getEntity << " died !" << std::endl;
-    std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::EntityId>(entity);
+    std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::EntityId>(entity, sizeof(entity));
     _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::DISCONNEXION), dataToSend);
 }
 
@@ -120,7 +122,7 @@ void RType::Server::RTypeServer::updateEntities()
             .positionY = transform->position.y,
             .directionX = transform->velocity.x,
             .directionY = transform->velocity.y};
-        std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::Entity>(entity);
+        std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::Entity>(entity, sizeof(entity));
         _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::ENTITY), dataToSend);
     }
 }

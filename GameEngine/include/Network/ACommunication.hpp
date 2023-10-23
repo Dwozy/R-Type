@@ -68,7 +68,7 @@ namespace GameEngine::Network
 
       protected:
         /// @brief function that will be set and used from derived class from this abstract
-        virtual void handleData(const asio::error_code &, std::size_t, struct rtype::HeaderDataPacket &) = 0;
+        virtual void handleData(struct rtype::HeaderDataPacket &) = 0;
 
       protected:
         asio::streambuf _streamBuffer;

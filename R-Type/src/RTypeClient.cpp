@@ -21,7 +21,8 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
     network.detach();
     gameLoop();
     struct rtype::EntityId entityId = {.id = this->_id};
-    std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::EntityId>(entityId);
+    std::vector<std::byte> dataToSend =
+        Serialization::serializeData<struct rtype::EntityId>(entityId, sizeof(entityId));
     _udpClient.sendDataInformation(dataToSend, static_cast<uint8_t>(rtype::PacketType::DISCONNEXION));
     std::cout << "Player " << _id << " died :( !" << std::endl;
 }
