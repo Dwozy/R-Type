@@ -51,6 +51,22 @@ void RType::Server::RTypeServer::handleConnexion()
     _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::CONNECTED), dataToSend);
 }
 
+void RType::Server::RTypeServer::handleShoot(struct rtype::Event event)
+{
+    auto shootInfo = std::any_cast<RType::Protocol::ShootData>(event.data);
+
+    GameEngine::Entity entity = _gameEngine.registry.spawnEntity();
+
+    _entityManager.setEntity(shootInfo.x, shootInfo.y, entity, _gameEngine.registry);
+    struct rtype::Shoot shoot = {.id = static_cast<uint16_t>(entity),
+        .positionX = shootInfo.x,
+        .positionY = shootInfo.y
+    };
+    std::cout << "Player " << shootInfo.id << " shoot ! " << entity << std::endl;
+    std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::Shoot>(shoot);
+    _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::SHOOT), dataToSend);
+}
+
 void RType::Server::RTypeServer::handleMove(struct rtype::Event event)
 {
     auto moveInfo = std::any_cast<RType::Protocol::MoveData>(event.data);
@@ -69,10 +85,6 @@ void RType::Server::RTypeServer::handleMove(struct rtype::Event event)
         .directionY = transforms[moveInfo.id]->velocity.y};
     std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::Entity>(entity);
     _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::ENTITY), dataToSend);
-}
-
-void RType::Server::RTypeServer::handleShoot(struct rtype::Event event)
-{
 }
 
 void RType::Server::RTypeServer::handleDisconnexion(struct rtype::Event event)

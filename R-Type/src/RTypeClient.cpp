@@ -47,5 +47,6 @@ void RType::Client::RTypeClient::gameLoop()
             handleEvent();
         _gameEngine.registry.runSystems();
         handlePlayerMovement();
+        handlePlayerShoot();
     }
 }

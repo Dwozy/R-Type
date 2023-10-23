@@ -47,13 +47,6 @@ namespace rtype
         float directionY;
     };
 
-    struct Move
-    {
-        uint16_t id;
-        float directionX;
-        float directionY;
-    };
-
     struct EntityId
     {
         uint16_t id;
@@ -62,8 +55,8 @@ namespace rtype
     struct Shoot
     {
         uint16_t id;
-        uint16_t positionX;
-        uint16_t positionY;
+        float positionX;
+        float positionY;
     };
 
     struct HeaderDataPacket

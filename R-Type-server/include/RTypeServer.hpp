@@ -39,6 +39,7 @@ namespace RType::Server
         void startNetwork(bool &isRunning);
         /// @brief Function that will brodcast informations to all clients
         void updateEntities();
+        void handleShoot(struct rtype::Event event);
 
       protected:
       private:

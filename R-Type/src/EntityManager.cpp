@@ -33,6 +33,23 @@ void collisionCallback(const std::size_t &entityId, SparseArray<GameEngine::Coll
     }
 }
 
+// void GameEngine::EntityManager::setPlayerEntity(Vector2<float> pos, Entity entity, Registry &registry, std::string filepath, std::vector<Recti> rect)
+// {
+//     GameEngine::TransformComponent tsf = {
+//         pos, GameEngine::Vector2<float>(1.0f, 0.0f)};
+//     registry.addComponent<GameEngine::TransformComponent>(entity, tsf);
+//     GameEngine::Rectf rect(0.0, 0.0, 32.0, 16.0);
+//     GameEngine::CollisionComponent col = {.collider = rect, .layer = 0};
+//     col.addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
+//                       SparseArray<GameEngine::TransformComponent> &)>,
+//         GameEngine::CollisionComponent, GameEngine::TransformComponent>(registry, collisionCallback);
+//     registry.addComponent<GameEngine::CollisionComponent>(entity, col);
+//     auto &playerTex = registry.addComponent<GameEngine::TextureComponent>(
+//         entity, GameEngine::TextureComponent{GameEngine::Texture(), GameEngine::Sprite(), true, {}});
+//     playerTex.value().texture.load("R-Type/assets/image.png", GameEngine::Rect<int>(0, 0, 32, 16));
+//     playerTex.value().sprite.load(playerTex.value().texture);
+// }
+
 void GameEngine::EntityManager::setPlayerEntity(float posX, float posY, Entity entity, Registry &registry)
 {
     GameEngine::TransformComponent tsf = {

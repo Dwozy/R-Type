@@ -38,6 +38,7 @@ namespace RType::Client
         /// @brief Handle Disconnexion
         /// @param header that contains the size of the payload
         void handleDisconnexion(struct rtype::HeaderDataPacket header);
+        void handleShoot(struct rtype::HeaderDataPacket header);
         /// @brief Function that will send information to the server
         /// @param dataInformation that contains the information
         /// @param packetType corresponding the type of data

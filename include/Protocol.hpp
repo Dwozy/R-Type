@@ -28,7 +28,7 @@ namespace RType::Protocol
         float y;
         float dx;
         float dy;
-    }
+    };
 } // namespace RType::Protocol
 
 #endif

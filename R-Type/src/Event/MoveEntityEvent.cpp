@@ -42,7 +42,7 @@ namespace RType::Client
         auto &refHandlerShoot =
             _gameEngine.eventManager.addHandler<GameEngine::TransformComponent>(GameEngine::Event::PlayerShootEvent);
         auto handleShootEvent =
-            std::bind(&RType::Client::RTypeClient::handlePlayerShoot, this, std::placeholders::_1);
+            std::bind(&RType::Client::RTypeClient::shootEvent, this, std::placeholders::_1);
         refHandlerShoot.subscribe(handleShootEvent);
     }
 

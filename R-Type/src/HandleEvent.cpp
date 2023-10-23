@@ -27,6 +27,12 @@ namespace RType::Client
         _gameEngine.eventManager.getHandler<struct rtype::Entity>(GameEngine::Event::GetEntity).publish(entity);
     }
 
+    // void RTypeClient::handleShoot(struct rtype::Event event)
+    // {
+    //     struct rtype::Entity shoot = std::any_cast<struct rtype::Shoot>(event.data);
+    //     _gameEngine.eventManager.getHandler<struct rtype::Shoot>(GameEngine::Event::PlayerShootEvent).publish(shoot);
+    // }
+
     void RTypeClient::handleEvent()
     {
         struct rtype::Event event;
@@ -42,6 +48,10 @@ namespace RType::Client
                 break;
             case static_cast<uint8_t>(rtype::PacketType::DISCONNEXION):
                 handleDisconnexion(event);
+                break;
+            case static_cast<uint8_t>(rtype::PacketType::SHOOT):
+                // handleShoot(event);
+                std::cout << "shoot callback" << std::endl;
                 break;
             }
         }
