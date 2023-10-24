@@ -32,7 +32,6 @@ namespace GameEngine
         /// @param entity that will be attribute the controller component
         /// @param registry game engine registry that will set the components
         void setControlPlayerEntity(Entity entity, Registry &registry);
-
       protected:
       private:
     };

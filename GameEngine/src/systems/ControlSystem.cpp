@@ -19,13 +19,13 @@ namespace GameEngine
             if (con && tsf) {
                 tsf.value().velocity = Vector2<float>(0.0f, 0.0f);
                 tsf.value().velocity = Vector2<float>(0.0f, 0.0f);
-                if (isKeyPressed(con.value().key_up))
+                if (InputManager::isKeyPressed(con.value().key_up))
                     tsf.value().velocity += Vector2<float>(0.0f, -1.0f);
-                if (isKeyPressed(con.value().key_left))
+                if (InputManager::isKeyPressed(con.value().key_left))
                     tsf.value().velocity += Vector2<float>(-1.0f, 0.0f);
-                if (isKeyPressed(con.value().key_down))
+                if (InputManager::isKeyPressed(con.value().key_down))
                     tsf.value().velocity += Vector2<float>(0.0f, 1.0f);
-                if (isKeyPressed(con.value().key_right))
+                if (InputManager::isKeyPressed(con.value().key_right))
                     tsf.value().velocity += Vector2<float>(1.0f, 0.0f);
                 if (tsf.value().velocity.x == 0.0f && tsf.value().velocity.y == 0.0f)
                     return;

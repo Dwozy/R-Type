@@ -22,7 +22,7 @@ namespace RType::Client
         auto &transforms = _gameEngine.registry.getComponent<GameEngine::TransformComponent>();
         if (!transforms[_id].has_value())
             return;
-        if (GameEngine::isKeyPressed(GameEngine::Input::Keyboard::Space))
+        if (GameEngine::InputManager::isKeyReleased(GameEngine::Input::Keyboard::Space) == true)
             _gameEngine.eventManager.getHandler<GameEngine::TransformComponent>(GameEngine::Event::PlayerShootEvent)
                 .publish(transforms[_id].value());
     }

@@ -26,17 +26,17 @@ namespace RType::Client
         if (!transforms[_id].has_value())
             return;
         std::cout << "x: " << transforms[_id]->position.x << " y: " << transforms[_id]->position.y << std::endl;
-        if (GameEngine::isKeyPressed(GameEngine::Input::Keyboard::Z) ||
-            GameEngine::isKeyPressed(GameEngine::Input::Keyboard::Up))
+        if (GameEngine::InputManager::isKeyPressed(GameEngine::Input::Keyboard::Z) ||
+            GameEngine::InputManager::isKeyPressed(GameEngine::Input::Keyboard::Up))
             direction.x += 1;
-        if (GameEngine::isKeyPressed(GameEngine::Input::Keyboard::S) ||
-            GameEngine::isKeyPressed(GameEngine::Input::Keyboard::Down))
+        if (GameEngine::InputManager::isKeyPressed(GameEngine::Input::Keyboard::S) ||
+            GameEngine::InputManager::isKeyPressed(GameEngine::Input::Keyboard::Down))
             direction.x -= 1;
-        if (GameEngine::isKeyPressed(GameEngine::Input::Keyboard::Q) ||
-            GameEngine::isKeyPressed(GameEngine::Input::Keyboard::Left))
+        if (GameEngine::InputManager::isKeyPressed(GameEngine::Input::Keyboard::Q) ||
+            GameEngine::InputManager::isKeyPressed(GameEngine::Input::Keyboard::Left))
             direction.y -= 1;
-        if (GameEngine::isKeyPressed(GameEngine::Input::Keyboard::D) ||
-            GameEngine::isKeyPressed(GameEngine::Input::Keyboard::Right))
+        if (GameEngine::InputManager::isKeyPressed(GameEngine::Input::Keyboard::D) ||
+            GameEngine::InputManager::isKeyPressed(GameEngine::Input::Keyboard::Right))
             direction.y += 1;
         direction = direction.normalize();
         if (direction != transforms[_id]->velocity.normalize())
