@@ -70,7 +70,6 @@ void RType::Server::RTypeServer::handleShoot(struct rtype::Event event)
         .directionY = 0};
     _entityManager.setEntity(entityShoot, entity, _gameEngine.registry);
     _listIdTexture.insert({static_cast<uint16_t>(entity), static_cast<uint8_t> (rtype::TextureType::SHOOT)});
-    std::cout << "Shoot entity number : " << entity << std::endl;
     std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::Entity>(entityShoot, sizeof(entityShoot));
     _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::ENTITY), dataToSend);
 }
@@ -165,10 +164,6 @@ void RType::Server::RTypeServer::gameLoop()
         _gameEngine.deltaTime.update();
         if (_eventQueue.size() != 0)
             handleEvent();
-        // for (auto &transform : _gameEngine.registry.getComponent<GameEngine::TransformComponent>()) {
-        //     if (!transform.has_value())
-        //         continue;
-        // }
         if (_deltaTime.count() > 0.1) {
             updateEntities();
             _lastTime = now;
