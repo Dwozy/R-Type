@@ -19,7 +19,6 @@ RType::Server::RTypeServer::RTypeServer(unsigned short port)
     _gameEngine.registry.registerComponent<GameEngine::CollisionComponent>();
 
     _gameEngine.registry.spawnEntity();
-    // _gameEngine.registry.addSystem
 
     _isRunning = true;
     std::thread network(&RType::Server::RTypeServer::startNetwork, this, std::ref(_isRunning));
@@ -49,6 +48,7 @@ void RType::Server::RTypeServer::handleConnexion()
         .directionX = 0,
         .directionY = 0};
     _entityManager.setEntity(newEntity, entity, _gameEngine.registry);
+    _listIdTexture.insert({static_cast<uint16_t>(entity), static_cast<uint8_t> (rtype::TextureType::PLAYER)});
     std::cout << "Player " << entity << " spawned !" << std::endl;
     std::vector<std::byte> dataToSend =
         Serialization::serializeData<struct rtype::Entity>(newEntity, sizeof(newEntity));
@@ -69,6 +69,7 @@ void RType::Server::RTypeServer::handleShoot(struct rtype::Event event)
         .directionX = 1000.0,
         .directionY = 0};
     _entityManager.setEntity(entityShoot, entity, _gameEngine.registry);
+    _listIdTexture.insert({static_cast<uint16_t>(entity), static_cast<uint8_t> (rtype::TextureType::SHOOT)});
     std::cout << "Shoot entity number : " << entity << std::endl;
     std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::Entity>(entityShoot, sizeof(entityShoot));
     _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::ENTITY), dataToSend);
@@ -86,7 +87,7 @@ void RType::Server::RTypeServer::handleMove(struct rtype::Event event)
     transforms[moveInfo.id]->velocity.x = moveInfo.dx;
     transforms[moveInfo.id]->velocity.y = moveInfo.dy;
     struct rtype::Entity entity = {.id = static_cast<uint16_t>(moveInfo.id),
-        .idTexture = static_cast<uint8_t> (rtype::TextureType::NONE),
+        .idTexture = _listIdTexture.at(moveInfo.id),
         .positionX = transforms[moveInfo.id]->position.x,
         .positionY = transforms[moveInfo.id]->position.y,
         .directionX = transforms[moveInfo.id]->velocity.x,
@@ -141,11 +142,8 @@ void RType::Server::RTypeServer::updateEntities()
         if (!transform.has_value())
             continue;
         transform->position += transform->velocity * _gameEngine.deltaTime.getDeltaTime() * rtype::PLAYER_SPEED;
-        std::cout << "Entity : " << i << " -> " << transform->position.x << std::endl;
-        std::cout << "Entity : " << i << " -> " << transform->position.y << std::endl;
-        std::cout << "Entity : " << i << " -> " << transform->velocity.x << std::endl;
-        std::cout << "Entity : " << i << " -> " << transform->velocity.y << std::endl;
         struct rtype::Entity entity = {.id = static_cast<uint16_t>(i),
+            .idTexture = _listIdTexture.at(static_cast<uint16_t>(i)),
             .positionX = transform->position.x,
             .positionY = transform->position.y,
             .directionX = transform->velocity.x,

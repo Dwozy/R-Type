@@ -46,7 +46,6 @@ void RType::Server::UdpServer::run() { readHeader(); }
 void RType::Server::UdpServer::handleShoot(struct rtype::HeaderDataPacket header)
 {
     auto shootInfo = Serialization::deserializeData<RType::Protocol::ShootData>(_streamBuffer, header.payloadSize);
-    std::cout << "shoot at: x = " << shootInfo.x << " y = " << shootInfo.y << std::endl;
 
     struct rtype::Event event;
 
@@ -83,7 +82,6 @@ void RType::Server::UdpServer::handleDisconnexion(struct rtype::HeaderDataPacket
         Serialization::deserializeData<struct rtype::EntityId>(_streamBuffer, header.payloadSize);
     struct rtype::Event event;
 
-    std::cout << "Disconnexion" << std::endl;
     event.packetType = header.packetType;
     event.data = entity;
     _eventQueue.push(event);

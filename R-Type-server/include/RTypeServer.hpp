@@ -15,6 +15,7 @@
 #include "GameEngineServer.hpp"
 #include <asio.hpp>
 #include "EntityManager.hpp"
+#include <map>
 
 namespace RType::Server
 {
@@ -55,6 +56,7 @@ namespace RType::Server
         std::map<unsigned short, asio::ip::udp::endpoint> _listClients;
         SafeQueue<struct rtype::Event> _eventQueue;
         GameEngine::EntityManager _entityManager;
+        std::map<uint16_t, uint8_t> _listIdTexture;
         float pos;
     };
 } // namespace RType::Server
