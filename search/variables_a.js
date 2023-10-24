@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['magicnumber_959',['magicNumber',['../structrtype_1_1HeaderDataPacket.html#acb0d85743b256a7f5418a4edd2e6ba18',1,'rtype::HeaderDataPacket']]],
-  ['music_960',['music',['../structGameEngine_1_1MusicComponent.html#abf0684d1c357374060df7b010ae3ecaa',1,'GameEngine::MusicComponent']]]
+  ['magicnumber_969',['magicNumber',['../structrtype_1_1HeaderDataPacket.html#acb0d85743b256a7f5418a4edd2e6ba18',1,'rtype::HeaderDataPacket']]],
+  ['music_970',['music',['../structGameEngine_1_1MusicComponent.html#abf0684d1c357374060df7b010ae3ecaa',1,'GameEngine::MusicComponent']]]
 ];
