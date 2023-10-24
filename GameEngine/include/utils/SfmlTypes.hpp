@@ -94,6 +94,9 @@ namespace GameEngine
         /// @brief Sets the view of the window
         /// @param view The view to set
         void setView(const IView<sf::View> &view) override { _window.setView(view.getBaseView()); };
+        /// @brief Set the maximum framerate of the window
+        /// @param rate the maximum framerate
+        void setFramerateLimit(const float rate) override { _window.setFramerateLimit(rate); };
         /// @brief Checks if the window is open
         /// @return True if the window is open, false otherwise
         bool isOpen() const override { return _window.isOpen(); }

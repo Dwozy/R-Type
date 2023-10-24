@@ -23,16 +23,16 @@ RType::Client::UdpClient::UdpClient(
         std::bind(&RType::Client::UdpClient::handleDisconnexion, this, std::placeholders::_1));
 }
 
-RType::Client::UdpClient::~UdpClient() { _socket.close(); }
+RType::Client::UdpClient::~UdpClient() { _udpSocket.close(); }
 
 void RType::Client::UdpClient::handleRoom(struct rtype::HeaderDataPacket header)
 {
-    struct rtype::Room room = Serialization::deserializeData<struct rtype::Room>(_buffer, header.payloadSize);
+    struct rtype::Room room = Serialization::deserializeData<struct rtype::Room>(_streamBuffer, header.payloadSize);
 }
 
 void RType::Client::UdpClient::handleString(struct rtype::HeaderDataPacket header)
 {
-    std::vector<uint8_t> byteArrayToReceive = Serialization::deserializeData(_buffer, header.payloadSize);
+    std::vector<uint8_t> byteArrayToReceive = Serialization::deserializeData(_streamBuffer, header.payloadSize);
 
     std::string message(byteArrayToReceive.begin(), byteArrayToReceive.end());
     if (message == "Server down")
@@ -41,7 +41,8 @@ void RType::Client::UdpClient::handleString(struct rtype::HeaderDataPacket heade
 
 void RType::Client::UdpClient::handleEntity(struct rtype::HeaderDataPacket header)
 {
-    struct rtype::Entity entity = Serialization::deserializeData<struct rtype::Entity>(_buffer, header.payloadSize);
+    struct rtype::Entity entity =
+        Serialization::deserializeData<struct rtype::Entity>(_streamBuffer, header.payloadSize);
     struct rtype::Event event = {.packetType = header.packetType, .data = entity};
 
     _eventQueue.push(event);
@@ -49,43 +50,40 @@ void RType::Client::UdpClient::handleEntity(struct rtype::HeaderDataPacket heade
 
 void RType::Client::UdpClient::handleConnexionSuccess(struct rtype::HeaderDataPacket header)
 {
-    struct rtype::Entity entity = Serialization::deserializeData<struct rtype::Entity>(_buffer, header.payloadSize);
+    struct rtype::Entity entity =
+        Serialization::deserializeData<struct rtype::Entity>(_streamBuffer, header.payloadSize);
     struct rtype::Event event = {.packetType = header.packetType, .data = entity};
 
+    std::cout << entity.id << std::endl;
     _eventQueue.push(event);
 }
 
 void RType::Client::UdpClient::handleDisconnexion(struct rtype::HeaderDataPacket header)
 {
-    struct rtype::EntityId entity = Serialization::deserializeData<struct rtype::EntityId>(_buffer, header.payloadSize);
+    struct rtype::EntityId entity =
+        Serialization::deserializeData<struct rtype::EntityId>(_streamBuffer, header.payloadSize);
     struct rtype::Event event = {.packetType = header.packetType, .data = entity};
 
     _eventQueue.push(event);
 }
 
-void RType::Client::UdpClient::handleData(
-    const asio::error_code &error, std::size_t, struct rtype::HeaderDataPacket &header)
+void RType::Client::UdpClient::handleData(struct rtype::HeaderDataPacket &header)
 {
-    if (!error) {
-        if (_commands.find(header.packetType) != _commands.end()) {
-            _commands.at(header.packetType)(header);
-        } else {
-            std::cerr << "Packet Type doesn't exist !" << std::endl;
-        }
-        _streamBuffer.consume(header.payloadSize);
-        readHeader();
-    }
+    if (_commands.find(header.packetType) != _commands.end())
+        _commands.at(header.packetType)(header);
+    else
+        std::cerr << "Packet Type doesn't exist !" << std::endl;
 }
 
 void RType::Client::UdpClient::sendDataInformation(std::vector<std::byte> dataInformation, uint8_t packetType)
 {
     sendData<asio::ip::udp::socket, asio::ip::udp::endpoint>(
-        dataInformation.data(), dataInformation.size(), packetType, _socket, _serverEndpoint);
+        dataInformation.data(), dataInformation.size(), packetType, _udpSocket, _serverEndpoint);
 }
 
 void RType::Client::UdpClient::run()
 {
     sendData<asio::ip::udp::socket, asio::ip::udp::endpoint>(
-        0, 0, static_cast<uint8_t>(rtype::PacketType::CONNEXION), _socket, _serverEndpoint);
+        0, 0, static_cast<uint8_t>(rtype::PacketType::CONNEXION), _udpSocket, _serverEndpoint);
     readHeader();
 }

@@ -133,6 +133,7 @@ This system updates the velocity of the entity based on the inputs. It takes as 
 #### DrawSystem
 
 This system draws the entity texture and text on the screen based on the ```renderLayer```. It takes as parameter the ```TextComponent``` and ```TextureComponent```'s ```SparseArray```.
+This system have to be register with the second method which takes an ```std::shared_ptr``` conataining the system class.
 
 #### PositionSystem
 

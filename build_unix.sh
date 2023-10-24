@@ -33,6 +33,7 @@ if [ "$1" == "fclean" ]
     rm -rf GameEngine/GameEngine
     rm R-Type/r-type_client
     rm R-Type-server/r-type_server
+    rm unit_tests
     exit 0
 fi
 

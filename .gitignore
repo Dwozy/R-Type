@@ -6,6 +6,7 @@
 *.cmake
 
 GameEngine/GameEngine
+Tests
 
 .vscode
 Makefile
@@ -15,6 +16,8 @@ build
 testFolder
 r-type_client*
 r-type_server*
+unit_tests*
+
 *.o
 *.gcno
 *.gcda
