@@ -26,17 +26,17 @@ void collisionCallback(const std::size_t &entityId, SparseArray<GameEngine::Coll
         auto &col = collisions[i];
         auto &tsf = transforms[i];
 
-        if (!col || !tsf || !col.value().isActive)
+        if (!col || !tsf || !col.value().isActive || col.value().layer != 0)
             continue;
-        selfCol.value().collider.handleCollisionFromRect(
-            selfTsf.value().position, col.value().collider, tsf.value().position);
+        // selfCol.value().collider.handleCollisionFromRect(
+        //     selfTsf.value().position, col.value().collider, tsf.value().position);
     }
 }
 
 void GameEngine::EntityManager::setPlayerEntity(struct rtype::Entity entityInfo, Entity entity, Registry &registry)
 {
-    GameEngine::TransformComponent tsf = {
-        GameEngine::Vector2<float>(entityInfo.positionX, entityInfo.positionY), GameEngine::Vector2<float>(0.0f, 0.0f)};
+    GameEngine::TransformComponent tsf = {GameEngine::Vector2<float>(entityInfo.positionX, entityInfo.positionY),
+        GameEngine::Vector2<float>(entityInfo.directionX, entityInfo.directionY)};
     registry.addComponent<GameEngine::TransformComponent>(entity, tsf);
     GameEngine::Rectf rect(0.0, 0.0, 32.0, 16.0);
     GameEngine::CollisionComponent col = {.collider = rect, .layer = 0};
@@ -45,7 +45,7 @@ void GameEngine::EntityManager::setPlayerEntity(struct rtype::Entity entityInfo,
         GameEngine::CollisionComponent, GameEngine::TransformComponent>(registry, collisionCallback);
     registry.addComponent<GameEngine::CollisionComponent>(entity, col);
     auto &playerTex = registry.addComponent<GameEngine::TextureComponent>(
-        entity, GameEngine::TextureComponent{GameEngine::Texture(), GameEngine::Sprite(), true, {}});
+        entity, GameEngine::TextureComponent{GameEngine::Texture(), GameEngine::Sprite(), true, {}, 0, true, 0, 0, 1});
 
     switch (entityInfo.idTexture) {
     case static_cast<uint8_t>(rtype::TextureType::PLAYER):

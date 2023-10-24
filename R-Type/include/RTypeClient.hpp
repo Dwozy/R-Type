@@ -78,18 +78,22 @@ namespace RType::Client
 
       protected:
       private:
+        std::size_t _findEntity(const std::size_t &networkId);
+        bool _searchEntity(const std::size_t &networkId);
+
         GameEngine::GameEngine _gameEngine;
         asio::io_context _IOContext;
         asio::ip::udp::endpoint _serverUdpEndpoint;
         asio::ip::tcp::endpoint _serverTcpEndpoint;
         RType::Client::UdpClient _udpClient;
-        RType::Client::TcpClient _tcpClient;
+        // RType::Client::TcpClient _tcpClient;
         asio::signal_set _signal;
         SafeQueue<struct rtype::Event> _eventQueue;
         GameEngine::EntityManager _entityManager;
         bool _isRunning;
         bool _isPlayer;
-        uint16_t _id;
+        uint16_t _serverId;
+        std::size_t _id;
     };
 } // namespace RType::Client
 

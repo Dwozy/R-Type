@@ -12,7 +12,7 @@ namespace RType::Client
     void RTypeClient::shootEvent(const GameEngine::TransformComponent &transform)
     {
         std::vector<std::byte> data = Serialization::serializeData<struct rtype::Shoot>(
-            {_id, transform.position.x, transform.position.y}, sizeof(struct rtype::Shoot));
+            {static_cast<uint16_t> (_id), transform.position.x, transform.position.y}, sizeof(struct rtype::Shoot));
 
         _udpClient.sendDataInformation(data, static_cast<uint8_t>(rtype::PacketType::SHOOT));
     }
