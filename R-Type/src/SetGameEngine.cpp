@@ -57,9 +57,8 @@ namespace RType::Client
         _gameEngine.registry.addSystem<GameEngine::PressableFunction, GameEngine::TransformComponent,
             GameEngine::TextureComponent, GameEngine::PressableComponent>(pressableSystem);
 
-        _gameEngine.registry.addSystem<
-            GameEngine::DrawSystem,
-            GameEngine::TextComponent, GameEngine::TextureComponent>(drawSystem);
+        _gameEngine.registry.addSystem<GameEngine::DrawSystem, GameEngine::TextComponent, GameEngine::TextureComponent>(
+            drawSystem);
     }
 
     void RTypeClient::setGameEngine()
@@ -73,7 +72,8 @@ namespace RType::Client
         auto &refCamera = _gameEngine.registry.addComponent<GameEngine::CameraComponent>(camera, cam);
 
         if (refCamera)
-            _gameEngine.eventManager.publish<GameEngine::View &>(GameEngine::Event::WindowSetView, refCamera.value().view);
+            _gameEngine.eventManager.publish<GameEngine::View &>(
+                GameEngine::Event::WindowSetView, refCamera.value().view);
     }
 
 } // namespace RType::Client

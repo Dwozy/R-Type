@@ -42,7 +42,7 @@ namespace GameEngine
         getWorldMousePosHandler.subscribe([this](Vector2<float> &pos) {
             pos = this->_window->mapPixelToCoords(Input::Mouse::getPosition(*this->_window));
         });
-        WindowSetViewHandler.subscribe([this](View &view){ this->_window->setView(view); });
+        WindowSetViewHandler.subscribe([this](View &view) { this->_window->setView(view); });
     }
 
     void DrawSystem::operator()(SparseArray<TextComponent> &texts, SparseArray<TextureComponent> &textures)
