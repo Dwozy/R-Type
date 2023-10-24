@@ -11,6 +11,7 @@
 #include "RType.hpp"
 #include "SafeQueue.hpp"
 #include "UdpServer.hpp"
+#include "TcpServer.hpp"
 #include "GameEngineServer.hpp"
 #include <asio.hpp>
 #include "EntityManager.hpp"
@@ -48,6 +49,7 @@ namespace RType::Server
         bool _isRunning;
         SafeQueue<std::string> _clientsMessages;
         RType::Server::UdpServer _udpServer;
+        RType::Server::TcpServer _tcpServer;
         std::map<struct rtype::Room, std::map<unsigned short, struct rtype::Entity>> _listPlayersInfos;
         std::map<unsigned short, asio::ip::udp::endpoint> _listClients;
         SafeQueue<struct rtype::Event> _eventQueue;

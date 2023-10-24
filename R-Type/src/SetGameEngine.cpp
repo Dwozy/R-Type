@@ -42,7 +42,7 @@ namespace RType::Client
 
     void RTypeClient::setGameEngineSystem()
     {
-        auto drawSystem = std::make_shared<GameEngine::DrawSystem>(_gameEngine.eventManager, 600, 600);
+        auto drawSystem = std::make_shared<GameEngine::DrawSystem>(_gameEngine.eventManager, 800, 800);
         GameEngine::PositionSystem positionSystem(_gameEngine.deltaTime.getDeltaTime());
         GameEngine::PressableSystem pressableSystem(_gameEngine.eventManager);
         GameEngine::ControlSystem controlSystem;

@@ -10,6 +10,7 @@
 
 #include "Protocol.hpp"
 #include "UdpClient.hpp"
+#include "TcpClient.hpp"
 #include <asio.hpp>
 #include "GameEngine.hpp"
 #include "EntityManager.hpp"
@@ -68,12 +69,17 @@ namespace RType::Client
         void setDeleteEntityCallback();
         void setMovementEntityCallback();
 
+        void runUdpServer();
+        void runTcpServer();
+
       protected:
       private:
         GameEngine::GameEngine _gameEngine;
         asio::io_context _IOContext;
         asio::ip::udp::endpoint _serverUdpEndpoint;
+        asio::ip::tcp::endpoint _serverTcpEndpoint;
         RType::Client::UdpClient _udpClient;
+        RType::Client::TcpClient _tcpClient;
         asio::signal_set _signal;
         SafeQueue<struct rtype::Event> _eventQueue;
         GameEngine::EntityManager _entityManager;

@@ -12,9 +12,9 @@ namespace RType::Client
     void RTypeClient::updatePlayerMovement(const GameEngine::TransformComponent &transform)
     {
         std::vector<std::byte> data = Serialization::serializeData<RType::Protocol::MoveData>(
-            {_id, transform.position.x, transform.position.y, transform.velocity.x, transform.velocity.y});
+            {_id, transform.position.x, transform.position.y, transform.velocity.x, transform.velocity.y},
+            sizeof(RType::Protocol::MoveData));
 
-        std::cout << "Send" << std::endl;
         _udpClient.sendDataInformation(data, static_cast<uint8_t>(rtype::PacketType::MOVE));
     }
 

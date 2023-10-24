@@ -22,6 +22,7 @@ namespace GameEngine::Network
         /// @param IOContext that will be use to create our socket and asynchronous operation
         /// @param port that will the socket to bind
         ACommunication(asio::io_context &IOContext, unsigned short port);
+        // ACommunication(asio::io_context &IOContext, unsigned short port);
         virtual ~ACommunication(){};
         /// @brief Set the header to send the value
         /// @tparam Socket Template that will be use for the socket (TCP, UDP)
@@ -67,11 +68,11 @@ namespace GameEngine::Network
 
       protected:
         /// @brief function that will be set and used from derived class from this abstract
-        virtual void handleData(const asio::error_code &, std::size_t, struct rtype::HeaderDataPacket &) = 0;
+        virtual void handleData(struct rtype::HeaderDataPacket &) = 0;
 
       protected:
         asio::streambuf _streamBuffer;
-        asio::ip::udp::socket _socket;
+        asio::ip::udp::socket _udpSocket;
         asio::streambuf::mutable_buffers_type _buffer;
         struct rtype::HeaderDataPacket _header;
         asio::ip::udp::endpoint _endpoint;
