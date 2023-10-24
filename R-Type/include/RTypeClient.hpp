@@ -72,7 +72,6 @@ namespace RType::Client
         void runUdpServer();
         void runTcpServer();
 
-
       protected:
       private:
         GameEngine::GameEngine _gameEngine;
