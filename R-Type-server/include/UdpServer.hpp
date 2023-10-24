@@ -31,7 +31,7 @@ namespace RType::Server
         /// @brief Handle the data depends of the header
         /// @param error if asynchronous operation fails, it will be checked
         /// @param header that contain the type of data
-        void handleData(const asio::error_code &error, std::size_t, struct rtype::HeaderDataPacket &header);
+        void handleData(struct rtype::HeaderDataPacket &header);
         /// @brief Function that will send informations to connected clients
         /// @param packetType the type of data that will be send
         /// @param dataToSend that will be send to clients

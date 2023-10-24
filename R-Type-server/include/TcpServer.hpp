@@ -20,8 +20,10 @@ namespace RType::Server
     class TcpServer
     {
       public:
-        TcpServer(asio::io_context &IOContext, int port, SafeQueue<std::string> &clientsMessages);
+        TcpServer(asio::io_context &IOContext, int port);
         ~TcpServer();
+
+        void run();
 
       protected:
       private:
@@ -37,11 +39,8 @@ namespace RType::Server
         asio::ip::tcp::acceptor _acceptor;
         asio::ip::tcp::socket _socket;
         asio::io_context &_IOContext;
-        int _port;
-        SafeQueue<std::string> &_clientsMessages;
         asio::ip::tcp::endpoint _clientEndpoint;
         std::size_t count;
-        std::array<char, 1024> _readBuffer;
         std::vector<std::shared_ptr<ClientSession>> _clients;
     };
 } // namespace RType::Server

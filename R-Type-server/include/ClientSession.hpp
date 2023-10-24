@@ -18,7 +18,7 @@ namespace RType::Server
     class ClientSession : public std::enable_shared_from_this<ClientSession>
     {
       public:
-        ClientSession(asio::io_context &IOContext, SafeQueue<std::string> &clientsMessages);
+        ClientSession(asio::io_context &IOContext);
         ~ClientSession();
 
         /// @brief Get the socket of the client session
@@ -44,7 +44,6 @@ namespace RType::Server
       protected:
       private:
         asio::ip::tcp::socket _socket;
-        SafeQueue<std::string> &_clientsMessages;
         std::array<char, 1024> _readBuffer;
     };
 };     // namespace RType::Server
