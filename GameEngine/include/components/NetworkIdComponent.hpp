@@ -15,6 +15,6 @@ namespace GameEngine
     {
         std::size_t id;
     };
-}
+} // namespace GameEngine
 
 #endif /* !NETWORKIDCOMPONENT_HPP_ */
