@@ -40,12 +40,13 @@ void RType::Server::RTypeServer::handleConnexion()
 {
     GameEngine::Entity entity = _gameEngine.registry.spawnEntity();
 
-    _entityManager.setEntity(entity * 25, entity * 25, entity, _gameEngine.registry);
     struct rtype::Entity newEntity = {.id = static_cast<uint16_t>(entity),
+        .idTexture = static_cast<uint8_t> (rtype::TextureType::PLAYER),
         .positionX = static_cast<float>(entity * 25),
         .positionY = static_cast<float>(entity * 25),
         .directionX = 0,
         .directionY = 0};
+    _entityManager.setEntity(newEntity, entity, _gameEngine.registry);
     std::cout << "Player " << entity << " spawned !" << std::endl;
     std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::Entity>(newEntity);
     _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::CONNECTED), dataToSend);
@@ -57,14 +58,16 @@ void RType::Server::RTypeServer::handleShoot(struct rtype::Event event)
 
     GameEngine::Entity entity = _gameEngine.registry.spawnEntity();
 
-    _entityManager.setEntity(shootInfo.x, shootInfo.y, entity, _gameEngine.registry);
-    struct rtype::Shoot shoot = {.id = static_cast<uint16_t>(entity),
-        .positionX = shootInfo.x,
-        .positionY = shootInfo.y
-    };
-    std::cout << "Player " << shootInfo.id << " shoot ! " << entity << std::endl;
-    std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::Shoot>(shoot);
-    _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::SHOOT), dataToSend);
+    struct rtype::Entity entityShoot = {.id = static_cast<uint16_t>(entity),
+        .idTexture = static_cast<uint8_t> (rtype::TextureType::SHOOT),
+        .positionX = static_cast<float>(shootInfo.x),
+        .positionY = static_cast<float>(shootInfo.y),
+        .directionX = 1000.0,
+        .directionY = 0};
+    _entityManager.setEntity(entityShoot, entity, _gameEngine.registry);
+    std::cout << "Shoot entity number : " << entity << std::endl;
+    std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::Entity>(entityShoot);
+    _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::ENTITY), dataToSend);
 }
 
 void RType::Server::RTypeServer::handleMove(struct rtype::Event event)
@@ -79,6 +82,7 @@ void RType::Server::RTypeServer::handleMove(struct rtype::Event event)
     transforms[moveInfo.id]->velocity.x = moveInfo.dx;
     transforms[moveInfo.id]->velocity.y = moveInfo.dy;
     struct rtype::Entity entity = {.id = static_cast<uint16_t>(moveInfo.id),
+        .idTexture = static_cast<uint8_t> (rtype::TextureType::NONE),
         .positionX = transforms[moveInfo.id]->position.x,
         .positionY = transforms[moveInfo.id]->position.y,
         .directionX = transforms[moveInfo.id]->velocity.x,
@@ -101,8 +105,6 @@ void RType::Server::RTypeServer::handleDisconnexion(struct rtype::Event event)
     std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::EntityId>(entity);
     _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::DISCONNEXION), dataToSend);
 }
-
-
 
 void RType::Server::RTypeServer::handleEvent()
 {
@@ -134,6 +136,11 @@ void RType::Server::RTypeServer::updateEntities()
         auto &transform = transforms[i];
         if (!transform.has_value())
             continue;
+        transform->position += transform->velocity * _gameEngine.deltaTime.getDeltaTime() * rtype::PLAYER_SPEED;
+        std::cout << "Entity : " << i << " -> " << transform->position.x << std::endl;
+        std::cout << "Entity : " << i << " -> " << transform->position.y << std::endl;
+        std::cout << "Entity : " << i << " -> " << transform->velocity.x << std::endl;
+        std::cout << "Entity : " << i << " -> " << transform->velocity.y << std::endl;
         struct rtype::Entity entity = {.id = static_cast<uint16_t>(i),
             .positionX = transform->position.x,
             .positionY = transform->position.y,
@@ -146,17 +153,23 @@ void RType::Server::RTypeServer::updateEntities()
 
 void RType::Server::RTypeServer::gameLoop()
 {
+    std::chrono::steady_clock::time_point _lastTime;
+    std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
+    _lastTime = now;
+
     while (_isRunning) {
+        now = std::chrono::steady_clock::now();
+        auto _deltaTime = std::chrono::duration_cast<std::chrono::duration<float>>(now - _lastTime);
         _gameEngine.deltaTime.update();
         if (_eventQueue.size() != 0)
             handleEvent();
-        for (auto &transform : _gameEngine.registry.getComponent<GameEngine::TransformComponent>()) {
-            if (!transform.has_value())
-                continue;
-            transform->position += transform->velocity * _gameEngine.deltaTime.getDeltaTime() * rtype::PLAYER_SPEED;
-        }
-        if (_gameEngine.deltaTime.getDeltaTime() > 0.2) {
+        // for (auto &transform : _gameEngine.registry.getComponent<GameEngine::TransformComponent>()) {
+        //     if (!transform.has_value())
+        //         continue;
+        // }
+        if (_deltaTime.count() > 0.1) {
             updateEntities();
+            _lastTime = now;
         }
     }
 }

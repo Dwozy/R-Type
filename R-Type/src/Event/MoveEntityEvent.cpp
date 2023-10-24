@@ -18,34 +18,6 @@ namespace RType::Client
         _udpClient.sendDataInformation(data, static_cast<uint8_t>(rtype::PacketType::MOVE));
     }
 
-    void RTypeClient::shootEvent(const GameEngine::TransformComponent &transform)
-    {
-        std::vector<std::byte> data = Serialization::serializeData<RType::Protocol::MoveData>(
-            {_id, transform.position.x, transform.position.y, transform.velocity.x, transform.velocity.y});
-
-        std::cout << "Send Shoot" << std::endl;
-        _udpClient.sendDataInformation(data, static_cast<uint8_t>(rtype::PacketType::SHOOT));
-    }
-
-    void RTypeClient::handlePlayerShoot()
-    {
-        auto &transforms = _gameEngine.registry.getComponent<GameEngine::TransformComponent>();
-        if (!transforms[_id].has_value())
-            return;
-        if (GameEngine::InputManager::isKeyReleased(GameEngine::Input::Keyboard::Space) == true)
-            _gameEngine.eventManager.getHandler<GameEngine::TransformComponent>(GameEngine::Event::PlayerShootEvent)
-                .publish(transforms[_id].value());
-    }
-
-    void RTypeClient::setShootCallback()
-    {
-        auto &refHandlerShoot =
-            _gameEngine.eventManager.addHandler<GameEngine::TransformComponent>(GameEngine::Event::PlayerShootEvent);
-        auto handleShootEvent =
-            std::bind(&RType::Client::RTypeClient::shootEvent, this, std::placeholders::_1);
-        refHandlerShoot.subscribe(handleShootEvent);
-    }
-
     void RTypeClient::handlePlayerMovement()
     {
         auto &transforms = _gameEngine.registry.getComponent<GameEngine::TransformComponent>();

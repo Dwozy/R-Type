@@ -17,16 +17,18 @@ namespace RType::Client
             return;
         if (!transforms[entity.id].has_value()) {
             GameEngine::Entity newEntity = _gameEngine.registry.spawnEntity(entity.id);
-            _entityManager.setPlayerEntity(entity.positionX, entity.positionY, newEntity, _gameEngine.registry);
+            _entityManager.setPlayerEntity(entity, newEntity, _gameEngine.registry);
         } else {
             transforms[entity.id]->velocity.x = entity.directionX;
             transforms[entity.id]->velocity.y = entity.directionY;
-            transforms[entity.id]->position.x = (fabs(transforms[entity.id]->position.x - entity.positionX) < 2)
-                                                    ? transforms[entity.id]->position.x
-                                                    : entity.positionX;
-            transforms[entity.id]->position.y = (fabs(transforms[entity.id]->position.y - entity.positionY) < 2)
-                                                    ? transforms[entity.id]->position.y
-                                                    : entity.positionY;
+            // transforms[entity.id]->position.x = (fabs(transforms[entity.id]->position.x - entity.positionX) < 2)
+            //                                         ? transforms[entity.id]->position.x
+            //                                         : entity.positionX;
+            // transforms[entity.id]->position.y = (fabs(transforms[entity.id]->position.y - entity.positionY) < 2)
+            //                                         ? transforms[entity.id]->position.y
+            //                                         : entity.positionY;
+            transforms[entity.id]->position.x = entity.positionX;
+            transforms[entity.id]->position.y = entity.positionY;
         }
     }
 

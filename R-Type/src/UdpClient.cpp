@@ -21,19 +21,19 @@ RType::Client::UdpClient::UdpClient(
         std::bind(&RType::Client::UdpClient::handleConnexionSuccess, this, std::placeholders::_1));
     _commands.emplace(static_cast<uint8_t>(rtype::PacketType::DISCONNEXION),
         std::bind(&RType::Client::UdpClient::handleDisconnexion, this, std::placeholders::_1));
-    // _commands.emplace(static_cast<uint8_t>(rtype::PacketType::SHOOT),
-    //     std::bind(&RType::Client::UdpClient::handleShoot, this, std::placeholders::_1));
+    _commands.emplace(static_cast<uint8_t>(rtype::PacketType::SHOOT),
+        std::bind(&RType::Client::UdpClient::handleShoot, this, std::placeholders::_1));
 }
 
 RType::Client::UdpClient::~UdpClient() { _socket.close(); }
 
-// void RType::Client::UdpClient::handleShoot(struct rtype::HeaderDataPacket header)
-// {
-//     struct rtype::Shoot shoot = Serialization::deserializeData<struct rtype::Shoot>(_buffer, header.payloadSize);
-//     struct rtype::Event event = {.packetType = header.packetType, .data = shoot};
+void RType::Client::UdpClient::handleShoot(struct rtype::HeaderDataPacket header)
+{
+    struct rtype::Shoot shoot = Serialization::deserializeData<struct rtype::Shoot>(_buffer, header.payloadSize);
+    struct rtype::Event event = {.packetType = header.packetType, .data = shoot};
 
-//     _eventQueue.push(event);
-// }
+    _eventQueue.push(event);
+}
 
 void RType::Client::UdpClient::handleRoom(struct rtype::HeaderDataPacket header)
 {
