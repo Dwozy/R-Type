@@ -25,7 +25,6 @@ namespace RType::Client
 
       protected:
       private:
-
         /// @brief Restart the timeout
         void handleTimeout();
 
@@ -38,7 +37,6 @@ namespace RType::Client
         /// @param recvBytes corresponding the number bytes receive from the
         /// server
         void handleInput(const asio::error_code &error, std::size_t recvBytes);
-
 
         bool _tcpRunning;
         asio::io_context &_IOContext;
