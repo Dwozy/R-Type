@@ -72,8 +72,8 @@ namespace RType::Client
         void shootEvent(const GameEngine::TransformComponent &transform);
         void handlePlayerShoot();
         void setShootCallback();
-        // void setNewShootCallback();
-        // void shootEvent(const struct rtype::Shoot shoot);
+        void setNewShootCallback();
+        void shootEvent(const struct rtype::Shoot shoot);
         void runUdpServer();
         void runTcpServer();
 
