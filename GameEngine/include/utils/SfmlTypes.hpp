@@ -236,6 +236,7 @@ namespace GameEngine
         /// @brief Sets the texture rectangle of the sprite using a custom rectangle
         /// @param rect The custom rectangle defining the new texture rectangle
         void setRect(const Recti &rect) { _sprite.setTextureRect(rect.getBaseRect()); };
+        void setScale(const float &x, const float &y) { _sprite.setScale(x, y); };
 
       private:
         sf::Sprite _sprite;

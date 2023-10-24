@@ -6,6 +6,7 @@
 */
 
 #include "RTypeClient.hpp"
+#include "components/NetworkIdComponent.hpp"
 
 namespace RType::Client
 {
@@ -13,19 +14,27 @@ namespace RType::Client
     {
         auto &transforms = _gameEngine.registry.getComponent<GameEngine::TransformComponent>();
 
-        if (entity.id > transforms.size())
+        if (!_searchEntity(entity.id)) {
+            GameEngine::Entity newEntity = _gameEngine.registry.spawnEntity();
+            _gameEngine.registry.addComponent<GameEngine::NetworkIdComponent>(
+                newEntity, GameEngine::NetworkIdComponent{entity.id});
+            _entityManager.setPlayerEntity(entity.positionX, entity.positionY, newEntity, _gameEngine.registry);
             return;
-        if (!transforms[entity.id].has_value()) {
-            GameEngine::Entity newEntity = _gameEngine.registry.spawnEntity(entity.id);
+        }
+        std::size_t id = _findEntity(entity.id);
+        if (!transforms[id].has_value()) {
+            GameEngine::Entity newEntity = _gameEngine.registry.spawnEntity();
+            _gameEngine.registry.addComponent<GameEngine::NetworkIdComponent>(
+                newEntity, GameEngine::NetworkIdComponent{entity.id});
             _entityManager.setPlayerEntity(entity.positionX, entity.positionY, newEntity, _gameEngine.registry);
         } else {
-            transforms[entity.id]->velocity.x = entity.directionX;
-            transforms[entity.id]->velocity.y = entity.directionY;
-            transforms[entity.id]->position.x = (fabs(transforms[entity.id]->position.x - entity.positionX) < 2)
-                                                    ? transforms[entity.id]->position.x
-                                                    : entity.positionX;
-            transforms[entity.id]->position.y = (fabs(transforms[entity.id]->position.y - entity.positionY) < 2)
-                                                    ? transforms[entity.id]->position.y
+            transforms[id]->velocity.x = entity.directionX;
+            transforms[id]->velocity.y = entity.directionY;
+            transforms[id]->position.x = (fabs(transforms[id]->position.x - entity.positionX) < 2)
+                                             ? transforms[id]->position.x
+                                             : entity.positionX;
+            transforms[entity.id]->position.y = (fabs(transforms[id]->position.y - entity.positionY) < 2)
+                                                    ? transforms[id]->position.y
                                                     : entity.positionY;
         }
     }
