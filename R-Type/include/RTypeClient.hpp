@@ -82,7 +82,7 @@ namespace RType::Client
         asio::ip::udp::endpoint _serverUdpEndpoint;
         asio::ip::tcp::endpoint _serverTcpEndpoint;
         RType::Client::UdpClient _udpClient;
-        RType::Client::TcpClient _tcpClient;
+        // RType::Client::TcpClient _tcpClient;
         asio::signal_set _signal;
         SafeQueue<struct rtype::Event> _eventQueue;
         GameEngine::EntityManager _entityManager;

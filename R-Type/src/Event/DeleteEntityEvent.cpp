@@ -11,9 +11,10 @@ namespace RType::Client
 {
     void RTypeClient::deleteEntity(const struct rtype::EntityId entityId)
     {
-        if (entityId.id == 0)
+        if (!_searchEntity(entityId.id))
             return;
-        struct GameEngine::Entity entity = _gameEngine.registry.getEntityById(entityId.id);
+        std::size_t id = _findEntity(entityId.id);
+        struct GameEngine::Entity entity = _gameEngine.registry.getEntityById(id);
         _gameEngine.registry.killEntity(entity);
         std::cout << "Player " << _id << " got : Player : " << entityId.id << " died." << std::endl;
     }

@@ -23,7 +23,7 @@ namespace RType::Client
         auto &transforms = _gameEngine.registry.getComponent<GameEngine::TransformComponent>();
         GameEngine::Vector2<float> direction(0, 0);
 
-        if (!transforms[_id])
+        if (!transforms[_id].has_value())
             return;
         std::cout << "x: " << transforms[_id]->position.x << " y: " << transforms[_id]->position.y << std::endl;
         if (GameEngine::isKeyPressed(GameEngine::Input::Keyboard::Z) ||
