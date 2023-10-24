@@ -7,7 +7,6 @@
 
 #include "systems/PressableSystem.hpp"
 #include "Mouse.hpp"
-#include <iostream>
 
 namespace GameEngine
 {
@@ -16,7 +15,7 @@ namespace GameEngine
     {
         Vector2<float> coord(0.0, 0.0);
 
-        _eventManager.publish<Vector2<float>>(Event::GetWorldMousePos, coord);
+        _eventManager.publish<Vector2<float> &>(Event::GetWorldMousePos, coord);
 
         Vector2<int> mousePos(coord.x, coord.y);
         bool mousePressed = Input::Mouse::isKeyPressed(Input::Mouse::Left);

@@ -36,7 +36,7 @@ void RType::Client::RTypeClient::startNetwork(bool &isRunning)
 
 void RType::Client::RTypeClient::gameLoop()
 {
-    bool isOpen;
+    bool isOpen = false;
     GameEngine::PollEventStruct event;
 
     _gameEngine.eventManager.publish<bool &>(GameEngine::Event::WindowIsOpen, isOpen);
