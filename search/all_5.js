@@ -22,10 +22,12 @@ var searchData=
   ['error_2ecpp_107',['Error.cpp',['../Error_8cpp.html',1,'']]],
   ['error_2ehpp_108',['Error.hpp',['../Error_8hpp.html',1,'']]],
   ['escape_109',['Escape',['../namespaceGameEngine_1_1Input_1_1Keyboard.html#ae7a13060cb2848c5bb8efa7c9f71cbaca4ee8c0261ca3dd82032b7c773cdb6701',1,'GameEngine::Input::Keyboard']]],
-  ['event_110',['Event',['../namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0a',1,'GameEngine::Event()'],['../structrtype_1_1Event.html',1,'rtype::Event']]],
-  ['event_2ehpp_111',['Event.hpp',['../Event_8hpp.html',1,'']]],
-  ['eventhandler_112',['EventHandler',['../classGameEngine_1_1EventHandler.html',1,'GameEngine']]],
-  ['eventmanager_113',['eventManager',['../classGameEngine_1_1GameEngine.html#a32b95712064df3a02a09c78e16360177',1,'GameEngine::GameEngine']]],
-  ['eventmananger_114',['EventMananger',['../classGameEngine_1_1EventMananger.html',1,'GameEngine']]],
-  ['eventtype_115',['EventType',['../namespaceGameEngine.html#a00a3adb6527c71e56856619aecbd81af',1,'GameEngine']]]
+  ['event_110',['Event',['../namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0a',1,'GameEngine']]],
+  ['event_111',['event',['../structGameEngine_1_1PollEventStruct.html#a8a1cb7c9568c6913096cf0c60571ca74',1,'GameEngine::PollEventStruct']]],
+  ['event_112',['Event',['../structrtype_1_1Event.html',1,'rtype']]],
+  ['event_2ehpp_113',['Event.hpp',['../Event_8hpp.html',1,'']]],
+  ['eventhandler_114',['EventHandler',['../classGameEngine_1_1EventHandler.html',1,'GameEngine']]],
+  ['eventmanager_115',['eventManager',['../classGameEngine_1_1GameEngine.html#ac63c313b5295351a95e946fca31a62d1',1,'GameEngine::GameEngine']]],
+  ['eventmanager_116',['EventManager',['../classGameEngine_1_1EventManager.html',1,'GameEngine']]],
+  ['eventtype_117',['EventType',['../namespaceGameEngine.html#a00a3adb6527c71e56856619aecbd81af',1,'GameEngine']]]
 ];

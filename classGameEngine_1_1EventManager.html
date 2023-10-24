@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>R-Type: GameEngine::EventMananger Class Reference</title>
+<title>R-Type: GameEngine::EventManager Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,46 +61,46 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="namespaceGameEngine.html">GameEngine</a></li><li class="navelem"><a class="el" href="classGameEngine_1_1EventMananger.html">EventMananger</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespaceGameEngine.html">GameEngine</a></li><li class="navelem"><a class="el" href="classGameEngine_1_1EventManager.html">EventManager</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="classGameEngine_1_1EventMananger-members.html">List of all members</a>  </div>
+<a href="classGameEngine_1_1EventManager-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">GameEngine::EventMananger Class Reference</div>  </div>
+<div class="title">GameEngine::EventManager Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
 <p>class to help create and manage all the event handlers  
- <a href="classGameEngine_1_1EventMananger.html#details">More...</a></p>
+ <a href="classGameEngine_1_1EventManager.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="Event_8hpp_source.html">Event.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad3b4a69069b5fe4b765bbaaa2a7332d6"><td class="memTemplParams" colspan="2">template&lt;class EventData  = NoEventData&gt; </td></tr>
-<tr class="memitem:ad3b4a69069b5fe4b765bbaaa2a7332d6"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classGameEngine_1_1EventHandler.html">EventHandler</a>&lt; EventData &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1EventMananger.html#ad3b4a69069b5fe4b765bbaaa2a7332d6">addHandler</a> (<a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0a">Event</a> eventType)</td></tr>
-<tr class="memdesc:ad3b4a69069b5fe4b765bbaaa2a7332d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">create a new event handler for the given event type  <a href="classGameEngine_1_1EventMananger.html#ad3b4a69069b5fe4b765bbaaa2a7332d6">More...</a><br /></td></tr>
-<tr class="separator:ad3b4a69069b5fe4b765bbaaa2a7332d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a0d65df24ce4b0a6341f56df946eab5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1EventMananger.html#a5a0d65df24ce4b0a6341f56df946eab5">removeHandler</a> (const <a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0a">Event</a> eventType)</td></tr>
-<tr class="memdesc:a5a0d65df24ce4b0a6341f56df946eab5"><td class="mdescLeft">&#160;</td><td class="mdescRight">remove an event handler  <a href="classGameEngine_1_1EventMananger.html#a5a0d65df24ce4b0a6341f56df946eab5">More...</a><br /></td></tr>
-<tr class="separator:a5a0d65df24ce4b0a6341f56df946eab5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a974c147b30b58604ed9423899a0e25a4"><td class="memTemplParams" colspan="2">template&lt;class EventData  = NoEventData&gt; </td></tr>
-<tr class="memitem:a974c147b30b58604ed9423899a0e25a4"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1EventMananger.html#a974c147b30b58604ed9423899a0e25a4">publish</a> (const <a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0a">Event</a> eventType, EventData eventData)</td></tr>
-<tr class="memdesc:a974c147b30b58604ed9423899a0e25a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">call all the subscribed functions with the given eventData  <a href="classGameEngine_1_1EventMananger.html#a974c147b30b58604ed9423899a0e25a4">More...</a><br /></td></tr>
-<tr class="separator:a974c147b30b58604ed9423899a0e25a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada56619bee0109fa2538b796c9c3c979"><td class="memTemplParams" colspan="2">template&lt;class EventData  = NoEventData&gt; </td></tr>
-<tr class="memitem:ada56619bee0109fa2538b796c9c3c979"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classGameEngine_1_1EventHandler.html">EventHandler</a>&lt; EventData &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1EventMananger.html#ada56619bee0109fa2538b796c9c3c979">getHandler</a> (const <a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0a">Event</a> eventType)</td></tr>
-<tr class="memdesc:ada56619bee0109fa2538b796c9c3c979"><td class="mdescLeft">&#160;</td><td class="mdescRight">return an event handler by its type  <a href="classGameEngine_1_1EventMananger.html#ada56619bee0109fa2538b796c9c3c979">More...</a><br /></td></tr>
-<tr class="separator:ada56619bee0109fa2538b796c9c3c979"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ee7233f0f902f026a68feba758023f9"><td class="memTemplParams" colspan="2">template&lt;class EventData  = NoEventData&gt; </td></tr>
+<tr class="memitem:a6ee7233f0f902f026a68feba758023f9"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classGameEngine_1_1EventHandler.html">EventHandler</a>&lt; EventData &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1EventManager.html#a6ee7233f0f902f026a68feba758023f9">addHandler</a> (<a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0a">Event</a> eventType)</td></tr>
+<tr class="memdesc:a6ee7233f0f902f026a68feba758023f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">create a new event handler for the given event type  <a href="classGameEngine_1_1EventManager.html#a6ee7233f0f902f026a68feba758023f9">More...</a><br /></td></tr>
+<tr class="separator:a6ee7233f0f902f026a68feba758023f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add3f53fdaca6a5b67d482867c56023bb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1EventManager.html#add3f53fdaca6a5b67d482867c56023bb">removeHandler</a> (const <a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0a">Event</a> eventType)</td></tr>
+<tr class="memdesc:add3f53fdaca6a5b67d482867c56023bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">remove an event handler  <a href="classGameEngine_1_1EventManager.html#add3f53fdaca6a5b67d482867c56023bb">More...</a><br /></td></tr>
+<tr class="separator:add3f53fdaca6a5b67d482867c56023bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17b3e10be3c35ed7ed5c8b54d141f40c"><td class="memTemplParams" colspan="2">template&lt;class EventData  = NoEventData&gt; </td></tr>
+<tr class="memitem:a17b3e10be3c35ed7ed5c8b54d141f40c"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1EventManager.html#a17b3e10be3c35ed7ed5c8b54d141f40c">publish</a> (const <a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0a">Event</a> eventType, EventData eventData)</td></tr>
+<tr class="memdesc:a17b3e10be3c35ed7ed5c8b54d141f40c"><td class="mdescLeft">&#160;</td><td class="mdescRight">call all the subscribed functions with the given eventData  <a href="classGameEngine_1_1EventManager.html#a17b3e10be3c35ed7ed5c8b54d141f40c">More...</a><br /></td></tr>
+<tr class="separator:a17b3e10be3c35ed7ed5c8b54d141f40c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc2b0ae572057c89b32411c3537c88a3"><td class="memTemplParams" colspan="2">template&lt;class EventData  = NoEventData&gt; </td></tr>
+<tr class="memitem:adc2b0ae572057c89b32411c3537c88a3"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classGameEngine_1_1EventHandler.html">EventHandler</a>&lt; EventData &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1EventManager.html#adc2b0ae572057c89b32411c3537c88a3">getHandler</a> (const <a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0a">Event</a> eventType)</td></tr>
+<tr class="memdesc:adc2b0ae572057c89b32411c3537c88a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">return an event handler by its type  <a href="classGameEngine_1_1EventManager.html#adc2b0ae572057c89b32411c3537c88a3">More...</a><br /></td></tr>
+<tr class="separator:adc2b0ae572057c89b32411c3537c88a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>class to help create and manage all the event handlers </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ad3b4a69069b5fe4b765bbaaa2a7332d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad3b4a69069b5fe4b765bbaaa2a7332d6">&#9670;&nbsp;</a></span>addHandler()</h2>
+<a id="a6ee7233f0f902f026a68feba758023f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ee7233f0f902f026a68feba758023f9">&#9670;&nbsp;</a></span>addHandler()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -111,7 +111,7 @@ template&lt;class EventData  = NoEventData&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classGameEngine_1_1EventHandler.html">EventHandler</a>&lt;EventData&gt;&amp; GameEngine::EventMananger::addHandler </td>
+          <td class="memname"><a class="el" href="classGameEngine_1_1EventHandler.html">EventHandler</a>&lt;EventData&gt;&amp; GameEngine::EventManager::addHandler </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0a">Event</a>&#160;</td>
           <td class="paramname"><em>eventType</em></td><td>)</td>
@@ -142,8 +142,8 @@ template&lt;class EventData  = NoEventData&gt; </div>
 
 </div>
 </div>
-<a id="ada56619bee0109fa2538b796c9c3c979"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ada56619bee0109fa2538b796c9c3c979">&#9670;&nbsp;</a></span>getHandler()</h2>
+<a id="adc2b0ae572057c89b32411c3537c88a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc2b0ae572057c89b32411c3537c88a3">&#9670;&nbsp;</a></span>getHandler()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -154,7 +154,7 @@ template&lt;class EventData  = NoEventData&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classGameEngine_1_1EventHandler.html">EventHandler</a>&lt;EventData&gt;&amp; GameEngine::EventMananger::getHandler </td>
+          <td class="memname"><a class="el" href="classGameEngine_1_1EventHandler.html">EventHandler</a>&lt;EventData&gt;&amp; GameEngine::EventManager::getHandler </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0a">Event</a>&#160;</td>
           <td class="paramname"><em>eventType</em></td><td>)</td>
@@ -185,8 +185,8 @@ template&lt;class EventData  = NoEventData&gt; </div>
 
 </div>
 </div>
-<a id="a974c147b30b58604ed9423899a0e25a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a974c147b30b58604ed9423899a0e25a4">&#9670;&nbsp;</a></span>publish()</h2>
+<a id="a17b3e10be3c35ed7ed5c8b54d141f40c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17b3e10be3c35ed7ed5c8b54d141f40c">&#9670;&nbsp;</a></span>publish()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -197,7 +197,7 @@ template&lt;class EventData  = NoEventData&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void GameEngine::EventMananger::publish </td>
+          <td class="memname">void GameEngine::EventManager::publish </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0a">Event</a>&#160;</td>
           <td class="paramname"><em>eventType</em>, </td>
@@ -238,8 +238,8 @@ template&lt;class EventData  = NoEventData&gt; </div>
 
 </div>
 </div>
-<a id="a5a0d65df24ce4b0a6341f56df946eab5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a0d65df24ce4b0a6341f56df946eab5">&#9670;&nbsp;</a></span>removeHandler()</h2>
+<a id="add3f53fdaca6a5b67d482867c56023bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add3f53fdaca6a5b67d482867c56023bb">&#9670;&nbsp;</a></span>removeHandler()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -248,7 +248,7 @@ template&lt;class EventData  = NoEventData&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void GameEngine::EventMananger::removeHandler </td>
+          <td class="memname">void GameEngine::EventManager::removeHandler </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0a">Event</a>&#160;</td>
           <td class="paramname"><em>eventType</em></td><td>)</td>

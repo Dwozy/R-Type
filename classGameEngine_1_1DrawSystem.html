@@ -80,9 +80,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a386c57070b3a879807dae11ee6932acb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1DrawSystem.html#a386c57070b3a879807dae11ee6932acb">DrawSystem</a> (<a class="el" href="classGameEngine_1_1Window.html">Window</a> &amp;window)</td></tr>
-<tr class="memdesc:a386c57070b3a879807dae11ee6932acb"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructor  <a href="classGameEngine_1_1DrawSystem.html#a386c57070b3a879807dae11ee6932acb">More...</a><br /></td></tr>
-<tr class="separator:a386c57070b3a879807dae11ee6932acb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ce2ac11a873ff7d4d630ab43289a8dd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1DrawSystem.html#a8ce2ac11a873ff7d4d630ab43289a8dd">DrawSystem</a> (<a class="el" href="classGameEngine_1_1EventManager.html">EventManager</a> &amp;eventManager, int width=1920, int height=1080, std::string title=&quot;default&quot;)</td></tr>
+<tr class="memdesc:a8ce2ac11a873ff7d4d630ab43289a8dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructor  <a href="classGameEngine_1_1DrawSystem.html#a8ce2ac11a873ff7d4d630ab43289a8dd">More...</a><br /></td></tr>
+<tr class="separator:a8ce2ac11a873ff7d4d630ab43289a8dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a50ea66e1642ff6cb839703eac3299ca7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1DrawSystem.html#a50ea66e1642ff6cb839703eac3299ca7">~DrawSystem</a> ()=default</td></tr>
 <tr class="memdesc:a50ea66e1642ff6cb839703eac3299ca7"><td class="mdescLeft">&#160;</td><td class="mdescRight">destructor  <a href="classGameEngine_1_1DrawSystem.html#a50ea66e1642ff6cb839703eac3299ca7">More...</a><br /></td></tr>
 <tr class="separator:a50ea66e1642ff6cb839703eac3299ca7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -93,34 +93,50 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class representing the graphics rendering system. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a386c57070b3a879807dae11ee6932acb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a386c57070b3a879807dae11ee6932acb">&#9670;&nbsp;</a></span>DrawSystem()</h2>
+<a id="a8ce2ac11a873ff7d4d630ab43289a8dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ce2ac11a873ff7d4d630ab43289a8dd">&#9670;&nbsp;</a></span>DrawSystem()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">GameEngine::DrawSystem::DrawSystem </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classGameEngine_1_1Window.html">Window</a> &amp;&#160;</td>
-          <td class="paramname"><em>window</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classGameEngine_1_1EventManager.html">EventManager</a> &amp;&#160;</td>
+          <td class="paramname"><em>eventManager</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>width</em> = <code>1920</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>height</em> = <code>1080</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>title</em> = <code>&quot;default&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 <p>constructor </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">window</td><td>the window object of game </td></tr>
+    <tr><td class="paramname">width</td><td>Width of the window. </td></tr>
+    <tr><td class="paramname">height</td><td>Height of the window. </td></tr>
+    <tr><td class="paramname">title</td><td>Title of the window. </td></tr>
   </table>
   </dd>
 </dl>

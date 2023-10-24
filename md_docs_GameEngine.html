@@ -225,7 +225,7 @@ ControlSystem</h3>
 <p>This system updates the velocity of the entity based on the inputs. It takes as parameter the <code>TransformComponent</code> and <code>ControllableComponent</code>'s <code><a class="el" href="classSparseArray.html" title="Array which can have empty indexes.">SparseArray</a></code>.</p>
 <h3><a class="anchor" id="autotoc_md16"></a>
 DrawSystem</h3>
-<p>This system draws the entity texture and text on the screen based on the <code>renderLayer</code>. It takes as parameter the <code>TextComponent</code> and <code>TextureComponent</code>'s <code><a class="el" href="classSparseArray.html" title="Array which can have empty indexes.">SparseArray</a></code>.</p>
+<p>This system draws the entity texture and text on the screen based on the <code>renderLayer</code>. It takes as parameter the <code>TextComponent</code> and <code>TextureComponent</code>'s <code><a class="el" href="classSparseArray.html" title="Array which can have empty indexes.">SparseArray</a></code>. This system have to be register with the second method which takes an <code>std::shared_ptr</code> conataining the system class.</p>
 <h3><a class="anchor" id="autotoc_md17"></a>
 PositionSystem</h3>
 <p>This system updates the position of the entity based on the velocity and moves the entity's texture if the entity have one. It takes as parameter the <code>TransformComponent</code> and <code>TextureComponent</code>'s <code><a class="el" href="classSparseArray.html" title="Array which can have empty indexes.">SparseArray</a></code>.</p>
@@ -244,12 +244,10 @@ EventManager</h2>
 <p>The <code>addHandler</code> method take as template the type of the data that will be passed to the callbacks when the event is published and as parameter the type of the event that will be managed.</p>
 <p>Event handler exemple</p>
 <div class="fragment"><div class="line"><span class="comment">// Create the event manager</span></div>
-<div class="line"><a class="code" href="classGameEngine_1_1EventMananger.html">GameEngine::EventMananger</a> eventManager;</div>
+<div class="line">GameEngine::EventMananger eventManager;</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Add a new event handler for the &#39;MyEvent&#39; event</span></div>
-<div class="line">eventManager.<a class="code" href="classGameEngine_1_1EventMananger.html#ad3b4a69069b5fe4b765bbaaa2a7332d6">addHandler</a>&lt;<span class="keyword">struct </span>MyCallbackDataType&gt;(<a class="code" href="namespaceGameEngine.html">GameEngine</a>::Event::MyEvent);</div>
-<div class="ttc" id="aclassGameEngine_1_1EventMananger_html"><div class="ttname"><a href="classGameEngine_1_1EventMananger.html">GameEngine::EventMananger</a></div><div class="ttdoc">class to help create and manage all the event handlers</div><div class="ttdef"><b>Definition:</b> Event.hpp:73</div></div>
-<div class="ttc" id="aclassGameEngine_1_1EventMananger_html_ad3b4a69069b5fe4b765bbaaa2a7332d6"><div class="ttname"><a href="classGameEngine_1_1EventMananger.html#ad3b4a69069b5fe4b765bbaaa2a7332d6">GameEngine::EventMananger::addHandler</a></div><div class="ttdeci">EventHandler&lt; EventData &gt; &amp; addHandler(Event eventType)</div><div class="ttdoc">create a new event handler for the given event type</div><div class="ttdef"><b>Definition:</b> Event.hpp:80</div></div>
+<div class="line">eventManager.addHandler&lt;<span class="keyword">struct </span>MyCallbackDataType&gt;(<a class="code" href="namespaceGameEngine.html">GameEngine</a>::Event::MyEvent);</div>
 <div class="ttc" id="anamespaceGameEngine_html"><div class="ttname"><a href="namespaceGameEngine.html">GameEngine</a></div><div class="ttdef"><b>Definition:</b> CameraComponent.hpp:13</div></div>
 </div><!-- fragment --><p>To add a callback to an event the user must get the handler of the event and then use the <code>subscribe</code> methode and give the callback function. The callback function must take as parameter the type given in the template of the addHandler methode.</p>
 <p>Add event callback exemple</p>
@@ -259,17 +257,16 @@ EventManager</h2>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Get the handler of the event</span></div>
-<div class="line"><a class="code" href="classGameEngine_1_1EventHandler.html">GameEngine::EventHandler&lt;struct MyCallbackDataType&gt;</a> myHandler =  eventManager.<a class="code" href="classGameEngine_1_1EventMananger.html#ada56619bee0109fa2538b796c9c3c979">getHandler</a>&lt;<span class="keyword">struct </span>MyCallbackDataType&gt;(<a class="code" href="namespaceGameEngine.html">GameEngine</a>::Event::MyEvent)</div>
+<div class="line"><a class="code" href="classGameEngine_1_1EventHandler.html">GameEngine::EventHandler&lt;struct MyCallbackDataType&gt;</a> myHandler =  eventManager.getHandler&lt;<span class="keyword">struct </span>MyCallbackDataType&gt;(<a class="code" href="namespaceGameEngine.html">GameEngine</a>::Event::MyEvent)</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Add a callback function</span></div>
 <div class="line">myHandler.subscribe(myCallback);</div>
 <div class="line">MyCallbackDataType</div>
-<div class="ttc" id="aclassGameEngine_1_1EventHandler_html"><div class="ttname"><a href="classGameEngine_1_1EventHandler.html">GameEngine::EventHandler</a></div><div class="ttdoc">class that store all the callback functions for a specific event type</div><div class="ttdef"><b>Definition:</b> Event.hpp:43</div></div>
-<div class="ttc" id="aclassGameEngine_1_1EventMananger_html_ada56619bee0109fa2538b796c9c3c979"><div class="ttname"><a href="classGameEngine_1_1EventMananger.html#ada56619bee0109fa2538b796c9c3c979">GameEngine::EventMananger::getHandler</a></div><div class="ttdeci">EventHandler&lt; EventData &gt; &amp; getHandler(const Event eventType)</div><div class="ttdoc">return an event handler by its type</div><div class="ttdef"><b>Definition:</b> Event.hpp:102</div></div>
+<div class="ttc" id="aclassGameEngine_1_1EventHandler_html"><div class="ttname"><a href="classGameEngine_1_1EventHandler.html">GameEngine::EventHandler</a></div><div class="ttdoc">class that store all the callback functions for a specific event type</div><div class="ttdef"><b>Definition:</b> Event.hpp:47</div></div>
 </div><!-- fragment --><p>Then now if the user wants to call the callbacks of the event he must call the <code>publish</code> methode</p>
 <p>Publish event exemple </p><div class="fragment"><div class="line"><span class="comment">// Pass the data to the callbacks</span></div>
 <div class="line">myHandler.<a class="code" href="classGameEngine_1_1EventHandler.html#a085f6fff9072360a9e73a51a0aa42031">publish</a>(MyCallbackDataType());</div>
-<div class="ttc" id="aclassGameEngine_1_1EventHandler_html_a085f6fff9072360a9e73a51a0aa42031"><div class="ttname"><a href="classGameEngine_1_1EventHandler.html#a085f6fff9072360a9e73a51a0aa42031">GameEngine::EventHandler::publish</a></div><div class="ttdeci">void publish(EventData eventData)</div><div class="ttdoc">call all the subscribed functions with the given eventData</div><div class="ttdef"><b>Definition:</b> Event.hpp:47</div></div>
+<div class="ttc" id="aclassGameEngine_1_1EventHandler_html_a085f6fff9072360a9e73a51a0aa42031"><div class="ttname"><a href="classGameEngine_1_1EventHandler.html#a085f6fff9072360a9e73a51a0aa42031">GameEngine::EventHandler::publish</a></div><div class="ttdeci">void publish(EventData eventData)</div><div class="ttdoc">call all the subscribed functions with the given eventData</div><div class="ttdef"><b>Definition:</b> Event.hpp:51</div></div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md21"></a>
 Registry</h2>
 <p>This is the Entity Component System described above.</p>

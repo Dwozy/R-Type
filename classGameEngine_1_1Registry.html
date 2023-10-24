@@ -127,6 +127,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:afab870a9d300581c6356ee734bf49d1e"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1Registry.html#afab870a9d300581c6356ee734bf49d1e">addSystem</a> (const Function &amp;function)</td></tr>
 <tr class="memdesc:afab870a9d300581c6356ee734bf49d1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a system to the registry. The system function can take reference to some component's SparseArrays, they will be automatically get.  <a href="classGameEngine_1_1Registry.html#afab870a9d300581c6356ee734bf49d1e">More...</a><br /></td></tr>
 <tr class="separator:afab870a9d300581c6356ee734bf49d1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a771f33bc2cafb8172af84585b4c99d1a"><td class="memTemplParams" colspan="2">template&lt;typename SystemClass , class... Components&gt; </td></tr>
+<tr class="memitem:a771f33bc2cafb8172af84585b4c99d1a"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1Registry.html#a771f33bc2cafb8172af84585b4c99d1a">addSystem</a> (std::shared_ptr&lt; SystemClass &gt; systemClass)</td></tr>
+<tr class="memdesc:a771f33bc2cafb8172af84585b4c99d1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a system to the registry. This method is to use when the class system needs to stay at the same place in the memory (for example <a class="el" href="classGameEngine_1_1DrawSystem.html" title="Class representing the graphics rendering system.">DrawSystem</a>)  <a href="classGameEngine_1_1Registry.html#a771f33bc2cafb8172af84585b4c99d1a">More...</a><br /></td></tr>
+<tr class="separator:a771f33bc2cafb8172af84585b4c99d1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a254f63c09b648adcb4ddd2a3bde390e5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1Registry.html#a254f63c09b648adcb4ddd2a3bde390e5">runSystems</a> ()</td></tr>
 <tr class="memdesc:a254f63c09b648adcb4ddd2a3bde390e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs all the registered system functions. Need to be called in the main loop.  <a href="classGameEngine_1_1Registry.html#a254f63c09b648adcb4ddd2a3bde390e5">More...</a><br /></td></tr>
 <tr class="separator:a254f63c09b648adcb4ddd2a3bde390e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -278,7 +282,7 @@ template&lt;typename Component &gt; </div>
 </div>
 </div>
 <a id="afab870a9d300581c6356ee734bf49d1e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afab870a9d300581c6356ee734bf49d1e">&#9670;&nbsp;</a></span>addSystem()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afab870a9d300581c6356ee734bf49d1e">&#9670;&nbsp;</a></span>addSystem() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -314,6 +318,49 @@ template&lt;typename Function , class... Components&gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">function</td><td>System function to register. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a771f33bc2cafb8172af84585b4c99d1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a771f33bc2cafb8172af84585b4c99d1a">&#9670;&nbsp;</a></span>addSystem() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename SystemClass , class... Components&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GameEngine::Registry::addSystem </td>
+          <td>(</td>
+          <td class="paramtype">std::shared_ptr&lt; SystemClass &gt;&#160;</td>
+          <td class="paramname"><em>systemClass</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Adds a system to the registry. This method is to use when the class system needs to stay at the same place in the memory (for example <a class="el" href="classGameEngine_1_1DrawSystem.html" title="Class representing the graphics rendering system.">DrawSystem</a>) </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">SystemClass</td><td>Class of the system to register, must have an overload for the () </td></tr>
+    <tr><td class="paramname">...Components</td><td>Variadic template for the components which are in parameter of the system function. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">systemClass</td><td>System class to register. </td></tr>
   </table>
   </dd>
 </dl>
