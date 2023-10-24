@@ -15,10 +15,7 @@ RType::Client::TcpClient::TcpClient(asio::io_context &IOContext, asio::ip::tcp::
 
 RType::Client::TcpClient::~TcpClient() { _socket.close(); }
 
-bool &RType::Client::TcpClient::getTcpStatus()
-{
-    return _tcpRunning;
-}
+bool &RType::Client::TcpClient::getTcpStatus() { return _tcpRunning; }
 
 void RType::Client::TcpClient::handleInput(const asio::error_code &error, std::size_t recvBytes)
 {
@@ -33,15 +30,13 @@ void RType::Client::TcpClient::handleInput(const asio::error_code &error, std::s
     }
 }
 
-
-
 void RType::Client::TcpClient::handleWrite(const asio::error_code &error)
 {
     _tcpRunning = true;
     if (!error) {
         std::cout << "Enter" << std::endl;
         // asio::async_read_until(_input, _inputBuffer, '\n',
-            // std::bind(&RType::Client::TcpClient::handleInput, this, std::placeholders::_1, std::placeholders::_2));
+        // std::bind(&RType::Client::TcpClient::handleInput, this, std::placeholders::_1, std::placeholders::_2));
     } else if (error == asio::error::operation_aborted) {
         std::cout << "WOWOWOOWOWO" << std::endl;
         // _socket.close();

@@ -7,10 +7,7 @@
 
 #include "ClientSession.hpp"
 
-RType::Server::ClientSession::ClientSession(asio::io_context &IOContext)
-    : _socket(IOContext)
-{
-}
+RType::Server::ClientSession::ClientSession(asio::io_context &IOContext) : _socket(IOContext) {}
 
 RType::Server::ClientSession::~ClientSession() { _socket.close(); }
 
