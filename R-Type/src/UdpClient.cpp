@@ -64,7 +64,6 @@ void RType::Client::UdpClient::handleConnexionSuccess(struct rtype::HeaderDataPa
         Serialization::deserializeData<struct rtype::Entity>(_streamBuffer, header.payloadSize);
     struct rtype::Event event = {.packetType = header.packetType, .data = entity};
 
-    std::cout << entity.id << std::endl;
     _eventQueue.push(event);
 }
 

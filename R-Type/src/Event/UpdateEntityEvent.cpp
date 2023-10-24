@@ -13,9 +13,11 @@ namespace RType::Client
     {
         auto &transforms = _gameEngine.registry.getComponent<GameEngine::TransformComponent>();
 
+        // std::cerr << "Update " << entity.id << std::endl;
         if (entity.id > transforms.size())
             return;
         if (!transforms[entity.id].has_value()) {
+            std::cerr << "Create old new Entity" << std::endl;
             GameEngine::Entity newEntity = _gameEngine.registry.spawnEntity(entity.id);
             _entityManager.setPlayerEntity(entity, newEntity, _gameEngine.registry);
         } else {

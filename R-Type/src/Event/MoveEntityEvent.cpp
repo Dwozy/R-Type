@@ -25,7 +25,6 @@ namespace RType::Client
 
         if (!transforms[_id].has_value())
             return;
-        std::cout << "x: " << transforms[_id]->position.x << " y: " << transforms[_id]->position.y << std::endl;
         if (GameEngine::InputManager::isKeyPressed(GameEngine::Input::Keyboard::Z) ||
             GameEngine::InputManager::isKeyPressed(GameEngine::Input::Keyboard::Up))
             direction.x += 1;
