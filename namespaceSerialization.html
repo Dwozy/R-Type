@@ -70,18 +70,18 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a2a76a1cad87831007dfd98d5a24be472"><td class="memTemplParams" colspan="2">template&lt;typename Data &gt; </td></tr>
-<tr class="memitem:a2a76a1cad87831007dfd98d5a24be472"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; std::byte &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceSerialization.html#a2a76a1cad87831007dfd98d5a24be472">serializeData</a> (Data data)</td></tr>
-<tr class="memdesc:a2a76a1cad87831007dfd98d5a24be472"><td class="mdescLeft">&#160;</td><td class="mdescRight">Template to serialize the data.  <a href="namespaceSerialization.html#a2a76a1cad87831007dfd98d5a24be472">More...</a><br /></td></tr>
-<tr class="separator:a2a76a1cad87831007dfd98d5a24be472"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a364efac9dbb813fc11ba521d044a91c0"><td class="memTemplParams" colspan="2">template&lt;typename Data &gt; </td></tr>
-<tr class="memitem:a364efac9dbb813fc11ba521d044a91c0"><td class="memTemplItemLeft" align="right" valign="top">Data&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceSerialization.html#a364efac9dbb813fc11ba521d044a91c0">deserializeData</a> (asio::streambuf::mutable_buffers_type &amp;buffer, std::size_t size)</td></tr>
-<tr class="memdesc:a364efac9dbb813fc11ba521d044a91c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Template to deserialize the data.  <a href="namespaceSerialization.html#a364efac9dbb813fc11ba521d044a91c0">More...</a><br /></td></tr>
-<tr class="separator:a364efac9dbb813fc11ba521d044a91c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc4c669f47369ed5e2aa10bf16947304"><td class="memTemplParams" colspan="2">template&lt;typename Data &gt; </td></tr>
+<tr class="memitem:afc4c669f47369ed5e2aa10bf16947304"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; std::byte &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceSerialization.html#afc4c669f47369ed5e2aa10bf16947304">serializeData</a> (Data data, std::size_t size)</td></tr>
+<tr class="memdesc:afc4c669f47369ed5e2aa10bf16947304"><td class="mdescLeft">&#160;</td><td class="mdescRight">Template to serialize the data.  <a href="namespaceSerialization.html#afc4c669f47369ed5e2aa10bf16947304">More...</a><br /></td></tr>
+<tr class="separator:afc4c669f47369ed5e2aa10bf16947304"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13c5b2da6ff1dc7499a629efe576c9b3"><td class="memTemplParams" colspan="2">template&lt;typename Data &gt; </td></tr>
+<tr class="memitem:a13c5b2da6ff1dc7499a629efe576c9b3"><td class="memTemplItemLeft" align="right" valign="top">Data&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceSerialization.html#a13c5b2da6ff1dc7499a629efe576c9b3">deserializeData</a> (asio::streambuf &amp;buffer, std::size_t size)</td></tr>
+<tr class="memdesc:a13c5b2da6ff1dc7499a629efe576c9b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Template to deserialize the data.  <a href="namespaceSerialization.html#a13c5b2da6ff1dc7499a629efe576c9b3">More...</a><br /></td></tr>
+<tr class="separator:a13c5b2da6ff1dc7499a629efe576c9b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a364efac9dbb813fc11ba521d044a91c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a364efac9dbb813fc11ba521d044a91c0">&#9670;&nbsp;</a></span>deserializeData()</h2>
+<a id="a13c5b2da6ff1dc7499a629efe576c9b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13c5b2da6ff1dc7499a629efe576c9b3">&#9670;&nbsp;</a></span>deserializeData()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -94,7 +94,7 @@ template&lt;typename Data &gt; </div>
         <tr>
           <td class="memname">std::vector&lt; uint8_t &gt; Serialization::deserializeData </td>
           <td>(</td>
-          <td class="paramtype">asio::streambuf::mutable_buffers_type &amp;&#160;</td>
+          <td class="paramtype">asio::streambuf &amp;&#160;</td>
           <td class="paramname"><em>buffer</em>, </td>
         </tr>
         <tr>
@@ -143,8 +143,8 @@ template&lt;typename Data &gt; </div>
 
 </div>
 </div>
-<a id="a2a76a1cad87831007dfd98d5a24be472"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2a76a1cad87831007dfd98d5a24be472">&#9670;&nbsp;</a></span>serializeData()</h2>
+<a id="afc4c669f47369ed5e2aa10bf16947304"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc4c669f47369ed5e2aa10bf16947304">&#9670;&nbsp;</a></span>serializeData()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -155,8 +155,18 @@ template&lt;typename Data &gt; </div>
           <td class="memname">std::vector&lt;std::byte&gt; Serialization::serializeData </td>
           <td>(</td>
           <td class="paramtype">Data&#160;</td>
-          <td class="paramname"><em>data</em></td><td>)</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">

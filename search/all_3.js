@@ -6,7 +6,7 @@ var searchData=
   ['cbegin_31',['cbegin',['../classSparseArray.html#a774c1a971fef8bb96471810ba9e1aca5',1,'SparseArray']]],
   ['cend_32',['cend',['../classSparseArray.html#afd1562a629c730265f1b1c77b0ab62ac',1,'SparseArray']]],
   ['clear_33',['clear',['../classGameEngine_1_1Window.html#aa1ebb08c7acde492369c0a1f907ea5d1',1,'GameEngine::Window::clear()'],['../classGameEngine_1_1IWindow.html#afa521e628e658193a653da836150de1c',1,'GameEngine::IWindow::clear()']]],
-  ['clientsession_34',['ClientSession',['../classRType_1_1Server_1_1ClientSession.html#ac6785d92285ab3809e718e920d39a150',1,'RType::Server::ClientSession::ClientSession()'],['../classRType_1_1Server_1_1ClientSession.html',1,'RType::Server::ClientSession']]],
+  ['clientsession_34',['ClientSession',['../classRType_1_1Server_1_1ClientSession.html#a9d84df2b193b2e1aca76c403bfaa1732',1,'RType::Server::ClientSession::ClientSession()'],['../classRType_1_1Server_1_1ClientSession.html',1,'RType::Server::ClientSession']]],
   ['clientsession_2ecpp_35',['ClientSession.cpp',['../ClientSession_8cpp.html',1,'']]],
   ['clientsession_2ehpp_36',['ClientSession.hpp',['../ClientSession_8hpp.html',1,'']]],
   ['close_37',['close',['../classGameEngine_1_1Window.html#a847ddf67c2273931d53707cfedc9306c',1,'GameEngine::Window::close()'],['../classGameEngine_1_1IWindow.html#af08512f093eada8b051902eca9ed420d',1,'GameEngine::IWindow::close()']]],

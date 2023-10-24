@@ -87,36 +87,36 @@ $(function() {
 <div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="namespaceSerialization.html">   16</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceSerialization.html">Serialization</a></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Data&gt;</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="namespaceSerialization.html#a2a76a1cad87831007dfd98d5a24be472">   23</a></span>&#160;    std::vector&lt;std::byte&gt; <a class="code" href="namespaceSerialization.html#a2a76a1cad87831007dfd98d5a24be472">serializeData</a>(Data data)</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="namespaceSerialization.html#afc4c669f47369ed5e2aa10bf16947304">   23</a></span>&#160;    std::vector&lt;std::byte&gt; <a class="code" href="namespaceSerialization.html#afc4c669f47369ed5e2aa10bf16947304">serializeData</a>(Data data, std::size_t size)</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        std::vector&lt;std::byte&gt; byteArray(<span class="keyword">sizeof</span>(data));</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        std::vector&lt;std::byte&gt; byteArray(size);</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="comment">// byteArray.reserve(sizeof(data));</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        std::memcpy(byteArray.data(), &amp;data, <span class="keyword">sizeof</span>(data));</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        byteArray.reserve(size);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        std::memmove(byteArray.data(), &amp;data, size);</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordflow">return</span> byteArray;</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    }</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Data&gt;</div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="namespaceSerialization.html#a364efac9dbb813fc11ba521d044a91c0">   37</a></span>&#160;    Data <a class="code" href="namespaceSerialization.html#a364efac9dbb813fc11ba521d044a91c0">deserializeData</a>(asio::streambuf::mutable_buffers_type &amp;buffer, std::size_t size)</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="namespaceSerialization.html#a13c5b2da6ff1dc7499a629efe576c9b3">   37</a></span>&#160;    Data <a class="code" href="namespaceSerialization.html#a13c5b2da6ff1dc7499a629efe576c9b3">deserializeData</a>(asio::streambuf &amp;buffer, std::size_t size)</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    {</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        Data data;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        std::memcpy(&amp;data, buffer.data(), size);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        std::memcpy(&amp;data, buffer.data().data(), size);</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordflow">return</span> data;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    }</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">inline</span> std::vector&lt;uint8_t&gt; <a class="code" href="namespaceSerialization.html#a364efac9dbb813fc11ba521d044a91c0">deserializeData</a>(asio::streambuf::mutable_buffers_type &amp;buffer, std::size_t size)</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">inline</span> std::vector&lt;uint8_t&gt; <a class="code" href="namespaceSerialization.html#a13c5b2da6ff1dc7499a629efe576c9b3">deserializeData</a>(asio::streambuf &amp;buffer, std::size_t size)</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    {</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        std::vector&lt;uint8_t&gt; byteArray(size);</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="comment">// byteArray.reserve(size);</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        std::memcpy(byteArray.data(), buffer.data(), size);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        byteArray.reserve(size);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        std::memcpy(byteArray.data(), buffer.data().data(), size);</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">return</span> byteArray;</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}; <span class="comment">// namespace Serialization</span></div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* !SERIALIZATION_HPP_ */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="anamespaceSerialization_html"><div class="ttname"><a href="namespaceSerialization.html">Serialization</a></div><div class="ttdef"><b>Definition:</b> Serialization.hpp:17</div></div>
-<div class="ttc" id="anamespaceSerialization_html_a2a76a1cad87831007dfd98d5a24be472"><div class="ttname"><a href="namespaceSerialization.html#a2a76a1cad87831007dfd98d5a24be472">Serialization::serializeData</a></div><div class="ttdeci">std::vector&lt; std::byte &gt; serializeData(Data data)</div><div class="ttdoc">Template to serialize the data.</div><div class="ttdef"><b>Definition:</b> Serialization.hpp:23</div></div>
-<div class="ttc" id="anamespaceSerialization_html_a364efac9dbb813fc11ba521d044a91c0"><div class="ttname"><a href="namespaceSerialization.html#a364efac9dbb813fc11ba521d044a91c0">Serialization::deserializeData</a></div><div class="ttdeci">Data deserializeData(asio::streambuf::mutable_buffers_type &amp;buffer, std::size_t size)</div><div class="ttdoc">Template to deserialize the data.</div><div class="ttdef"><b>Definition:</b> Serialization.hpp:37</div></div>
+<div class="ttc" id="anamespaceSerialization_html_a13c5b2da6ff1dc7499a629efe576c9b3"><div class="ttname"><a href="namespaceSerialization.html#a13c5b2da6ff1dc7499a629efe576c9b3">Serialization::deserializeData</a></div><div class="ttdeci">Data deserializeData(asio::streambuf &amp;buffer, std::size_t size)</div><div class="ttdoc">Template to deserialize the data.</div><div class="ttdef"><b>Definition:</b> Serialization.hpp:37</div></div>
+<div class="ttc" id="anamespaceSerialization_html_afc4c669f47369ed5e2aa10bf16947304"><div class="ttname"><a href="namespaceSerialization.html#afc4c669f47369ed5e2aa10bf16947304">Serialization::serializeData</a></div><div class="ttdeci">std::vector&lt; std::byte &gt; serializeData(Data data, std::size_t size)</div><div class="ttdoc">Template to serialize the data.</div><div class="ttdef"><b>Definition:</b> Serialization.hpp:23</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

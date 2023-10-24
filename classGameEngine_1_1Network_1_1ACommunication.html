@@ -113,16 +113,16 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:ad2dd10c6f41f04131409c4008d2c430d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1Network_1_1ACommunication.html#ad2dd10c6f41f04131409c4008d2c430d">handleData</a> (const asio::error_code &amp;, std::size_t, struct <a class="el" href="structrtype_1_1HeaderDataPacket.html">rtype::HeaderDataPacket</a> &amp;)=0</td></tr>
-<tr class="memdesc:ad2dd10c6f41f04131409c4008d2c430d"><td class="mdescLeft">&#160;</td><td class="mdescRight">function that will be set and used from derived class from this abstract  <a href="classGameEngine_1_1Network_1_1ACommunication.html#ad2dd10c6f41f04131409c4008d2c430d">More...</a><br /></td></tr>
-<tr class="separator:ad2dd10c6f41f04131409c4008d2c430d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7552029767dc8fdecb7e7190d6b8ae65"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1Network_1_1ACommunication.html#a7552029767dc8fdecb7e7190d6b8ae65">handleData</a> (struct <a class="el" href="structrtype_1_1HeaderDataPacket.html">rtype::HeaderDataPacket</a> &amp;)=0</td></tr>
+<tr class="memdesc:a7552029767dc8fdecb7e7190d6b8ae65"><td class="mdescLeft">&#160;</td><td class="mdescRight">function that will be set and used from derived class from this abstract  <a href="classGameEngine_1_1Network_1_1ACommunication.html#a7552029767dc8fdecb7e7190d6b8ae65">More...</a><br /></td></tr>
+<tr class="separator:a7552029767dc8fdecb7e7190d6b8ae65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:a48b0e55db7ded0694b1c67bf8512e328"><td class="memItemLeft" align="right" valign="top">asio::streambuf&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1Network_1_1ACommunication.html#a48b0e55db7ded0694b1c67bf8512e328">_streamBuffer</a></td></tr>
 <tr class="separator:a48b0e55db7ded0694b1c67bf8512e328"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac327f27707086d1967f1c516fa82b3fc"><td class="memItemLeft" align="right" valign="top">asio::ip::udp::socket&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1Network_1_1ACommunication.html#ac327f27707086d1967f1c516fa82b3fc">_socket</a></td></tr>
-<tr class="separator:ac327f27707086d1967f1c516fa82b3fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf5745235974eed1fd2f428eb967a198"><td class="memItemLeft" align="right" valign="top">asio::ip::udp::socket&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1Network_1_1ACommunication.html#adf5745235974eed1fd2f428eb967a198">_udpSocket</a></td></tr>
+<tr class="separator:adf5745235974eed1fd2f428eb967a198"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a888643d5ed7f1625fa0c58e30037a74e"><td class="memItemLeft" align="right" valign="top">asio::streambuf::mutable_buffers_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1Network_1_1ACommunication.html#a888643d5ed7f1625fa0c58e30037a74e">_buffer</a></td></tr>
 <tr class="separator:a888643d5ed7f1625fa0c58e30037a74e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d129ebf07164d55106f4776a05a3aa5"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structrtype_1_1HeaderDataPacket.html">rtype::HeaderDataPacket</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1Network_1_1ACommunication.html#a4d129ebf07164d55106f4776a05a3aa5">_header</a></td></tr>
@@ -196,8 +196,8 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ad2dd10c6f41f04131409c4008d2c430d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad2dd10c6f41f04131409c4008d2c430d">&#9670;&nbsp;</a></span>handleData()</h2>
+<a id="a7552029767dc8fdecb7e7190d6b8ae65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7552029767dc8fdecb7e7190d6b8ae65">&#9670;&nbsp;</a></span>handleData()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -208,25 +208,9 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">virtual void GameEngine::Network::ACommunication::handleData </td>
           <td>(</td>
-          <td class="paramtype">const asio::error_code &amp;&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">struct <a class="el" href="structrtype_1_1HeaderDataPacket.html">rtype::HeaderDataPacket</a> &amp;&#160;</td>
-          <td class="paramname">&#160;</td>
-        </tr>
-        <tr>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -238,7 +222,7 @@ Protected Attributes</h2></td></tr>
 
 <p>function that will be set and used from derived class from this abstract </p>
 
-<p>Implemented in <a class="el" href="classRType_1_1Client_1_1UdpClient.html#a89525f75e0c2893cd7a7e3e767715635">RType::Client::UdpClient</a>, and <a class="el" href="classRType_1_1Server_1_1UdpServer.html#a2a34db9ac128d629b374441b7a3cbe65">RType::Server::UdpServer</a>.</p>
+<p>Implemented in <a class="el" href="classRType_1_1Server_1_1UdpServer.html#a35dea8cf6c7a4fccf649d780a6427eda">RType::Server::UdpServer</a>, and <a class="el" href="classRType_1_1Client_1_1UdpClient.html#a9432f99e00e7807f88910dd9c74ed629">RType::Client::UdpClient</a>.</p>
 
 </div>
 </div>
@@ -585,28 +569,6 @@ template&lt;typename Socket , typename Endpoint &gt; </div>
 
 </div>
 </div>
-<a id="ac327f27707086d1967f1c516fa82b3fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac327f27707086d1967f1c516fa82b3fc">&#9670;&nbsp;</a></span>_socket</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">asio::ip::udp::socket GameEngine::Network::ACommunication::_socket</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a48b0e55db7ded0694b1c67bf8512e328"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a48b0e55db7ded0694b1c67bf8512e328">&#9670;&nbsp;</a></span>_streamBuffer</h2>
 
@@ -618,6 +580,28 @@ template&lt;typename Socket , typename Endpoint &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">asio::streambuf GameEngine::Network::ACommunication::_streamBuffer</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adf5745235974eed1fd2f428eb967a198"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf5745235974eed1fd2f428eb967a198">&#9670;&nbsp;</a></span>_udpSocket</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">asio::ip::udp::socket GameEngine::Network::ACommunication::_udpSocket</td>
         </tr>
       </table>
   </td>

@@ -93,9 +93,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a121a79a4252469a7faea3fe8719e603a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a35cc152f1baa395bdb862202938d2c2c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1UdpServer.html#a35cc152f1baa395bdb862202938d2c2c">~UdpServer</a> ()</td></tr>
 <tr class="separator:a35cc152f1baa395bdb862202938d2c2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a34db9ac128d629b374441b7a3cbe65"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1UdpServer.html#a2a34db9ac128d629b374441b7a3cbe65">handleData</a> (const asio::error_code &amp;error, std::size_t, struct <a class="el" href="structrtype_1_1HeaderDataPacket.html">rtype::HeaderDataPacket</a> &amp;header)</td></tr>
-<tr class="memdesc:a2a34db9ac128d629b374441b7a3cbe65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle the data depends of the header.  <a href="classRType_1_1Server_1_1UdpServer.html#a2a34db9ac128d629b374441b7a3cbe65">More...</a><br /></td></tr>
-<tr class="separator:a2a34db9ac128d629b374441b7a3cbe65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35dea8cf6c7a4fccf649d780a6427eda"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1UdpServer.html#a35dea8cf6c7a4fccf649d780a6427eda">handleData</a> (struct <a class="el" href="structrtype_1_1HeaderDataPacket.html">rtype::HeaderDataPacket</a> &amp;header)</td></tr>
+<tr class="memdesc:a35dea8cf6c7a4fccf649d780a6427eda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle the data depends of the header.  <a href="classRType_1_1Server_1_1UdpServer.html#a35dea8cf6c7a4fccf649d780a6427eda">More...</a><br /></td></tr>
+<tr class="separator:a35dea8cf6c7a4fccf649d780a6427eda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3e86ac830663dbb21fc17bce2ec5dac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1UdpServer.html#ae3e86ac830663dbb21fc17bce2ec5dac">broadcastInformation</a> (uint8_t packetType, std::vector&lt; std::byte &gt; dataToSend)</td></tr>
 <tr class="memdesc:ae3e86ac830663dbb21fc17bce2ec5dac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function that will send informations to connected clients.  <a href="classRType_1_1Server_1_1UdpServer.html#ae3e86ac830663dbb21fc17bce2ec5dac">More...</a><br /></td></tr>
 <tr class="separator:ae3e86ac830663dbb21fc17bce2ec5dac"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -148,8 +148,8 @@ Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_attribs_classGameEngine_1_1Network_1_1ACommunication"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classGameEngine_1_1Network_1_1ACommunication')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classGameEngine_1_1Network_1_1ACommunication.html">GameEngine::Network::ACommunication</a></td></tr>
 <tr class="memitem:a48b0e55db7ded0694b1c67bf8512e328 inherit pro_attribs_classGameEngine_1_1Network_1_1ACommunication"><td class="memItemLeft" align="right" valign="top">asio::streambuf&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1Network_1_1ACommunication.html#a48b0e55db7ded0694b1c67bf8512e328">_streamBuffer</a></td></tr>
 <tr class="separator:a48b0e55db7ded0694b1c67bf8512e328 inherit pro_attribs_classGameEngine_1_1Network_1_1ACommunication"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac327f27707086d1967f1c516fa82b3fc inherit pro_attribs_classGameEngine_1_1Network_1_1ACommunication"><td class="memItemLeft" align="right" valign="top">asio::ip::udp::socket&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1Network_1_1ACommunication.html#ac327f27707086d1967f1c516fa82b3fc">_socket</a></td></tr>
-<tr class="separator:ac327f27707086d1967f1c516fa82b3fc inherit pro_attribs_classGameEngine_1_1Network_1_1ACommunication"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf5745235974eed1fd2f428eb967a198 inherit pro_attribs_classGameEngine_1_1Network_1_1ACommunication"><td class="memItemLeft" align="right" valign="top">asio::ip::udp::socket&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1Network_1_1ACommunication.html#adf5745235974eed1fd2f428eb967a198">_udpSocket</a></td></tr>
+<tr class="separator:adf5745235974eed1fd2f428eb967a198 inherit pro_attribs_classGameEngine_1_1Network_1_1ACommunication"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a888643d5ed7f1625fa0c58e30037a74e inherit pro_attribs_classGameEngine_1_1Network_1_1ACommunication"><td class="memItemLeft" align="right" valign="top">asio::streambuf::mutable_buffers_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1Network_1_1ACommunication.html#a888643d5ed7f1625fa0c58e30037a74e">_buffer</a></td></tr>
 <tr class="separator:a888643d5ed7f1625fa0c58e30037a74e inherit pro_attribs_classGameEngine_1_1Network_1_1ACommunication"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d129ebf07164d55106f4776a05a3aa5 inherit pro_attribs_classGameEngine_1_1Network_1_1ACommunication"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structrtype_1_1HeaderDataPacket.html">rtype::HeaderDataPacket</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1Network_1_1ACommunication.html#a4d129ebf07164d55106f4776a05a3aa5">_header</a></td></tr>
@@ -277,8 +277,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a2a34db9ac128d629b374441b7a3cbe65"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2a34db9ac128d629b374441b7a3cbe65">&#9670;&nbsp;</a></span>handleData()</h2>
+<a id="a35dea8cf6c7a4fccf649d780a6427eda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35dea8cf6c7a4fccf649d780a6427eda">&#9670;&nbsp;</a></span>handleData()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -289,25 +289,9 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void RType::Server::UdpServer::handleData </td>
           <td>(</td>
-          <td class="paramtype">const asio::error_code &amp;&#160;</td>
-          <td class="paramname"><em>error</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">struct <a class="el" href="structrtype_1_1HeaderDataPacket.html">rtype::HeaderDataPacket</a> &amp;&#160;</td>
-          <td class="paramname"><em>header</em>&#160;</td>
-        </tr>
-        <tr>
+          <td class="paramname"><em>header</em></td><td>)</td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -326,7 +310,7 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classGameEngine_1_1Network_1_1ACommunication.html#ad2dd10c6f41f04131409c4008d2c430d">GameEngine::Network::ACommunication</a>.</p>
+<p>Implements <a class="el" href="classGameEngine_1_1Network_1_1ACommunication.html#a7552029767dc8fdecb7e7190d6b8ae65">GameEngine::Network::ACommunication</a>.</p>
 
 </div>
 </div>
