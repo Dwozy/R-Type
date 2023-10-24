@@ -29,7 +29,7 @@ RType::Client::UdpClient::~UdpClient() { _udpSocket.close(); }
 
 void RType::Client::UdpClient::handleShoot(struct rtype::HeaderDataPacket header)
 {
-    struct rtype::Shoot shoot = Serialization::deserializeData<struct rtype::Shoot>(_buffer, header.payloadSize);
+    struct rtype::Shoot shoot = Serialization::deserializeData<struct rtype::Shoot>(_streamBuffer, header.payloadSize);
     struct rtype::Event event = {.packetType = header.packetType, .data = shoot};
 
     _eventQueue.push(event);
