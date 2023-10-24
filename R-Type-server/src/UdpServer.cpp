@@ -69,6 +69,7 @@ void RType::Server::UdpServer::handleDisconnexion(struct rtype::HeaderDataPacket
         Serialization::deserializeData<struct rtype::EntityId>(_streamBuffer, header.payloadSize);
     struct rtype::Event event;
 
+    std::cout << "Disconnexion" << std::endl;
     event.packetType = header.packetType;
     event.data = entity;
     _eventQueue.push(event);
@@ -96,15 +97,11 @@ void RType::Server::UdpServer::handleConnexion(struct rtype::HeaderDataPacket he
 
 void RType::Server::UdpServer::handleData(struct rtype::HeaderDataPacket &header)
 {
-    if (header.magicNumber == rtype::MAGIC_NUMBER) {
-        if (_commands.find(header.packetType) != _commands.end()) {
-            _commands.at(header.packetType)(header);
-        } else {
-            std::cerr << "Packet Type doesn't exist !" << std::endl;
-        }
+    if (_commands.find(header.packetType) != _commands.end()) {
+        _commands.at(header.packetType)(header);
+    } else {
+        std::cerr << "Packet Type doesn't exist !" << std::endl;
     }
-    _streamBuffer.consume(1000 - sizeof(header));
-    readHeader();
 }
 
 void RType::Server::UdpServer::broadcastInformation(uint8_t packetType, std::vector<std::byte> dataToSend)
