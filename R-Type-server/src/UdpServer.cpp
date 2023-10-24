@@ -45,7 +45,7 @@ void RType::Server::UdpServer::run() { readHeader(); }
 
 void RType::Server::UdpServer::handleShoot(struct rtype::HeaderDataPacket header)
 {
-    auto shootInfo = Serialization::deserializeData<RType::Protocol::ShootData>(_buffer, header.payloadSize);
+    auto shootInfo = Serialization::deserializeData<RType::Protocol::ShootData>(_streamBuffer, header.payloadSize);
     std::cout << "shoot at: x = " << shootInfo.x << " y = " << shootInfo.y << std::endl;
 
     struct rtype::Event event;

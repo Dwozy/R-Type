@@ -70,7 +70,7 @@ void RType::Server::RTypeServer::handleShoot(struct rtype::Event event)
         .directionY = 0};
     _entityManager.setEntity(entityShoot, entity, _gameEngine.registry);
     std::cout << "Shoot entity number : " << entity << std::endl;
-    std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::Entity>(entityShoot);
+    std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::Entity>(entityShoot, sizeof(entityShoot));
     _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::ENTITY), dataToSend);
 }
 
