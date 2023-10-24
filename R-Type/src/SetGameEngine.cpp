@@ -71,8 +71,8 @@ namespace RType::Client
 
     void RTypeClient::setGameEngine()
     {
-        setGameEngineSystem();
         setGameEngineComponent();
+        setGameEngineSystem();
         setGameEngineCallback();
     }
 
