@@ -32,6 +32,13 @@ namespace rtype
         DISCONNEXION
     };
 
+    enum class TextureType : uint8_t {
+        NONE = 1,
+        PLAYER,
+        SHOOT,
+        MOB
+    };
+
     struct Event
     {
         uint8_t packetType;
@@ -41,6 +48,7 @@ namespace rtype
     struct Entity
     {
         uint16_t id;
+        uint8_t idTexture;
         float positionX;
         float positionY;
         float directionX;

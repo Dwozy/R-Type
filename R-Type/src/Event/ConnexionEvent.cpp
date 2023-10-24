@@ -14,7 +14,7 @@ namespace RType::Client
         GameEngine::Entity newEntity = _gameEngine.registry.spawnEntity(entity.id);
 
         std::cout << "Player : " << entity.id << " spawned !" << std::endl;
-        _entityManager.setPlayerEntity(entity.positionX, entity.positionY, newEntity, _gameEngine.registry);
+        _entityManager.setPlayerEntity(entity, newEntity, _gameEngine.registry);
         if (_isPlayer) {
             _entityManager.setControlPlayerEntity(newEntity, _gameEngine.registry);
             _isPlayer = false;
