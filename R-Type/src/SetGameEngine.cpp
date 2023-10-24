@@ -30,12 +30,6 @@ namespace RType::Client
         _gameEngine.registry.registerComponent<GameEngine::TextureComponent>();
         _gameEngine.registry.registerComponent<GameEngine::TextComponent>();
         _gameEngine.registry.registerComponent<GameEngine::PressableComponent>();
-
-        GameEngine::Entity camera = _gameEngine.registry.spawnEntity();
-        GameEngine::CameraComponent cam = {GameEngine::View{GameEngine::Rect<float>(0.0f, 0.0f, 200.0f, 200.0f)}};
-        auto &refCamera = _gameEngine.registry.addComponent<GameEngine::CameraComponent>(camera, cam);
-
-        _gameEngine.window.setView(refCamera.value().view);
     }
 
     void RTypeClient::setGameEngineCallback()
@@ -48,9 +42,9 @@ namespace RType::Client
 
     void RTypeClient::setGameEngineSystem()
     {
-        GameEngine::DrawSystem drawSystem(_gameEngine.window);
+        auto drawSystem = std::make_shared<GameEngine::DrawSystem>(_gameEngine.eventManager, 800, 800);
         GameEngine::PositionSystem positionSystem(_gameEngine.deltaTime.getDeltaTime());
-        GameEngine::PressableSystem pressableSystem(_gameEngine.window);
+        GameEngine::PressableSystem pressableSystem(_gameEngine.eventManager);
         GameEngine::ControlSystem controlSystem;
         _gameEngine.registry.addSystem<std::function<void(SparseArray<GameEngine::TransformComponent> &,
                                            SparseArray<GameEngine::ControllableComponent> &)>,
@@ -63,9 +57,8 @@ namespace RType::Client
         _gameEngine.registry.addSystem<GameEngine::PressableFunction, GameEngine::TransformComponent,
             GameEngine::TextureComponent, GameEngine::PressableComponent>(pressableSystem);
 
-        _gameEngine.registry.addSystem<
-            std::function<void(SparseArray<GameEngine::TextComponent> &, SparseArray<GameEngine::TextureComponent> &)>,
-            GameEngine::TextComponent, GameEngine::TextureComponent>(drawSystem);
+        _gameEngine.registry.addSystem<GameEngine::DrawSystem, GameEngine::TextComponent, GameEngine::TextureComponent>(
+            drawSystem);
     }
 
     void RTypeClient::setGameEngine()
@@ -73,6 +66,14 @@ namespace RType::Client
         setGameEngineComponent();
         setGameEngineSystem();
         setGameEngineCallback();
+
+        GameEngine::Entity camera = _gameEngine.registry.spawnEntity();
+        GameEngine::CameraComponent cam = {GameEngine::View{GameEngine::Rect<float>(0.0f, 0.0f, 200.0f, 200.0f)}};
+        auto &refCamera = _gameEngine.registry.addComponent<GameEngine::CameraComponent>(camera, cam);
+
+        if (refCamera)
+            _gameEngine.eventManager.publish<GameEngine::View &>(
+                GameEngine::Event::WindowSetView, refCamera.value().view);
     }
 
 } // namespace RType::Client

@@ -174,6 +174,20 @@ namespace GameEngine
 
             _systems.push_back(system);
         };
+        /// @brief Adds a system to the registry. This method is to use when the class system needs to stay at the same
+        /// place in the memory (for example DrawSystem)
+        /// @tparam SystemClass Class of the system to register, must have an overload for the ()
+        /// @tparam ...Components Variadic template for the components which are in parameter of the system function.
+        /// @param systemClass System class to register.
+        template <typename SystemClass, class... Components>
+        void addSystem(std::shared_ptr<SystemClass> systemClass)
+        {
+            std::function<void()> system = [this, systemClass]() mutable {
+                (*systemClass)(getComponent<Components>()...);
+            };
+
+            _systems.push_back(system);
+        };
         /// @brief Runs all the registered system functions. Need to be called in the main loop.
         void runSystems()
         {

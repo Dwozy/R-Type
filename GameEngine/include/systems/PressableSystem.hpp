@@ -11,6 +11,7 @@
 #include "components/TransformComponent.hpp"
 #include "components/PressableComponent.hpp"
 #include "components/TextureComponent.hpp"
+#include "Event.hpp"
 #include "utils/SfmlTypes.hpp"
 #include <functional>
 
@@ -22,14 +23,14 @@ namespace GameEngine
     class PressableSystem
     {
       public:
-        PressableSystem(Window &window) : _window(window){};
+        PressableSystem(EventManager &eventManager) : _eventManager(eventManager){};
         ~PressableSystem() = default;
 
         void operator()(SparseArray<TransformComponent> &transforms, SparseArray<TextureComponent> &textures,
             SparseArray<PressableComponent> &pressables);
 
       private:
-        Window &_window;
+        EventManager &_eventManager;
         bool _lastMouseState = false;
     };
 } // namespace GameEngine
