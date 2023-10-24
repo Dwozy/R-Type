@@ -73,7 +73,6 @@ namespace RType::Client
         void handlePlayerShoot();
         void setShootCallback();
         void setNewShootCallback();
-        void shootEvent(const struct rtype::Shoot shoot);
         void runUdpServer();
         void runTcpServer();
 

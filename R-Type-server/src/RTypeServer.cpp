@@ -9,6 +9,7 @@
 #include "RTypeServer.hpp"
 #include "components/TransformComponent.hpp"
 #include "components/CollisionComponent.hpp"
+#include "systems/PositionSystem.hpp"
 #include "RType.hpp"
 
 RType::Server::RTypeServer::RTypeServer(unsigned short port)
@@ -17,6 +18,12 @@ RType::Server::RTypeServer::RTypeServer(unsigned short port)
 {
     _gameEngine.registry.registerComponent<GameEngine::TransformComponent>();
     _gameEngine.registry.registerComponent<GameEngine::CollisionComponent>();
+    _gameEngine.registry.registerComponent<GameEngine::TextureComponent>();
+
+    GameEngine::PositionSystem positionSystem(_gameEngine.deltaTime.getDeltaTime());
+    _gameEngine.registry.addSystem<
+        std::function<void(SparseArray<GameEngine::TransformComponent> &, SparseArray<GameEngine::TextureComponent> &)>,
+        GameEngine::TransformComponent, GameEngine::TextureComponent>(positionSystem);
 
     _gameEngine.registry.spawnEntity();
 
@@ -42,13 +49,13 @@ void RType::Server::RTypeServer::handleConnexion()
     GameEngine::Entity entity = _gameEngine.registry.spawnEntity();
 
     struct rtype::Entity newEntity = {.id = static_cast<uint16_t>(entity),
-        .idTexture = static_cast<uint8_t> (rtype::TextureType::PLAYER),
+        .idTexture = static_cast<uint8_t>(rtype::TextureType::PLAYER),
         .positionX = static_cast<float>(entity * 25),
         .positionY = static_cast<float>(entity * 25),
         .directionX = 0,
         .directionY = 0};
     _entityManager.setEntity(newEntity, entity, _gameEngine.registry);
-    _listIdTexture.insert({static_cast<uint16_t>(entity), static_cast<uint8_t> (rtype::TextureType::PLAYER)});
+    _listIdTexture.insert({static_cast<uint16_t>(entity), static_cast<uint8_t>(rtype::TextureType::PLAYER)});
     std::cout << "Player " << entity << " spawned !" << std::endl;
     std::vector<std::byte> dataToSend =
         Serialization::serializeData<struct rtype::Entity>(newEntity, sizeof(newEntity));
@@ -63,14 +70,15 @@ void RType::Server::RTypeServer::handleShoot(struct rtype::Event event)
     GameEngine::Entity entity = _gameEngine.registry.spawnEntity();
 
     struct rtype::Entity entityShoot = {.id = static_cast<uint16_t>(entity),
-        .idTexture = static_cast<uint8_t> (rtype::TextureType::SHOOT),
+        .idTexture = static_cast<uint8_t>(rtype::TextureType::SHOOT),
         .positionX = static_cast<float>(shootInfo.x),
         .positionY = static_cast<float>(shootInfo.y),
-        .directionX = 1000.0,
+        .directionX = 100.0,
         .directionY = 0};
     _entityManager.setEntity(entityShoot, entity, _gameEngine.registry);
-    _listIdTexture.insert({static_cast<uint16_t>(entity), static_cast<uint8_t> (rtype::TextureType::SHOOT)});
-    std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::Entity>(entityShoot, sizeof(entityShoot));
+    _listIdTexture.insert({static_cast<uint16_t>(entity), static_cast<uint8_t>(rtype::TextureType::SHOOT)});
+    std::vector<std::byte> dataToSend =
+        Serialization::serializeData<struct rtype::Entity>(entityShoot, sizeof(entityShoot));
     _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::ENTITY), dataToSend);
 }
 
@@ -168,5 +176,6 @@ void RType::Server::RTypeServer::gameLoop()
             updateEntities();
             _lastTime = now;
         }
+        _gameEngine.registry.runSystems();
     }
 }

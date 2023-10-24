@@ -10,7 +10,7 @@
 RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned short port)
     : _gameEngine(800, 800), _serverUdpEndpoint(asio::ip::make_address(address), port),
       _serverTcpEndpoint(asio::ip::make_address(address), 0),
-      _udpClient(_IOContext, _serverUdpEndpoint, std::ref(_eventQueue)),
+      _udpClient(_IOContext, _serverUdpEndpoint, std::ref(_eventQueue)), _tcpClient(_IOContext, _serverTcpEndpoint),
       _signal(_IOContext, SIGINT, SIGTERM)
 {
     setGameEngine();
