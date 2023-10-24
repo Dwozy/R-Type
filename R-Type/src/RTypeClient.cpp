@@ -6,15 +6,14 @@
 */
 
 #include "RTypeClient.hpp"
+#include "systems/DrawSystem.hpp"
 
 RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned short port)
-    : _gameEngine(800, 800), _serverUdpEndpoint(asio::ip::make_address(address), port),
-      _serverTcpEndpoint(asio::ip::make_address(address), 0),
+    : _serverUdpEndpoint(asio::ip::make_address(address), port), _serverTcpEndpoint(asio::ip::make_address(address), 0),
       _udpClient(_IOContext, _serverUdpEndpoint, std::ref(_eventQueue)), _tcpClient(_IOContext, _serverTcpEndpoint),
       _signal(_IOContext, SIGINT, SIGTERM)
 {
     setGameEngine();
-    _gameEngine.window.setFramerateLimit(60);
     _isRunning = true;
     _isPlayer = true;
     std::thread network(&RType::Client::RTypeClient::startNetwork, this, std::ref(_isRunning));
@@ -53,17 +52,22 @@ void RType::Client::RTypeClient::runUdpServer()
 
 void RType::Client::RTypeClient::gameLoop()
 {
-    while (_isRunning && _gameEngine.window.isOpen()) {
+    bool isOpen = false;
+    GameEngine::PollEventStruct event;
+
+    _gameEngine.eventManager.publish<bool &>(GameEngine::Event::WindowIsOpen, isOpen);
+    while (_isRunning && isOpen) {
         _gameEngine.deltaTime.update();
-        GameEngine::SEvent event;
-        while (_gameEngine.window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
-                _gameEngine.window.close();
+        _gameEngine.eventManager.publish<GameEngine::PollEventStruct &>(GameEngine::Event::PollEvent, event);
+        while (event.isEvent) {
+            _gameEngine.eventManager.publish<GameEngine::SEvent &>(GameEngine::Event::WindowCloseEvent, event.event);
+            _gameEngine.eventManager.publish<GameEngine::PollEventStruct &>(GameEngine::Event::PollEvent, event);
         }
         if (_eventQueue.size() != 0)
             handleEvent();
         _gameEngine.registry.runSystems();
         handlePlayerMovement();
         handlePlayerShoot();
+        _gameEngine.eventManager.publish<bool &>(GameEngine::Event::WindowIsOpen, isOpen);
     }
 }

@@ -7,20 +7,30 @@
 
 #ifndef DRAWSYSTEM_HPP_
 #define DRAWSYSTEM_HPP_
-#include "GameEngine.hpp"
-#include "SFML/Graphics.hpp"
+#include <memory>
+#include "Event.hpp"
+#include "utils/SfmlTypes.hpp"
+#include "SparseArray.hpp"
 #include "components/TextureComponent.hpp"
 #include "components/TextComponent.hpp"
 
 namespace GameEngine
 {
+    struct PollEventStruct
+    {
+        bool isEvent;
+        SEvent event;
+    };
+
     /// @brief Class representing the graphics rendering system
     class DrawSystem
     {
       public:
         /// @brief constructor
-        /// @param window the window object of game
-        DrawSystem(Window &window) : _window(window){};
+        /// @param width Width of the window.
+        /// @param height Height of the window.
+        /// @param title Title of the window.
+        DrawSystem(EventManager &eventManager, int width = 1920, int height = 1080, std::string title = "default");
         /// @brief destructor
         ~DrawSystem() = default;
 
@@ -30,7 +40,8 @@ namespace GameEngine
         void operator()(SparseArray<TextComponent> &texts, SparseArray<TextureComponent> &textures);
 
       private:
-        Window &_window;
+        std::shared_ptr<Window> _window;
+        EventManager &_eventManager;
     };
 } // namespace GameEngine
 

@@ -23,7 +23,11 @@ namespace GameEngine
 
     /// @brief enum of all event types
     enum class Event : EventType {
+        WindowIsOpen,
         WindowCloseEvent,
+        PollEvent,
+        GetWorldMousePos,
+        WindowSetView,
         GetNewEntity,
         GetEntity,
         DeleteEntity,
@@ -52,7 +56,7 @@ namespace GameEngine
         template <typename Function>
         void subscribe(const Function &function)
         {
-            std::function<void(const EventData)> callback = function;
+            std::function<void(EventData)> callback = function;
             _callbacks.push_back(function);
         }
 
@@ -61,15 +65,15 @@ namespace GameEngine
         /// @param eventData data to be given to subscribed functions
         void _publish(EventData eventData)
         {
-            for (std::function<void(const EventData)> callback : _callbacks)
+            for (std::function<void(EventData)> callback : _callbacks)
                 callback(eventData);
         }
         /// @brief vector of all subscribed functions
-        std::vector<std::function<void(const EventData)>> _callbacks;
+        std::vector<std::function<void(EventData)>> _callbacks;
     };
 
     /// @brief class to help create and manage all the event handlers
-    class EventMananger
+    class EventManager
     {
       public:
         /// @brief create a new event handler for the given event type
