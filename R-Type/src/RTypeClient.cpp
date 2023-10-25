@@ -32,8 +32,8 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
     _gameEngine.prefabManager.loadPrefabFromFile("config/Shoot.json");
     _gameEngine.prefabManager.loadPrefabFromFile("config/NonPlayerStarship.json");
 
-    _listTextureTypePrefab.insert({static_cast<uint8_t> (rtype::TextureType::PLAYER), "player"});
-    _listTextureTypePrefab.insert({static_cast<uint8_t> (rtype::TextureType::SHOOT), "shoot"});
+    _listTextureTypePrefab.insert({static_cast<uint8_t>(rtype::TextureType::PLAYER), "player"});
+    _listTextureTypePrefab.insert({static_cast<uint8_t>(rtype::TextureType::SHOOT), "shoot"});
 
     _isRunning = true;
     _isPlayer = true;

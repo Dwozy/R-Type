@@ -33,12 +33,7 @@ namespace rtype
         DISCONNEXION
     };
 
-    enum class TextureType : uint8_t {
-        NONE = 1,
-        PLAYER,
-        SHOOT,
-        MOB
-    };
+    enum class TextureType : uint8_t { NONE = 1, PLAYER, SHOOT, MOB };
 
     struct Event
     {

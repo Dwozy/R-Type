@@ -16,8 +16,8 @@ namespace RType::Client
 
         if (!_searchEntity(entity.id)) {
             // std::cout << _listTextureTypePrefab.at(entity.idTexture) << std::endl;
-            GameEngine::Entity newEntity =
-                _gameEngine.prefabManager.createEntityFromPrefab(_listTextureTypePrefab.at(entity.idTexture), _gameEngine.registry);
+            GameEngine::Entity newEntity = _gameEngine.prefabManager.createEntityFromPrefab(
+                _listTextureTypePrefab.at(entity.idTexture), _gameEngine.registry);
             _gameEngine.registry.addComponent<GameEngine::NetworkIdComponent>(
                 newEntity, GameEngine::NetworkIdComponent{entity.id});
             auto &texture = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[newEntity];
@@ -27,8 +27,8 @@ namespace RType::Client
         std::size_t id = _findEntity(entity.id);
         if (!transforms[id].has_value()) {
             // Mapping Enum type texture to prefab
-            GameEngine::Entity newEntity =
-                _gameEngine.prefabManager.createEntityFromPrefab(_listTextureTypePrefab.at(entity.idTexture), _gameEngine.registry);
+            GameEngine::Entity newEntity = _gameEngine.prefabManager.createEntityFromPrefab(
+                _listTextureTypePrefab.at(entity.idTexture), _gameEngine.registry);
             _gameEngine.registry.addComponent<GameEngine::NetworkIdComponent>(
                 newEntity, GameEngine::NetworkIdComponent{entity.id});
             auto &texture = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[newEntity];

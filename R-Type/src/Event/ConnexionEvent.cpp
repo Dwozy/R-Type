@@ -61,17 +61,18 @@ namespace RType::Client
     void RTypeClient::entitySpawn(const struct rtype::Entity entity)
     {
         if (!_isPlayer) {
-            auto newEntity =_gameEngine.prefabManager.createEntityFromPrefab("non_player_starship", _gameEngine.registry);
-                _gameEngine.registry.addComponent<GameEngine::NetworkIdComponent>(
-            newEntity, GameEngine::NetworkIdComponent{entity.id});
+            auto newEntity =
+                _gameEngine.prefabManager.createEntityFromPrefab("non_player_starship", _gameEngine.registry);
+            _gameEngine.registry.addComponent<GameEngine::NetworkIdComponent>(
+                newEntity, GameEngine::NetworkIdComponent{entity.id});
             auto &texture = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[newEntity];
             texture->sprite.load(_gameEngine.assetManager.getTexture(texture->path));
         }
         if (_isPlayer) {
             std::cout << "PLAYER SPAWN" << std::endl;
             auto newEntity = _gameEngine.prefabManager.createEntityFromPrefab("player", _gameEngine.registry);
-                    _gameEngine.registry.addComponent<GameEngine::NetworkIdComponent>(
-            newEntity, GameEngine::NetworkIdComponent{entity.id});
+            _gameEngine.registry.addComponent<GameEngine::NetworkIdComponent>(
+                newEntity, GameEngine::NetworkIdComponent{entity.id});
 
             auto &texture = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[newEntity];
             texture->sprite.load(_gameEngine.assetManager.getTexture(texture->path));
@@ -99,8 +100,10 @@ namespace RType::Client
             // _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(parallax1, col);
 
             // // auto &parallax1Tex = _gameEngine.registry.addComponent<GameEngine::TextureComponent>(parallax1,
-            // //     GameEngine::TextureComponent{GameEngine::Texture(), GameEngine::Sprite(), false, {}, 0, true, 0, 0, 0});
-            // // parallax1Tex.value().texture.load("R-Type/assets/parallax.png", GameEngine::Rect<int>(0, 0, 1080, 1080));
+            // //     GameEngine::TextureComponent{GameEngine::Texture(), GameEngine::Sprite(), false, {}, 0, true, 0,
+            // 0, 0});
+            // // parallax1Tex.value().texture.load("R-Type/assets/parallax.png", GameEngine::Rect<int>(0, 0, 1080,
+            // 1080));
             // // parallax1Tex.value().sprite.load(parallax1Tex.value().texture);
             // // parallax1Tex.value().sprite.setScale(0.1851, 0.1851);
 
@@ -112,8 +115,10 @@ namespace RType::Client
             //     parallax2, GameEngine::CollisionComponent{.collider = collider, .layer = 10});
 
             // // auto &parallax2Tex = _gameEngine.registry.addComponent<GameEngine::TextureComponent>(parallax2,
-            // //     GameEngine::TextureComponent{GameEngine::Texture(), GameEngine::Sprite(), false, {}, 0, true, 0, 0, 0});
-            // // parallax2Tex.value().texture.load("R-Type/assets/parallax.png", GameEngine::Rect<int>(0, 0, 1080, 1080));
+            // //     GameEngine::TextureComponent{GameEngine::Texture(), GameEngine::Sprite(), false, {}, 0, true, 0,
+            // 0, 0});
+            // // parallax2Tex.value().texture.load("R-Type/assets/parallax.png", GameEngine::Rect<int>(0, 0, 1080,
+            // 1080));
             // // parallax2Tex.value().sprite.load(parallax2Tex.value().texture);
             // // parallax2Tex.value().sprite.setScale(0.1851, 0.1851);
 
