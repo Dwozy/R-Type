@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['x_999',['x',['../classGameEngine_1_1Vector2.html#ab4eec7fdc2a755d334a4aa31270e7b80',1,'GameEngine::Vector2::x()'],['../structRType_1_1Protocol_1_1MoveData.html#a69b3de5c3f9dedb9fca052bec6d59423',1,'RType::Protocol::MoveData::x()']]]
+  ['x_1073',['x',['../classGameEngine_1_1Vector2.html#ab4eec7fdc2a755d334a4aa31270e7b80',1,'GameEngine::Vector2::x()'],['../structRType_1_1Protocol_1_1MoveData.html#a69b3de5c3f9dedb9fca052bec6d59423',1,'RType::Protocol::MoveData::x()'],['../structRType_1_1Protocol_1_1ShootData.html#af1ad1eef4b2479e5482552e856e644da',1,'RType::Protocol::ShootData::x()']]]
 ];

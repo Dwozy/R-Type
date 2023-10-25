@@ -248,7 +248,7 @@ EventManager</h2>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Add a new event handler for the &#39;MyEvent&#39; event</span></div>
 <div class="line">eventManager.addHandler&lt;<span class="keyword">struct </span>MyCallbackDataType&gt;(<a class="code" href="namespaceGameEngine.html">GameEngine</a>::Event::MyEvent);</div>
-<div class="ttc" id="anamespaceGameEngine_html"><div class="ttname"><a href="namespaceGameEngine.html">GameEngine</a></div><div class="ttdef"><b>Definition:</b> CameraComponent.hpp:13</div></div>
+<div class="ttc" id="anamespaceGameEngine_html"><div class="ttname"><a href="namespaceGameEngine.html">GameEngine</a></div><div class="ttdef"><b>Definition:</b> AssetManager.hpp:15</div></div>
 </div><!-- fragment --><p>To add a callback to an event the user must get the handler of the event and then use the <code>subscribe</code> methode and give the callback function. The callback function must take as parameter the type given in the template of the addHandler methode.</p>
 <p>Add event callback exemple</p>
 <div class="fragment"><div class="line"><span class="keywordtype">void</span> myCallback(<span class="keyword">struct</span> MyCallbackDataType)</div>
@@ -291,7 +291,7 @@ Game loop example</h1>
 <div class="line">    gameEngine.deltaTime.update();</div>
 <div class="line">    _gameEngine.registry.runSystems();</div>
 <div class="line">}</div>
-<div class="ttc" id="aclassGameEngine_1_1GameEngine_html"><div class="ttname"><a href="classGameEngine_1_1GameEngine.html">GameEngine::GameEngine</a></div><div class="ttdoc">Game engine class, will manage all the necessary classes for the game.</div><div class="ttdef"><b>Definition:</b> GameEngine.hpp:34</div></div>
+<div class="ttc" id="aclassGameEngine_1_1GameEngine_html"><div class="ttname"><a href="classGameEngine_1_1GameEngine.html">GameEngine::GameEngine</a></div><div class="ttdoc">Game engine class, will manage all the necessary classes for the game.</div><div class="ttdef"><b>Definition:</b> GameEngine.hpp:36</div></div>
 </div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->

@@ -77,11 +77,14 @@ $(function() {
 <code>#include &quot;<a class="el" href="CollisionComponent_8hpp_source.html">components/CollisionComponent.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TextureComponent_8hpp_source.html">components/TextureComponent.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ControllableComponent_8hpp_source.html">components/ControllableComponent.hpp</a>&quot;</code><br />
+<code>#include &lt;iostream&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a115f7759de18673ec00e0cb92e3219f3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="R-Type-server_2src_2EntityManager_8cpp.html#a115f7759de18673ec00e0cb92e3219f3">collisionCallback</a> (const std::size_t &amp;entityId, <a class="el" href="classSparseArray.html">SparseArray</a>&lt; <a class="el" href="structGameEngine_1_1CollisionComponent.html">GameEngine::CollisionComponent</a> &gt; &amp;collisions, <a class="el" href="classSparseArray.html">SparseArray</a>&lt; <a class="el" href="structGameEngine_1_1TransformComponent.html">GameEngine::TransformComponent</a> &gt; &amp;transforms)</td></tr>
 <tr class="separator:a115f7759de18673ec00e0cb92e3219f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f6f2f6b7747eaa079785802b8e37a96"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="R-Type-server_2src_2EntityManager_8cpp.html#a9f6f2f6b7747eaa079785802b8e37a96">destroyShootCallback</a> (const std::size_t &amp;entityId, <a class="el" href="classSparseArray.html">SparseArray</a>&lt; <a class="el" href="structGameEngine_1_1CollisionComponent.html">GameEngine::CollisionComponent</a> &gt; &amp;collisions, <a class="el" href="classSparseArray.html">SparseArray</a>&lt; <a class="el" href="structGameEngine_1_1TransformComponent.html">GameEngine::TransformComponent</a> &gt; &amp;transforms)</td></tr>
+<tr class="separator:a9f6f2f6b7747eaa079785802b8e37a96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a115f7759de18673ec00e0cb92e3219f3"></a>
@@ -92,6 +95,40 @@ Functions</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">void collisionCallback </td>
+          <td>(</td>
+          <td class="paramtype">const std::size_t &amp;&#160;</td>
+          <td class="paramname"><em>entityId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classSparseArray.html">SparseArray</a>&lt; <a class="el" href="structGameEngine_1_1CollisionComponent.html">GameEngine::CollisionComponent</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>collisions</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classSparseArray.html">SparseArray</a>&lt; <a class="el" href="structGameEngine_1_1TransformComponent.html">GameEngine::TransformComponent</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>transforms</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9f6f2f6b7747eaa079785802b8e37a96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f6f2f6b7747eaa079785802b8e37a96">&#9670;&nbsp;</a></span>destroyShootCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void destroyShootCallback </td>
           <td>(</td>
           <td class="paramtype">const std::size_t &amp;&#160;</td>
           <td class="paramname"><em>entityId</em>, </td>

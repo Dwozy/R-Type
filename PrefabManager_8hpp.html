@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>R-Type: rtype::Move Struct Reference</title>
+<title>R-Type: GameEngine/include/PrefabManager.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,75 +61,59 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="namespacertype.html">rtype</a></li><li class="navelem"><a class="el" href="structrtype_1_1Move.html">Move</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_b304f6c6273f651fae44313af9022017.html">GameEngine</a></li><li class="navelem"><a class="el" href="dir_f3ea82e03ebf653c90d68442abc2def2.html">include</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="structrtype_1_1Move-members.html">List of all members</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle">
-<div class="title">rtype::Move Struct Reference</div>  </div>
+<div class="title">PrefabManager.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p><code>#include &lt;<a class="el" href="RType_8hpp_source.html">RType.hpp</a>&gt;</code></p>
+<div class="textblock"><code>#include &lt;string&gt;</code><br />
+<code>#include &lt;unordered_map&gt;</code><br />
+<code>#include &lt;typeindex&gt;</code><br />
+<code>#include &lt;functional&gt;</code><br />
+<code>#include &lt;nlohmann/json.hpp&gt;</code><br />
+<code>#include &quot;<a class="el" href="Entity_8hpp_source.html">Entity.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Registry_8hpp_source.html">Registry.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="AssetManager_8hpp_source.html">AssetManager.hpp</a>&quot;</code><br />
+</div>
+<p><a href="PrefabManager_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a7d28dd299561fa079f3433778e25a68e"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrtype_1_1Move.html#a7d28dd299561fa079f3433778e25a68e">id</a></td></tr>
-<tr class="separator:a7d28dd299561fa079f3433778e25a68e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a011934c290b17ca954a16f97ca718507"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrtype_1_1Move.html#a011934c290b17ca954a16f97ca718507">directionX</a></td></tr>
-<tr class="separator:a011934c290b17ca954a16f97ca718507"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a125c6529d7e53ba509a1d9f991781ed0"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrtype_1_1Move.html#a125c6529d7e53ba509a1d9f991781ed0">directionY</a></td></tr>
-<tr class="separator:a125c6529d7e53ba509a1d9f991781ed0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1PrefabManager.html">GameEngine::PrefabManager</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:namespaceGameEngine"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceGameEngine.html">GameEngine</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ab701e3ac61a85b337ec5c1abaad6742d"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PrefabManager_8hpp.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> = nlohmann::json</td></tr>
+<tr class="separator:ab701e3ac61a85b337ec5c1abaad6742d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a011934c290b17ca954a16f97ca718507"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a011934c290b17ca954a16f97ca718507">&#9670;&nbsp;</a></span>directionX</h2>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="ab701e3ac61a85b337ec5c1abaad6742d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab701e3ac61a85b337ec5c1abaad6742d">&#9670;&nbsp;</a></span>json</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float rtype::Move::directionX</td>
+          <td class="memname">using <a class="el" href="PrefabManager_8hpp.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> =  nlohmann::json</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a125c6529d7e53ba509a1d9f991781ed0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a125c6529d7e53ba509a1d9f991781ed0">&#9670;&nbsp;</a></span>directionY</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float rtype::Move::directionY</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a7d28dd299561fa079f3433778e25a68e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d28dd299561fa079f3433778e25a68e">&#9670;&nbsp;</a></span>id</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t rtype::Move::id</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/<a class="el" href="RType_8hpp_source.html">RType.hpp</a></li>
-</ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

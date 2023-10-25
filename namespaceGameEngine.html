@@ -65,7 +65,8 @@ $(function() {
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">GameEngine Namespace Reference</div>  </div>
 </div><!--header-->
@@ -80,6 +81,8 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1AssetManager.html">AssetManager</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structGameEngine_1_1CameraComponent.html">CameraComponent</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structGameEngine_1_1CollisionComponent.html">CollisionComponent</a></td></tr>
@@ -116,6 +119,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Game engine class, will manage all the necessary classes for the game.  <a href="classGameEngine_1_1GameEngine.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1GameEngineServer.html">GameEngineServer</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1PrefabManager.html">PrefabManager</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1Registry.html">Registry</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classGameEngine_1_1Entity.html" title="Entity class for the game engine.">Entity</a> component system, handling entities, components and systems.  <a href="classGameEngine_1_1Registry.html#details">More...</a><br /></td></tr>
@@ -195,6 +200,8 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1Sprite.html">Sprite</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class representing a sprite wrapper for sf::Sprite with additional functionality.  <a href="classGameEngine_1_1Sprite.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1InputManager.html">InputManager</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1Vector2.html">Vector2</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">a <a class="el" href="classGameEngine_1_1Vector2.html" title="a Vector2 class">Vector2</a> class  <a href="classGameEngine_1_1Vector2.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -238,11 +245,29 @@ Enumerations</h2></td></tr>
 , <br />
 &#160;&#160;<a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0aaf41a0c324a4aa61c3784b8f7a7bcd5a4">PlayerSpawnedEvent</a>
 , <a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0aa42fbb03e1ee72bae130541312121b4e6">PlayersDieEvent</a>
-, <a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0aae524899d3e6d8c6cc1b4fadf518fce08">ShoothrowEvent</a>
+, <a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0aa77aaf6084f51b5fd5c3bf81ea4d0190d">PlayerShootEvent</a>
 <br />
  }</td></tr>
 <tr class="memdesc:aceedf9387bcbfde534e40633bff6ab0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">enum of all event types  <a href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0a">More...</a><br /></td></tr>
 <tr class="separator:aceedf9387bcbfde534e40633bff6ab0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a20b2e1a6378231f69917ad67eb53422d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceGameEngine.html#a20b2e1a6378231f69917ad67eb53422d">from_json</a> (const <a class="el" href="PrefabManager_8hpp.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="namespaceGameEngine_1_1Input_1_1Keyboard.html#ae7a13060cb2848c5bb8efa7c9f71cbac">Input::Keyboard::Key</a> &amp;key)</td></tr>
+<tr class="separator:a20b2e1a6378231f69917ad67eb53422d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a119d4ec641a70555dad3a451e0ff4504"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a119d4ec641a70555dad3a451e0ff4504"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceGameEngine.html#a119d4ec641a70555dad3a451e0ff4504">from_json</a> (const <a class="el" href="PrefabManager_8hpp.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="classGameEngine_1_1Rect.html">Rect</a>&lt; T &gt; &amp;rect)</td></tr>
+<tr class="separator:a119d4ec641a70555dad3a451e0ff4504"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ea11f2cbd12c959ee32c6d6dfb655b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceGameEngine.html#a0ea11f2cbd12c959ee32c6d6dfb655b3">from_json</a> (const <a class="el" href="PrefabManager_8hpp.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="classGameEngine_1_1Texture.html">Texture</a> &amp;texture)</td></tr>
+<tr class="separator:a0ea11f2cbd12c959ee32c6d6dfb655b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63f00ee09947ccf6eff182e4571bc73a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceGameEngine.html#a63f00ee09947ccf6eff182e4571bc73a">from_json</a> (const <a class="el" href="PrefabManager_8hpp.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="structGameEngine_1_1TransformComponent.html">TransformComponent</a> &amp;tc)</td></tr>
+<tr class="separator:a63f00ee09947ccf6eff182e4571bc73a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97b0ec1eb92813842253049d575cb4dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceGameEngine.html#a97b0ec1eb92813842253049d575cb4dc">from_json</a> (const <a class="el" href="PrefabManager_8hpp.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="structGameEngine_1_1ControllableComponent.html">ControllableComponent</a> &amp;cc)</td></tr>
+<tr class="separator:a97b0ec1eb92813842253049d575cb4dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8840934e4f923955b3236fef9247b175"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceGameEngine.html#a8840934e4f923955b3236fef9247b175">from_json</a> (const <a class="el" href="PrefabManager_8hpp.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="structGameEngine_1_1TextureComponent.html">TextureComponent</a> &amp;tc)</td></tr>
+<tr class="separator:a8840934e4f923955b3236fef9247b175"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a447badceeb7b5126aef144df51d99c32"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceGameEngine.html#a447badceeb7b5126aef144df51d99c32">from_json</a> (const <a class="el" href="PrefabManager_8hpp.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="structGameEngine_1_1CollisionComponent.html">CollisionComponent</a> &amp;cc)</td></tr>
+<tr class="separator:a447badceeb7b5126aef144df51d99c32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a id="a00a3adb6527c71e56856619aecbd81af"></a>
@@ -340,7 +365,7 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a id="aceedf9387bcbfde534e40633bff6ab0aa5ded86b15ba28f99a40e44858cecb091"></a>PlayerMoveEvent&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="aceedf9387bcbfde534e40633bff6ab0aaf41a0c324a4aa61c3784b8f7a7bcd5a4"></a>PlayerSpawnedEvent&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="aceedf9387bcbfde534e40633bff6ab0aa42fbb03e1ee72bae130541312121b4e6"></a>PlayersDieEvent&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aceedf9387bcbfde534e40633bff6ab0aae524899d3e6d8c6cc1b4fadf518fce08"></a>ShoothrowEvent&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aceedf9387bcbfde534e40633bff6ab0aa77aaf6084f51b5fd5c3bf81ea4d0190d"></a>PlayerShootEvent&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -361,6 +386,205 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a id="a544162029bd9ec1abb8112bf7d3719f2a2caf0787a7c62d4205fdb71e4aa653b6"></a>hoveredState&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a544162029bd9ec1abb8112bf7d3719f2a930f7cc018a3707cf399aae5eaa87687"></a>pressedState&#160;</td><td class="fielddoc"></td></tr>
 </table>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a447badceeb7b5126aef144df51d99c32"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a447badceeb7b5126aef144df51d99c32">&#9670;&nbsp;</a></span>from_json() <span class="overload">[1/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GameEngine::from_json </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="PrefabManager_8hpp.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramname"><em>j</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structGameEngine_1_1CollisionComponent.html">CollisionComponent</a> &amp;&#160;</td>
+          <td class="paramname"><em>cc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a97b0ec1eb92813842253049d575cb4dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97b0ec1eb92813842253049d575cb4dc">&#9670;&nbsp;</a></span>from_json() <span class="overload">[2/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GameEngine::from_json </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="PrefabManager_8hpp.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramname"><em>j</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structGameEngine_1_1ControllableComponent.html">ControllableComponent</a> &amp;&#160;</td>
+          <td class="paramname"><em>cc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a20b2e1a6378231f69917ad67eb53422d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20b2e1a6378231f69917ad67eb53422d">&#9670;&nbsp;</a></span>from_json() <span class="overload">[3/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GameEngine::from_json </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="PrefabManager_8hpp.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramname"><em>j</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceGameEngine_1_1Input_1_1Keyboard.html#ae7a13060cb2848c5bb8efa7c9f71cbac">Input::Keyboard::Key</a> &amp;&#160;</td>
+          <td class="paramname"><em>key</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a119d4ec641a70555dad3a451e0ff4504"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a119d4ec641a70555dad3a451e0ff4504">&#9670;&nbsp;</a></span>from_json() <span class="overload">[4/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void GameEngine::from_json </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="PrefabManager_8hpp.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramname"><em>j</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classGameEngine_1_1Rect.html">Rect</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>rect</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0ea11f2cbd12c959ee32c6d6dfb655b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ea11f2cbd12c959ee32c6d6dfb655b3">&#9670;&nbsp;</a></span>from_json() <span class="overload">[5/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GameEngine::from_json </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="PrefabManager_8hpp.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramname"><em>j</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classGameEngine_1_1Texture.html">Texture</a> &amp;&#160;</td>
+          <td class="paramname"><em>texture</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8840934e4f923955b3236fef9247b175"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8840934e4f923955b3236fef9247b175">&#9670;&nbsp;</a></span>from_json() <span class="overload">[6/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GameEngine::from_json </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="PrefabManager_8hpp.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramname"><em>j</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structGameEngine_1_1TextureComponent.html">TextureComponent</a> &amp;&#160;</td>
+          <td class="paramname"><em>tc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a63f00ee09947ccf6eff182e4571bc73a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63f00ee09947ccf6eff182e4571bc73a">&#9670;&nbsp;</a></span>from_json() <span class="overload">[7/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GameEngine::from_json </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="PrefabManager_8hpp.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramname"><em>j</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structGameEngine_1_1TransformComponent.html">TransformComponent</a> &amp;&#160;</td>
+          <td class="paramname"><em>tc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>

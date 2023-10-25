@@ -101,6 +101,9 @@ $(function() {
 <li>animeid
 : <a class="el" href="structGameEngine_1_1TextureComponent.html#a95732a5cf9444af6b3eba4d9aa48b9c2">GameEngine::TextureComponent</a>
 </li>
+<li>assetManager
+: <a class="el" href="classGameEngine_1_1GameEngine.html#acedf95db968e79943d8129c95af52d70">GameEngine::GameEngine</a>
+</li>
 </ul>
 
 
@@ -121,17 +124,17 @@ $(function() {
 </li>
 <li>directionX
 : <a class="el" href="structrtype_1_1Entity.html#ab60bc919e85ca7a71183fb8447e9e09e">rtype::Entity</a>
-, <a class="el" href="structrtype_1_1Move.html#a011934c290b17ca954a16f97ca718507">rtype::Move</a>
 </li>
 <li>directionY
 : <a class="el" href="structrtype_1_1Entity.html#ae29164ef29376b2c67fd46aa5f35ee42">rtype::Entity</a>
-, <a class="el" href="structrtype_1_1Move.html#a125c6529d7e53ba509a1d9f991781ed0">rtype::Move</a>
 </li>
 <li>dx
 : <a class="el" href="structRType_1_1Protocol_1_1MoveData.html#aba679b615833cd2701c1765871163366">RType::Protocol::MoveData</a>
+, <a class="el" href="structRType_1_1Protocol_1_1ShootData.html#af2211e03a7c317497c34b2d5b11ae6b9">RType::Protocol::ShootData</a>
 </li>
 <li>dy
 : <a class="el" href="structRType_1_1Protocol_1_1MoveData.html#ae85f16ceab3a60881e88df12b576366a">RType::Protocol::MoveData</a>
+, <a class="el" href="structRType_1_1Protocol_1_1ShootData.html#a89db4542481ca155848682d5f7801191">RType::Protocol::ShootData</a>
 </li>
 </ul>
 
@@ -168,10 +171,13 @@ $(function() {
 : <a class="el" href="structGameEngine_1_1NetworkIdComponent.html#a29f2278d573c3544c6493fb626dec112">GameEngine::NetworkIdComponent</a>
 , <a class="el" href="structrtype_1_1Entity.html#a521237497245920dbb855b5097ffcc5f">rtype::Entity</a>
 , <a class="el" href="structrtype_1_1EntityId.html#ace8361c56472143a05b1abb2d7b3469d">rtype::EntityId</a>
-, <a class="el" href="structrtype_1_1Move.html#a7d28dd299561fa079f3433778e25a68e">rtype::Move</a>
 , <a class="el" href="structRType_1_1Protocol_1_1MoveData.html#aad862137c529d05cb13d8fc564207289">RType::Protocol::MoveData</a>
+, <a class="el" href="structRType_1_1Protocol_1_1ShootData.html#a9cdefbd1f8d6fbd45a9b22b225d3db45">RType::Protocol::ShootData</a>
 , <a class="el" href="structrtype_1_1Room.html#a6a22e5f1ff63afe5ca8122f28dff9803">rtype::Room</a>
 , <a class="el" href="structrtype_1_1Shoot.html#acc9df163959e75971f22443b790aff46">rtype::Shoot</a>
+</li>
+<li>idTexture
+: <a class="el" href="structrtype_1_1Entity.html#a8c7c190bf9e611421a00e26352ffb176">rtype::Entity</a>
 </li>
 <li>isActive
 : <a class="el" href="structGameEngine_1_1CollisionComponent.html#ac701a72df2c5c2c4c820babaf8060281">GameEngine::CollisionComponent</a>
@@ -233,6 +239,7 @@ $(function() {
 <li>path
 : <a class="el" href="structGameEngine_1_1FontComponent.html#a014bb776cd9090da8dac3e54a2706c6a">GameEngine::FontComponent</a>
 , <a class="el" href="structGameEngine_1_1MusicComponent.html#a47d12ccc2ea8461978a3f2d2ab0cd698">GameEngine::MusicComponent</a>
+, <a class="el" href="structGameEngine_1_1TextureComponent.html#ace7a128ae3402e56110c0ceba216400d">GameEngine::TextureComponent</a>
 </li>
 <li>payloadSize
 : <a class="el" href="structrtype_1_1HeaderDataPacket.html#aa234812d0a24252c14652cf10e193dd4">rtype::HeaderDataPacket</a>
@@ -242,11 +249,14 @@ $(function() {
 </li>
 <li>positionX
 : <a class="el" href="structrtype_1_1Entity.html#ac6ba13f7cc6cc79495ab4ba9ae653c17">rtype::Entity</a>
-, <a class="el" href="structrtype_1_1Shoot.html#af2d27fe1c842b0d20cd9f25dfe5d92bd">rtype::Shoot</a>
+, <a class="el" href="structrtype_1_1Shoot.html#a70f18848c6d641e4f812992122c491af">rtype::Shoot</a>
 </li>
 <li>positionY
 : <a class="el" href="structrtype_1_1Entity.html#ab20f41396e3fe3b4bd0a3a1d047127f0">rtype::Entity</a>
-, <a class="el" href="structrtype_1_1Shoot.html#adfe01718f24850e84bbd508b8efd7871">rtype::Shoot</a>
+, <a class="el" href="structrtype_1_1Shoot.html#a5b45bc20532c6044c14bef54475c946a">rtype::Shoot</a>
+</li>
+<li>prefabManager
+: <a class="el" href="classGameEngine_1_1GameEngine.html#a9794e879c53932c421ce2d72083818b0">GameEngine::GameEngine</a>
 </li>
 </ul>
 
@@ -266,6 +276,9 @@ $(function() {
 <h3><a id="index_s"></a>- s -</h3><ul>
 <li>sceneManager
 : <a class="el" href="classGameEngine_1_1GameEngine.html#a7cfbb54167556dda67017f699a82e3cb">GameEngine::GameEngine</a>
+</li>
+<li>sfKeys
+: <a class="el" href="classGameEngine_1_1InputManager.html#ab77d1f427b9d0df760b43aa41a08e846">GameEngine::InputManager</a>
 </li>
 <li>size
 : <a class="el" href="structGameEngine_1_1TextComponent.html#a37b1ba213890505b93660dcca881ab36">GameEngine::TextComponent</a>
@@ -297,9 +310,6 @@ $(function() {
 <h3><a id="index_t"></a>- t -</h3><ul>
 <li>text
 : <a class="el" href="structGameEngine_1_1TextComponent.html#a3d9057a2de1b9d6ab9d9284578c17e61">GameEngine::TextComponent</a>
-</li>
-<li>texture
-: <a class="el" href="structGameEngine_1_1TextureComponent.html#a59628b464a67cb5bb1cc6b66a6cd67c4">GameEngine::TextureComponent</a>
 </li>
 <li>textureDefault
 : <a class="el" href="structGameEngine_1_1PressableComponent.html#a19a796e87b3f5f464620aa2d99aac9d7">GameEngine::PressableComponent</a>
@@ -343,6 +353,7 @@ $(function() {
 <li>x
 : <a class="el" href="classGameEngine_1_1Vector2.html#ab4eec7fdc2a755d334a4aa31270e7b80">GameEngine::Vector2&lt; T &gt;</a>
 , <a class="el" href="structRType_1_1Protocol_1_1MoveData.html#a69b3de5c3f9dedb9fca052bec6d59423">RType::Protocol::MoveData</a>
+, <a class="el" href="structRType_1_1Protocol_1_1ShootData.html#af1ad1eef4b2479e5482552e856e644da">RType::Protocol::ShootData</a>
 </li>
 </ul>
 
@@ -351,6 +362,7 @@ $(function() {
 <li>y
 : <a class="el" href="classGameEngine_1_1Vector2.html#ab16c547b1191bd34bce5c7e05804c9e6">GameEngine::Vector2&lt; T &gt;</a>
 , <a class="el" href="structRType_1_1Protocol_1_1MoveData.html#a14b03b3a09729d62fe83df119c3321cb">RType::Protocol::MoveData</a>
+, <a class="el" href="structRType_1_1Protocol_1_1ShootData.html#a5f47f43080ff77860b04f0db10341425">RType::Protocol::ShootData</a>
 </li>
 </ul>
 </div><!-- contents -->

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['valuetype_1011',['valueType',['../classSparseArray.html#ab0e056fa7038fbe700b65d0df9f06317',1,'SparseArray']]]
+  ['sizetype_1085',['sizeType',['../classSparseArray.html#a47cb77acdba6fda6272421025209d459',1,'SparseArray']]]
 ];

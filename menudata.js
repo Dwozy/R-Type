@@ -56,6 +56,7 @@ var menudata={children:[
 {text:"y",url:"namespacemembers.html#index_y"},
 {text:"z",url:"namespacemembers.html#index_z"}]},
 {text:"Functions",url:"namespacemembers_func.html"},
+{text:"Variables",url:"namespacemembers_vars.html"},
 {text:"Typedefs",url:"namespacemembers_type.html"},
 {text:"Enumerations",url:"namespacemembers_enum.html"},
 {text:"Enumerator",url:"namespacemembers_eval.html",children:[
@@ -166,4 +167,5 @@ var menudata={children:[
 {text:"File Members",url:"globals.html",children:[
 {text:"All",url:"globals.html"},
 {text:"Functions",url:"globals_func.html"},
+{text:"Typedefs",url:"globals_type.html"},
 {text:"Macros",url:"globals_defs.html"}]}]}]}
