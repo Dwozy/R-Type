@@ -24,10 +24,37 @@ void parallaxCollision(const std::size_t &entityId, SparseArray<GameEngine::Coll
 
         if (!col || !tsf || !col.value().isActive || col.value().layer != 10)
             continue;
-        if (selfCol.value().collider.isColliding(selfTsf.value().position, col.value().collider, tsf.value().position))
+        if (selfCol.value().collider.isColliding(
+                selfTsf.value().position, col.value().collider, tsf.value().position)) {
+            std::cout << "Replace !" << std::endl;
             tsf.value().position.x = 199;
+        }
     }
 }
+
+// void collisionCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
+//     SparseArray<GameEngine::TransformComponent> &transforms)
+// {
+//     auto &selfCol = collisions[entityId];
+//     auto &selfTsf = transforms[entityId];
+
+//     if (!selfCol || !selfTsf)
+//         return;
+//     for (std::size_t i = 0; i < collisions.size(); i++) {
+//         if (i == entityId)
+//             continue;
+//         auto &col = collisions[i];
+//         auto &tsf = transforms[i];
+
+//         if (!col || !tsf || !col.value().isActive || col.value().layer != 15)
+//             continue;
+//         std::cout << "GEGE" << std::endl;
+//         if (selfCol.value().collider.isColliding(
+//                 selfTsf.value().position, col.value().collider, tsf.value().position)) {
+//             std::cout << "Collision ! Need to replace !" << std::endl;
+//         }
+//     }
+// }
 
 namespace RType::Client
 {
@@ -38,7 +65,7 @@ namespace RType::Client
         std::cout << "Player : " << entity.id << " spawned !" << std::endl;
         _gameEngine.registry.addComponent<GameEngine::NetworkIdComponent>(
             newEntity, GameEngine::NetworkIdComponent{entity.id});
-        _entityManager.setPlayerEntity(entity, newEntity, _gameEngine.registry);
+        _entityManager.setEntityFromClient(entity, newEntity, _gameEngine.registry);
         if (_isPlayer) {
             _entityManager.setControlPlayerEntity(newEntity, _gameEngine.registry);
             _isPlayer = false;
@@ -85,6 +112,7 @@ namespace RType::Client
             _gameEngine.registry.addComponent<GameEngine::TransformComponent>(
                 parallaxRange, GameEngine::TransformComponent{
                                    GameEngine::Vector2<float>(-20.0, 0), GameEngine::Vector2<float>(0.0, 0.0)});
+
             auto &parRange = _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(parallaxRange,
                 GameEngine::CollisionComponent{.collider = GameEngine::Rectf(0, 0, 20, 200), .layer = 11});
             parRange.value()
@@ -92,6 +120,41 @@ namespace RType::Client
                                SparseArray<GameEngine::TransformComponent> &)>,
                     GameEngine::CollisionComponent, GameEngine::TransformComponent>(
                     _gameEngine.registry, parallaxCollision);
+
+            GameEngine::Entity windowBoxUp = _gameEngine.registry.spawnEntity();
+            _gameEngine.registry.addComponent<GameEngine::TransformComponent>(
+                windowBoxUp, GameEngine::TransformComponent{
+                               GameEngine::Vector2<float>(-20.0, -20.0), GameEngine::Vector2<float>(0.0, 0.0)});
+            _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(windowBoxUp,
+                GameEngine::CollisionComponent{.collider = GameEngine::Rectf(0, 0, 240.0, 20.0), .layer = 15});
+
+            GameEngine::Entity windowBoxDown = _gameEngine.registry.spawnEntity();
+            _gameEngine.registry.addComponent<GameEngine::TransformComponent>(
+                windowBoxDown, GameEngine::TransformComponent{
+                               GameEngine::Vector2<float>(-20.0, 200.0), GameEngine::Vector2<float>(0.0, 0.0)});
+            _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(windowBoxDown,
+                GameEngine::CollisionComponent{.collider = GameEngine::Rectf(0, 0, 240.0, 20.0), .layer = 15});
+
+            GameEngine::Entity windowBoxLeft = _gameEngine.registry.spawnEntity();
+            _gameEngine.registry.addComponent<GameEngine::TransformComponent>(
+                windowBoxLeft, GameEngine::TransformComponent{
+                               GameEngine::Vector2<float>(-20.0, -20.0), GameEngine::Vector2<float>(0.0, 0.0)});
+            _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(windowBoxLeft,
+                GameEngine::CollisionComponent{.collider = GameEngine::Rectf(0, 0, 20.0, 240.0), .layer = 15});
+
+            GameEngine::Entity windowBoxRight = _gameEngine.registry.spawnEntity();
+            _gameEngine.registry.addComponent<GameEngine::TransformComponent>(
+                windowBoxRight, GameEngine::TransformComponent{
+                               GameEngine::Vector2<float>(200.0, -20.0), GameEngine::Vector2<float>(0.0, 0.0)});
+            _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(windowBoxRight,
+                GameEngine::CollisionComponent{.collider = GameEngine::Rectf(0, 0, 20.0, 240.0), .layer = 15});
+
+            GameEngine::Entity destroyShootBox = _gameEngine.registry.spawnEntity();
+            _gameEngine.registry.addComponent<GameEngine::TransformComponent>(
+                destroyShootBox, GameEngine::TransformComponent{
+                               GameEngine::Vector2<float>(220.0, 0.0), GameEngine::Vector2<float>(0.0, 0.0)});
+            _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(destroyShootBox,
+                GameEngine::CollisionComponent{.collider = GameEngine::Rectf(0, 0, 0, 220.0), .layer = 20});
         }
     }
 

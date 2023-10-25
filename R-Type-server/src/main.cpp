@@ -15,7 +15,6 @@ int main(int ac, char const *av[])
             RType::Server::RTypeServer server(atoi(av[1]));
         else
             RType::Server::RTypeServer server;
-
     } catch (std::exception &e) {
         std::cerr << e.what() << std::endl;
     }
