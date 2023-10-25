@@ -24,10 +24,8 @@ namespace GameEngine
             _texture[filename].load(filename, area);
         }
 
-        const Texture &getTexture(const std::string &textureName) const
-        {
-            return _texture.at(textureName);
-        }
+        const Texture &getTexture(const std::string &textureName) const { return _texture.at(textureName); }
+
       protected:
       private:
         std::unordered_map<std::string, Texture> _texture;
