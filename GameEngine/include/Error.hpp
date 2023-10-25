@@ -91,6 +91,36 @@ namespace Error
       private:
         std::string message;
     };
+    /**
+     * @brief
+     * InvalidPrefabFileError Class Error
+     * Error thrown when trying to parse a prefab config file that does not exist or is invalid.
+     */
+    class InvalidPrefabFileError : public std::exception
+    {
+      public:
+        InvalidPrefabFileError();
+        ~InvalidPrefabFileError();
+        const char *what() const noexcept override;
+
+      private:
+        std::string message;
+    };
+    /**
+     * @brief
+     * PrefabNameAlreadyUsedError Class Error
+     * Error thrown when trying to add a prefab with a name that is already used
+     */
+    class PrefabNameAlreadyUsedError : public std::exception
+    {
+      public:
+        PrefabNameAlreadyUsedError();
+        ~PrefabNameAlreadyUsedError();
+        const char *what() const noexcept override;
+
+      private:
+        std::string message;
+    };
 } // namespace Error
 
 #endif /* !ERROR_HPP_ */

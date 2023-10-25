@@ -24,6 +24,8 @@ namespace GameEngine
     {
       public:
         /// @brief constructor
+        Rect() = default;
+        /// @brief constructor
         /// @param l left coordinate
         /// @param t top coordinate
         /// @param w the width of the rect

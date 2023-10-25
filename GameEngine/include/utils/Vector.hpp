@@ -19,6 +19,8 @@ namespace GameEngine
     class Vector2
     {
       public:
+        /// @brief default constructor
+        Vector2() = default;
         /// @brief constructor
         /// @param x value of the vector
         /// @param y value of the vector

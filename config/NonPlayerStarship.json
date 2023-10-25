@@ -1,0 +1,29 @@
+{
+    "name": "non_player_starship",
+    "components": [
+        {
+            "type": "TransformComponent",
+            "value": {}
+        },
+        {
+            "type": "TextureComponent",
+            "value": {
+                "texturePath": "R-Type/assets/image.png",
+                "textureRects": [],
+                "renderLayer": 0
+            }
+        },
+        {
+            "type": "CollisionComponent",
+            "value": {
+                "collider": {
+                    "left": 0.0,
+                    "top": 0.0,
+                    "width": 32.0,
+                    "height": 16.0
+                },
+                "layer": 0
+            }
+        }
+    ]
+}
