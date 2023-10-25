@@ -21,7 +21,7 @@ namespace GameEngine
         /// @param posY position y of the player
         /// @param entity that will be attribute the player components
         /// @param registry game engine registry that will set the components
-        void setPlayerEntity(struct rtype::Entity entityInfo, Entity entity, Registry &registry);
+        void setEntityFromClient(struct rtype::Entity entityInfo, Entity entity, Registry &registry);
         /// @brief Set the component adapted for a entity
         /// @param posX position x of the entity
         /// @param posY position y of the entity
@@ -32,6 +32,8 @@ namespace GameEngine
         /// @param entity that will be attribute the controller component
         /// @param registry game engine registry that will set the components
         void setControlPlayerEntity(Entity entity, Registry &registry);
+        void setPlayerEntityComponent(Entity entity, Registry &registry);
+        void setShootEntityComponent(Entity entity, Registry &registry);
 
       protected:
       private:

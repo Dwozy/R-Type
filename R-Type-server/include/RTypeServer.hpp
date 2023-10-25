@@ -12,7 +12,7 @@
 #include "SafeQueue.hpp"
 #include "UdpServer.hpp"
 #include "TcpServer.hpp"
-#include "GameEngineServer.hpp"
+#include "GameEngine.hpp"
 #include <asio.hpp>
 #include "EntityManager.hpp"
 #include <map>
@@ -45,7 +45,7 @@ namespace RType::Server
 
       protected:
       private:
-        GameEngine::GameEngineServer _gameEngine;
+        GameEngine::GameEngine _gameEngine;
         asio::io_context _IOContext;
         asio::signal_set _signal;
         bool _isRunning;

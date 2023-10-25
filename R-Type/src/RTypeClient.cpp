@@ -64,7 +64,6 @@ void RType::Client::RTypeClient::runUdpServer()
     _signal.async_wait(std::bind(&asio::io_context::stop, &_IOContext));
     _udpClient.run();
     _IOContext.run();
-<<<<<<< HEAD
     isRunning = false;
 }
 
@@ -144,8 +143,6 @@ void RType::Client::RTypeClient::handleEvent()
             break;
         }
     }
-=======
->>>>>>> origin/main
 }
 
 void RType::Client::RTypeClient::gameLoop()

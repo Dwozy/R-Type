@@ -18,7 +18,7 @@ namespace RType::Client
             GameEngine::Entity newEntity = _gameEngine.registry.spawnEntity();
             _gameEngine.registry.addComponent<GameEngine::NetworkIdComponent>(
                 newEntity, GameEngine::NetworkIdComponent{entity.id});
-            _entityManager.setPlayerEntity(entity, newEntity, _gameEngine.registry);
+            _entityManager.setEntityFromClient(entity, newEntity, _gameEngine.registry);
             return;
         }
         std::size_t id = _findEntity(entity.id);
@@ -26,7 +26,7 @@ namespace RType::Client
             GameEngine::Entity newEntity = _gameEngine.registry.spawnEntity();
             _gameEngine.registry.addComponent<GameEngine::NetworkIdComponent>(
                 newEntity, GameEngine::NetworkIdComponent{entity.id});
-            _entityManager.setPlayerEntity(entity, newEntity, _gameEngine.registry);
+            _entityManager.setEntityFromClient(entity, newEntity, _gameEngine.registry);
         } else {
             transforms[id]->velocity.x = entity.directionX;
             transforms[id]->velocity.y = entity.directionY;

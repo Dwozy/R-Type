@@ -10,6 +10,8 @@
 #include "components/TransformComponent.hpp"
 #include "components/CollisionComponent.hpp"
 #include "systems/PositionSystem.hpp"
+#include "systems/CollisionSystem.hpp"
+#include "utils/Rect.hpp"
 #include "RType.hpp"
 
 RType::Server::RTypeServer::RTypeServer(unsigned short port)
@@ -20,12 +22,47 @@ RType::Server::RTypeServer::RTypeServer(unsigned short port)
     _gameEngine.registry.registerComponent<GameEngine::CollisionComponent>();
     _gameEngine.registry.registerComponent<GameEngine::TextureComponent>();
 
+        GameEngine::CollisionSystem collisionSystem;
+        _gameEngine.registry.addSystem<std::function<void(SparseArray<GameEngine::CollisionComponent> &)>,
+            GameEngine::CollisionComponent>(collisionSystem);
+
+    GameEngine::Entity windowBoxUp = _gameEngine.registry.spawnEntity();
+    _gameEngine.registry.addComponent<GameEngine::TransformComponent>(
+        windowBoxUp, GameEngine::TransformComponent{
+                        GameEngine::Vector2<float>(-20.0, -20.0), GameEngine::Vector2<float>(0.0, 0.0)});
+    _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(windowBoxUp,
+        GameEngine::CollisionComponent{.collider = GameEngine::Rectf(0, 0, 240.0, 20.0), .layer = 15});
+    _listIdTexture.insert({static_cast<uint16_t>(windowBoxUp), static_cast<uint8_t>(rtype::TextureType::NONE)});
+
+    GameEngine::Entity windowBoxDown = _gameEngine.registry.spawnEntity();
+    _gameEngine.registry.addComponent<GameEngine::TransformComponent>(
+        windowBoxDown, GameEngine::TransformComponent{
+                        GameEngine::Vector2<float>(-20.0, 200.0), GameEngine::Vector2<float>(0.0, 0.0)});
+    _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(windowBoxDown,
+        GameEngine::CollisionComponent{.collider = GameEngine::Rectf(0, 0, 240.0, 20.0), .layer = 15});
+    _listIdTexture.insert({static_cast<uint16_t>(windowBoxDown), static_cast<uint8_t>(rtype::TextureType::NONE)});
+
+    GameEngine::Entity windowBoxLeft = _gameEngine.registry.spawnEntity();
+    _gameEngine.registry.addComponent<GameEngine::TransformComponent>(
+        windowBoxLeft, GameEngine::TransformComponent{
+                        GameEngine::Vector2<float>(-20.0, -20.0), GameEngine::Vector2<float>(0.0, 0.0)});
+    _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(windowBoxLeft,
+        GameEngine::CollisionComponent{.collider = GameEngine::Rectf(0, 0, 20.0, 240.0), .layer = 15});
+    _listIdTexture.insert({static_cast<uint16_t>(windowBoxLeft), static_cast<uint8_t>(rtype::TextureType::NONE)});
+
+
+    GameEngine::Entity windowBoxRight = _gameEngine.registry.spawnEntity();
+    _gameEngine.registry.addComponent<GameEngine::TransformComponent>(
+        windowBoxRight, GameEngine::TransformComponent{
+                        GameEngine::Vector2<float>(200.0, -20.0), GameEngine::Vector2<float>(0.0, 0.0)});
+    _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(windowBoxRight,
+        GameEngine::CollisionComponent{.collider = GameEngine::Rectf(0, 0, 20.0, 240.0), .layer = 15});
+    _listIdTexture.insert({static_cast<uint16_t>(windowBoxRight), static_cast<uint8_t>(rtype::TextureType::NONE)});
+
     GameEngine::PositionSystem positionSystem(_gameEngine.deltaTime.getDeltaTime());
     _gameEngine.registry.addSystem<
         std::function<void(SparseArray<GameEngine::TransformComponent> &, SparseArray<GameEngine::TextureComponent> &)>,
         GameEngine::TransformComponent, GameEngine::TextureComponent>(positionSystem);
-
-    _gameEngine.registry.spawnEntity();
 
     _isRunning = true;
     std::thread network(&RType::Server::RTypeServer::startNetwork, this, std::ref(_isRunning));
@@ -38,7 +75,7 @@ RType::Server::RTypeServer::~RTypeServer() {}
 void RType::Server::RTypeServer::startNetwork(bool &isRunning)
 {
     _signal.async_wait(std::bind(&asio::io_context::stop, &_IOContext));
-    _tcpServer.run();
+    // _tcpServer.run();
     _udpServer.run();
     _IOContext.run();
     isRunning = false;
