@@ -11,6 +11,7 @@
 #include <SFML/Graphics.hpp>
 #include "utils/Vector.hpp"
 #include "utils/Rect.hpp"
+#include "unordered_map"
 #include "RenderInterfaces.hpp"
 #include "Keyboard.hpp"
 
