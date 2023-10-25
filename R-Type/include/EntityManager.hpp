@@ -8,6 +8,7 @@
 #ifndef ENTITYMANAGER_HPP_
 #define ENTITYMANAGER_HPP_
 
+#include "RType.hpp"
 #include "Registry.hpp"
 
 namespace GameEngine
@@ -20,13 +21,13 @@ namespace GameEngine
         /// @param posY position y of the player
         /// @param entity that will be attribute the player components
         /// @param registry game engine registry that will set the components
-        void setPlayerEntity(float posX, float posY, Entity entity, Registry &registry);
+        void setPlayerEntity(struct rtype::Entity entityInfo, Entity entity, Registry &registry);
         /// @brief Set the component adapted for a entity
         /// @param posX position x of the entity
         /// @param posY position y of the entity
         /// @param entity that will be attribute the player components
         /// @param registry game engine registry that will set the components
-        void setEntity(float posX, float posY, Entity entity, Registry &registry);
+        void setEntity(struct rtype::Entity entityInfo, Entity entity, Registry &registry);
         /// @brief Set the component controller for the entity
         /// @param entity that will be attribute the controller component
         /// @param registry game engine registry that will set the components

@@ -26,6 +26,8 @@ RType::Server::UdpServer::UdpServer(
         std::bind(&RType::Server::UdpServer::handleConnexion, this, std::placeholders::_1));
     _commands.emplace(static_cast<uint8_t>(rtype::PacketType::DISCONNEXION),
         std::bind(&RType::Server::UdpServer::handleDisconnexion, this, std::placeholders::_1));
+    _commands.emplace(static_cast<uint8_t>(rtype::PacketType::SHOOT),
+        std::bind(&RType::Server::UdpServer::handleShoot, this, std::placeholders::_1));
 }
 
 RType::Server::UdpServer::~UdpServer()
@@ -40,6 +42,17 @@ RType::Server::UdpServer::~UdpServer()
 }
 
 void RType::Server::UdpServer::run() { readHeader(); }
+
+void RType::Server::UdpServer::handleShoot(struct rtype::HeaderDataPacket header)
+{
+    auto shootInfo = Serialization::deserializeData<RType::Protocol::ShootData>(_streamBuffer, header.payloadSize);
+
+    struct rtype::Event event;
+
+    event.packetType = header.packetType;
+    event.data = shootInfo;
+    _eventQueue.push(event);
+}
 
 void RType::Server::UdpServer::handleRoom(struct rtype::HeaderDataPacket header)
 {
@@ -69,7 +82,6 @@ void RType::Server::UdpServer::handleDisconnexion(struct rtype::HeaderDataPacket
         Serialization::deserializeData<struct rtype::EntityId>(_streamBuffer, header.payloadSize);
     struct rtype::Event event;
 
-    std::cout << "Disconnexion" << std::endl;
     event.packetType = header.packetType;
     event.data = entity;
     _eventQueue.push(event);

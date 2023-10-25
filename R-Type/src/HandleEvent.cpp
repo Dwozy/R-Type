@@ -43,6 +43,9 @@ namespace RType::Client
             case static_cast<uint8_t>(rtype::PacketType::DISCONNEXION):
                 handleDisconnexion(event);
                 break;
+                // case static_cast<uint8_t>(rtype::PacketType::SHOOT):
+                //     handleShoot(event);
+                //     break;
             }
         }
     }

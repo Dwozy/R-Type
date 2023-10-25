@@ -41,6 +41,7 @@ namespace RType::Client
         setUpdateEntityCallback();
         setDeleteEntityCallback();
         setMovementEntityCallback();
+        setShootCallback();
     }
 
     void RTypeClient::setGameEngineSystem()

@@ -18,7 +18,7 @@ namespace RType::Client
             GameEngine::Entity newEntity = _gameEngine.registry.spawnEntity();
             _gameEngine.registry.addComponent<GameEngine::NetworkIdComponent>(
                 newEntity, GameEngine::NetworkIdComponent{entity.id});
-            _entityManager.setPlayerEntity(entity.positionX, entity.positionY, newEntity, _gameEngine.registry);
+            _entityManager.setPlayerEntity(entity, newEntity, _gameEngine.registry);
             return;
         }
         std::size_t id = _findEntity(entity.id);
@@ -26,16 +26,16 @@ namespace RType::Client
             GameEngine::Entity newEntity = _gameEngine.registry.spawnEntity();
             _gameEngine.registry.addComponent<GameEngine::NetworkIdComponent>(
                 newEntity, GameEngine::NetworkIdComponent{entity.id});
-            _entityManager.setPlayerEntity(entity.positionX, entity.positionY, newEntity, _gameEngine.registry);
+            _entityManager.setPlayerEntity(entity, newEntity, _gameEngine.registry);
         } else {
             transforms[id]->velocity.x = entity.directionX;
             transforms[id]->velocity.y = entity.directionY;
             transforms[id]->position.x = (fabs(transforms[id]->position.x - entity.positionX) < 2)
                                              ? transforms[id]->position.x
                                              : entity.positionX;
-            transforms[entity.id]->position.y = (fabs(transforms[id]->position.y - entity.positionY) < 2)
-                                                    ? transforms[id]->position.y
-                                                    : entity.positionY;
+            transforms[id]->position.y = (fabs(transforms[id]->position.y - entity.positionY) < 2)
+                                             ? transforms[id]->position.y
+                                             : entity.positionY;
         }
     }
 

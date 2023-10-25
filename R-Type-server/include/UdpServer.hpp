@@ -56,6 +56,7 @@ namespace RType::Server
         void handleDisconnexion(struct rtype::HeaderDataPacket header);
         /// @brief Start the UDP Server
         void run();
+        void handleShoot(struct rtype::HeaderDataPacket header);
 
       protected:
       private:

@@ -33,10 +33,10 @@ void collisionCallback(const std::size_t &entityId, SparseArray<GameEngine::Coll
     }
 }
 
-void GameEngine::EntityManager::setPlayerEntity(float posX, float posY, Entity entity, Registry &registry)
+void GameEngine::EntityManager::setPlayerEntity(struct rtype::Entity entityInfo, Entity entity, Registry &registry)
 {
-    GameEngine::TransformComponent tsf = {
-        GameEngine::Vector2<float>(posX, posY), GameEngine::Vector2<float>(0.0f, 0.0f)};
+    GameEngine::TransformComponent tsf = {GameEngine::Vector2<float>(entityInfo.positionX, entityInfo.positionY),
+        GameEngine::Vector2<float>(entityInfo.directionX, entityInfo.directionY)};
     registry.addComponent<GameEngine::TransformComponent>(entity, tsf);
     GameEngine::Rectf rect(0.0, 0.0, 32.0, 16.0);
     GameEngine::CollisionComponent col = {.collider = rect, .layer = 0};
@@ -44,9 +44,21 @@ void GameEngine::EntityManager::setPlayerEntity(float posX, float posY, Entity e
                       SparseArray<GameEngine::TransformComponent> &)>,
         GameEngine::CollisionComponent, GameEngine::TransformComponent>(registry, collisionCallback);
     registry.addComponent<GameEngine::CollisionComponent>(entity, col);
-    auto &playerTex = registry.addComponent<GameEngine::TextureComponent>(entity, GameEngine::TextureComponent());
-    // playerTex.value().texture.load("R-Type/assets/image.png", GameEngine::Rect<int>(0, 0, 32, 16));
-    // playerTex.value().sprite.load(playerTex.value().texture);
+    auto &playerTex = registry.addComponent<GameEngine::TextureComponent>(
+        entity, GameEngine::TextureComponent{GameEngine::Texture(), GameEngine::Sprite(), true, {}, 0, true, 0, 0, 1});
+
+    switch (entityInfo.idTexture) {
+    case static_cast<uint8_t>(rtype::TextureType::PLAYER):
+        playerTex.value().texture.load("R-Type/assets/image.png", GameEngine::Rect<int>(0, 0, 32, 16));
+        break;
+    case static_cast<uint8_t>(rtype::TextureType::SHOOT):
+        playerTex.value().texture.load("R-Type/assets/r-typesheet1.gif", GameEngine::Rect<int>(168, 135, 47, 15));
+        break;
+    case static_cast<uint8_t>(rtype::TextureType::MOB):
+        playerTex.value().texture.load("R-Type/assets/image.png", GameEngine::Rect<int>(0, 0, 32, 16));
+        break;
+    }
+    playerTex.value().sprite.load(playerTex.value().texture);
 }
 
 void GameEngine::EntityManager::setControlPlayerEntity(Entity entity, Registry &registry)
@@ -56,10 +68,10 @@ void GameEngine::EntityManager::setControlPlayerEntity(Entity entity, Registry &
     registry.addComponent<GameEngine::ControllableComponent>(entity, con);
 }
 
-void GameEngine::EntityManager::setEntity(float posX, float posY, Entity entity, Registry &registry)
+void GameEngine::EntityManager::setEntity(struct rtype::Entity entityInfo, Entity entity, Registry &registry)
 {
-    GameEngine::TransformComponent tsf = {
-        GameEngine::Vector2<float>(posX, posY), GameEngine::Vector2<float>(0.0f, 0.0f)};
+    GameEngine::TransformComponent tsf = {GameEngine::Vector2<float>(entityInfo.positionX, entityInfo.positionY),
+        GameEngine::Vector2<float>(entityInfo.directionX, entityInfo.directionY)};
     registry.addComponent<GameEngine::TransformComponent>(entity, tsf);
     GameEngine::Rectf rect(0.0, 0.0, 32.0, 16.0);
     GameEngine::CollisionComponent col = {.collider = rect, .layer = 0};
