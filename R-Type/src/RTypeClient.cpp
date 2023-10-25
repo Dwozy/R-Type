@@ -29,7 +29,12 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
     _id = 0;
     setGameEngine();
     _gameEngine.prefabManager.loadPrefabFromFile("config/Player.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("config/Shoot.json");
     _gameEngine.prefabManager.loadPrefabFromFile("config/NonPlayerStarship.json");
+
+    _listTextureTypePrefab.insert({static_cast<uint8_t>(rtype::TextureType::PLAYER), "player"});
+    _listTextureTypePrefab.insert({static_cast<uint8_t>(rtype::TextureType::SHOOT), "shoot"});
+
     _isRunning = true;
     _isPlayer = true;
     std::thread network(&RType::Client::RTypeClient::startNetwork, this, std::ref(_isRunning));
@@ -49,7 +54,7 @@ void RType::Client::RTypeClient::startNetwork(bool &isRunning)
     // runTcpServer();
     // _IOContext.restart();
     runUdpServer();
-    isRunning = false;
+    _isRunning = false;
 }
 
 void RType::Client::RTypeClient::runTcpServer()
@@ -64,85 +69,7 @@ void RType::Client::RTypeClient::runUdpServer()
     _signal.async_wait(std::bind(&asio::io_context::stop, &_IOContext));
     _udpClient.run();
     _IOContext.run();
-    isRunning = false;
-}
-
-void RType::Client::RTypeClient::entitySpawn(const struct rtype::Entity entity)
-{
-    // GameEngine::Entity newEntity = _gameEngine.registry.spawnEntity(entity.id);
-
-    // _entityManager.setPlayerEntity(entity.positionX, entity.positionY, newEntity, _gameEngine.registry);
-    // if (_isPlayer) {
-    //     _entityManager.setControlPlayerEntity(newEntity, _gameEngine.registry);
-    //     _isPlayer = false;
-    //     _id = entity.id;
-    // }
-    if (_isPlayer) {
-        _gameEngine.prefabManager.createEntityFromPrefab("player", _gameEngine.registry, entity.id);
-        _id = entity.id;
-        _isPlayer = false;
-    } else
-        _gameEngine.prefabManager.createEntityFromPrefab("non_player_starship", _gameEngine.registry, entity.id);
-}
-
-void RType::Client::RTypeClient::handleNewEntity(struct rtype::Event event)
-{
-    struct rtype::Entity entity = std::any_cast<struct rtype::Entity>(event.data);
-    _gameEngine.eventManager.getHandler<struct rtype::Entity>(GameEngine::Event::GetNewEntity).publish(entity);
-}
-
-void RType::Client::RTypeClient::handleDisconnexion(struct rtype::Event event)
-{
-    struct rtype::EntityId entity = std::any_cast<struct rtype::EntityId>(event.data);
-    _gameEngine.eventManager.getHandler<struct rtype::EntityId>(GameEngine::Event::DeleteEntity).publish(entity);
-}
-
-void RType::Client::RTypeClient::deleteEntity(const struct rtype::EntityId entityId)
-{
-    struct GameEngine::Entity entity = _gameEngine.registry.getEntityById(entityId.id);
-    _gameEngine.registry.killEntity(entity);
-}
-
-void RType::Client::RTypeClient::updateEntity(const struct rtype::Entity entity)
-{
-    auto &transforms = _gameEngine.registry.getComponent<GameEngine::TransformComponent>();
-
-    if (entity.id > transforms.size())
-        return;
-    if (!transforms[entity.id].has_value()) {
-        _gameEngine.prefabManager.createEntityFromPrefab("player", _gameEngine.registry, entity.id);
-    } else {
-        transforms[entity.id]->velocity.x = entity.directionX;
-        transforms[entity.id]->velocity.y = entity.directionY;
-        transforms[entity.id]->position.x = entity.positionX;
-        transforms[entity.id]->position.y = entity.positionY;
-    }
-}
-
-void RType::Client::RTypeClient::handleEntity(struct rtype::Event event)
-{
-    struct rtype::Entity entity = std::any_cast<struct rtype::Entity>(event.data);
-    _gameEngine.eventManager.getHandler<struct rtype::Entity>(GameEngine::Event::GetEntity).publish(entity);
-}
-
-void RType::Client::RTypeClient::handleEvent()
-{
-    struct rtype::Event event;
-
-    while (_eventQueue.size() != 0) {
-        event = _eventQueue.pop();
-        switch (event.packetType) {
-        case static_cast<uint8_t>(rtype::PacketType::ENTITY):
-            handleEntity(event);
-            break;
-        case static_cast<uint8_t>(rtype::PacketType::CONNECTED):
-            handleNewEntity(event);
-            break;
-        case static_cast<uint8_t>(rtype::PacketType::DISCONNEXION):
-            handleDisconnexion(event);
-            break;
-        }
-    }
+    _isRunning = false;
 }
 
 void RType::Client::RTypeClient::gameLoop()

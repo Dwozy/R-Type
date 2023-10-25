@@ -11,6 +11,7 @@
 #include <SFML/Graphics.hpp>
 #include "utils/Vector.hpp"
 #include "utils/Rect.hpp"
+#include "unordered_map"
 #include "RenderInterfaces.hpp"
 #include "Keyboard.hpp"
 
@@ -242,27 +243,24 @@ namespace GameEngine
         sf::Sprite _sprite;
     };
 
+    class InputManager
+    {
+      public:
+        /// @brief Static unordered map that maps custom keyboard keys to corresponding sf::Keyboard::Key values
+        static const std::unordered_map<Input::Keyboard::Key, sf::Keyboard::Key> sfKeys;
 
-  class InputManager
-  {
-  public:
-      /// @brief Static unordered map that maps custom keyboard keys to corresponding sf::Keyboard::Key values
-      static const std::unordered_map<Input::Keyboard::Key, sf::Keyboard::Key> sfKeys;
+        static bool isKeyPressed(const Input::Keyboard::Key key) { return sf::Keyboard::isKeyPressed(sfKeys.at(key)); }
 
-      static bool isKeyPressed(const Input::Keyboard::Key key)
-      {
-          return sf::Keyboard::isKeyPressed(sfKeys.at(key));
-      }
+        static bool isKeyReleased(const Input::Keyboard::Key key)
+        {
+            bool isReleased = prevKeyStates[key] && sf::Keyboard::isKeyPressed(sfKeys.at(key)) == false;
+            prevKeyStates[key] = sf::Keyboard::isKeyPressed(sfKeys.at(key));
 
-      static bool isKeyReleased(const Input::Keyboard::Key key)
-      {
-          bool isReleased = prevKeyStates[key] && sf::Keyboard::isKeyPressed(sfKeys.at(key)) == false;
-          prevKeyStates[key] = sf::Keyboard::isKeyPressed(sfKeys.at(key));
+            return isReleased;
+        }
 
-          return isReleased;
-      }
-  private:
-      static std::unordered_map<Input::Keyboard::Key, bool> prevKeyStates;
-  };
+      private:
+        static std::unordered_map<Input::Keyboard::Key, bool> prevKeyStates;
+    };
 } // namespace GameEngine
 #endif /* !MLTYPES_HPP_ */

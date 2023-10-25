@@ -15,18 +15,24 @@ namespace RType::Client
         auto &transforms = _gameEngine.registry.getComponent<GameEngine::TransformComponent>();
 
         if (!_searchEntity(entity.id)) {
-            GameEngine::Entity newEntity = _gameEngine.registry.spawnEntity();
+            // std::cout << _listTextureTypePrefab.at(entity.idTexture) << std::endl;
+            GameEngine::Entity newEntity = _gameEngine.prefabManager.createEntityFromPrefab(
+                _listTextureTypePrefab.at(entity.idTexture), _gameEngine.registry);
             _gameEngine.registry.addComponent<GameEngine::NetworkIdComponent>(
                 newEntity, GameEngine::NetworkIdComponent{entity.id});
-            _entityManager.setEntityFromClient(entity, newEntity, _gameEngine.registry);
+            auto &texture = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[newEntity];
+            texture->sprite.load(_gameEngine.assetManager.getTexture(texture->path));
             return;
         }
         std::size_t id = _findEntity(entity.id);
         if (!transforms[id].has_value()) {
-            GameEngine::Entity newEntity = _gameEngine.registry.spawnEntity();
+            // Mapping Enum type texture to prefab
+            GameEngine::Entity newEntity = _gameEngine.prefabManager.createEntityFromPrefab(
+                _listTextureTypePrefab.at(entity.idTexture), _gameEngine.registry);
             _gameEngine.registry.addComponent<GameEngine::NetworkIdComponent>(
                 newEntity, GameEngine::NetworkIdComponent{entity.id});
-            _entityManager.setEntityFromClient(entity, newEntity, _gameEngine.registry);
+            auto &texture = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[newEntity];
+            texture->sprite.load(_gameEngine.assetManager.getTexture(texture->path));
         } else {
             transforms[id]->velocity.x = entity.directionX;
             transforms[id]->velocity.y = entity.directionY;
