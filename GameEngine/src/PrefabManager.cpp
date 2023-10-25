@@ -14,14 +14,13 @@
 namespace GameEngine
 {
 
-    PrefabManager::PrefabManager()
+    PrefabManager::PrefabManager(AssetManager &assetManager) : _assetManager(assetManager)
     {
         _componentConverters["TransformComponent"] = [](json json) {
             return std::pair(std::type_index(typeid(TransformComponent)), json.get<TransformComponent>());
         };
         _componentConverters["ControllableComponent"] = [](json json) {
-            return std::pair(
-                std::type_index(typeid(ControllableComponent)), json.get<ControllableComponent>());
+            return std::pair(std::type_index(typeid(ControllableComponent)), json.get<ControllableComponent>());
         };
         _componentConverters["TextureComponent"] = [](json json) {
             return std::pair(std::type_index(typeid(TextureComponent)), json.get<TextureComponent>());
@@ -83,8 +82,13 @@ namespace GameEngine
     {
         auto entity = registry.spawnEntity(id);
 
-        for (const auto &prefab : _prefabs.at(prefabName))
+        for (const auto &prefab : _prefabs.at(prefabName)) {
             _componentAdders.at(prefab.first)(registry, prefab.second, entity);
+            if (prefab.first == typeid(TextureComponent)) {
+                auto &texture = registry.getComponent<TextureComponent>()[entity];
+                texture->sprite.load(_assetManager.get().getTexture(texture->path));
+            }
+        }
         return entity;
     }
 } // namespace GameEngine

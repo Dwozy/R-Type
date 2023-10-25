@@ -82,8 +82,7 @@ namespace GameEngine
 
     void from_json(const json &j, TextureComponent &tc)
     {
-        j.at("texture").get_to(tc.texture);
-        tc.sprite.load(tc.texture);
+        j.at("texturePath").get_to(tc.path);
         tc.animated = j.contains("animated") ? j.at("animated").get<bool>() : false;
         for (auto &trect : j.at("textureRects"))
             tc.textureRects.push_back(j.get<Rect<int>>());

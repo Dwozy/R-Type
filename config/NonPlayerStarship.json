@@ -8,15 +8,7 @@
         {
             "type": "TextureComponent",
             "value": {
-                "texture": {
-                    "path": "R-Type/assets/image.png",
-                    "area": {
-                        "left": 0,
-                        "top": 0,
-                        "width": 32,
-                        "height": 16
-                    }
-                },
+                "texturePath": "R-Type/assets/image.png",
                 "textureRects": [],
                 "renderLayer": 0
             }

@@ -14,21 +14,7 @@ namespace GameEngine
 {
     struct TextureComponent
     {
-        TextureComponent() = default;
-        TextureComponent(const TextureComponent& other)
-        {
-            texture = other.texture;
-            sprite = other.sprite;
-            animated = other.animated;
-            textureRects = other.textureRects;
-            animationSpeed = other.animationSpeed;
-            isRendered = other.isRendered;
-            animeid = other.animeid;
-            renderLayer = other.renderLayer;
-            sprite.load(texture);
-        }
-
-        Texture texture;
+        std::string path;
         Sprite sprite;
         bool animated;
         std::vector<Rect<int>> textureRects;

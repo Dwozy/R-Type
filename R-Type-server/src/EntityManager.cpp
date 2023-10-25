@@ -45,8 +45,8 @@ void GameEngine::EntityManager::setPlayerEntity(float posX, float posY, Entity e
         GameEngine::CollisionComponent, GameEngine::TransformComponent>(registry, collisionCallback);
     registry.addComponent<GameEngine::CollisionComponent>(entity, col);
     auto &playerTex = registry.addComponent<GameEngine::TextureComponent>(entity, GameEngine::TextureComponent());
-    playerTex.value().texture.load("R-Type/assets/image.png", GameEngine::Rect<int>(0, 0, 32, 16));
-    playerTex.value().sprite.load(playerTex.value().texture);
+    // playerTex.value().texture.load("R-Type/assets/image.png", GameEngine::Rect<int>(0, 0, 32, 16));
+    // playerTex.value().sprite.load(playerTex.value().texture);
 }
 
 void GameEngine::EntityManager::setControlPlayerEntity(Entity entity, Registry &registry)
