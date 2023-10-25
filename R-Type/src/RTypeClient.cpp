@@ -5,6 +5,7 @@
 ** RTypeClient
 */
 
+#include <iostream>
 #include "RTypeClient.hpp"
 #include "components/TransformComponent.hpp"
 #include "components/CollisionComponent.hpp"
@@ -13,17 +14,20 @@
 #include "components/TextureComponent.hpp"
 #include "components/TextComponent.hpp"
 #include "components/PressableComponent.hpp"
+#include "components/NetworkIdComponent.hpp"
 #include "systems/DrawSystem.hpp"
 #include "systems/PositionSystem.hpp"
 #include "systems/ControlSystem.hpp"
 #include "systems/PressableSystem.hpp"
+#include "systems/CollisionSystem.hpp"
 
 RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned short port)
-    : _gameEngine(800, 800), _serverUdpEndpoint(asio::ip::make_address(address), port),
-      _udpClient(_IOContext, _serverUdpEndpoint, std::ref(_eventQueue)), _signal(_IOContext, SIGINT, SIGTERM)
+    : _serverUdpEndpoint(asio::ip::make_address(address), port), _serverTcpEndpoint(asio::ip::make_address(address), 0),
+      _udpClient(_IOContext, _serverUdpEndpoint, std::ref(_eventQueue)), /*_tcpClient(_IOContext, _serverTcpEndpoint),*/
+      _signal(_IOContext, SIGINT, SIGTERM)
 {
-    setGameEngineComponent();
-    setGameEngineSystem();
+    _id = 0;
+    setGameEngine();
     _gameEngine.prefabManager.loadPrefabFromFile("config/Player.json");
     _gameEngine.prefabManager.loadPrefabFromFile("config/NonPlayerStarship.json");
     _isRunning = true;
@@ -31,71 +35,36 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
     std::thread network(&RType::Client::RTypeClient::startNetwork, this, std::ref(_isRunning));
     network.detach();
     gameLoop();
-    struct rtype::EntityId entityId = {.id = this->_id};
-    std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::EntityId>(entityId);
+    struct rtype::EntityId entityId = {.id = this->_serverId};
+    std::vector<std::byte> dataToSend =
+        Serialization::serializeData<struct rtype::EntityId>(entityId, sizeof(entityId));
     _udpClient.sendDataInformation(dataToSend, static_cast<uint8_t>(rtype::PacketType::DISCONNEXION));
+    std::cout << "Player " << _serverId << " died :( !" << std::endl;
 }
 
 RType::Client::RTypeClient::~RTypeClient() {}
 
-void RType::Client::RTypeClient::setGameEngineComponent()
-{
-    _gameEngine.registry.registerComponent<GameEngine::TransformComponent>();
-    _gameEngine.registry.registerComponent<GameEngine::CollisionComponent>();
-    _gameEngine.registry.registerComponent<GameEngine::ControllableComponent>();
-    _gameEngine.registry.registerComponent<GameEngine::CameraComponent>();
-    _gameEngine.registry.registerComponent<GameEngine::TextureComponent>();
-    _gameEngine.registry.registerComponent<GameEngine::TextComponent>();
-    _gameEngine.registry.registerComponent<GameEngine::PressableComponent>();
-
-    GameEngine::Entity camera = _gameEngine.registry.spawnEntity();
-    GameEngine::CameraComponent cam = {GameEngine::View{GameEngine::Rect<float>(0.0f, 0.0f, 200.0f, 200.0f)}};
-    auto &refCamera = _gameEngine.registry.addComponent<GameEngine::CameraComponent>(camera, cam);
-
-    _gameEngine.window.setView(refCamera.value().view);
-}
-
-void RType::Client::RTypeClient::setGameEngineSystem()
-{
-    auto &refHandlerNew = _gameEngine.eventManager.addHandler<struct rtype::Entity>(GameEngine::Event::GetNewEntity);
-    auto handleNew = std::bind(&RType::Client::RTypeClient::entitySpawn, this, std::placeholders::_1);
-    refHandlerNew.subscribe(handleNew);
-    auto &refHandlerUpdate = _gameEngine.eventManager.addHandler<struct rtype::Entity>(GameEngine::Event::GetEntity);
-    auto handleUpdate = std::bind(&RType::Client::RTypeClient::updateEntity, this, std::placeholders::_1);
-    refHandlerUpdate.subscribe(handleUpdate);
-    auto &refHandlerDelete =
-        _gameEngine.eventManager.addHandler<struct rtype::EntityId>(GameEngine::Event::DeleteEntity);
-    auto handleDelete = std::bind(&RType::Client::RTypeClient::deleteEntity, this, std::placeholders::_1);
-    refHandlerDelete.subscribe(handleDelete);
-    auto &refHandlerMove =
-        _gameEngine.eventManager.addHandler<GameEngine::TransformComponent>(GameEngine::Event::PlayerMoveEvent);
-    auto handleUpdateMove = std::bind(&RType::Client::RTypeClient::updatePlayerMovement, this, std::placeholders::_1);
-    refHandlerMove.subscribe(handleUpdateMove);
-    GameEngine::DrawSystem drawSystem(_gameEngine.window);
-    GameEngine::PositionSystem positionSystem(_gameEngine.deltaTime.getDeltaTime());
-    GameEngine::PressableSystem pressableSystem(_gameEngine.window);
-    GameEngine::ControlSystem controlSystem;
-    _gameEngine.registry.addSystem<std::function<void(SparseArray<GameEngine::TransformComponent> &,
-                                       SparseArray<GameEngine::ControllableComponent> &)>,
-        GameEngine::TransformComponent, GameEngine::ControllableComponent>(controlSystem);
-
-    _gameEngine.registry.addSystem<
-        std::function<void(SparseArray<GameEngine::TransformComponent> &, SparseArray<GameEngine::TextureComponent> &)>,
-        GameEngine::TransformComponent, GameEngine::TextureComponent>(positionSystem);
-
-    _gameEngine.registry.addSystem<GameEngine::PressableFunction, GameEngine::TransformComponent,
-        GameEngine::TextureComponent, GameEngine::PressableComponent>(pressableSystem);
-
-    _gameEngine.registry.addSystem<
-        std::function<void(SparseArray<GameEngine::TextComponent> &, SparseArray<GameEngine::TextureComponent> &)>,
-        GameEngine::TextComponent, GameEngine::TextureComponent>(drawSystem);
-}
-
 void RType::Client::RTypeClient::startNetwork(bool &isRunning)
+{
+    // runTcpServer();
+    // _IOContext.restart();
+    runUdpServer();
+    isRunning = false;
+}
+
+void RType::Client::RTypeClient::runTcpServer()
+{
+    // _signal.async_wait(std::bind(&asio::io_context::stop, &_IOContext));
+    // _tcpClient.run();
+    // _IOContext.run();
+}
+
+void RType::Client::RTypeClient::runUdpServer()
 {
     _signal.async_wait(std::bind(&asio::io_context::stop, &_IOContext));
     _udpClient.run();
     _IOContext.run();
+<<<<<<< HEAD
     isRunning = false;
 }
 
@@ -175,20 +144,53 @@ void RType::Client::RTypeClient::handleEvent()
             break;
         }
     }
+=======
+>>>>>>> origin/main
 }
 
 void RType::Client::RTypeClient::gameLoop()
 {
-    while (_isRunning && _gameEngine.window.isOpen()) {
+    bool isOpen = false;
+    GameEngine::PollEventStruct event;
+
+    _gameEngine.eventManager.publish<bool &>(GameEngine::Event::WindowIsOpen, isOpen);
+    while (_isRunning && isOpen) {
         _gameEngine.deltaTime.update();
-        GameEngine::SEvent event;
-        while (_gameEngine.window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
-                _gameEngine.window.close();
+        _gameEngine.eventManager.publish<GameEngine::PollEventStruct &>(GameEngine::Event::PollEvent, event);
+        while (event.isEvent) {
+            _gameEngine.eventManager.publish<GameEngine::SEvent &>(GameEngine::Event::WindowCloseEvent, event.event);
+            _gameEngine.eventManager.publish<GameEngine::PollEventStruct &>(GameEngine::Event::PollEvent, event);
         }
         if (_eventQueue.size() != 0)
             handleEvent();
         _gameEngine.registry.runSystems();
         handlePlayerMovement();
+        _gameEngine.eventManager.publish<bool &>(GameEngine::Event::WindowIsOpen, isOpen);
     }
+}
+
+std::size_t RType::Client::RTypeClient::_findEntity(const std::size_t &networkId)
+{
+    const auto &ids = _gameEngine.registry.getComponent<GameEngine::NetworkIdComponent>();
+
+    for (std::size_t i = 0; i < ids.size(); i++) {
+        const auto &id = ids[i];
+
+        if (id && id.value().id == networkId)
+            return i;
+    }
+    throw; // Entity not found
+}
+
+bool RType::Client::RTypeClient::_searchEntity(const std::size_t &networkId)
+{
+    const auto &ids = _gameEngine.registry.getComponent<GameEngine::NetworkIdComponent>();
+
+    for (std::size_t i = 0; i < ids.size(); i++) {
+        const auto &id = ids[i];
+
+        if (id && id.value().id == networkId)
+            return true;
+    }
+    return false;
 }

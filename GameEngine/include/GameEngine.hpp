@@ -36,13 +36,8 @@ namespace GameEngine
     {
       public:
         /// @brief Constructor for the game engine.
-        /// @param width Width of the window. Default value is 1920.
-        /// @param height Height of the window. Default value is 1080.
-        /// @param windowName Name of the window. Default value is default.
         /// @param maxEntities Maximum number of entities at once. Default value is 512.
-        GameEngine(
-            int width = 1920, int height = 1080, std::string windowName = "default", std::size_t maxEntities = 512)
-            : window(width, height, windowName), registry(maxEntities), prefabManager(assetManager)
+        GameEngine(std::size_t maxEntities = 512) : registry(maxEntities), prefabManager(assetManager)
         {
             deltaTime.update();
             assetManager.loadTexture("R-Type/assets/image.png", {0, 0, 32, 16});
@@ -51,14 +46,12 @@ namespace GameEngine
         ~GameEngine() = default;
 
         /// @brief Event manager for the game engine.
-        EventMananger eventManager;
+        EventManager eventManager;
         /// @brief Registry managing entities, components and systems.
         Registry registry;
         /// @brief Delta time class managing the delta time.
         DeltaTime deltaTime;
         /// @brief Window of the game.
-        Window window;
-        /// @brief Scene manager, use it to register scene, loading and unloading them.
         SceneManager sceneManager;
         AssetManager assetManager;
         PrefabManager prefabManager;

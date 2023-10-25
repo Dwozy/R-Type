@@ -19,11 +19,12 @@ namespace RType::Client
         TcpClient(asio::io_context &IOContext, asio::ip::tcp::endpoint &serverEndpoint);
         ~TcpClient();
 
-      protected:
-      private:
         /// @brief Connect to the TCP server
         void run();
+        bool &getTcpStatus();
 
+      protected:
+      private:
         /// @brief Restart the timeout
         void handleTimeout();
 
@@ -37,6 +38,7 @@ namespace RType::Client
         /// server
         void handleInput(const asio::error_code &error, std::size_t recvBytes);
 
+        bool _tcpRunning;
         asio::io_context &_IOContext;
         asio::ip::tcp::endpoint &_serverEndpoint;
         asio::ip::tcp::socket _socket;

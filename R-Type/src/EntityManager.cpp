@@ -26,10 +26,10 @@ void collisionCallback(const std::size_t &entityId, SparseArray<GameEngine::Coll
         auto &col = collisions[i];
         auto &tsf = transforms[i];
 
-        if (!col || !tsf || !col.value().isActive)
+        if (!col || !tsf || !col.value().isActive || col.value().layer != 0)
             continue;
-        selfCol.value().collider.handleCollisionFromRect(
-            selfTsf.value().position, col.value().collider, tsf.value().position);
+        // selfCol.value().collider.handleCollisionFromRect(
+        //     selfTsf.value().position, col.value().collider, tsf.value().position);
     }
 }
 

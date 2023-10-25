@@ -144,6 +144,9 @@ namespace GameEngine
         /// @brief set a new view in the window
         /// @param view the window will take
         virtual void setView(const IView<Vt> &view) = 0;
+        /// @brief Set the maximum framerate of the window
+        /// @param rate the maximum framerate
+        virtual void setFramerateLimit(const float rate) = 0;
         /// @brief  check if the window is open
         /// @return boolean indicating that the window is open
         virtual bool isOpen() const = 0;

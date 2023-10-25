@@ -16,8 +16,10 @@
 
 namespace rtype
 {
+    static const std::size_t MAX_BUFFER_SIZE = 65535;
     static const std::size_t HEADER_SIZE = 8;
     static const uint32_t MAGIC_NUMBER = 0xA54CDEF5;
+    static const float PLAYER_SPEED = 25.0f;
 
     enum class PacketType : uint8_t {
         ROOM = 1,
