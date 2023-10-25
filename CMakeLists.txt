@@ -44,6 +44,7 @@ set(INCLUDES_GLOBAL include)
 set(INCLUDES_LIB GameEngine/include)
 set(SRCS_LIB
     GameEngine/src/Error.cpp
+    GameEngine/src/Inputs.cpp
     GameEngine/src/DeltaTime.cpp
     GameEngine/src/systems/ControlSystem.cpp
     GameEngine/src/systems/DrawSystem.cpp
@@ -92,6 +93,7 @@ set(SRCS_CLIENT
     ${CLIENT_FOLDER}/src/Event/DeleteEntityEvent.cpp
     ${CLIENT_FOLDER}/src/Event/MoveEntityEvent.cpp
     ${CLIENT_FOLDER}/src/Event/UpdateEntityEvent.cpp
+    ${CLIENT_FOLDER}/src/Event/ShootEvent.cpp
 )
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${PROJECT_NAME})

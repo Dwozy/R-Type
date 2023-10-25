@@ -38,7 +38,7 @@ namespace RType::Client
         std::cout << "Player : " << entity.id << " spawned !" << std::endl;
         _gameEngine.registry.addComponent<GameEngine::NetworkIdComponent>(
             newEntity, GameEngine::NetworkIdComponent{entity.id});
-        _entityManager.setPlayerEntity(entity.positionX, entity.positionY, newEntity, _gameEngine.registry);
+        _entityManager.setPlayerEntity(entity, newEntity, _gameEngine.registry);
         if (_isPlayer) {
             _entityManager.setControlPlayerEntity(newEntity, _gameEngine.registry);
             _isPlayer = false;

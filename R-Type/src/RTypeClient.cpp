@@ -81,6 +81,7 @@ void RType::Client::RTypeClient::gameLoop()
             handleEvent();
         _gameEngine.registry.runSystems();
         handlePlayerMovement();
+        handlePlayerShoot();
         _gameEngine.eventManager.publish<bool &>(GameEngine::Event::WindowIsOpen, isOpen);
     }
 }
