@@ -33,7 +33,7 @@ namespace RType::Client
             transforms[id]->position.x = (fabs(transforms[id]->position.x - entity.positionX) < 2)
                                              ? transforms[id]->position.x
                                              : entity.positionX;
-            transforms[entity.id]->position.y = (fabs(transforms[id]->position.y - entity.positionY) < 2)
+            transforms[id]->position.y = (fabs(transforms[id]->position.y - entity.positionY) < 2)
                                                     ? transforms[id]->position.y
                                                     : entity.positionY;
         }
