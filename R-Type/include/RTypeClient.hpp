@@ -94,6 +94,7 @@ namespace RType::Client
         bool _isPlayer;
         uint16_t _serverId;
         std::size_t _id;
+        std::map<uint8_t, std::string> _listTextureTypePrefab;
     };
 } // namespace RType::Client
 
