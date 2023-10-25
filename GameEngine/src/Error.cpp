@@ -28,4 +28,12 @@ namespace Error
     SceneNotRegisterError::SceneNotRegisterError() : message("The scene hasn't been registered") {}
     SceneNotRegisterError::~SceneNotRegisterError() {}
     char const *SceneNotRegisterError::what() const noexcept { return message.c_str(); }
+
+    InvalidPrefabFileError::InvalidPrefabFileError() : message("Invalid prefab config file") {}
+    InvalidPrefabFileError::~InvalidPrefabFileError() {}
+    char const *InvalidPrefabFileError::what() const noexcept { return message.c_str(); }
+
+    PrefabNameAlreadyUsedError::PrefabNameAlreadyUsedError() : message("Prefab name already used") {}
+    PrefabNameAlreadyUsedError::~PrefabNameAlreadyUsedError() {}
+    char const *PrefabNameAlreadyUsedError::what() const noexcept { return message.c_str(); }
 } // namespace Error

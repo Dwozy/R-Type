@@ -45,7 +45,7 @@ void GameEngine::EntityManager::setPlayerEntity(struct rtype::Entity entityInfo,
         GameEngine::CollisionComponent, GameEngine::TransformComponent>(registry, collisionCallback);
     registry.addComponent<GameEngine::CollisionComponent>(entity, col);
     auto &playerTex = registry.addComponent<GameEngine::TextureComponent>(
-        entity, GameEngine::TextureComponent{GameEngine::Texture(), GameEngine::Sprite(), true, {}});
+        entity, GameEngine::TextureComponent{GameEngine::Texture(), GameEngine::Sprite(), true, {}, 0, true, 0, 0, 1});
 
     switch (entityInfo.idTexture) {
     case static_cast<uint8_t>(rtype::TextureType::PLAYER):

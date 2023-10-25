@@ -11,6 +11,8 @@
 #include "SceneManager.hpp"
 #include "utils/DeltaTime.hpp"
 #include "utils/SfmlTypes.hpp"
+#include "PrefabManager.hpp"
+#include "AssetManager.hpp"
 #include "Event.hpp"
 #include "systems/PositionSystem.hpp"
 #include "systems/ControlSystem.hpp"
@@ -35,7 +37,11 @@ namespace GameEngine
       public:
         /// @brief Constructor for the game engine.
         /// @param maxEntities Maximum number of entities at once. Default value is 512.
-        GameEngine(std::size_t maxEntities = 512) : registry(maxEntities) { deltaTime.update(); };
+        GameEngine(std::size_t maxEntities = 512) : registry(maxEntities), prefabManager(assetManager)
+        {
+            deltaTime.update();
+            assetManager.loadTexture("R-Type/assets/image.png", {0, 0, 32, 16});
+        };
         /// @brief Default destructor.
         ~GameEngine() = default;
 
@@ -47,6 +53,8 @@ namespace GameEngine
         DeltaTime deltaTime;
         /// @brief Window of the game.
         SceneManager sceneManager;
+        AssetManager assetManager;
+        PrefabManager prefabManager;
     };
 } // namespace GameEngine
 

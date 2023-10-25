@@ -14,7 +14,7 @@ namespace GameEngine
 {
     struct TextureComponent
     {
-        Texture texture;
+        std::string path;
         Sprite sprite;
         bool animated;
         std::vector<Rect<int>> textureRects;
