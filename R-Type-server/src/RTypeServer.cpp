@@ -14,6 +14,32 @@
 #include "utils/Rect.hpp"
 #include "RType.hpp"
 
+void RType::Server::RTypeServer::destroyShootCallback(const std::size_t &entityId,
+    SparseArray<GameEngine::CollisionComponent> &collisions, SparseArray<GameEngine::TransformComponent> &transforms)
+{
+    auto &selfCol = collisions[entityId];
+    auto &selfTsf = transforms[entityId];
+
+    if (!selfCol || !selfTsf)
+        return;
+    for (std::size_t i = 0; i < collisions.size(); i++) {
+        if (i == entityId)
+            continue;
+        auto &col = collisions[i];
+        auto &tsf = transforms[i];
+
+        if (!col || !tsf || !col.value().isActive || col.value().layer != 20)
+            continue;
+        if (selfCol.value().collider.isColliding(
+                selfTsf.value().position, col.value().collider, tsf.value().position)) {
+            struct rtype::EntityId entityId = { .id = static_cast<uint16_t> (i)};
+            struct rtype::Event destroyEvent = {
+                .packetType = static_cast<uint8_t>(rtype::PacketType::DESTROY), .data = entityId};
+            _eventQueue.push(destroyEvent);
+        }
+    }
+}
+
 RType::Server::RTypeServer::RTypeServer(unsigned short port)
     : _signal(_IOContext, SIGINT, SIGTERM), _udpServer(_IOContext, port, std::ref(_eventQueue)),
       _tcpServer(_IOContext, port)
@@ -22,20 +48,28 @@ RType::Server::RTypeServer::RTypeServer(unsigned short port)
     _gameEngine.registry.registerComponent<GameEngine::CollisionComponent>();
     _gameEngine.registry.registerComponent<GameEngine::TextureComponent>();
     _gameEngine.registry.registerComponent<GameEngine::ControllableComponent>();
-    // _gameEngine.registry.registerComponent<GameEngine::CollisionComponent>();
-    // _gameEngine.registry.registerComponent<GameEngine::TextureComponent>();
 
     _gameEngine.prefabManager.loadPrefabFromFile("config/NonPlayerStarship.json");
     _gameEngine.prefabManager.loadPrefabFromFile("config/Player.json");
     _gameEngine.prefabManager.loadPrefabFromFile("config/ParallaxCollision.json");
     _gameEngine.prefabManager.loadPrefabFromFile("config/Parallax.json");
     _gameEngine.prefabManager.loadPrefabFromFile("config/Shoot.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("config/DestroyShootCollision.json");
 
-    // GameEngine::CollisionSystem collisionSystem;
-    // _gameEngine.registry
-    //     .addSystem<std::function<void(SparseArray<GameEngine::CollisionComponent> &)>,
-    //     GameEngine::CollisionComponent>(
-    //         collisionSystem);
+    GameEngine::CollisionSystem collisionSystem;
+    _gameEngine.registry
+        .addSystem<std::function<void(SparseArray<GameEngine::CollisionComponent> &)>, GameEngine::CollisionComponent>(
+            collisionSystem);
+
+    auto shootBoxEntity = _gameEngine.prefabManager.createEntityFromPrefab("destroy_shoot", _gameEngine.registry);
+    auto &shootBox = _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[shootBoxEntity];
+    auto destroyCallback = std::bind(&RType::Server::RTypeServer::destroyShootCallback, this, std::placeholders::_1,
+        std::placeholders::_2, std::placeholders::_3);
+    shootBox.value()
+        .addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
+                       SparseArray<GameEngine::TransformComponent> &)>,
+            GameEngine::CollisionComponent, GameEngine::TransformComponent>(_gameEngine.registry, destroyCallback);
+    _listIdTexture.insert({static_cast<uint16_t>(shootBoxEntity), static_cast<uint8_t>(rtype::TextureType::NONE)});
 
     // GameEngine::Entity windowBoxUp = _gameEngine.registry.spawnEntity();
     // _gameEngine.registry.addComponent<GameEngine::TransformComponent>(
@@ -95,8 +129,8 @@ void RType::Server::RTypeServer::handleConnexion()
 {
     GameEngine::Entity entity = _gameEngine.prefabManager.createEntityFromPrefab("player", _gameEngine.registry);
     auto &entityPos = _gameEngine.registry.getComponent<GameEngine::TransformComponent>()[entity];
-
     entityPos.value().position = GameEngine::Vector2<float>(pos * 25, pos * 25);
+
 
     struct rtype::Entity newEntity = {.id = static_cast<uint16_t>(entity),
         .idTexture = static_cast<uint8_t>(rtype::TextureType::PLAYER),
@@ -116,7 +150,6 @@ void RType::Server::RTypeServer::handleConnexion()
 void RType::Server::RTypeServer::handleShoot(struct rtype::Event event)
 {
     auto shootInfo = std::any_cast<RType::Protocol::ShootData>(event.data);
-
     GameEngine::Entity shootEntity = _gameEngine.prefabManager.createEntityFromPrefab("shoot", _gameEngine.registry);
     GameEngine::Recti rectPlayer = {0, 0, 0, 0};
 
@@ -165,21 +198,20 @@ void RType::Server::RTypeServer::handleMove(struct rtype::Event event)
     _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::ENTITY), dataToSend);
 }
 
-void RType::Server::RTypeServer::handleDisconnexion(struct rtype::Event event)
+void RType::Server::RTypeServer::handleDestroy(struct rtype::Event event)
 {
     struct rtype::EntityId entity = std::any_cast<struct rtype::EntityId>(event.data);
     auto &transforms = _gameEngine.registry.getComponent<GameEngine::TransformComponent>();
 
     if (entity.id > transforms.size())
         return;
-    std::cout << "Player " << entity.id << " has to die !" << std::endl;
     GameEngine::Entity getEntity = _gameEngine.registry.getEntityById(entity.id);
     if (_listIdTexture[entity.id] == static_cast<uint8_t>(rtype::TextureType::PLAYER))
         pos--;
     _gameEngine.registry.killEntity(getEntity);
-    std::cout << "Player " << getEntity << " died !" << std::endl;
+    _listIdTexture.erase(static_cast<uint16_t>(entity.id));
     std::vector<std::byte> dataToSend = Serialization::serializeData<struct rtype::EntityId>(entity, sizeof(entity));
-    _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::DISCONNEXION), dataToSend);
+    _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::DESTROY), dataToSend);
 }
 
 void RType::Server::RTypeServer::handleEvent()
@@ -195,8 +227,8 @@ void RType::Server::RTypeServer::handleEvent()
         case static_cast<uint8_t>(rtype::PacketType::MOVE):
             handleMove(event);
             break;
-        case static_cast<uint8_t>(rtype::PacketType::DISCONNEXION):
-            handleDisconnexion(event);
+        case static_cast<uint8_t>(rtype::PacketType::DESTROY):
+            handleDestroy(event);
             break;
         case static_cast<uint8_t>(rtype::PacketType::SHOOT):
             handleShoot(event);
@@ -225,19 +257,24 @@ void RType::Server::RTypeServer::updateEntities()
 
 void RType::Server::RTypeServer::gameLoop()
 {
-    std::chrono::steady_clock::time_point _lastTime;
     std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
-    _lastTime = now;
+    std::chrono::steady_clock::time_point _lastTime = now;
+    std::chrono::steady_clock::time_point _lastTimeSpawn = now;
 
     while (_isRunning) {
         now = std::chrono::steady_clock::now();
         auto _deltaTime = std::chrono::duration_cast<std::chrono::duration<float>>(now - _lastTime);
+        auto _deltaTimeSpawn = std::chrono::duration_cast<std::chrono::duration<float>>(now - _lastTimeSpawn);
         _gameEngine.deltaTime.update();
         if (_eventQueue.size() != 0)
             handleEvent();
         if (_deltaTime.count() > 0.1) {
             updateEntities();
             _lastTime = now;
+        }
+        if (_deltaTimeSpawn.count() > 5.0) {
+            std::cout << "Spawn" << std::endl;
+            _lastTimeSpawn = now;
         }
         _gameEngine.registry.runSystems();
     }

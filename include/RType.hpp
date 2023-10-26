@@ -30,7 +30,7 @@ namespace rtype
         MOVE,
         SHOOT,
         CREATE_PLAYER,
-        DISCONNEXION
+        DESTROY
     };
 
     enum class TextureType : uint8_t { NONE = 1, PLAYER, SHOOT, MOB };

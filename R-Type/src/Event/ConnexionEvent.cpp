@@ -72,10 +72,8 @@ namespace RType::Client
             auto newEntity = _gameEngine.prefabManager.createEntityFromPrefab("player", _gameEngine.registry);
             _gameEngine.registry.addComponent<GameEngine::NetworkIdComponent>(
                 newEntity, GameEngine::NetworkIdComponent{entity.id});
-
             auto &texture = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[newEntity];
             texture->sprite.load(_gameEngine.assetManager.getTexture(texture->path));
-            // }
 
             _isPlayer = false;
             _id = newEntity;
@@ -85,7 +83,6 @@ namespace RType::Client
             GameEngine::Entity camera = _gameEngine.registry.spawnEntity();
             GameEngine::CameraComponent cam = {GameEngine::View{GameEngine::Rect<float>(0.0f, 0.0f, 200.0f, 200.0f)}};
             auto &refCamera = _gameEngine.registry.addComponent<GameEngine::CameraComponent>(camera, cam);
-
             if (refCamera)
                 _gameEngine.eventManager.publish<GameEngine::View &>(
                     GameEngine::Event::WindowSetView, refCamera.value().view);

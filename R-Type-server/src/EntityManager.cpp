@@ -37,28 +37,28 @@ void collisionCallback(const std::size_t &entityId, SparseArray<GameEngine::Coll
     }
 }
 
-void destroyShootCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
-    SparseArray<GameEngine::TransformComponent> &transforms)
-{
-    auto &selfCol = collisions[entityId];
-    auto &selfTsf = transforms[entityId];
+// void destroyShootCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
+//     SparseArray<GameEngine::TransformComponent> &transforms)
+// {
+//     auto &selfCol = collisions[entityId];
+//     auto &selfTsf = transforms[entityId];
 
-    if (!selfCol || !selfTsf)
-        return;
-    for (std::size_t i = 0; i < collisions.size(); i++) {
-        if (i == entityId)
-            continue;
-        auto &col = collisions[i];
-        auto &tsf = transforms[i];
+//     if (!selfCol || !selfTsf)
+//         return;
+//     for (std::size_t i = 0; i < collisions.size(); i++) {
+//         if (i == entityId)
+//             continue;
+//         auto &col = collisions[i];
+//         auto &tsf = transforms[i];
 
-        if (!col || !tsf || !col.value().isActive || col.value().layer != 20)
-            continue;
-        if (selfCol.value().collider.isColliding(
-                selfTsf.value().position, col.value().collider, tsf.value().position)) {
-            std::cout << "Shoot Down" << std::endl;
-        }
-    }
-}
+//         if (!col || !tsf || !col.value().isActive || col.value().layer != 20)
+//             continue;
+//         if (selfCol.value().collider.isColliding(
+//                 selfTsf.value().position, col.value().collider, tsf.value().position)) {
+//             std::cout << "Shoot Down" << std::endl;
+//         }
+//     }
+// }
 
 void GameEngine::EntityManager::setPlayerEntityComponent(Entity entity, Registry &registry)
 {
@@ -82,10 +82,10 @@ void GameEngine::EntityManager::setShootEntityComponent(Entity entity, Registry 
 {
     GameEngine::Rectf rect(0, 0, 47, 15.0);
     GameEngine::CollisionComponent col = {.collider = rect, .layer = 20};
-    col.addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
-                      SparseArray<GameEngine::TransformComponent> &)>,
-        GameEngine::CollisionComponent, GameEngine::TransformComponent>(registry, destroyShootCallback);
-    registry.addComponent<GameEngine::CollisionComponent>(entity, col);
+    // col.addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
+    //                   SparseArray<GameEngine::TransformComponent> &)>,
+    //     GameEngine::CollisionComponent, GameEngine::TransformComponent>(registry, destroyShootCallback);
+    // registry.addComponent<GameEngine::CollisionComponent>(entity, col);
 
     // auto &playerTex = registry.addComponent<GameEngine::TextureComponent>(
     //     entity, GameEngine::TextureComponent{GameEngine::Texture(), GameEngine::Sprite(), true, {}, 0, true, 0, 0,

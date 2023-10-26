@@ -14,6 +14,8 @@ namespace RType::Client
     {
         auto &transforms = _gameEngine.registry.getComponent<GameEngine::TransformComponent>();
 
+        if (_listTextureTypePrefab.find(entity.idTexture) == _listTextureTypePrefab.end())
+            return;
         if (!_searchEntity(entity.id)) {
             // std::cout << _listTextureTypePrefab.at(entity.idTexture) << std::endl;
             GameEngine::Entity newEntity = _gameEngine.prefabManager.createEntityFromPrefab(

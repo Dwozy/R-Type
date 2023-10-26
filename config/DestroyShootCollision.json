@@ -1,0 +1,31 @@
+{
+    "name": "destroy_shoot",
+    "components": [
+        {
+            "type": "TransformComponent",
+            "value": {
+                "position": {
+                    "x": 220.0,
+                    "y": 0.0
+                },
+                "velocity": {
+                    "x": 0.0,
+                    "y": 0.0
+                }
+            }
+        },
+        {
+            "type": "CollisionComponent",
+            "value": {
+                "collider": {
+                    "left": 0.0,
+                    "top": 0.0,
+                    "width": 20.0,
+                    "height": 200.0
+                },
+                "layer": 15
+            }
+        }
+    ]
+}
+

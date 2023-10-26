@@ -19,7 +19,7 @@ RType::Client::UdpClient::UdpClient(
         std::bind(&RType::Client::UdpClient::handleEntity, this, std::placeholders::_1));
     _commands.emplace(static_cast<uint8_t>(rtype::PacketType::CONNECTED),
         std::bind(&RType::Client::UdpClient::handleConnexionSuccess, this, std::placeholders::_1));
-    _commands.emplace(static_cast<uint8_t>(rtype::PacketType::DISCONNEXION),
+    _commands.emplace(static_cast<uint8_t>(rtype::PacketType::DESTROY),
         std::bind(&RType::Client::UdpClient::handleDisconnexion, this, std::placeholders::_1));
     _commands.emplace(static_cast<uint8_t>(rtype::PacketType::SHOOT),
         std::bind(&RType::Client::UdpClient::handleShoot, this, std::placeholders::_1));

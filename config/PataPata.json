@@ -1,5 +1,5 @@
 {
-    "name": "shoot",
+    "name": "patapata",
     "components": [
         {
             "type": "TransformComponent",
@@ -9,7 +9,7 @@
                     "y": 0.0
                 },
                 "velocity": {
-                    "x": 300.0,
+                    "x": -75.0,
                     "y": 0.0
                 }
             }
@@ -17,14 +17,14 @@
         {
             "type": "TextureComponent",
             "value": {
-                "texturePath": "R-Type/assets/r-typesheet1.gif",
+                "texturePath": "R-Type/assets/pata_pata.gif",
                 "textureRects": [{
-                    "left": 251.0,
-                    "top": 107.0,
-                    "width": 12.0,
-                    "height": 4.0
+                    "left": 7.0,
+                    "top": 8.0,
+                    "width": 17.0,
+                    "height": 20.0
                 }],
-                "renderLayer": 1
+                "renderLayer": 2
             }
         },
         {
@@ -33,10 +33,10 @@
                 "collider": {
                     "left": 0.0,
                     "top": 0.0,
-                    "width": 12.0,
-                    "height": 4.0
+                    "width": 17.0,
+                    "height": 20.0
                 },
-                "layer": 20
+                "layer": 0
             }
         }
     ]

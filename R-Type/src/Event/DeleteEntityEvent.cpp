@@ -14,9 +14,9 @@ namespace RType::Client
         if (!_searchEntity(entityId.id))
             return;
         std::size_t id = _findEntity(entityId.id);
-        struct GameEngine::Entity entity = _gameEngine.registry.getEntityById(id);
+        GameEngine::Entity entity = _gameEngine.registry.getEntityById(id);
+        std::cout << "Delete : " << entity << std::endl;
         _gameEngine.registry.killEntity(entity);
-        std::cout << "Player " << _id << " got : Player : " << entityId.id << " died." << std::endl;
     }
 
     void RTypeClient::setDeleteEntityCallback()
