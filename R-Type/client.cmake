@@ -1,0 +1,41 @@
+set(CLIENT_BINARY_NAME "r-type_client")
+
+set(CLIENT_FOLDER R-Type)
+
+set(INCLUDES_CLIENT ${CLIENT_FOLDER}/include)
+set(SRCS_CLIENT
+    ${CLIENT_FOLDER}/src/main.cpp
+    ${CLIENT_FOLDER}/src/RTypeClient.cpp
+    ${CLIENT_FOLDER}/src/EntityManager.cpp
+    ${CLIENT_FOLDER}/src/UdpClient.cpp
+    ${CLIENT_FOLDER}/src/TcpClient.cpp
+    ${CLIENT_FOLDER}/src/HandleEvent.cpp
+    ${CLIENT_FOLDER}/src/SetGameEngine.cpp
+    ${CLIENT_FOLDER}/src/Event/ConnexionEvent.cpp
+    ${CLIENT_FOLDER}/src/Event/DeleteEntityEvent.cpp
+    ${CLIENT_FOLDER}/src/Event/MoveEntityEvent.cpp
+    ${CLIENT_FOLDER}/src/Event/UpdateEntityEvent.cpp
+    ${CLIENT_FOLDER}/src/Event/ShootEvent.cpp
+)
+
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${PROJECT_NAME})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/${PROJECT_NAME})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/${PROJECT_NAME})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${PROJECT_NAME})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/${PROJECT_NAME})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/${PROJECT_NAME})
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${PROJECT_NAME})
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/${PROJECT_NAME})
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/${PROJECT_NAME})
+
+add_executable(${CLIENT_BINARY_NAME} ${SRCS_CLIENT})
+if (UNIX)
+    target_link_libraries(${CLIENT_BINARY_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/GameEngine/GameEngine/lib/libGameEngine.a)
+endif (UNIX)
+if (MSVC)
+    target_link_libraries(${CLIENT_BINARY_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/GameEngine/GameEngine/lib/GameEngine.lib)
+endif (MSVC)
+target_link_libraries(${CLIENT_BINARY_NAME} PRIVATE sfml-graphics sfml-audio sfml-system sfml-window)
+target_link_libraries(${CLIENT_BINARY_NAME} PRIVATE nlohmann_json::nlohmann_json)
+target_link_libraries(${CLIENT_BINARY_NAME} PRIVATE asio)
+target_include_directories(${CLIENT_BINARY_NAME} PRIVATE ${INCLUDES_CLIENT} ${INCLUDES_GLOBAL} ${CMAKE_SOURCE_DIR}/GameEngine/include/)
