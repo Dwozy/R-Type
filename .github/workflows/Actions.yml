@@ -27,13 +27,13 @@ jobs:
         os: [ubuntu-latest, windows-latest]
         include:
           - os: ubuntu-latest
-            install_cmd: ./build_unix.sh
-            run_tests_cmd: ./Tests/unit_tests
+            install_cmd: ./build.sh
+            run_tests_cmd: ./tests/unit_tests
             container: biozzzzz/r-type
             executables: R-Type-server/r-type_server,R-Type/r-type_client
           - os: windows-latest
-            install_cmd: cmd /c build_win.bat
-            run_tests_cmd: cmd /c .\Tests\unit_tests.exe
+            install_cmd: cmd /c build.bat
+            run_tests_cmd: cmd /c .\tests\unit_tests.exe
             executables: R-Type-server\r-type_server.exe,R-Type\r-type_client.exe
     runs-on: ${{ matrix.os }}
     container: ${{ matrix.container }}
