@@ -1,6 +1,5 @@
 *.a
 *.lib
-*.cmake
 
 GameEngine
 
