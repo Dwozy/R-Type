@@ -1,5 +1,5 @@
 {
-    "name": "shoot",
+    "name": "parallax",
     "components": [
         {
             "type": "TransformComponent",
@@ -9,7 +9,7 @@
                     "y": 0.0
                 },
                 "velocity": {
-                    "x": 300.0,
+                    "x": -50.0,
                     "y": 0.0
                 }
             }
@@ -17,27 +17,28 @@
         {
             "type": "TextureComponent",
             "value": {
-                "texturePath": "R-Type/assets/r-typesheet1.gif",
+                "texturePath": "R-Type/assets/parallax.png",
                 "textureRects": [{
-                    "left": 251.0,
-                    "top": 107.0,
-                    "width": 12.0,
-                    "height": 4.0
+                    "left": 199.0,
+                    "top": 0.0,
+                    "width": 30.0,
+                    "height": 200.0
                 }],
-                "renderLayer": 1
+                "renderLayer": 0
             }
         },
         {
             "type": "CollisionComponent",
             "value": {
                 "collider": {
-                    "left": 0.0,
+                    "left": 199.0,
                     "top": 0.0,
-                    "width": 12.0,
-                    "height": 4.0
+                    "width": 30.0,
+                    "height": 200.0
                 },
-                "layer": 0
+                "layer": 10
             }
         }
     ]
 }
+

@@ -1,4 +1,4 @@
-/*
+    /*
 ** EPITECH PROJECT, 2023
 ** R-type
 ** File description:
@@ -57,6 +57,13 @@ namespace GameEngine
         j.at("height").get_to(rect.height);
     }
 
+    template <typename T>
+    void from_json(const json &j, Vector2<T> &vec)
+    {
+        j.at("x").get_to(vec.x);
+        j.at("y").get_to(vec.y);
+    }
+
     void from_json(const json &j, Texture &texture)
     {
         std::string path(j.at("path").get<std::string>());
@@ -67,8 +74,8 @@ namespace GameEngine
 
     void from_json(const json &j, TransformComponent &tc)
     {
-        tc.position = Vector2<float>(0.0f, 0.0f);
-        tc.velocity = Vector2<float>(0.0f, 0.0f);
+        j.at("position").get_to(tc.position);
+        j.at("velocity").get_to(tc.velocity);
     }
 
     void from_json(const json &j, ControllableComponent &cc)
@@ -85,7 +92,7 @@ namespace GameEngine
         j.at("texturePath").get_to(tc.path);
         tc.animated = j.contains("animated") ? j.at("animated").get<bool>() : false;
         for (auto &trect : j.at("textureRects"))
-            tc.textureRects.push_back(j.get<Rect<int>>());
+            tc.textureRects.push_back(trect);
         tc.animationSpeed = j.contains("animationSpeed") ? j.at("animationSpeed").get<float>() : 0.0f;
         tc.isRendered = j.contains("isRendered") ? j.at("isRendered").get<bool>() : true;
         tc.lastUpdate = j.contains("lastUpdate") ? j.at("lastUpdate").get<float>() : 0.0f;

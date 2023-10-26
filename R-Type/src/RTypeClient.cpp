@@ -28,9 +28,15 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
 {
     _id = 0;
     setGameEngine();
-    _gameEngine.prefabManager.loadPrefabFromFile("config/Player.json");
-    _gameEngine.prefabManager.loadPrefabFromFile("config/Shoot.json");
     _gameEngine.prefabManager.loadPrefabFromFile("config/NonPlayerStarship.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("config/Player.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("config/ParallaxCollision.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("config/Parallax.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("config/Shoot.json");
+
+    _gameEngine.assetManager.loadTexture("R-Type/assets/image.png", {0, 0, 32, 16});
+    _gameEngine.assetManager.loadTexture("R-Type/assets/r-typesheet1.gif", {251, 107, 12, 4});
+    _gameEngine.assetManager.loadTexture("R-Type/assets/parallax.png", {0, 0, 1080, 1080});
 
     _listTextureTypePrefab.insert({static_cast<uint8_t>(rtype::TextureType::PLAYER), "player"});
     _listTextureTypePrefab.insert({static_cast<uint8_t>(rtype::TextureType::SHOOT), "shoot"});
