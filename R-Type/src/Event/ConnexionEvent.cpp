@@ -104,11 +104,11 @@ namespace RType::Client
 
             auto parallaxRange =
                 _gameEngine.prefabManager.createEntityFromPrefab("parallaxCollision", _gameEngine.registry);
-            auto &parallaxBox =
-                _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[parallaxRange];
+            auto &parallaxBox = _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[parallaxRange];
             parallaxBox.value()
                 .addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
-                               SparseArray<GameEngine::TransformComponent> &)>, GameEngine::CollisionComponent, GameEngine::TransformComponent>(
+                               SparseArray<GameEngine::TransformComponent> &)>,
+                    GameEngine::CollisionComponent, GameEngine::TransformComponent>(
                     _gameEngine.registry, parallaxCollision);
 
             // GameEngine::Entity windowBoxUp = _gameEngine.registry.spawnEntity();

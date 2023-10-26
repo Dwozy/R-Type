@@ -1,9 +1,9 @@
-    /*
-** EPITECH PROJECT, 2023
-** R-type
-** File description:
-** JsonConversion
-*/
+/*
+ ** EPITECH PROJECT, 2023
+ ** R-type
+ ** File description:
+ ** JsonConversion
+ */
 
 #ifndef JSONCONVERSION_HPP_
 #define JSONCONVERSION_HPP_
