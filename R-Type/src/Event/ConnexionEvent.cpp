@@ -89,14 +89,12 @@ namespace RType::Client
 
             auto parallax1 = _gameEngine.prefabManager.createEntityFromPrefab("parallax", _gameEngine.registry);
             auto &textureParallax = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[parallax1];
-            textureParallax->sprite.load(_gameEngine.assetManager.getTexture(textureParallax->path));
             textureParallax->sprite.setScale(0.1851, 0.1851);
 
             auto parallax2 = _gameEngine.prefabManager.createEntityFromPrefab("parallax", _gameEngine.registry);
             auto &posParallax2 = _gameEngine.registry.getComponent<GameEngine::TransformComponent>()[parallax2];
             posParallax2.value().position = GameEngine::Vector2<float>(199.0, 0.0);
             auto &textureParallax2 = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[parallax2];
-            textureParallax2->sprite.load(_gameEngine.assetManager.getTexture(textureParallax2->path));
             textureParallax2->sprite.setScale(0.1851, 0.1851);
 
             auto parallaxRange =
@@ -108,40 +106,10 @@ namespace RType::Client
                     GameEngine::CollisionComponent, GameEngine::TransformComponent>(
                     _gameEngine.registry, parallaxCollision);
 
-            auto borderBoxUp = _gameEngine.prefabManager.createEntityFromPrefab("border_map_up", _gameEngine.registry);
-
-            auto borderBoxDown = _gameEngine.prefabManager.createEntityFromPrefab("border_map_down", _gameEngine.registry);
-
-            auto borderBoxLeft = _gameEngine.prefabManager.createEntityFromPrefab("border_map_left", _gameEngine.registry);
-
-            auto borderBoxRight = _gameEngine.prefabManager.createEntityFromPrefab("border_map_right", _gameEngine.registry);
-            // GameEngine::Entity windowBoxUp = _gameEngine.registry.spawnEntity();
-            // _gameEngine.registry.addComponent<GameEngine::TransformComponent>(
-            //     windowBoxUp, GameEngine::TransformComponent{
-            //                    GameEngine::Vector2<float>(-20.0, -20.0), GameEngine::Vector2<float>(0.0, 0.0)});
-            // _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(windowBoxUp,
-            //     GameEngine::CollisionComponent{.collider = GameEngine::Rectf(0, 0, 240.0, 20.0), .layer = 15});
-
-            // GameEngine::Entity windowBoxDown = _gameEngine.registry.spawnEntity();
-            // _gameEngine.registry.addComponent<GameEngine::TransformComponent>(
-            //     windowBoxDown, GameEngine::TransformComponent{
-            //                    GameEngine::Vector2<float>(-20.0, 200.0), GameEngine::Vector2<float>(0.0, 0.0)});
-            // _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(windowBoxDown,
-            //     GameEngine::CollisionComponent{.collider = GameEngine::Rectf(0, 0, 240.0, 20.0), .layer = 15});
-
-            // GameEngine::Entity windowBoxLeft = _gameEngine.registry.spawnEntity();
-            // _gameEngine.registry.addComponent<GameEngine::TransformComponent>(
-            //     windowBoxLeft, GameEngine::TransformComponent{
-            //                    GameEngine::Vector2<float>(-20.0, -20.0), GameEngine::Vector2<float>(0.0, 0.0)});
-            // _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(windowBoxLeft,
-            //     GameEngine::CollisionComponent{.collider = GameEngine::Rectf(0, 0, 20.0, 240.0), .layer = 15});
-
-            // GameEngine::Entity windowBoxRight = _gameEngine.registry.spawnEntity();
-            // _gameEngine.registry.addComponent<GameEngine::TransformComponent>(
-            //     windowBoxRight, GameEngine::TransformComponent{
-            //                    GameEngine::Vector2<float>(200.0, -20.0), GameEngine::Vector2<float>(0.0, 0.0)});
-            // _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(windowBoxRight,
-            //     GameEngine::CollisionComponent{.collider = GameEngine::Rectf(0, 0, 20.0, 240.0), .layer = 15});
+            _gameEngine.prefabManager.createEntityFromPrefab("border_map_up", _gameEngine.registry);
+            _gameEngine.prefabManager.createEntityFromPrefab("border_map_down", _gameEngine.registry);
+            _gameEngine.prefabManager.createEntityFromPrefab("border_map_left", _gameEngine.registry);
+            _gameEngine.prefabManager.createEntityFromPrefab("border_map_right", _gameEngine.registry);
         }
     }
 

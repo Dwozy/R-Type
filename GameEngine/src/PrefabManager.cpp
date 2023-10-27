@@ -73,8 +73,13 @@ namespace GameEngine
     {
         auto entity = registry.spawnEntity();
 
-        for (const auto &prefab : _prefabs.at(prefabName))
+        for (const auto &prefab : _prefabs.at(prefabName)) {
             _componentAdders.at(prefab.first)(registry, prefab.second, entity);
+            if (prefab.first == typeid(TextureComponent)) {
+                auto &texture = registry.getComponent<TextureComponent>()[entity];
+                texture->sprite.load(_assetManager.get().getTexture(texture->path));
+            }
+        }
         return entity;
     }
 
