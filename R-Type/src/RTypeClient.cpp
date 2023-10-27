@@ -31,7 +31,7 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
     _gameEngine.assetManager.loadTexture("R-Type/assets/image.png", {0, 0, 32, 16});
     _gameEngine.assetManager.loadTexture("R-Type/assets/r-typesheet1.gif", {251, 107, 12, 4});
     _gameEngine.assetManager.loadTexture("R-Type/assets/parallax.png", {0, 0, 1080, 1080});
-    _gameEngine.assetManager.loadTexture("R-Type/assets/pata_pata.gif", {0, 0, 17, 20});
+    _gameEngine.assetManager.loadTexture("R-Type/assets/pata_pata.gif", {7, 8, 17, 20});
 
     _gameEngine.prefabManager.loadPrefabFromFile("config/NonPlayerStarship.json");
     _gameEngine.prefabManager.loadPrefabFromFile("config/Player.json");
@@ -39,9 +39,14 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
     _gameEngine.prefabManager.loadPrefabFromFile("config/Parallax.json");
     _gameEngine.prefabManager.loadPrefabFromFile("config/Shoot.json");
     _gameEngine.prefabManager.loadPrefabFromFile("config/PataPata.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("config/BorderMapUp.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("config/BorderMapDown.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("config/BorderMapLeft.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("config/BorderMapRight.json");
 
     _listTextureTypePrefab.insert({static_cast<uint8_t>(rtype::TextureType::PLAYER), "player"});
     _listTextureTypePrefab.insert({static_cast<uint8_t>(rtype::TextureType::SHOOT), "shoot"});
+    _listTextureTypePrefab.insert({static_cast<uint8_t>(rtype::TextureType::MOB), "patapata"});
 
     _isRunning = true;
     _isPlayer = true;

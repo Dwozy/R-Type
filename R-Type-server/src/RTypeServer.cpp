@@ -14,7 +14,7 @@
 #include "utils/Rect.hpp"
 #include "RType.hpp"
 
-void RType::Server::RTypeServer::destroyShootCallback(const std::size_t &entityId,
+void RType::Server::RTypeServer::destroyEntityCallback(const std::size_t &entityId,
     SparseArray<GameEngine::CollisionComponent> &collisions, SparseArray<GameEngine::TransformComponent> &transforms)
 {
     auto &selfCol = collisions[entityId];
@@ -28,15 +28,37 @@ void RType::Server::RTypeServer::destroyShootCallback(const std::size_t &entityI
         auto &col = collisions[i];
         auto &tsf = transforms[i];
 
-        if (!col || !tsf || !col.value().isActive || col.value().layer != 20)
+        if (!col || !tsf || !col.value().isActive || (col.value().layer != 20 && col.value().layer != 19))
             continue;
         if (selfCol.value().collider.isColliding(
                 selfTsf.value().position, col.value().collider, tsf.value().position)) {
-            struct rtype::EntityId entityId = { .id = static_cast<uint16_t> (i)};
+            struct rtype::EntityId entityId = {.id = static_cast<uint16_t>(i)};
             struct rtype::Event destroyEvent = {
                 .packetType = static_cast<uint8_t>(rtype::PacketType::DESTROY), .data = entityId};
             _eventQueue.push(destroyEvent);
         }
+    }
+}
+
+void RType::Server::RTypeServer::replaceEntityCallback(const std::size_t &entityId,
+    SparseArray<GameEngine::CollisionComponent> &collisions, SparseArray<GameEngine::TransformComponent> &transforms)
+{
+    auto &selfCol = collisions[entityId];
+    auto &selfTsf = transforms[entityId];
+
+    if (!selfCol || !selfTsf)
+        return;
+    for (std::size_t i = 0; i < collisions.size(); i++) {
+        if (i == entityId)
+            continue;
+        auto &col = collisions[i];
+        auto &tsf = transforms[i];
+
+        if (!col || !tsf || !col.value().isActive || (col.value().layer != 25))
+            continue;
+        selfCol.value().collider.handleCollisionFromRect(
+            selfTsf.value().position, col.value().collider, tsf.value().position);
+        selfTsf.value().velocity = {0, 0};
     }
 }
 
@@ -53,55 +75,51 @@ RType::Server::RTypeServer::RTypeServer(unsigned short port)
     _gameEngine.prefabManager.loadPrefabFromFile("config/Player.json");
     _gameEngine.prefabManager.loadPrefabFromFile("config/ParallaxCollision.json");
     _gameEngine.prefabManager.loadPrefabFromFile("config/Parallax.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("config/PataPata.json");
     _gameEngine.prefabManager.loadPrefabFromFile("config/Shoot.json");
-    _gameEngine.prefabManager.loadPrefabFromFile("config/DestroyShootCollision.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("config/DestroyEntityLeft.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("config/DestroyEntityRight.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("config/BorderMapUp.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("config/BorderMapDown.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("config/BorderMapLeft.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("config/BorderMapRight.json");
 
     GameEngine::CollisionSystem collisionSystem;
     _gameEngine.registry
         .addSystem<std::function<void(SparseArray<GameEngine::CollisionComponent> &)>, GameEngine::CollisionComponent>(
             collisionSystem);
 
-    auto shootBoxEntity = _gameEngine.prefabManager.createEntityFromPrefab("destroy_shoot", _gameEngine.registry);
-    auto &shootBox = _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[shootBoxEntity];
-    auto destroyCallback = std::bind(&RType::Server::RTypeServer::destroyShootCallback, this, std::placeholders::_1,
+    auto destroyCallback = std::bind(&RType::Server::RTypeServer::destroyEntityCallback, this, std::placeholders::_1,
         std::placeholders::_2, std::placeholders::_3);
-    shootBox.value()
+
+    auto rightBoxEntity = _gameEngine.prefabManager.createEntityFromPrefab("destroy_right_box", _gameEngine.registry);
+    auto &rightBox = _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[rightBoxEntity];
+    rightBox.value()
         .addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
                        SparseArray<GameEngine::TransformComponent> &)>,
             GameEngine::CollisionComponent, GameEngine::TransformComponent>(_gameEngine.registry, destroyCallback);
-    _listIdTexture.insert({static_cast<uint16_t>(shootBoxEntity), static_cast<uint8_t>(rtype::TextureType::NONE)});
+    _listIdTexture.insert({static_cast<uint16_t>(rightBoxEntity), static_cast<uint8_t>(rtype::TextureType::NONE)});
 
-    // GameEngine::Entity windowBoxUp = _gameEngine.registry.spawnEntity();
-    // _gameEngine.registry.addComponent<GameEngine::TransformComponent>(
-    //     windowBoxUp, GameEngine::TransformComponent{
-    //                     GameEngine::Vector2<float>(-20.0, -20.0), GameEngine::Vector2<float>(0.0, 0.0)});
-    // _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(windowBoxUp,
-    //     GameEngine::CollisionComponent{.collider = GameEngine::Rectf(0, 0, 240.0, 20.0), .layer = 15});
-    // _listIdTexture.insert({static_cast<uint16_t>(windowBoxUp), static_cast<uint8_t>(rtype::TextureType::NONE)});
+    auto leftBoxEntity = _gameEngine.prefabManager.createEntityFromPrefab("destroy_left_box", _gameEngine.registry);
+    auto &leftBox = _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[leftBoxEntity];
+    leftBox.value()
+        .addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
+                       SparseArray<GameEngine::TransformComponent> &)>,
+            GameEngine::CollisionComponent, GameEngine::TransformComponent>(_gameEngine.registry, destroyCallback);
+    _listIdTexture.insert({static_cast<uint16_t>(leftBoxEntity), static_cast<uint8_t>(rtype::TextureType::NONE)});
 
-    // GameEngine::Entity windowBoxDown = _gameEngine.registry.spawnEntity();
-    // _gameEngine.registry.addComponent<GameEngine::TransformComponent>(
-    //     windowBoxDown, GameEngine::TransformComponent{
-    //                     GameEngine::Vector2<float>(-20.0, 200.0), GameEngine::Vector2<float>(0.0, 0.0)});
-    // _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(windowBoxDown,
-    //     GameEngine::CollisionComponent{.collider = GameEngine::Rectf(0, 0, 240.0, 20.0), .layer = 15});
-    // _listIdTexture.insert({static_cast<uint16_t>(windowBoxDown), static_cast<uint8_t>(rtype::TextureType::NONE)});
+    auto borderBoxUp = _gameEngine.prefabManager.createEntityFromPrefab("border_map_up", _gameEngine.registry);
+    _listIdTexture.insert({static_cast<uint16_t>(borderBoxUp), static_cast<uint8_t>(rtype::TextureType::NONE)});
 
-    // GameEngine::Entity windowBoxLeft = _gameEngine.registry.spawnEntity();
-    // _gameEngine.registry.addComponent<GameEngine::TransformComponent>(
-    //     windowBoxLeft, GameEngine::TransformComponent{
-    //                     GameEngine::Vector2<float>(-20.0, -20.0), GameEngine::Vector2<float>(0.0, 0.0)});
-    // _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(windowBoxLeft,
-    //     GameEngine::CollisionComponent{.collider = GameEngine::Rectf(0, 0, 20.0, 240.0), .layer = 15});
-    // _listIdTexture.insert({static_cast<uint16_t>(windowBoxLeft), static_cast<uint8_t>(rtype::TextureType::NONE)});
+    auto borderBoxDown = _gameEngine.prefabManager.createEntityFromPrefab("border_map_down", _gameEngine.registry);
+    _listIdTexture.insert({static_cast<uint16_t>(borderBoxDown), static_cast<uint8_t>(rtype::TextureType::NONE)});
 
-    // GameEngine::Entity windowBoxRight = _gameEngine.registry.spawnEntity();
-    // _gameEngine.registry.addComponent<GameEngine::TransformComponent>(
-    //     windowBoxRight, GameEngine::TransformComponent{
-    //                     GameEngine::Vector2<float>(200.0, -20.0), GameEngine::Vector2<float>(0.0, 0.0)});
-    // _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(windowBoxRight,
-    //     GameEngine::CollisionComponent{.collider = GameEngine::Rectf(0, 0, 20.0, 240.0), .layer = 15});
-    // _listIdTexture.insert({static_cast<uint16_t>(windowBoxRight), static_cast<uint8_t>(rtype::TextureType::NONE)});
+    auto borderBoxLeft = _gameEngine.prefabManager.createEntityFromPrefab("border_map_left", _gameEngine.registry);
+    _listIdTexture.insert({static_cast<uint16_t>(borderBoxLeft), static_cast<uint8_t>(rtype::TextureType::NONE)});
+
+    auto borderBoxRight = _gameEngine.prefabManager.createEntityFromPrefab("border_map_right", _gameEngine.registry);
+    _listIdTexture.insert({static_cast<uint16_t>(borderBoxRight), static_cast<uint8_t>(rtype::TextureType::NONE)});
+
     pos = 1;
     GameEngine::PositionSystem positionSystem(_gameEngine.deltaTime.getDeltaTime());
     _gameEngine.registry.addSystem<
@@ -131,6 +149,14 @@ void RType::Server::RTypeServer::handleConnexion()
     auto &entityPos = _gameEngine.registry.getComponent<GameEngine::TransformComponent>()[entity];
     entityPos.value().position = GameEngine::Vector2<float>(pos * 25, pos * 25);
 
+    auto &entityCollider = _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[entity];
+
+    auto colliderCallback = std::bind(&RType::Server::RTypeServer::replaceEntityCallback, this, std::placeholders::_1,
+        std::placeholders::_2, std::placeholders::_3);
+    entityCollider.value()
+        .addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
+                       SparseArray<GameEngine::TransformComponent> &)>,
+            GameEngine::CollisionComponent, GameEngine::TransformComponent>(_gameEngine.registry, colliderCallback);
 
     struct rtype::Entity newEntity = {.id = static_cast<uint16_t>(entity),
         .idTexture = static_cast<uint8_t>(rtype::TextureType::PLAYER),
@@ -255,11 +281,32 @@ void RType::Server::RTypeServer::updateEntities()
     }
 }
 
+void RType::Server::RTypeServer::spawnMob()
+{
+    GameEngine::Entity mobEntity = _gameEngine.prefabManager.createEntityFromPrefab("patapata", _gameEngine.registry);
+    auto &entityPos = _gameEngine.registry.getComponent<GameEngine::TransformComponent>()[mobEntity];
+    float randPosY = (rand() % 180) + 10;
+    entityPos.value().position = GameEngine::Vector2<float>(200, randPosY);
+
+    struct rtype::Entity newEntity = {.id = static_cast<uint16_t>(mobEntity),
+        .idTexture = static_cast<uint8_t>(rtype::TextureType::MOB),
+        .positionX = entityPos.value().position.x,
+        .positionY = entityPos.value().position.y,
+        .directionX = entityPos.value().velocity.x,
+        .directionY = entityPos.value().velocity.y};
+    pos++;
+    _listIdTexture.insert({static_cast<uint16_t>(mobEntity), static_cast<uint8_t>(rtype::TextureType::MOB)});
+    std::vector<std::byte> dataToSend =
+        Serialization::serializeData<struct rtype::Entity>(newEntity, sizeof(newEntity));
+    _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::ENTITY), dataToSend);
+}
+
 void RType::Server::RTypeServer::gameLoop()
 {
     std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
     std::chrono::steady_clock::time_point _lastTime = now;
     std::chrono::steady_clock::time_point _lastTimeSpawn = now;
+    srand(time(0));
 
     while (_isRunning) {
         now = std::chrono::steady_clock::now();
@@ -272,8 +319,8 @@ void RType::Server::RTypeServer::gameLoop()
             updateEntities();
             _lastTime = now;
         }
-        if (_deltaTimeSpawn.count() > 5.0) {
-            std::cout << "Spawn" << std::endl;
+        if (_deltaTimeSpawn.count() > 2.0) {
+            spawnMob();
             _lastTimeSpawn = now;
         }
         _gameEngine.registry.runSystems();

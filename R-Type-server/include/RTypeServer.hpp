@@ -43,8 +43,11 @@ namespace RType::Server
         void updateEntities();
         void handleShoot(struct rtype::Event event);
 
-        void destroyShootCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
+        void destroyEntityCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
             SparseArray<GameEngine::TransformComponent> &transforms);
+        void replaceEntityCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
+            SparseArray<GameEngine::TransformComponent> &transforms);
+        void spawnMob();
 
       protected:
       private:

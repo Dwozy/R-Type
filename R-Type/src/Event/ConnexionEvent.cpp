@@ -31,29 +31,25 @@ void parallaxCollision(const std::size_t &entityId, SparseArray<GameEngine::Coll
     }
 }
 
-// void collisionCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
-//     SparseArray<GameEngine::TransformComponent> &transforms)
-// {
-//     auto &selfCol = collisions[entityId];
-//     auto &selfTsf = transforms[entityId];
+void collisionEntityCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
+    SparseArray<GameEngine::TransformComponent> &transforms)
+{
+    auto &selfCol = collisions[entityId];
+    auto &selfTsf = transforms[entityId];
 
-//     if (!selfCol || !selfTsf)
-//         return;
-//     for (std::size_t i = 0; i < collisions.size(); i++) {
-//         if (i == entityId)
-//             continue;
-//         auto &col = collisions[i];
-//         auto &tsf = transforms[i];
+    if (!selfCol || !selfTsf)
+        return;
+    for (std::size_t i = 0; i < collisions.size(); i++) {
+        if (i == entityId)
+            continue;
+        auto &col = collisions[i];
+        auto &tsf = transforms[i];
 
-//         if (!col || !tsf || !col.value().isActive || col.value().layer != 15)
-//             continue;
-//         std::cout << "GEGE" << std::endl;
-//         if (selfCol.value().collider.isColliding(
-//                 selfTsf.value().position, col.value().collider, tsf.value().position)) {
-//             std::cout << "Collision ! Need to replace !" << std::endl;
-//         }
-//     }
-// }
+        if (!col || !tsf || !col.value().isActive || col.value().layer != 25)
+            continue;
+        selfCol.value().collider.handleCollisionFromRect(selfTsf.value().position, col.value().collider, tsf.value().position);
+    }
+}
 
 namespace RType::Client
 {
@@ -74,7 +70,11 @@ namespace RType::Client
                 newEntity, GameEngine::NetworkIdComponent{entity.id});
             auto &texture = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[newEntity];
             texture->sprite.load(_gameEngine.assetManager.getTexture(texture->path));
-
+            auto &entityCollider = _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[newEntity];
+            entityCollider.value()
+                .addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
+                       SparseArray<GameEngine::TransformComponent> &)>,
+            GameEngine::CollisionComponent, GameEngine::TransformComponent>(_gameEngine.registry, collisionEntityCallback);
             _isPlayer = false;
             _id = newEntity;
             _serverId = entity.id;
@@ -108,6 +108,13 @@ namespace RType::Client
                     GameEngine::CollisionComponent, GameEngine::TransformComponent>(
                     _gameEngine.registry, parallaxCollision);
 
+            auto borderBoxUp = _gameEngine.prefabManager.createEntityFromPrefab("border_map_up", _gameEngine.registry);
+
+            auto borderBoxDown = _gameEngine.prefabManager.createEntityFromPrefab("border_map_down", _gameEngine.registry);
+
+            auto borderBoxLeft = _gameEngine.prefabManager.createEntityFromPrefab("border_map_left", _gameEngine.registry);
+
+            auto borderBoxRight = _gameEngine.prefabManager.createEntityFromPrefab("border_map_right", _gameEngine.registry);
             // GameEngine::Entity windowBoxUp = _gameEngine.registry.spawnEntity();
             // _gameEngine.registry.addComponent<GameEngine::TransformComponent>(
             //     windowBoxUp, GameEngine::TransformComponent{
@@ -135,13 +142,6 @@ namespace RType::Client
             //                    GameEngine::Vector2<float>(200.0, -20.0), GameEngine::Vector2<float>(0.0, 0.0)});
             // _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(windowBoxRight,
             //     GameEngine::CollisionComponent{.collider = GameEngine::Rectf(0, 0, 20.0, 240.0), .layer = 15});
-
-            // GameEngine::Entity destroyShootBox = _gameEngine.registry.spawnEntity();
-            // _gameEngine.registry.addComponent<GameEngine::TransformComponent>(
-            //     destroyShootBox, GameEngine::TransformComponent{
-            //                    GameEngine::Vector2<float>(220.0, 0.0), GameEngine::Vector2<float>(0.0, 0.0)});
-            // _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(destroyShootBox,
-            //     GameEngine::CollisionComponent{.collider = GameEngine::Rectf(0, 0, 0, 220.0), .layer = 20});
         }
     }
 

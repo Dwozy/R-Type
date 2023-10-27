@@ -1,12 +1,12 @@
 {
-    "name": "destroy_shoot",
+    "name": "border_map_left",
     "components": [
         {
             "type": "TransformComponent",
             "value": {
                 "position": {
-                    "x": 220.0,
-                    "y": 0.0
+                    "x": -20.0,
+                    "y": -10.0
                 },
                 "velocity": {
                     "x": 0.0,
@@ -21,9 +21,9 @@
                     "left": 0.0,
                     "top": 0.0,
                     "width": 20.0,
-                    "height": 200.0
+                    "height": 500.0
                 },
-                "layer": 15
+                "layer": 25
             }
         }
     ]
