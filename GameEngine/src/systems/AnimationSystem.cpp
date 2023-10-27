@@ -2,16 +2,16 @@
 ** EPITECH PROJECT, 2023
 ** R-Type
 ** File description:
-** AnimeSystem
+** AnimationSystem
 */
 
-#include "systems/AnimeSystem.hpp"
+#include "systems/AnimationSystem.hpp"
 #include <iostream>
 #include "utils/SfmlTypes.hpp"
 
 namespace GameEngine
 {
-    void AnimeSystem::operator()(SparseArray<TextureComponent> &texture)
+    void AnimationSystem::operator()(SparseArray<TextureComponent> &texture)
     {
         _currentDeltaTime += _deltaTime;
         for (size_t i = 0; i < texture.size(); i++) {
