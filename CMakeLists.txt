@@ -60,183 +60,19 @@ endif()
 
 list(POP_BACK CMAKE_MESSAGE_INDENT)
 
-set(INCLUDES_GLOBAL include)
-
-set(INCLUDES_LIB GameEngine/include)
-set(SRCS_LIB
-GameEngine/src/Error.cpp
-GameEngine/src/Inputs.cpp
-GameEngine/src/DeltaTime.cpp
-GameEngine/src/systems/ControlSystem.cpp
-GameEngine/src/systems/DrawSystem.cpp
-GameEngine/src/systems/PositionSystem.cpp
-GameEngine/src/Network/ACommunication.cpp
-GameEngine/src/systems/CollisionSystem.cpp
-GameEngine/src/systems/PressableSystem.cpp
-GameEngine/src/systems/AnimeSystem.cpp
-GameEngine/src/SceneManager.cpp
-GameEngine/src/PrefabManager.cpp
-)
-
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    add_compile_definitions(DEBUG)
-    set(INCLUDES_LIB_DEBUG
-        ${imgui_SOURCE_DIR}
-        ${imgui-sfml_SOURCE_DIR}
-    )
-    set(SRCS_LIB_DEBUG
-        GameEngine/src/Debug.cpp
-    )
-endif()
-
 project(${PROJECT_NAME} LANGUAGES CXX)
 
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/GameEngine/${LIBRARY_NAME}/lib/)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/GameEngine/${LIBRARY_NAME}/lib/)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/GameEngine/${LIBRARY_NAME}/lib/)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/GameEngine/${LIBRARY_NAME}/lib/)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/GameEngine/${LIBRARY_NAME}/lib/)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/GameEngine/${LIBRARY_NAME}/lib/)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/GameEngine/${LIBRARY_NAME}/lib/)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/GameEngine/${LIBRARY_NAME}/lib/)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/GameEngine/${LIBRARY_NAME}/lib/)
+set(INCLUDES_GLOBAL include)
 
-file(MAKE_DIRECTORY GameEngine/${LIBRARY_NAME})
-
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    add_library(${LIBRARY_NAME} STATIC ${SRCS_LIB} ${SRCS_LIB_DEBUG})
-    target_include_directories(${LIBRARY_NAME} PRIVATE ${INCLUDES_LIB_DEBUG})
-    target_link_libraries(${LIBRARY_NAME} PRIVATE ImGui-SFML::ImGui-SFML)
-else()
-    add_library(${LIBRARY_NAME} STATIC ${SRCS_LIB})
-endif()
-target_include_directories(${LIBRARY_NAME} PRIVATE ${INCLUDES_LIB})
-target_link_libraries(${LIBRARY_NAME} PRIVATE sfml-graphics sfml-audio sfml-system sfml-window)
-target_link_libraries(${LIBRARY_NAME} PRIVATE nlohmann_json::nlohmann_json)
-target_link_libraries(${LIBRARY_NAME} PRIVATE asio)
-
-set(CLIENT_BINARY_NAME "r-type_client")
-
-set(CLIENT_FOLDER R-Type)
-
-set(INCLUDES_CLIENT ${CLIENT_FOLDER}/include)
-set(SRCS_CLIENT
-    ${CLIENT_FOLDER}/src/main.cpp
-    ${CLIENT_FOLDER}/src/RTypeClient.cpp
-    ${CLIENT_FOLDER}/src/EntityManager.cpp
-    ${CLIENT_FOLDER}/src/UdpClient.cpp
-    ${CLIENT_FOLDER}/src/TcpClient.cpp
-    ${CLIENT_FOLDER}/src/HandleEvent.cpp
-    ${CLIENT_FOLDER}/src/SetGameEngine.cpp
-    ${CLIENT_FOLDER}/src/Event/ConnexionEvent.cpp
-    ${CLIENT_FOLDER}/src/Event/DeleteEntityEvent.cpp
-    ${CLIENT_FOLDER}/src/Event/MoveEntityEvent.cpp
-    ${CLIENT_FOLDER}/src/Event/UpdateEntityEvent.cpp
-    ${CLIENT_FOLDER}/src/Event/ShootEvent.cpp
-)
-
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${PROJECT_NAME})
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/${PROJECT_NAME})
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/${PROJECT_NAME})
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${PROJECT_NAME})
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/${PROJECT_NAME})
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/${PROJECT_NAME})
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${PROJECT_NAME})
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/${PROJECT_NAME})
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/${PROJECT_NAME})
-
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    add_executable(${CLIENT_BINARY_NAME} ${SRCS_CLIENT} ${SRCS_LIB_DEBUG})
-    target_include_directories(${CLIENT_BINARY_NAME} PRIVATE ${INCLUDES_LIB_DEBUG})
-    target_link_libraries(${CLIENT_BINARY_NAME} PRIVATE ImGui-SFML::ImGui-SFML)
-else()
-    add_executable(${CLIENT_BINARY_NAME} ${SRCS_CLIENT})
-endif()
-
-if (UNIX)
-    target_link_libraries(${CLIENT_BINARY_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/GameEngine/GameEngine/lib/libGameEngine.a)
-endif (UNIX)
-if (MSVC)
-    target_link_libraries(${CLIENT_BINARY_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/GameEngine/GameEngine/lib/GameEngine.lib)
-endif (MSVC)
-target_link_libraries(${CLIENT_BINARY_NAME} PRIVATE sfml-graphics sfml-audio sfml-system sfml-window)
-target_link_libraries(${CLIENT_BINARY_NAME} PRIVATE nlohmann_json::nlohmann_json)
-target_link_libraries(${CLIENT_BINARY_NAME} PRIVATE asio)
-target_include_directories(${CLIENT_BINARY_NAME} PRIVATE ${INCLUDES_CLIENT} ${INCLUDES_GLOBAL} ${CMAKE_SOURCE_DIR}/GameEngine/include/)
-
-set(SERVER_BINARY_NAME "r-type_server")
-
-set(SERVER_FOLDER R-Type-server)
-
-set(INCLUDES_SERVER ${SERVER_FOLDER}/include)
-set(SRCS_SERVER
-    ${SERVER_FOLDER}/src/EntityManager.cpp
-    ${SERVER_FOLDER}/src/main.cpp
-    ${SERVER_FOLDER}/src/ClientSession.cpp
-    ${SERVER_FOLDER}/src/RTypeServer.cpp
-    ${SERVER_FOLDER}/src/TcpServer.cpp
-    ${SERVER_FOLDER}/src/UdpServer.cpp
-)
-
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${SERVER_FOLDER})
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/${SERVER_FOLDER})
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/${SERVER_FOLDER})
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${SERVER_FOLDER})
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/${SERVER_FOLDER})
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/${SERVER_FOLDER})
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${SERVER_FOLDER})
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/${SERVER_FOLDER})
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/${SERVER_FOLDER})
-
-
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    add_executable(${SERVER_BINARY_NAME} ${SRCS_SERVER} ${SRCS_LIB_DEBUG})
-    target_include_directories(${SERVER_BINARY_NAME} PRIVATE ${INCLUDES_LIB_DEBUG})
-    target_link_libraries(${SERVER_BINARY_NAME} PRIVATE ImGui-SFML::ImGui-SFML)
-else()
-    add_executable(${SERVER_BINARY_NAME} ${SRCS_SERVER})
-endif()
-if (UNIX)
-    target_link_libraries(${SERVER_BINARY_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/GameEngine/GameEngine/lib/libGameEngine.a)
-endif (UNIX)
-if (MSVC)
-    target_link_libraries(${SERVER_BINARY_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/GameEngine/GameEngine/lib/GameEngine.lib)
-endif (MSVC)
-target_link_libraries(${SERVER_BINARY_NAME} PRIVATE asio)
-target_link_libraries(${SERVER_BINARY_NAME} PRIVATE sfml-graphics sfml-audio sfml-system sfml-window)
-target_link_libraries(${SERVER_BINARY_NAME} PRIVATE nlohmann_json::nlohmann_json)
-target_include_directories(${SERVER_BINARY_NAME} PRIVATE ${INCLUDES_SERVER} ${INCLUDES_GLOBAL} ${CMAKE_SOURCE_DIR}/GameEngine/include/)
-
-enable_testing()
-
-set(TESTS_BINARY_NAME "unit_tests")
-
-set(GAME_ENGINE_TESTS_FOLDER GameEngine/tests)
-
-# set(INCLUDES_SERVER ${SERVER_FOLDER}/include)
-set(SRCS_TESTS
-    ${GAME_ENGINE_TESTS_FOLDER}/TestVector.cpp
-)
-
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Tests)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/Tests)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/Tests)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Tests)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/Tests)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/Tests)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Tests)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/Tests)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/Tests)
-
-add_executable(
-  ${TESTS_BINARY_NAME}
-  ${SRCS_TESTS}
-)
-if (UNIX)
-    target_link_libraries(${TESTS_BINARY_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/GameEngine/GameEngine/lib/libGameEngine.a)
-endif (UNIX)
-if (MSVC)
-    target_link_libraries(${TESTS_BINARY_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/GameEngine/GameEngine/lib/GameEngine.lib)
-endif (MSVC)
-target_link_libraries(${TESTS_BINARY_NAME} PRIVATE GTest::gtest_main)
-target_include_directories(${TESTS_BINARY_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/GameEngine/include/ ${INCLUDES_IMGUI} ${imgui_SOURCE_DIR})
+if(((NOT DEFINED BUILD_GAME_ENGINE) AND (NOT DEFINED BUILD_CLIENT) AND (NOT DEFINED BUILD_SERVER) AND (NOT DEFINED BUILD_TESTS)) OR (DEFINED BUILD_GAME_ENGINE))
+  include("GameEngine/game_engine.cmake")
+endif(((NOT DEFINED BUILD_GAME_ENGINE) AND (NOT DEFINED BUILD_CLIENT) AND (NOT DEFINED BUILD_SERVER) AND (NOT DEFINED BUILD_TESTS)) OR (DEFINED BUILD_GAME_ENGINE))
+if(((NOT DEFINED BUILD_GAME_ENGINE) AND (NOT DEFINED BUILD_CLIENT) AND (NOT DEFINED BUILD_SERVER) AND (NOT DEFINED BUILD_TESTS)) OR (DEFINED BUILD_CLIENT))
+  include("R-Type/client.cmake")
+endif(((NOT DEFINED BUILD_GAME_ENGINE) AND (NOT DEFINED BUILD_CLIENT) AND (NOT DEFINED BUILD_SERVER) AND (NOT DEFINED BUILD_TESTS)) OR (DEFINED BUILD_CLIENT))
+if(((NOT DEFINED BUILD_GAME_ENGINE) AND (NOT DEFINED BUILD_CLIENT) AND (NOT DEFINED BUILD_SERVER) AND (NOT DEFINED BUILD_TESTS)) OR (DEFINED BUILD_SERVER))
+  include("R-Type-server/server.cmake")
+endif(((NOT DEFINED BUILD_GAME_ENGINE) AND (NOT DEFINED BUILD_CLIENT) AND (NOT DEFINED BUILD_SERVER) AND (NOT DEFINED BUILD_TESTS)) OR (DEFINED BUILD_SERVER))
+if(((NOT DEFINED BUILD_GAME_ENGINE) AND (NOT DEFINED BUILD_CLIENT) AND (NOT DEFINED BUILD_SERVER) AND (NOT DEFINED BUILD_TESTS)) OR (DEFINED BUILD_TESTS))
+  include("tests/tests.cmake")
+endif(((NOT DEFINED BUILD_GAME_ENGINE) AND (NOT DEFINED BUILD_CLIENT) AND (NOT DEFINED BUILD_SERVER) AND (NOT DEFINED BUILD_TESTS)) OR (DEFINED BUILD_TESTS))

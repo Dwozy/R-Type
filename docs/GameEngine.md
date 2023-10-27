@@ -118,7 +118,7 @@ while (1)
     gameEngine.registry.runSystems();
 ```
 
-#### AnimeSystem
+#### AnimationSystem
 
 This system will handle the animation of the texture. The class takes a reference to the DeltaTime and the method that overload the ```operator()``` takes as parameter the ```TextureComponent```'s ```SparseArray```.
 

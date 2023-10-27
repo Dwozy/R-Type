@@ -2,25 +2,25 @@
 ** EPITECH PROJECT, 2023
 ** R-Type
 ** File description:
-** AnimeSystem
+** AnimationSystem
 */
 
-#ifndef ANIMESYSTEM_HPP_
-#define ANIMESYSTEM_HPP_
+#ifndef ANIMATIONSYSTEM_HPP_
+#define ANIMATIONSYSTEM_HPP_
 #include "GameEngine.hpp"
 #include "Registry.hpp"
 
 namespace GameEngine
 {
     /// @brief Class representing the sprite sheet animation system
-    class AnimeSystem
+    class AnimationSystem
     {
       public:
         /// @brief constructor
         /// @param deltaTime The delta time of the game for handle game animation
-        AnimeSystem(const float &deltaTime) : _deltaTime(deltaTime), _currentDeltaTime(0.0f){};
+        AnimationSystem(const float &deltaTime) : _deltaTime(deltaTime), _currentDeltaTime(0.0f){};
         /// @brief destructor
-        ~AnimeSystem() = default;
+        ~AnimationSystem() = default;
         /// @brief overload of () operator function that updates the texture to the next animation
         /// @param texture the Array that contains the texture components
         void operator()(SparseArray<TextureComponent> &texture);
@@ -31,4 +31,4 @@ namespace GameEngine
     };
 } // namespace GameEngine
 
-#endif /* !ANIMESYSTEM_HPP_ */
+#endif /* !ANIMATIONSYSTEM_HPP_ */
