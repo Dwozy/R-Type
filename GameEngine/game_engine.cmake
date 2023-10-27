@@ -9,7 +9,7 @@ set(SRCS_LIB
     GameEngine/src/Network/ACommunication.cpp
     GameEngine/src/systems/CollisionSystem.cpp
     GameEngine/src/systems/PressableSystem.cpp
-    GameEngine/src/systems/AnimeSystem.cpp
+    GameEngine/src/systems/AnimationSystem.cpp
     GameEngine/src/SceneManager.cpp
     GameEngine/src/PrefabManager.cpp
 )

@@ -17,7 +17,7 @@
 #include "systems/PositionSystem.hpp"
 #include "systems/ControlSystem.hpp"
 #include "systems/DrawSystem.hpp"
-#include "systems/AnimeSystem.hpp"
+#include "systems/AnimationSystem.hpp"
 #include "components/CameraComponent.hpp"
 #include "components/CollisionComponent.hpp"
 #include "components/ControllableComponent.hpp"
