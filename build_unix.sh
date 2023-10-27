@@ -9,12 +9,12 @@ clean_all()
 
 build_all()
 {
-    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
     status=$?
     if [ "$status" -ne 0 ]; then
         exit "$status"
     fi
-    cmake --build ./build --config Release
+    cmake --build ./build --config Debug
     status=$?
     if [ "$status" -ne 0 ]; then
         exit "$status"

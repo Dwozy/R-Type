@@ -29,6 +29,10 @@
 #include "components/ControllableComponent.hpp"
 #include "components/TransformComponent.hpp"
 
+#ifdef DEBUG
+    #include "Debug.hpp"
+#endif
+
 namespace GameEngine
 {
     /// @brief Game engine class, will manage all the necessary classes for the game.
@@ -42,6 +46,9 @@ namespace GameEngine
             deltaTime.update();
             assetManager.loadTexture("R-Type/assets/image.png", {0, 0, 32, 16});
             assetManager.loadTexture("R-Type/assets/r-typesheet1.gif", {168, 135, 47, 15});
+
+            #ifdef DEBUG
+            #endif
         };
         /// @brief Default destructor.
         ~GameEngine() = default;
@@ -56,6 +63,9 @@ namespace GameEngine
         SceneManager sceneManager;
         AssetManager assetManager;
         PrefabManager prefabManager;
+#ifdef DEBUG
+        Debug::DebugMenu debugMenu;
+#endif
     };
 } // namespace GameEngine
 
