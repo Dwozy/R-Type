@@ -63,6 +63,8 @@ namespace RType::Server
         SafeQueue<struct rtype::Event> _eventQueue;
         GameEngine::EntityManager _entityManager;
         std::map<uint16_t, uint8_t> _listIdTexture;
+        std::map<uint16_t, uint8_t> _listLifePoints;
+        std::size_t _nbPlayers;
         float pos;
     };
 } // namespace RType::Server

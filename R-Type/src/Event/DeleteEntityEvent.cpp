@@ -15,6 +15,11 @@ namespace RType::Client
             return;
         std::size_t id = _findEntity(entityId.id);
         GameEngine::Entity entity = _gameEngine.registry.getEntityById(id);
+        if (entity == _id) {
+            std::cout << "Delete player : " << _id << std::endl;
+            _isAlive = false;
+            _id = -1;
+        }
         _gameEngine.registry.killEntity(entity);
     }
 

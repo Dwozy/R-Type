@@ -27,8 +27,8 @@ namespace GameEngine
         PrefabManager(AssetManager &assetManager);
         ~PrefabManager() = default;
         void loadPrefabFromFile(const std::string &filename);
-        Entity createEntityFromPrefab(const std::string &prefabName, Registry &registry);
-        Entity createEntityFromPrefab(const std::string &prefabName, Registry &registry, size_t id);
+        Entity createEntityFromPrefab(const std::string &prefabName, Registry &registry, bool loadTexture = true);
+        Entity createEntityFromPrefab(const std::string &prefabName, Registry &registry, size_t id, bool loadTexture = true);
 
       protected:
       private:

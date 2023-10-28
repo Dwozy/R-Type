@@ -45,8 +45,11 @@ void RType::Client::UdpClient::handleString(struct rtype::HeaderDataPacket heade
     std::vector<uint8_t> byteArrayToReceive = Serialization::deserializeData(_streamBuffer, header.payloadSize);
 
     std::string message(byteArrayToReceive.begin(), byteArrayToReceive.end());
-    if (message == "Server down")
+    if (message == "Server down" || message == "You lose" || message == "You win") {
+        if (message != "Server down")
+            std::cout << message << std::endl;
         _IOContext.stop();
+    }
 }
 
 void RType::Client::UdpClient::handleEntity(struct rtype::HeaderDataPacket header)

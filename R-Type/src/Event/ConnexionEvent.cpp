@@ -47,7 +47,9 @@ void collisionEntityCallback(const std::size_t &entityId, SparseArray<GameEngine
 
         if (!col || !tsf || !col.value().isActive || col.value().layer != 25)
             continue;
-        selfCol.value().collider.handleCollisionFromRect(selfTsf.value().position, col.value().collider, tsf.value().position);
+        if (col.value().layer == 25)
+            selfCol.value().collider.handleCollisionFromRect(
+                selfTsf.value().position, col.value().collider, tsf.value().position);
     }
 }
 
@@ -73,10 +75,12 @@ namespace RType::Client
             auto &entityCollider = _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[newEntity];
             entityCollider.value()
                 .addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
-                       SparseArray<GameEngine::TransformComponent> &)>,
-            GameEngine::CollisionComponent, GameEngine::TransformComponent>(_gameEngine.registry, collisionEntityCallback);
+                               SparseArray<GameEngine::TransformComponent> &)>,
+                    GameEngine::CollisionComponent, GameEngine::TransformComponent>(
+                    _gameEngine.registry, collisionEntityCallback);
             _isPlayer = false;
             _id = newEntity;
+            std::cout << "_id : " << _id << std::endl;
             _serverId = entity.id;
             std::cout << "I'm the player " << entity.id << std::endl;
 

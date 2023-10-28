@@ -45,6 +45,7 @@ namespace rtype
     {
         uint16_t id;
         uint8_t idTexture;
+        // uint8_t lifePoint;
         float positionX;
         float positionY;
         float directionX;

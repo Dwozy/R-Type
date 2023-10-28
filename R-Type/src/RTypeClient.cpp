@@ -48,16 +48,12 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
     _listTextureTypePrefab.insert({static_cast<uint8_t>(rtype::TextureType::SHOOT), "shoot"});
     _listTextureTypePrefab.insert({static_cast<uint8_t>(rtype::TextureType::MOB), "patapata"});
 
+    _isAlive = true;
     _isRunning = true;
     _isPlayer = true;
     std::thread network(&RType::Client::RTypeClient::startNetwork, this, std::ref(_isRunning));
     network.detach();
     gameLoop();
-    struct rtype::EntityId entityId = {.id = this->_serverId};
-    std::vector<std::byte> dataToSend =
-        Serialization::serializeData<struct rtype::EntityId>(entityId, sizeof(entityId));
-    _udpClient.sendDataInformation(dataToSend, static_cast<uint8_t>(rtype::PacketType::DESTROY));
-    std::cout << "Player " << _serverId << " died :( !" << std::endl;
 }
 
 RType::Client::RTypeClient::~RTypeClient() {}
@@ -77,9 +73,20 @@ void RType::Client::RTypeClient::runTcpServer()
     // _IOContext.run();
 }
 
+void RType::Client::RTypeClient::handleQuit()
+{
+    _IOContext.stop();
+    struct rtype::EntityId entityId = {.id = this->_serverId};
+    std::vector<std::byte> dataToSend =
+        Serialization::serializeData<struct rtype::EntityId>(entityId, sizeof(entityId));
+    _udpClient.sendDataInformation(dataToSend, static_cast<uint8_t>(rtype::PacketType::DESTROY));
+    std::cout << "Player " << _serverId << " died :( !" << std::endl;
+}
+
 void RType::Client::RTypeClient::runUdpServer()
 {
-    _signal.async_wait(std::bind(&asio::io_context::stop, &_IOContext));
+    auto handleQuitCallback = std::bind(&RType::Client::RTypeClient::handleQuit, this);
+    _signal.async_wait(handleQuitCallback);
     _udpClient.run();
     _IOContext.run();
     _isRunning = false;
