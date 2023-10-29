@@ -1,0 +1,47 @@
+/*
+** EPITECH PROJECT, 2023
+** R-Type
+** File description:
+** ShootEvent
+*/
+
+#include "RTypeClient.hpp"
+#include "components/NetworkIdComponent.hpp"
+
+namespace RType::Client
+{
+    void RTypeClient::getCollisionInformation(struct RType::Protocol::CollisionData collisionData)
+    {
+        auto &collisions = _gameEngine.registry.getComponent<GameEngine::CollisionComponent>();
+        std::size_t id = 0;
+
+        if (!_searchEntity(collisionData.id)) {
+            GameEngine::Entity entity = _gameEngine.registry.spawnEntity();
+            _gameEngine.registry.addComponent<GameEngine::NetworkIdComponent>(
+                entity, GameEngine::NetworkIdComponent{collisionData.id});
+            GameEngine::Rectf rect(
+                collisionData.rectLeft, collisionData.rectTop, collisionData.rectWidth, collisionData.rectHeight);
+            GameEngine::CollisionComponent col = {.collider = rect, .layer = collisionData.layer};
+            _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(entity, col);
+        }
+        id = _findEntity(collisionData.id);
+        if (!collisions[id]) {
+            GameEngine::Entity entity = _gameEngine.registry.getEntityById(id);
+            GameEngine::Rectf rect(
+                collisionData.rectLeft, collisionData.rectTop, collisionData.rectWidth, collisionData.rectHeight);
+            GameEngine::CollisionComponent col = {.collider = rect, .layer = collisionData.layer};
+            _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(entity, col);
+        } else {
+            // BESOIN D'ENVOYER MESSAGE AU SERVEUR POUR DIRE I GOT IT
+        }
+    }
+
+    void RTypeClient::setCollisionCallback()
+    {
+        auto &refHandleCollision =
+            _gameEngine.eventManager.addHandler<struct RType::Protocol::CollisionData>(GameEngine::Event::GetCollision);
+        auto handleGetCollision =
+            std::bind(&RType::Client::RTypeClient::getCollisionInformation, this, std::placeholders::_1);
+        refHandleCollision.subscribe(handleGetCollision);
+    }
+} // namespace RType::Client

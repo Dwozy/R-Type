@@ -48,6 +48,10 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
     _listTextureTypePrefab.insert({static_cast<uint8_t>(rtype::TextureType::SHOOT), "shoot"});
     _listTextureTypePrefab.insert({static_cast<uint8_t>(rtype::TextureType::MOB), "patapata"});
 
+    _listPathTextureId.insert({static_cast<uint8_t> (RType::Protocol::TextureType::PLAYER), "R-Type/assets/image.png"});
+    _listPathTextureId.insert({static_cast<uint8_t> (RType::Protocol::TextureType::MOB), "R-Type/assets/pata_pata.gif"});
+    _listPathTextureId.insert({static_cast<uint8_t> (RType::Protocol::TextureType::SHOOT), "R-Type/assets/r-typesheet1.gif"});
+
     _isAlive = true;
     _isRunning = true;
     _isPlayer = true;

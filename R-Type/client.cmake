@@ -16,6 +16,9 @@ set(SRCS_CLIENT
     ${CLIENT_FOLDER}/src/Event/MoveEntityEvent.cpp
     ${CLIENT_FOLDER}/src/Event/UpdateEntityEvent.cpp
     ${CLIENT_FOLDER}/src/Event/ShootEvent.cpp
+    ${CLIENT_FOLDER}/src/Event/TransformEvent.cpp
+    ${CLIENT_FOLDER}/src/Event/TextureEvent.cpp
+    ${CLIENT_FOLDER}/src/Event/CollisionEvent.cpp
 )
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${PROJECT_NAME})

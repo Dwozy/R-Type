@@ -20,7 +20,13 @@ namespace RType::Protocol
         TEXTURE,
     };
 
-    // enum class 
+    enum class InputType : uint8_t {
+        UP = 1,
+        RIGHT,
+        DOWN,
+        LEFT,
+        SHOOT
+    };
 
     enum class TextureType : uint8_t { NONE = 1, PLAYER, SHOOT, MOB };
 
@@ -54,6 +60,11 @@ namespace RType::Protocol
     {
         uint16_t id;
         uint8_t idTexture;
+        uint16_t rectLeft;
+        uint16_t rectTop;
+        uint16_t rectWidth;
+        uint16_t rectHeight;
+        uint8_t renderLayer;
     };
 
     struct MoveData

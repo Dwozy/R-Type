@@ -30,6 +30,11 @@ namespace RType::Client
         void gameLoop();
         /// @brief Function that will handle every event from the UDP Client
         void handleEvent();
+
+        void handleTransformComponent(struct rtype::Event event);
+        void handleTextureComponent(struct rtype::Event event);
+        void handleCollisionComponent(struct rtype::Event event);
+
         /// @brief Function that will handle when new entity needed to be create
         /// @param event struct that will contain the information about the new entity
         void handleNewEntity(struct rtype::Event event);
@@ -76,6 +81,16 @@ namespace RType::Client
         void runUdpServer();
         void runTcpServer();
         void handleQuit();
+
+        void getTransformInformation(struct RType::Protocol::TransformData transformData);
+        void setTransformCallback();
+
+        void getCollisionInformation(struct RType::Protocol::CollisionData collisionData);
+        void setCollisionCallback();
+
+        void getTextureInformation(struct RType::Protocol::TextureData textureData);
+        void setTextureCallback();
+
       protected:
       private:
         std::size_t _findEntity(const std::size_t &networkId);
@@ -96,6 +111,7 @@ namespace RType::Client
         uint16_t _serverId;
         std::size_t _id;
         std::map<uint8_t, std::string> _listTextureTypePrefab;
+        std::map<uint8_t, std::string> _listPathTextureId;
     };
 } // namespace RType::Client
 

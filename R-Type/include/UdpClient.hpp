@@ -23,9 +23,13 @@ namespace RType::Client
         UdpClient(asio::io_context &IOContext, asio::ip::udp::endpoint &serverEndpoint,
             SafeQueue<struct rtype::Event> &eventQueue);
         ~UdpClient();
-        /// @brief Handle Room
-        /// @param header that contains the size of the payload
-        void handleRoom(struct rtype::HeaderDataPacket header);
+
+        void handleTransformComponent(struct rtype::HeaderDataPacket header);
+        void handleTextureComponent(struct rtype::HeaderDataPacket header);
+        void handleCollisionComponent(struct rtype::HeaderDataPacket header);
+
+
+
         /// @brief Handle String
         /// @param header that contains the size of the payload
         void handleString(struct rtype::HeaderDataPacket header);

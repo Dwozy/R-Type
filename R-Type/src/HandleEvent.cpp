@@ -27,6 +27,30 @@ namespace RType::Client
         _gameEngine.eventManager.getHandler<struct rtype::Entity>(GameEngine::Event::GetEntity).publish(entity);
     }
 
+    void RTypeClient::handleTransformComponent(struct rtype::Event event)
+    {
+        struct RType::Protocol::TransformData transformData =
+            std::any_cast<struct RType::Protocol::TransformData>(event.data);
+        _gameEngine.eventManager.getHandler<struct RType::Protocol::TransformData>(GameEngine::Event::GetTransform)
+            .publish(transformData);
+    }
+
+    void RTypeClient::handleTextureComponent(struct rtype::Event event)
+    {
+        struct RType::Protocol::TextureData textureData =
+            std::any_cast<struct RType::Protocol::TextureData>(event.data);
+        _gameEngine.eventManager.getHandler<struct RType::Protocol::TextureData>(GameEngine::Event::GetTexture)
+            .publish(textureData);
+    }
+
+    void RTypeClient::handleCollisionComponent(struct rtype::Event event)
+    {
+        struct RType::Protocol::CollisionData collisionData =
+            std::any_cast<struct RType::Protocol::CollisionData>(event.data);
+        _gameEngine.eventManager.getHandler<struct RType::Protocol::CollisionData>(GameEngine::Event::GetCollision)
+            .publish(collisionData);
+    }
+
     void RTypeClient::handleEvent()
     {
         struct rtype::Event event;
@@ -34,6 +58,15 @@ namespace RType::Client
         while (_eventQueue.size() != 0) {
             event = _eventQueue.pop();
             switch (event.packetType) {
+            case static_cast<uint8_t>(RType::Protocol::ComponentType::TRANSFORM):
+                handleTransformComponent(event);
+                break;
+            case static_cast<uint8_t>(RType::Protocol::ComponentType::TEXTURE):
+                handleTextureComponent(event);
+                break;
+            case static_cast<uint8_t>(RType::Protocol::ComponentType::COLLISION):
+                handleCollisionComponent(event);
+                break;
             case static_cast<uint8_t>(rtype::PacketType::ENTITY):
                 handleEntity(event);
                 break;
@@ -43,9 +76,6 @@ namespace RType::Client
             case static_cast<uint8_t>(rtype::PacketType::DESTROY):
                 handleDisconnexion(event);
                 break;
-                // case static_cast<uint8_t>(rtype::PacketType::SHOOT):
-                //     handleShoot(event);
-                //     break;
             }
         }
     }

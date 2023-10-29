@@ -22,7 +22,7 @@ namespace rtype
     static const float PLAYER_SPEED = 25.0f;
 
     enum class PacketType : uint8_t {
-        ROOM = 1,
+        ROOM = 10,
         STRING,
         ENTITY,
         CONNEXION,

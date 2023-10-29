@@ -6,13 +6,21 @@
 */
 
 #include "UdpClient.hpp"
+#include "Protocol.hpp"
 
 RType::Client::UdpClient::UdpClient(
     asio::io_context &IOContext, asio::ip::udp::endpoint &serverEndpoint, SafeQueue<struct rtype::Event> &eventQueue)
     : ACommunication(IOContext, 0), _IOContext(IOContext), _serverEndpoint(serverEndpoint), _eventQueue(eventQueue)
 {
-    _commands.emplace(static_cast<uint8_t>(rtype::PacketType::ROOM),
-        std::bind(&RType::Client::UdpClient::handleRoom, this, std::placeholders::_1));
+    _commands.emplace(static_cast<uint8_t>(RType::Protocol::ComponentType::TRANSFORM),
+        std::bind(&RType::Client::UdpClient::handleTransformComponent, this, std::placeholders::_1));
+    _commands.emplace(static_cast<uint8_t>(RType::Protocol::ComponentType::TEXTURE),
+        std::bind(&RType::Client::UdpClient::handleTextureComponent, this, std::placeholders::_1));
+    _commands.emplace(static_cast<uint8_t>(RType::Protocol::ComponentType::COLLISION),
+        std::bind(&RType::Client::UdpClient::handleCollisionComponent, this, std::placeholders::_1));
+
+
+
     _commands.emplace(static_cast<uint8_t>(rtype::PacketType::STRING),
         std::bind(&RType::Client::UdpClient::handleString, this, std::placeholders::_1));
     _commands.emplace(static_cast<uint8_t>(rtype::PacketType::ENTITY),
@@ -35,9 +43,31 @@ void RType::Client::UdpClient::handleShoot(struct rtype::HeaderDataPacket header
     _eventQueue.push(event);
 }
 
-void RType::Client::UdpClient::handleRoom(struct rtype::HeaderDataPacket header)
+void RType::Client::UdpClient::handleTransformComponent(struct rtype::HeaderDataPacket header)
 {
-    struct rtype::Room room = Serialization::deserializeData<struct rtype::Room>(_streamBuffer, header.payloadSize);
+    struct RType::Protocol::TransformData transformData =
+        Serialization::deserializeData<struct RType::Protocol::TransformData>(_streamBuffer, header.payloadSize);
+    struct rtype::Event event = {.packetType = header.packetType, .data = transformData};
+
+    _eventQueue.push(event);
+}
+
+void RType::Client::UdpClient::handleTextureComponent(struct rtype::HeaderDataPacket header)
+{
+    struct RType::Protocol::TextureData textureData =
+        Serialization::deserializeData<struct RType::Protocol::TextureData>(_streamBuffer, header.payloadSize);
+    struct rtype::Event event = {.packetType = header.packetType, .data = textureData};
+
+    _eventQueue.push(event);
+}
+
+void RType::Client::UdpClient::handleCollisionComponent(struct rtype::HeaderDataPacket header)
+{
+    struct RType::Protocol::CollisionData collisionData =
+        Serialization::deserializeData<struct RType::Protocol::CollisionData>(_streamBuffer, header.payloadSize);
+    struct rtype::Event event = {.packetType = header.packetType, .data = collisionData};
+
+    _eventQueue.push(event);
 }
 
 void RType::Client::UdpClient::handleString(struct rtype::HeaderDataPacket header)
