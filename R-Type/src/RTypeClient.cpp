@@ -15,11 +15,13 @@
 #include "components/TextComponent.hpp"
 #include "components/PressableComponent.hpp"
 #include "components/NetworkIdComponent.hpp"
+#include "components/GravityComponent.hpp"
 #include "systems/DrawSystem.hpp"
 #include "systems/PositionSystem.hpp"
 #include "systems/ControlSystem.hpp"
 #include "systems/PressableSystem.hpp"
 #include "systems/CollisionSystem.hpp"
+#include "utils/Vector.hpp"
 
 RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned short port)
     : _serverUdpEndpoint(asio::ip::make_address(address), port), _serverTcpEndpoint(asio::ip::make_address(address), 0),

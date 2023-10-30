@@ -67,7 +67,7 @@ namespace GameEngine
         /// @return result of the subtraction
         Vector2 &operator-=(const Vector2 &vec)
         {
-            *this += -vec;
+            *this += vec * -1;
             return *this;
         };
         /// @brief overload of the * operator
