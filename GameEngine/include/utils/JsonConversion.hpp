@@ -42,12 +42,19 @@ namespace GameEngine::Input::Keyboard
 
 namespace GameEngine
 {
+    /// @brief Function to convert a json object to a key
+    /// @param j reference to the json object
+    /// @param key reference to the key
     void from_json(const json &j, Input::Keyboard::Key &key)
     {
         auto str = j.get<std::string>();
         key = Input::Keyboard::strKeyMap.at(str);
     }
 
+    /// @brief Function to convert a json object to a rect
+    /// @tparam T type of the rect
+    /// @param j reference to the json object
+    /// @param rect reference to the rect
     template <typename T>
     void from_json(const json &j, Rect<T> &rect)
     {
@@ -57,6 +64,9 @@ namespace GameEngine
         j.at("height").get_to(rect.height);
     }
 
+    /// @brief Function to convert a json object to a Texture
+    /// @param j reference to the json object
+    /// @param texture reference to the texture
     void from_json(const json &j, Texture &texture)
     {
         std::string path(j.at("path").get<std::string>());
@@ -65,12 +75,18 @@ namespace GameEngine
         texture.load(path, area);
     }
 
+    /// @brief Function to convert a json object to a TransfromComponent
+    /// @param j reference to the json object
+    /// @param tc reference to the transform component
     void from_json(const json &j, TransformComponent &tc)
     {
         tc.position = Vector2<float>(0.0f, 0.0f);
         tc.velocity = Vector2<float>(0.0f, 0.0f);
     }
 
+    /// @brief Function to convert a json object to a ControllableComponent
+    /// @param j reference to the json object
+    /// @param cc reference to the controllable component
     void from_json(const json &j, ControllableComponent &cc)
     {
         cc.key_up = Input::Keyboard::strKeyMap.at(j.at("key_up").get<std::string>());
@@ -80,6 +96,9 @@ namespace GameEngine
         j.at("speed").get_to(cc.speed);
     }
 
+    /// @brief Function to convert a json object to a TextureComponent
+    /// @param j reference to the json object
+    /// @param tc reference to the texture component
     void from_json(const json &j, TextureComponent &tc)
     {
         j.at("texturePath").get_to(tc.path);
@@ -93,6 +112,9 @@ namespace GameEngine
         j.at("renderLayer").get_to(tc.renderLayer);
     }
 
+    /// @brief Function to convert a json object to a CollisionComponent
+    /// @param j reference to the json object
+    /// @param cc reference to the collision component
     void from_json(const json &j, CollisionComponent &cc)
     {
         j.at("collider").get_to(cc.collider);
