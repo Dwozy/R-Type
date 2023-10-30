@@ -10,6 +10,8 @@
 Platformer::Platformer()
 {
     setGameEngine();
+    // _gameEngine.sceneManager.registerScene("Game", std::make_unique<GameScene>());
+    // _gameEngine.sceneManager.loadScene("Game");
     gameLoop();
 }
 

@@ -9,6 +9,14 @@
 #define PLATFORMER_HPP_
 #include "GameEngine.hpp"
 
+
+enum class GameState {
+    Pause,
+    Game,
+    win,
+    Lose
+};
+
 class Platformer {
     public:
         Platformer();

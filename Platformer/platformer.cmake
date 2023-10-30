@@ -7,6 +7,10 @@ set(SRCS_GAME
     ${GAME_FOLDER}/src/main.cpp
     ${GAME_FOLDER}/src/Platformer.cpp
     ${GAME_FOLDER}/src/SetGameEngine.cpp
+    ${GAME_FOLDER}/src/WinLoseScene.cpp
+    ${GAME_FOLDER}/src/GameScene.cpp
+    ${GAME_FOLDER}/src/MainMenuScene.cpp
+    ${GAME_FOLDER}/src/PauseScene.cpp
 )
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${GAME_FOLDER})

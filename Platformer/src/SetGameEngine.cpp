@@ -36,6 +36,7 @@ void Platformer::setGameEngineComponent()
 
 void Platformer::setGameEngineCallback()
 {
+   // ChangeSceneCallbacks();
 }
 
 void Platformer::setGameEngineSystem()
@@ -64,9 +65,9 @@ void Platformer::setGameEngineSystem()
         drawSystem);
 }
 
-    void Platformer::setGameEngine()
-    {
-        setGameEngineComponent();
-        setGameEngineSystem();
-        setGameEngineCallback();
-    }
+void Platformer::setGameEngine()
+{
+    setGameEngineComponent();
+    setGameEngineSystem();
+    setGameEngineCallback();
+}
