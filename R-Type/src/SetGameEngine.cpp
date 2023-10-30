@@ -13,7 +13,8 @@
 #include "components/TextureComponent.hpp"
 #include "components/TextComponent.hpp"
 #include "components/PressableComponent.hpp"
-#include "components/NetworkIdComponent.hpp"#include "systems/DrawSystem.hpp"
+#include "components/NetworkIdComponent.hpp"
+#include "systems/DrawSystem.hpp"
 #include "systems/PositionSystem.hpp"
 #include "systems/ControlSystem.hpp"
 #include "systems/PressableSystem.hpp"
@@ -55,6 +56,7 @@ namespace RType::Client
         _gameEngine.registry.addSystem<std::function<void(SparseArray<GameEngine::TransformComponent> &,
                                            SparseArray<GameEngine::ControllableComponent> &)>,
             GameEngine::TransformComponent, GameEngine::ControllableComponent>(controlSystem);
+
         _gameEngine.registry.addSystem<std::function<void(SparseArray<GameEngine::TransformComponent> &,
                                            SparseArray<GameEngine::TextureComponent> &)>,
             GameEngine::TransformComponent, GameEngine::TextureComponent>(positionSystem);
