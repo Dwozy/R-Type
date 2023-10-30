@@ -14,6 +14,13 @@ RType::Server::UdpServer::UdpServer(
       _signal(IOContext, SIGINT, SIGTERM), _eventQueue(eventQueue)
 {
     indexPlayer = 0;
+
+    _commands.emplace(static_cast<uint8_t>(RType::Protocol::ComponentType::TEXTURE_RES),
+        std::bind(&RType::Server::UdpServer::handleTextureResponse, this, std::placeholders::_1));
+
+    _commands.emplace(static_cast<uint8_t>(RType::Protocol::ComponentType::COLLISION_RES),
+        std::bind(&RType::Server::UdpServer::handleCollisionResponse, this, std::placeholders::_1));
+
     _commands.emplace(static_cast<uint8_t>(rtype::PacketType::ROOM),
         std::bind(&RType::Server::UdpServer::handleRoom, this, std::placeholders::_1));
     _commands.emplace(static_cast<uint8_t>(rtype::PacketType::STRING),

@@ -32,7 +32,11 @@ namespace RType::Client
             GameEngine::CollisionComponent col = {.collider = rect, .layer = collisionData.layer};
             _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(entity, col);
         } else {
-            // BESOIN D'ENVOYER MESSAGE AU SERVEUR POUR DIRE I GOT IT
+            struct RType::Protocol::CollisionResponse response = {.id = collisionData.id};
+            std::vector<std::byte> dataToSend =
+                Serialization::serializeData<struct RType::Protocol::CollisionResponse>(response, sizeof(response));
+            _udpClient.sendDataInformation(
+                dataToSend, static_cast<uint8_t>(RType::Protocol::ComponentType::COLLISION_RES));
         }
     }
 

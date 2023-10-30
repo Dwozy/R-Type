@@ -16,6 +16,7 @@
 #include <asio.hpp>
 #include "EntityManager.hpp"
 #include <map>
+#include "Protocol.hpp"
 
 namespace RType::Server
 {
@@ -49,6 +50,10 @@ namespace RType::Server
             SparseArray<GameEngine::TransformComponent> &transforms);
         void spawnMob();
 
+        void broadcastTransformComponent();
+        void broadcastCollisionComponent();
+        void broadcastTextureComponent();
+
       protected:
       private:
         GameEngine::GameEngine _gameEngine;
@@ -64,6 +69,7 @@ namespace RType::Server
         GameEngine::EntityManager _entityManager;
         std::map<uint16_t, uint8_t> _listIdTexture;
         std::map<uint16_t, uint8_t> _listLifePoints;
+        std::map<uint16_t, std::map<RType::Protocol::ComponentType, std::vector<bool>>> _listInformationsComponent;
         std::size_t _nbPlayers;
         float pos;
     };

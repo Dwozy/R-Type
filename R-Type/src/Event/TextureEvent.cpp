@@ -33,6 +33,22 @@ namespace RType::Client
                 false, rectTextures, 0, true, 0, 0, textureData.renderLayer};
             auto &entityTexture = _gameEngine.registry.addComponent<GameEngine::TextureComponent>(entity, texture);
         } else {
+            GameEngine::Recti rect = {
+                textureData.rectLeft, textureData.rectHeight, textureData.rectWidth, textureData.rectHeight};
+
+            try {
+                textures[id].value().textureRects.at(textureData.idOrderTexture);
+                struct RType::Protocol::TextureResponse response = {
+                    .id = textureData.id, .idTexture = textureData.idOrderTexture};
+                std::vector<std::byte> dataToSend =
+                    Serialization::serializeData<struct RType::Protocol::TextureResponse>(response, sizeof(response));
+                _udpClient.sendDataInformation(
+                    dataToSend, static_cast<uint8_t>(RType::Protocol::ComponentType::TEXTURE_RES));
+            } catch (const std::out_of_range &) {
+                textures[id].value().textureRects.resize(textureData.idOrderTexture + 1);
+                textures[id].value().textureRects[textureData.idOrderTexture] = rect;
+            }
+            // textures[id].value().textureRects.at()
             // BESOIN D'ENVOYER MESSAGE AU SERVEUR POUR DIRE I GOT IT
         }
     }

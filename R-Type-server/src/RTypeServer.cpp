@@ -116,6 +116,18 @@ RType::Server::RTypeServer::RTypeServer(unsigned short port)
             GameEngine::CollisionComponent, GameEngine::TransformComponent>(_gameEngine.registry, destroyCallback);
     _listIdTexture.insert({static_cast<uint16_t>(rightBoxEntity), static_cast<uint8_t>(rtype::TextureType::NONE)});
 
+    {
+        std::map<RType::Protocol::ComponentType, std::vector<bool>> componentInfo;
+        componentInfo.insert({RType::Protocol::ComponentType::TRANSFORM, {true}});
+        componentInfo.insert({RType::Protocol::ComponentType::COLLISION, {true}});
+        auto listTextureRects = _gameEngine.registry.getComponent<GameEngine::TextureComponent> () [rightBoxEntity];
+        if (listTextureRects) {
+            std::vector<bool> distribTexture(listTextureRects.value().textureRects.size(), true);
+            componentInfo.insert({RType::Protocol::ComponentType::TEXTURE, distribTexture});
+        } else
+            componentInfo.insert({RType::Protocol::ComponentType::TEXTURE, {true}});
+        _listInformationsComponent.insert({rightBoxEntity, componentInfo});
+    }
     auto leftBoxEntity =
         _gameEngine.prefabManager.createEntityFromPrefab("destroy_left_box", _gameEngine.registry, false);
     auto &leftBox = _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[leftBoxEntity];
@@ -123,21 +135,82 @@ RType::Server::RTypeServer::RTypeServer(unsigned short port)
         .addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
                        SparseArray<GameEngine::TransformComponent> &)>,
             GameEngine::CollisionComponent, GameEngine::TransformComponent>(_gameEngine.registry, destroyCallback);
+
+    {
+        std::map<RType::Protocol::ComponentType, std::vector<bool>> componentInfo;
+        componentInfo.insert({RType::Protocol::ComponentType::TRANSFORM, {true}});
+        componentInfo.insert({RType::Protocol::ComponentType::COLLISION, {true}});
+        auto listTextureRects = _gameEngine.registry.getComponent<GameEngine::TextureComponent> () [leftBoxEntity];
+        if (listTextureRects) {
+            std::vector<bool> distribTexture(listTextureRects.value().textureRects.size(), true);
+            componentInfo.insert({RType::Protocol::ComponentType::TEXTURE, distribTexture});
+        } else
+            componentInfo.insert({RType::Protocol::ComponentType::TEXTURE, {true}});
+        _listInformationsComponent.insert({leftBoxEntity, componentInfo});
+    }
     _listIdTexture.insert({static_cast<uint16_t>(leftBoxEntity), static_cast<uint8_t>(rtype::TextureType::NONE)});
 
     auto borderBoxUp = _gameEngine.prefabManager.createEntityFromPrefab("border_map_up", _gameEngine.registry, false);
+    {
+        std::map<RType::Protocol::ComponentType, std::vector<bool>> componentInfo;
+        componentInfo.insert({RType::Protocol::ComponentType::TRANSFORM, {true}});
+        componentInfo.insert({RType::Protocol::ComponentType::COLLISION, {true}});
+        auto listTextureRects = _gameEngine.registry.getComponent<GameEngine::TextureComponent> () [borderBoxUp];
+        if (listTextureRects) {
+            std::vector<bool> distribTexture(listTextureRects.value().textureRects.size(), true);
+            componentInfo.insert({RType::Protocol::ComponentType::TEXTURE, distribTexture});
+        } else
+            componentInfo.insert({RType::Protocol::ComponentType::TEXTURE, {true}});
+        _listInformationsComponent.insert({borderBoxUp, componentInfo});
+    }
     _listIdTexture.insert({static_cast<uint16_t>(borderBoxUp), static_cast<uint8_t>(rtype::TextureType::NONE)});
 
     auto borderBoxDown =
         _gameEngine.prefabManager.createEntityFromPrefab("border_map_down", _gameEngine.registry, false);
+    {
+        std::map<RType::Protocol::ComponentType, std::vector<bool>> componentInfo;
+        componentInfo.insert({RType::Protocol::ComponentType::TRANSFORM, {true}});
+        componentInfo.insert({RType::Protocol::ComponentType::COLLISION, {true}});
+        auto listTextureRects = _gameEngine.registry.getComponent<GameEngine::TextureComponent> () [borderBoxDown];
+        if (listTextureRects) {
+            std::vector<bool> distribTexture(listTextureRects.value().textureRects.size(), true);
+            componentInfo.insert({RType::Protocol::ComponentType::TEXTURE, distribTexture});
+        } else
+            componentInfo.insert({RType::Protocol::ComponentType::TEXTURE, {true}});
+        _listInformationsComponent.insert({borderBoxDown, componentInfo});
+    }
     _listIdTexture.insert({static_cast<uint16_t>(borderBoxDown), static_cast<uint8_t>(rtype::TextureType::NONE)});
 
     auto borderBoxLeft =
         _gameEngine.prefabManager.createEntityFromPrefab("border_map_left", _gameEngine.registry, false);
+    {
+        std::map<RType::Protocol::ComponentType, std::vector<bool>> componentInfo;
+        componentInfo.insert({RType::Protocol::ComponentType::TRANSFORM, {true}});
+        componentInfo.insert({RType::Protocol::ComponentType::COLLISION, {true}});
+        auto listTextureRects = _gameEngine.registry.getComponent<GameEngine::TextureComponent> () [borderBoxLeft];
+        if (listTextureRects) {
+            std::vector<bool> distribTexture(listTextureRects.value().textureRects.size(), true);
+            componentInfo.insert({RType::Protocol::ComponentType::TEXTURE, distribTexture});
+        } else
+            componentInfo.insert({RType::Protocol::ComponentType::TEXTURE, {true}});
+        _listInformationsComponent.insert({borderBoxLeft, componentInfo});
+    }
     _listIdTexture.insert({static_cast<uint16_t>(borderBoxLeft), static_cast<uint8_t>(rtype::TextureType::NONE)});
 
     auto borderBoxRight =
         _gameEngine.prefabManager.createEntityFromPrefab("border_map_right", _gameEngine.registry, false);
+    {
+        std::map<RType::Protocol::ComponentType, std::vector<bool>> componentInfo;
+        componentInfo.insert({RType::Protocol::ComponentType::TRANSFORM, {true}});
+        componentInfo.insert({RType::Protocol::ComponentType::COLLISION, {true}});
+        auto listTextureRects = _gameEngine.registry.getComponent<GameEngine::TextureComponent> () [borderBoxRight];
+        if (listTextureRects) {
+            std::vector<bool> distribTexture(listTextureRects.value().textureRects.size(), true);
+            componentInfo.insert({RType::Protocol::ComponentType::TEXTURE, distribTexture});
+        } else
+            componentInfo.insert({RType::Protocol::ComponentType::TEXTURE, {true}});
+        _listInformationsComponent.insert({borderBoxRight, componentInfo});
+    }
     _listIdTexture.insert({static_cast<uint16_t>(borderBoxRight), static_cast<uint8_t>(rtype::TextureType::NONE)});
 
     _nbPlayers = 0;
@@ -296,6 +369,77 @@ void RType::Server::RTypeServer::handleEvent()
     }
 }
 
+void RType::Server::RTypeServer::broadcastTransformComponent()
+{
+    auto &transforms = _gameEngine.registry.getComponent<GameEngine::TransformComponent>();
+
+    for (std::size_t i = 0; i < transforms.size(); i++) {
+        auto &transform = transforms[i];
+        if (!transform)
+            continue;
+        struct RType::Protocol::TransformData transformData = {
+            .id = static_cast<uint16_t>(i),
+            .x = transform.value().position.x,
+            .y = transform.value().position.y,
+            .dx = transform.value().velocity.x,
+            .dy = transform.value().velocity.y,
+        };
+        std::vector<std::byte> dataToSend =
+            Serialization::serializeData<struct RType::Protocol::TransformData>(transformData, sizeof(transformData));
+        _udpServer.broadcastInformation(static_cast<uint8_t>(RType::Protocol::ComponentType::TRANSFORM), dataToSend);
+    }
+}
+
+void RType::Server::RTypeServer::broadcastCollisionComponent()
+{
+    auto &collisions = _gameEngine.registry.getComponent<GameEngine::CollisionComponent>();
+
+    for (std::size_t i = 0; i < collisions.size(); i++) {
+        auto &collision = collisions[i];
+        if (!collision)
+            continue;
+        struct RType::Protocol::CollisionData collisionData = {.id = static_cast<uint16_t>(i),
+            .rectLeft = collision.value().collider.left,
+            .rectTop = collision.value().collider.top,
+            .rectWidth = collision.value().collider.width,
+            .rectHeight = collision.value().collider.height,
+            .layer = static_cast<uint8_t> (collision.value().layer)};
+        if (_listInformationsComponent.find(i) == _listInformationsComponent.end() ||
+            _listInformationsComponent.at(i).at(RType::Protocol::ComponentType::COLLISION).front() == false)
+            continue;
+        std::vector<std::byte> dataToSend =
+            Serialization::serializeData<struct RType::Protocol::CollisionData>(collisionData, sizeof(collisionData));
+        _udpServer.broadcastInformation(static_cast<uint8_t>(RType::Protocol::ComponentType::COLLISION), dataToSend);
+    }
+}
+
+void RType::Server::RTypeServer::broadcastTextureComponent()
+{
+    auto &textures = _gameEngine.registry.getComponent<GameEngine::TextureComponent>();
+
+    for (std::size_t i = 0; i < textures.size(); i++) {
+        auto &texture = textures[i];
+        if (!texture || _listInformationsComponent.find(i) == _listInformationsComponent.end())
+            continue;
+        for (std::size_t index = 0; index < texture.value().textureRects.size(); index++) {
+            if (_listInformationsComponent.at(i).at(RType::Protocol::ComponentType::TEXTURE).at(index)) {
+                struct RType::Protocol::TextureData textureData = {
+                    .id = static_cast<uint16_t>(i),
+                    .idOrderTexture = static_cast<uint8_t> (index),
+                    .rectLeft = static_cast<uint8_t> (texture.value().textureRects[index].left),
+                    .rectTop = static_cast<uint8_t> (texture.value().textureRects[index].top),
+                    .rectWidth = static_cast<uint8_t> (texture.value().textureRects[index].width),
+                    .rectHeight = static_cast<uint8_t> (texture.value().textureRects[index].height),
+                    .renderLayer = static_cast<uint8_t> (texture.value().renderLayer)
+                };
+                std::vector<std::byte> dataToSend =
+                    Serialization::serializeData<struct RType::Protocol::TextureData>(textureData, sizeof(textureData));
+                _udpServer.broadcastInformation(static_cast<uint8_t>(RType::Protocol::ComponentType::TEXTURE), dataToSend);
+            }
+        }
+    }
+}
+
 void RType::Server::RTypeServer::updateEntities()
 {
     auto &transforms = _gameEngine.registry.getComponent<GameEngine::TransformComponent>();
@@ -367,9 +511,8 @@ void RType::Server::RTypeServer::gameLoop()
         if (_nbPlayers == -1) {
             std::string message = "You lose";
             std::vector<std::byte> data(message.size());
-            std::transform(message.begin(), message.end(), data.begin(),
-                   [] (char c) { return std::byte(c); });
-            _udpServer.broadcastInformation(static_cast<uint8_t> (rtype::PacketType::STRING), data);
+            std::transform(message.begin(), message.end(), data.begin(), [](char c) { return std::byte(c); });
+            _udpServer.broadcastInformation(static_cast<uint8_t>(rtype::PacketType::STRING), data);
             _nbPlayers = 0;
         }
         _gameEngine.registry.runSystems();

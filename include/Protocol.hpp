@@ -18,6 +18,8 @@ namespace RType::Protocol
         TRANSFORM = 1,
         COLLISION,
         TEXTURE,
+        COLLISION_RES,
+        TEXTURE_RES,
     };
 
     enum class InputType : uint8_t {
@@ -37,6 +39,17 @@ namespace RType::Protocol
         uint16_t payloadSize;
     };
 
+    struct CollisionResponse
+    {
+        uint16_t id;
+    };
+
+    struct TextureResponse
+    {
+        uint16_t id;
+        uint16_t idTexture;
+    };
+
     struct TransformData
     {
         uint16_t id;
@@ -49,6 +62,7 @@ namespace RType::Protocol
     struct CollisionData
     {
         uint16_t id;
+        // uint8_t idCallback;
         float rectLeft;
         float rectTop;
         float rectWidth;
@@ -60,6 +74,7 @@ namespace RType::Protocol
     {
         uint16_t id;
         uint8_t idTexture;
+        uint8_t idOrderTexture;
         uint16_t rectLeft;
         uint16_t rectTop;
         uint16_t rectWidth;
