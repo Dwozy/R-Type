@@ -1,9 +1,9 @@
 /*
-** EPITECH PROJECT, 2023
-** R-type
-** File description:
-** JsonConversion
-*/
+ ** EPITECH PROJECT, 2023
+ ** R-type
+ ** File description:
+ ** JsonConversion
+ */
 
 #ifndef JSONCONVERSION_HPP_
 #define JSONCONVERSION_HPP_
@@ -64,6 +64,12 @@ namespace GameEngine
         j.at("height").get_to(rect.height);
     }
 
+    template <typename T>
+    void from_json(const json &j, Vector2<T> &vec)
+    {
+        j.at("x").get_to(vec.x);
+        j.at("y").get_to(vec.y);
+    }
     /// @brief Function to convert a json object to a Texture
     /// @param j reference to the json object
     /// @param texture reference to the texture
@@ -80,8 +86,8 @@ namespace GameEngine
     /// @param tc reference to the transform component
     void from_json(const json &j, TransformComponent &tc)
     {
-        tc.position = Vector2<float>(0.0f, 0.0f);
-        tc.velocity = Vector2<float>(0.0f, 0.0f);
+        j.at("position").get_to(tc.position);
+        j.at("velocity").get_to(tc.velocity);
     }
 
     /// @brief Function to convert a json object to a ControllableComponent
@@ -104,7 +110,7 @@ namespace GameEngine
         j.at("texturePath").get_to(tc.path);
         tc.animated = j.contains("animated") ? j.at("animated").get<bool>() : false;
         for (auto &trect : j.at("textureRects"))
-            tc.textureRects.push_back(j.get<Rect<int>>());
+            tc.textureRects.push_back(trect);
         tc.animationSpeed = j.contains("animationSpeed") ? j.at("animationSpeed").get<float>() : 0.0f;
         tc.isRendered = j.contains("isRendered") ? j.at("isRendered").get<bool>() : true;
         tc.lastUpdate = j.contains("lastUpdate") ? j.at("lastUpdate").get<float>() : 0.0f;

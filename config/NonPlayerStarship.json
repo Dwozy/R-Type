@@ -3,13 +3,27 @@
     "components": [
         {
             "type": "TransformComponent",
-            "value": {}
+            "value": {
+                "position": {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                "velocity": {
+                    "x": -50.0,
+                    "y": 0.0
+                }
+            }
         },
         {
             "type": "TextureComponent",
             "value": {
                 "texturePath": "R-Type/assets/image.png",
-                "textureRects": [],
+                "textureRects": [{
+                    "left": 0.0,
+                    "top": 0.0,
+                    "width": 0.0,
+                    "height": 0.0
+                }],
                 "renderLayer": 0
             }
         },
