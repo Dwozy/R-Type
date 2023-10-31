@@ -69,22 +69,28 @@ namespace GameEngine
         }
     }
 
-    Entity PrefabManager::createEntityFromPrefab(const std::string &prefabName, Registry &registry)
+    Entity PrefabManager::createEntityFromPrefab(const std::string &prefabName, Registry &registry, bool loadTexture)
     {
         auto entity = registry.spawnEntity();
 
-        for (const auto &prefab : _prefabs.at(prefabName))
+        for (const auto &prefab : _prefabs.at(prefabName)) {
             _componentAdders.at(prefab.first)(registry, prefab.second, entity);
+            if (prefab.first == typeid(TextureComponent) && loadTexture) {
+                auto &texture = registry.getComponent<TextureComponent>()[entity];
+                texture->sprite.load(_assetManager.get().getTexture(texture->path));
+            }
+        }
         return entity;
     }
 
-    Entity PrefabManager::createEntityFromPrefab(const std::string &prefabName, Registry &registry, size_t id)
+    Entity PrefabManager::createEntityFromPrefab(
+        const std::string &prefabName, Registry &registry, size_t id, bool loadTexture)
     {
         auto entity = registry.spawnEntity(id);
 
         for (const auto &prefab : _prefabs.at(prefabName)) {
             _componentAdders.at(prefab.first)(registry, prefab.second, entity);
-            if (prefab.first == typeid(TextureComponent)) {
+            if (prefab.first == typeid(TextureComponent) && loadTexture) {
                 auto &texture = registry.getComponent<TextureComponent>()[entity];
                 texture->sprite.load(_assetManager.get().getTexture(texture->path));
             }

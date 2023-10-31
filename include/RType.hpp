@@ -30,7 +30,7 @@ namespace rtype
         MOVE,
         SHOOT,
         CREATE_PLAYER,
-        DISCONNEXION
+        DESTROY
     };
 
     enum class TextureType : uint8_t { NONE = 1, PLAYER, SHOOT, MOB };
@@ -45,6 +45,7 @@ namespace rtype
     {
         uint16_t id;
         uint8_t idTexture;
+        // uint8_t lifePoint;
         float positionX;
         float positionY;
         float directionX;

@@ -35,13 +35,19 @@ namespace RType::Server
         void handleMove(struct rtype::Event event);
         /// @brief Function that will handle the disconnexion of a client
         /// @param event struct that contain the data (information about the client)
-        void handleDisconnexion(struct rtype::Event event);
+        void handleDestroy(struct rtype::Event event);
         /// @brief Function that will start the Network in a thread
         /// @param isRunning boolean to know if the server is down
         void startNetwork(bool &isRunning);
         /// @brief Function that will brodcast informations to all clients
         void updateEntities();
         void handleShoot(struct rtype::Event event);
+
+        void destroyEntityCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
+            SparseArray<GameEngine::TransformComponent> &transforms);
+        void replaceEntityCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
+            SparseArray<GameEngine::TransformComponent> &transforms);
+        void spawnMob();
 
       protected:
       private:
@@ -57,6 +63,8 @@ namespace RType::Server
         SafeQueue<struct rtype::Event> _eventQueue;
         GameEngine::EntityManager _entityManager;
         std::map<uint16_t, uint8_t> _listIdTexture;
+        std::map<uint16_t, uint8_t> _listLifePoints;
+        std::size_t _nbPlayers;
         float pos;
     };
 } // namespace RType::Server

@@ -1,0 +1,31 @@
+{
+    "name": "border_map_up",
+    "components": [
+        {
+            "type": "TransformComponent",
+            "value": {
+                "position": {
+                    "x": -10.0,
+                    "y": -20.0
+                },
+                "velocity": {
+                    "x": 0.0,
+                    "y": 0.0
+                }
+            }
+        },
+        {
+            "type": "CollisionComponent",
+            "value": {
+                "collider": {
+                    "left": 0.0,
+                    "top": 0.0,
+                    "width": 500.0,
+                    "height": 20.0
+                },
+                "layer": 25
+            }
+        }
+    ]
+}
+

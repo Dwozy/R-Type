@@ -37,28 +37,28 @@ void collisionCallback(const std::size_t &entityId, SparseArray<GameEngine::Coll
     }
 }
 
-void destroyShootCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
-    SparseArray<GameEngine::TransformComponent> &transforms)
-{
-    auto &selfCol = collisions[entityId];
-    auto &selfTsf = transforms[entityId];
+// void destroyShootCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
+//     SparseArray<GameEngine::TransformComponent> &transforms)
+// {
+//     auto &selfCol = collisions[entityId];
+//     auto &selfTsf = transforms[entityId];
 
-    if (!selfCol || !selfTsf)
-        return;
-    for (std::size_t i = 0; i < collisions.size(); i++) {
-        if (i == entityId)
-            continue;
-        auto &col = collisions[i];
-        auto &tsf = transforms[i];
+//     if (!selfCol || !selfTsf)
+//         return;
+//     for (std::size_t i = 0; i < collisions.size(); i++) {
+//         if (i == entityId)
+//             continue;
+//         auto &col = collisions[i];
+//         auto &tsf = transforms[i];
 
-        if (!col || !tsf || !col.value().isActive || col.value().layer != 20)
-            continue;
-        if (selfCol.value().collider.isColliding(
-                selfTsf.value().position, col.value().collider, tsf.value().position)) {
-            std::cout << "Shoot Down" << std::endl;
-        }
-    }
-}
+//         if (!col || !tsf || !col.value().isActive || col.value().layer != 20)
+//             continue;
+//         if (selfCol.value().collider.isColliding(
+//                 selfTsf.value().position, col.value().collider, tsf.value().position)) {
+//             std::cout << "Shoot Down" << std::endl;
+//         }
+//     }
+// }
 
 void GameEngine::EntityManager::setPlayerEntityComponent(Entity entity, Registry &registry)
 {
@@ -80,12 +80,12 @@ void GameEngine::EntityManager::setPlayerEntityComponent(Entity entity, Registry
 
 void GameEngine::EntityManager::setShootEntityComponent(Entity entity, Registry &registry)
 {
-    GameEngine::Rectf rect(0, 0, 47, 15.0);
-    GameEngine::CollisionComponent col = {.collider = rect, .layer = 20};
-    col.addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
-                      SparseArray<GameEngine::TransformComponent> &)>,
-        GameEngine::CollisionComponent, GameEngine::TransformComponent>(registry, destroyShootCallback);
-    registry.addComponent<GameEngine::CollisionComponent>(entity, col);
+    // GameEngine::Rectf rect(0, 0, 47, 15.0);
+    // GameEngine::CollisionComponent col = {.collider = rect, .layer = 20};
+    // col.addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
+    //                   SparseArray<GameEngine::TransformComponent> &)>,
+    //     GameEngine::CollisionComponent, GameEngine::TransformComponent>(registry, destroyShootCallback);
+    // registry.addComponent<GameEngine::CollisionComponent>(entity, col);
 
     // auto &playerTex = registry.addComponent<GameEngine::TextureComponent>(
     //     entity, GameEngine::TextureComponent{GameEngine::Texture(), GameEngine::Sprite(), true, {}, 0, true, 0, 0,
@@ -101,13 +101,13 @@ void GameEngine::EntityManager::setEntityFromClient(struct rtype::Entity entityI
     registry.addComponent<GameEngine::TransformComponent>(entity, tsf);
 
     switch (entityInfo.idTexture) {
-    case static_cast<uint8_t>(rtype::TextureType::PLAYER):
+    case static_cast<uint8_t>(EntityType::PLAYER):
         setPlayerEntityComponent(entity, registry);
         break;
-    case static_cast<uint8_t>(rtype::TextureType::SHOOT):
+    case static_cast<uint8_t>(EntityType::SHOOT):
         setShootEntityComponent(entity, registry);
         break;
-        // case static_cast<uint8_t>(rtype::TextureType::MOB):
+        // case static_cast<uint8_t>(EntityType::MOB):
         //     playerTex.value().texture.load("R-Type/assets/image.png", GameEngine::Rect<int>(0, 0, 32, 16));
         //     break;
     }
