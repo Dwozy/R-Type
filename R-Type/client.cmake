@@ -6,7 +6,6 @@ set(INCLUDES_CLIENT ${CLIENT_FOLDER}/include)
 set(SRCS_CLIENT
     ${CLIENT_FOLDER}/src/main.cpp
     ${CLIENT_FOLDER}/src/RTypeClient.cpp
-    ${CLIENT_FOLDER}/src/EntityManager.cpp
     ${CLIENT_FOLDER}/src/UdpClient.cpp
     ${CLIENT_FOLDER}/src/TcpClient.cpp
     ${CLIENT_FOLDER}/src/HandleEvent.cpp

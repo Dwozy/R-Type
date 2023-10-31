@@ -14,7 +14,6 @@
 #include "TcpServer.hpp"
 #include "GameEngine.hpp"
 #include <asio.hpp>
-#include "EntityManager.hpp"
 #include <map>
 #include "Protocol.hpp"
 
@@ -100,7 +99,6 @@ namespace RType::Server
         std::map<struct rtype::Room, std::map<unsigned short, struct rtype::Entity>> _listPlayersInfos;
         std::map<unsigned short, asio::ip::udp::endpoint> _listClients;
         SafeQueue<struct rtype::Event> _eventQueue;
-        GameEngine::EntityManager _entityManager;
         std::map<uint16_t, uint8_t> _listIdType;
         std::map<uint16_t, uint8_t> _listLifePoints;
         std::map<unsigned short, componentList> _listInfosComponent;

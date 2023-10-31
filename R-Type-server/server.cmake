@@ -4,7 +4,6 @@ set(SERVER_FOLDER R-Type-server)
 
 set(INCLUDES_SERVER ${SERVER_FOLDER}/include)
 set(SRCS_SERVER
-    ${SERVER_FOLDER}/src/EntityManager.cpp
     ${SERVER_FOLDER}/src/main.cpp
     ${SERVER_FOLDER}/src/ClientSession.cpp
     ${SERVER_FOLDER}/src/RTypeServer.cpp

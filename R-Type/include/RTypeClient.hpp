@@ -13,7 +13,6 @@
 #include "TcpClient.hpp"
 #include <asio.hpp>
 #include "GameEngine.hpp"
-#include "EntityManager.hpp"
 #include <cstdint>
 
 namespace RType::Client
@@ -111,7 +110,6 @@ namespace RType::Client
         // RType::Client::TcpClient _tcpClient;
         asio::signal_set _signal;
         SafeQueue<struct rtype::Event> _eventQueue;
-        GameEngine::EntityManager _entityManager;
         bool _isAlive;
         bool _isRunning;
         bool _isPlayer;
