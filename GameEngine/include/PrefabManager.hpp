@@ -21,13 +21,28 @@ using json = nlohmann::json;
 
 namespace GameEngine
 {
+    /// @brief Class to manage prefabs
     class PrefabManager
     {
       public:
+        /// @brief Contructor
+        /// @param assetManager reference to the asset manager
         PrefabManager(AssetManager &assetManager);
+        /// @brief Destructor
         ~PrefabManager() = default;
+        /// @brief Load a prefab
+        /// @param filename name of the prefab file (json file)
         void loadPrefabFromFile(const std::string &filename);
+        /// @brief Create an entity from a prefab
+        /// @param prefabName Name of the prefab
+        /// @param registry reference to the registry
+        /// @return the created entity
         Entity createEntityFromPrefab(const std::string &prefabName, Registry &registry, bool loadTexture = true);
+        /// @brief Create an entity from a prefab
+        /// @param prefabName Name of the prefab
+        /// @param registry reference to the registry
+        /// @param id id of the entity
+        /// @return the created entity
         Entity createEntityFromPrefab(const std::string &prefabName, Registry &registry, size_t id, bool loadTexture = true);
 
       protected:

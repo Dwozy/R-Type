@@ -37,29 +37,6 @@ void collisionCallback(const std::size_t &entityId, SparseArray<GameEngine::Coll
     }
 }
 
-// void destroyShootCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
-//     SparseArray<GameEngine::TransformComponent> &transforms)
-// {
-//     auto &selfCol = collisions[entityId];
-//     auto &selfTsf = transforms[entityId];
-
-//     if (!selfCol || !selfTsf)
-//         return;
-//     for (std::size_t i = 0; i < collisions.size(); i++) {
-//         if (i == entityId)
-//             continue;
-//         auto &col = collisions[i];
-//         auto &tsf = transforms[i];
-
-//         if (!col || !tsf || !col.value().isActive || col.value().layer != 20)
-//             continue;
-//         if (selfCol.value().collider.isColliding(
-//                 selfTsf.value().position, col.value().collider, tsf.value().position)) {
-//             std::cout << "Shoot Down" << std::endl;
-//         }
-//     }
-// }
-
 void GameEngine::EntityManager::setPlayerEntityComponent(Entity entity, Registry &registry)
 {
     GameEngine::Rectf rect(0.0, 0.0, 32, 16);
