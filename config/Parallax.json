@@ -1,5 +1,5 @@
 {
-    "name": "player",
+    "name": "parallax",
     "components": [
         {
             "type": "TransformComponent",
@@ -9,45 +9,36 @@
                     "y": 0.0
                 },
                 "velocity": {
-                    "x": 0.0,
+                    "x": -50.0,
                     "y": 0.0
                 }
             }
         },
         {
-            "type": "ControllableComponent",
-            "value": {
-                "key_up": "Z",
-                "key_left": "Q",
-                "key_down": "S",
-                "key_right": "D",
-                "speed": 100.0
-            }
-        },
-        {
             "type": "TextureComponent",
             "value": {
-                "texturePath": "R-Type/assets/image.png",
+                "texturePath": "R-Type/assets/parallax.png",
                 "textureRects": [{
-                    "left": 0.0,
+                    "left": 199.0,
                     "top": 0.0,
-                    "width": 32.0,
-                    "height": 16.0
+                    "width": 30.0,
+                    "height": 200.0
                 }],
-                "renderLayer": 2
+                "renderLayer": 0
             }
         },
         {
             "type": "CollisionComponent",
             "value": {
                 "collider": {
-                    "left": 0.0,
+                    "left": 199.0,
                     "top": 0.0,
-                    "width": 32.0,
-                    "height": 16.0
+                    "width": 30.0,
+                    "height": 200.0
                 },
-                "layer": 30
+                "layer": 10
             }
         }
     ]
 }
+

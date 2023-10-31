@@ -40,7 +40,7 @@ namespace RType::Client
             case static_cast<uint8_t>(rtype::PacketType::CONNECTED):
                 handleNewEntity(event);
                 break;
-            case static_cast<uint8_t>(rtype::PacketType::DISCONNEXION):
+            case static_cast<uint8_t>(rtype::PacketType::DESTROY):
                 handleDisconnexion(event);
                 break;
                 // case static_cast<uint8_t>(rtype::PacketType::SHOOT):

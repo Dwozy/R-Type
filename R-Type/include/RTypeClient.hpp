@@ -75,7 +75,7 @@ namespace RType::Client
         void setNewShootCallback();
         void runUdpServer();
         void runTcpServer();
-
+        void handleQuit();
       protected:
       private:
         std::size_t _findEntity(const std::size_t &networkId);
@@ -90,6 +90,7 @@ namespace RType::Client
         asio::signal_set _signal;
         SafeQueue<struct rtype::Event> _eventQueue;
         GameEngine::EntityManager _entityManager;
+        bool _isAlive;
         bool _isRunning;
         bool _isPlayer;
         uint16_t _serverId;

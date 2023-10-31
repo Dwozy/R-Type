@@ -20,9 +20,12 @@ namespace RType::Client
     void RTypeClient::handlePlayerShoot()
     {
         static bool shotable = true;
+        if (!_isAlive)
+            return;
         auto &transforms = _gameEngine.registry.getComponent<GameEngine::TransformComponent>();
         if (!transforms[_id].has_value())
             return;
+
         if (GameEngine::InputManager::isKeyPressed(GameEngine::Input::Keyboard::Space) == true && shotable == true) {
             _gameEngine.eventManager.getHandler<GameEngine::TransformComponent>(GameEngine::Event::PlayerShootEvent)
                 .publish(transforms[_id].value());

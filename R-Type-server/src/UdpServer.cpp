@@ -24,7 +24,7 @@ RType::Server::UdpServer::UdpServer(
         std::bind(&RType::Server::UdpServer::handleMove, this, std::placeholders::_1));
     _commands.emplace(static_cast<uint8_t>(rtype::PacketType::CONNEXION),
         std::bind(&RType::Server::UdpServer::handleConnexion, this, std::placeholders::_1));
-    _commands.emplace(static_cast<uint8_t>(rtype::PacketType::DISCONNEXION),
+    _commands.emplace(static_cast<uint8_t>(rtype::PacketType::DESTROY),
         std::bind(&RType::Server::UdpServer::handleDisconnexion, this, std::placeholders::_1));
     _commands.emplace(static_cast<uint8_t>(rtype::PacketType::SHOOT),
         std::bind(&RType::Server::UdpServer::handleShoot, this, std::placeholders::_1));

@@ -19,7 +19,7 @@ RType::Client::UdpClient::UdpClient(
         std::bind(&RType::Client::UdpClient::handleEntity, this, std::placeholders::_1));
     _commands.emplace(static_cast<uint8_t>(rtype::PacketType::CONNECTED),
         std::bind(&RType::Client::UdpClient::handleConnexionSuccess, this, std::placeholders::_1));
-    _commands.emplace(static_cast<uint8_t>(rtype::PacketType::DISCONNEXION),
+    _commands.emplace(static_cast<uint8_t>(rtype::PacketType::DESTROY),
         std::bind(&RType::Client::UdpClient::handleDisconnexion, this, std::placeholders::_1));
     _commands.emplace(static_cast<uint8_t>(rtype::PacketType::SHOOT),
         std::bind(&RType::Client::UdpClient::handleShoot, this, std::placeholders::_1));
@@ -45,8 +45,11 @@ void RType::Client::UdpClient::handleString(struct rtype::HeaderDataPacket heade
     std::vector<uint8_t> byteArrayToReceive = Serialization::deserializeData(_streamBuffer, header.payloadSize);
 
     std::string message(byteArrayToReceive.begin(), byteArrayToReceive.end());
-    if (message == "Server down")
+    if (message == "Server down" || message == "You lose" || message == "You win") {
+        if (message != "Server down")
+            std::cout << message << std::endl;
         _IOContext.stop();
+    }
 }
 
 void RType::Client::UdpClient::handleEntity(struct rtype::HeaderDataPacket header)

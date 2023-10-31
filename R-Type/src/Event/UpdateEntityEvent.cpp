@@ -14,6 +14,8 @@ namespace RType::Client
     {
         auto &transforms = _gameEngine.registry.getComponent<GameEngine::TransformComponent>();
 
+        if (_listTextureTypePrefab.find(entity.idTexture) == _listTextureTypePrefab.end())
+            return;
         if (!_searchEntity(entity.id)) {
             // std::cout << _listTextureTypePrefab.at(entity.idTexture) << std::endl;
             GameEngine::Entity newEntity = _gameEngine.prefabManager.createEntityFromPrefab(
@@ -22,17 +24,26 @@ namespace RType::Client
                 newEntity, GameEngine::NetworkIdComponent{entity.id});
             auto &texture = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[newEntity];
             texture->sprite.load(_gameEngine.assetManager.getTexture(texture->path));
+            auto &tsf = _gameEngine.registry.getComponent<GameEngine::TransformComponent>()[newEntity];
+            tsf.value().position.x = entity.positionX;
+            tsf.value().position.y = entity.positionY;
+            tsf.value().velocity.x = entity.directionX;
+            tsf.value().velocity.y = entity.directionY;
             return;
         }
         std::size_t id = _findEntity(entity.id);
         if (!transforms[id].has_value()) {
-            // Mapping Enum type texture to prefab
             GameEngine::Entity newEntity = _gameEngine.prefabManager.createEntityFromPrefab(
                 _listTextureTypePrefab.at(entity.idTexture), _gameEngine.registry);
             _gameEngine.registry.addComponent<GameEngine::NetworkIdComponent>(
                 newEntity, GameEngine::NetworkIdComponent{entity.id});
             auto &texture = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[newEntity];
             texture->sprite.load(_gameEngine.assetManager.getTexture(texture->path));
+            auto &tsf = _gameEngine.registry.getComponent<GameEngine::TransformComponent>()[newEntity];
+            tsf.value().position.x = entity.positionX;
+            tsf.value().position.y = entity.positionY;
+            tsf.value().velocity.x = entity.directionX;
+            tsf.value().velocity.y = entity.directionY;
         } else {
             transforms[id]->velocity.x = entity.directionX;
             transforms[id]->velocity.y = entity.directionY;
