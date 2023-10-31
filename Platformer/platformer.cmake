@@ -7,6 +7,7 @@ set(SRCS_GAME
     ${GAME_FOLDER}/src/main.cpp
     ${GAME_FOLDER}/src/Platformer.cpp
     ${GAME_FOLDER}/src/SetGameEngine.cpp
+    ${GAME_FOLDER}/src/ChangeScene.cpp
     ${GAME_FOLDER}/src/WinLoseScene.cpp
     ${GAME_FOLDER}/src/GameScene.cpp
     ${GAME_FOLDER}/src/MainMenuScene.cpp

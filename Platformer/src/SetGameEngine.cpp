@@ -21,6 +21,10 @@
 #include "systems/PressableSystem.hpp"
 #include "systems/CollisionSystem.hpp"
 #include "systems/GravitySystem.hpp"
+#include "scenes/GameScene.hpp"
+#include "scenes/MainMenuScene.hpp"
+#include "scenes/PauseScene.hpp"
+#include "scenes/WinLoseScene.hpp"
 
 void Platformer::setGameEngineComponent()
 {
@@ -36,7 +40,6 @@ void Platformer::setGameEngineComponent()
 
 void Platformer::setGameEngineCallback()
 {
-   // ChangeSceneCallbacks();
 }
 
 void Platformer::setGameEngineSystem()
@@ -65,9 +68,19 @@ void Platformer::setGameEngineSystem()
         drawSystem);
 }
 
+void Platformer::setGameEngineScene()
+{
+    _gameEngine.sceneManager.registerScene("Game", std::make_unique<GameScene>(_gameEngine, _state));
+    _gameEngine.sceneManager.registerScene("Pause", std::make_unique<PauseScene>());
+    _gameEngine.sceneManager.registerScene("MainMenu", std::make_unique<MainMenuScene>());
+    _gameEngine.sceneManager.registerScene("WinLose", std::make_unique<WinLoseScene>(_state));
+    _gameEngine.sceneManager.loadScene("MainMenu");
+}
+
 void Platformer::setGameEngine()
 {
     setGameEngineComponent();
     setGameEngineSystem();
+    setGameEngineScene();
     setGameEngineCallback();
 }

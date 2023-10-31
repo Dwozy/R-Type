@@ -9,9 +9,8 @@
 
 Platformer::Platformer()
 {
+    _state = GameState::Mainmenu;
     setGameEngine();
-    // _gameEngine.sceneManager.registerScene("Game", std::make_unique<GameScene>());
-    // _gameEngine.sceneManager.loadScene("Game");
     gameLoop();
 }
 
@@ -33,6 +32,7 @@ void Platformer::gameLoop()
             _gameEngine.eventManager.publish<GameEngine::PollEventStruct &>(GameEngine::Event::PollEvent, event);
         }
         _gameEngine.registry.runSystems();
+        handleScreenChange();
         _gameEngine.eventManager.publish<bool &>(GameEngine::Event::WindowIsOpen, isOpen);
     }
 }

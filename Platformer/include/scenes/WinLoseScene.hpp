@@ -8,15 +8,16 @@
 #ifndef WINLOSESCENE_HPP_
 #define WINLOSESCENE_HPP_
 #include "utils/IScene.hpp"
+#include "Platformer.hpp"
 
 class WinLoseScene : public GameEngine::IScene {
     public:
-        WinLoseScene();
+        WinLoseScene(GameState &state) : _state(state) {};
         ~WinLoseScene() = default;
         void load() override;
         void unload() override;
-    protected:
     private:
+        GameState &_state;
 };
 
 #endif /* !WINLOSESCENE_HPP_ */

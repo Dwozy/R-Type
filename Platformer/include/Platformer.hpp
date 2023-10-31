@@ -11,10 +11,12 @@
 
 
 enum class GameState {
+    Mainmenu,
     Pause,
     Game,
     win,
-    Lose
+    Lose,
+    Restart
 };
 
 class Platformer {
@@ -24,9 +26,12 @@ class Platformer {
         void setGameEngineComponent();
         void setGameEngineCallback();
         void setGameEngineSystem();
+        void setGameEngineScene();
         void setGameEngine();
+        void handleScreenChange();
         void gameLoop();
     private:
+        GameState _state;
         GameEngine::GameEngine _gameEngine;
 };
 
