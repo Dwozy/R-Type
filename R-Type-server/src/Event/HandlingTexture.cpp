@@ -9,7 +9,7 @@
 
 namespace RType::Server
 {
-    void RType::Server::RTypeServer::handleTextureResponse(struct rtype::Event event)
+    void RTypeServer::handleTextureResponse(struct rtype::Event event)
     {
         struct RType::Protocol::TextureResponse response =
             std::any_cast<struct RType::Protocol::TextureResponse>(event.data);
@@ -27,7 +27,7 @@ namespace RType::Server
         }
     }
 
-    void RType::Server::RTypeServer::sendTextureComponent(uint16_t id, std::size_t index,
+    void RTypeServer::sendTextureComponent(uint16_t id, std::size_t index,
         std::vector<GameEngine::Recti> textureRects, std::size_t renderLayer, asio::ip::udp::endpoint &endpoint)
     {
         struct RType::Protocol::TextureData textureData = {.id = id,
@@ -43,7 +43,7 @@ namespace RType::Server
         _udpServer.sendInformation(static_cast<uint8_t>(RType::Protocol::ComponentType::TEXTURE), dataToSend, endpoint);
     }
 
-    void RType::Server::RTypeServer::checkSendingTexture(
+    void RTypeServer::checkSendingTexture(
         std::vector<bool> listDisplayTexture, const GameEngine::Entity &entity, asio::ip::udp::endpoint &endpoint)
     {
         auto texture = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[entity];
@@ -55,7 +55,7 @@ namespace RType::Server
         }
     }
 
-    void RType::Server::RTypeServer::broadcastTextureComponent()
+    void RTypeServer::broadcastTextureComponent()
     {
         auto &textures = _gameEngine.registry.getComponent<GameEngine::TextureComponent>();
 

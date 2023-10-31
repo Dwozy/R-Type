@@ -83,6 +83,12 @@ namespace RType::Server
         void checkSendingTexture(
             std::vector<bool> listDisplayTexture, const GameEngine::Entity &entity, asio::ip::udp::endpoint &endpoint);
 
+        void setGameEngineComponent();
+        void setPrefab();
+        void setGameEngineSystem();
+        void setGameEngine();
+        void setupGame();
+
       protected:
       private:
         GameEngine::GameEngine _gameEngine;

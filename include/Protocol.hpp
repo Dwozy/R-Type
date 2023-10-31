@@ -90,6 +90,8 @@ namespace RType::Protocol
     struct MoveData
     {
         uint16_t id;
+        float x;
+        float y;
         float dx;
         float dy;
     };

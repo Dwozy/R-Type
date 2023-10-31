@@ -24,7 +24,7 @@ namespace RType::Client
             auto &col = collisions[i];
             auto &tsf = transforms[i];
 
-            if (!col || !tsf || !col.value().isActive || col.value().layer != 25)
+            if (!col || !tsf || !col.value().isActive || col.value().layer != 2)
                 continue;
             selfCol.value().collider.handleCollisionFromRect(
                 selfTsf.value().position, col.value().collider, tsf.value().position);

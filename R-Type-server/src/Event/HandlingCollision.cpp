@@ -10,7 +10,7 @@
 namespace RType::Server
 {
 
-    void RType::Server::RTypeServer::handleCollisionResponse(struct rtype::Event event)
+    void RTypeServer::handleCollisionResponse(struct rtype::Event event)
     {
         struct RType::Protocol::CollisionResponse response =
             std::any_cast<struct RType::Protocol::CollisionResponse>(event.data);
@@ -19,11 +19,10 @@ namespace RType::Server
             return;
         if (_listInfosComponent[event.port].find(response.id) == _listInfosComponent[event.port].end())
             return;
-        std::cout << "Collision not needed anymore " << static_cast<std::size_t>(response.id) << std::endl;
         _listInfosComponent.at(event.port).at(response.id).at(RType::Protocol::ComponentType::COLLISION).front() = false;
     }
 
-    void RType::Server::RTypeServer::sendCollisionComponent(uint16_t id, GameEngine::Rectf collider, std::size_t layer, asio::ip::udp::endpoint &endpoint)
+    void RTypeServer::sendCollisionComponent(uint16_t id, GameEngine::Rectf collider, std::size_t layer, asio::ip::udp::endpoint &endpoint)
     {
         struct RType::Protocol::CollisionData collisionData = {.id = id,
             .idCallback = static_cast<uint8_t>(_listIdType.at(id)),
@@ -37,7 +36,7 @@ namespace RType::Server
         _udpServer.sendInformation(static_cast<uint8_t>(RType::Protocol::ComponentType::COLLISION), dataToSend, endpoint);
     }
 
-    void RType::Server::RTypeServer::broadcastCollisionComponent()
+    void RTypeServer::broadcastCollisionComponent()
     {
         auto &collisions = _gameEngine.registry.getComponent<GameEngine::CollisionComponent>();
 

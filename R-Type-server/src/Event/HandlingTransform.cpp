@@ -10,7 +10,7 @@
 namespace RType::Server
 {
 
-    void RType::Server::RTypeServer::sendTransformComponent(uint16_t id, GameEngine::Vector2<float> position,
+    void RTypeServer::sendTransformComponent(uint16_t id, GameEngine::Vector2<float> position,
         GameEngine::Vector2<float> velocity, asio::ip::udp::endpoint &endpoint)
     {
         struct RType::Protocol::TransformData transformData = {
@@ -26,7 +26,7 @@ namespace RType::Server
             static_cast<uint8_t>(RType::Protocol::ComponentType::TRANSFORM), dataToSend, endpoint);
     }
 
-    void RType::Server::RTypeServer::broadcastTransformComponent()
+    void RTypeServer::broadcastTransformComponent()
     {
         auto &transforms = _gameEngine.registry.getComponent<GameEngine::TransformComponent>();
 

@@ -28,3 +28,5 @@ a.out
 .vs
 artifacts*
 .idea
+
+vgcore*

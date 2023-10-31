@@ -24,12 +24,19 @@ namespace RType::Server
                 continue;
             auto &col = collisions[i];
             auto &tsf = transforms[i];
-
-            if (!col || !tsf || !col.value().isActive || (col.value().layer != 20 && col.value().layer != 19))
+            if (!col || !tsf || !col.value().isActive)
                 continue;
+            if (selfCol.value().layer != 3 && selfCol.value().layer != 5 && selfCol.value().layer != 6)
+                continue;
+            if (selfCol.value().layer == 5 && col.value().layer != 6)
+                continue;
+            if (selfCol.value().layer == 6 && col.value().layer != 5)
+                continue;
+
             if (selfCol.value().collider.isColliding(
                     selfTsf.value().position, col.value().collider, tsf.value().position)) {
                 struct RType::Protocol::EntityIdData entityId = {.id = static_cast<uint16_t>(i)};
+                std::cout << "Delete engaged !" << std::endl;
                 struct rtype::Event destroyEvent = {
                     .packetType = static_cast<uint8_t>(rtype::PacketType::DESTROY), .data = entityId};
                 _eventQueue.push(destroyEvent);
@@ -52,7 +59,7 @@ namespace RType::Server
             auto &col = collisions[i];
             auto &tsf = transforms[i];
 
-            if (!col || !tsf || !col.value().isActive || col.value().layer != 25)
+            if (!col || !tsf || !col.value().isActive || col.value().layer != 2)
                 continue;
             selfCol.value().collider.handleCollisionFromRect(
                 selfTsf.value().position, col.value().collider, tsf.value().position);
@@ -74,7 +81,7 @@ namespace RType::Server
             auto &col = collisions[i];
             auto &tsf = transforms[i];
 
-            if (!col || !tsf || !col.value().isActive || col.value().layer != 19)
+            if (!col || !tsf || !col.value().isActive || col.value().layer != 6)
                 continue;
             if (selfCol.value().collider.isColliding(
                     selfTsf.value().position, col.value().collider, tsf.value().position)) {

@@ -15,6 +15,14 @@ set(SRCS_SERVER
     ${SERVER_FOLDER}/src/Event/HandlingCollision.cpp
     ${SERVER_FOLDER}/src/Event/HandlingTexture.cpp
     ${SERVER_FOLDER}/src/Event/HandlingTransform.cpp
+    ${SERVER_FOLDER}/src/Event/HandlingDestroy.cpp
+    ${SERVER_FOLDER}/src/Event/HandlingMove.cpp
+    ${SERVER_FOLDER}/src/Event/HandlingShoot.cpp
+    ${SERVER_FOLDER}/src/Game/SetupGame.cpp
+    ${SERVER_FOLDER}/src/Game/SpawnMob.cpp
+    ${SERVER_FOLDER}/src/Game/UpdateGame.cpp
+    ${SERVER_FOLDER}/src/HandlingEvent.cpp
+    ${SERVER_FOLDER}/src/SetGameEngine.cpp
 )
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${SERVER_FOLDER})
