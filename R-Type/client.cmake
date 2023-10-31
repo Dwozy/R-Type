@@ -19,6 +19,8 @@ set(SRCS_CLIENT
     ${CLIENT_FOLDER}/src/Event/TransformEvent.cpp
     ${CLIENT_FOLDER}/src/Event/TextureEvent.cpp
     ${CLIENT_FOLDER}/src/Event/CollisionEvent.cpp
+    ${CLIENT_FOLDER}/src/Event/ControllableEvent.cpp
+    ${CLIENT_FOLDER}/src/Callback.cpp
 )
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${PROJECT_NAME})

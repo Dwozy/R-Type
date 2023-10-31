@@ -10,6 +10,11 @@ set(SRCS_SERVER
     ${SERVER_FOLDER}/src/RTypeServer.cpp
     ${SERVER_FOLDER}/src/TcpServer.cpp
     ${SERVER_FOLDER}/src/UdpServer.cpp
+    ${SERVER_FOLDER}/src/Callback.cpp
+    ${SERVER_FOLDER}/src/Event/HandlingConnection.cpp
+    ${SERVER_FOLDER}/src/Event/HandlingCollision.cpp
+    ${SERVER_FOLDER}/src/Event/HandlingTexture.cpp
+    ${SERVER_FOLDER}/src/Event/HandlingTransform.cpp
 )
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${SERVER_FOLDER})

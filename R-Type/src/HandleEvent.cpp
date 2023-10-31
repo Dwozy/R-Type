@@ -17,8 +17,8 @@ namespace RType::Client
 
     void RTypeClient::handleDisconnexion(struct rtype::Event event)
     {
-        struct rtype::EntityId entity = std::any_cast<struct rtype::EntityId>(event.data);
-        _gameEngine.eventManager.getHandler<struct rtype::EntityId>(GameEngine::Event::DeleteEntity).publish(entity);
+        struct RType::Protocol::EntityIdData entity = std::any_cast<struct RType::Protocol::EntityIdData>(event.data);
+        _gameEngine.eventManager.getHandler<struct RType::Protocol::EntityIdData>(GameEngine::Event::DeleteEntity).publish(entity);
     }
 
     void RTypeClient::handleEntity(struct rtype::Event event)
@@ -51,6 +51,14 @@ namespace RType::Client
             .publish(collisionData);
     }
 
+    void RTypeClient::handleControllableComponent(struct rtype::Event event)
+    {
+        struct RType::Protocol::ControllableData collisionData =
+            std::any_cast<struct RType::Protocol::ControllableData>(event.data);
+        _gameEngine.eventManager.getHandler<struct RType::Protocol::ControllableData>(GameEngine::Event::GetControllable)
+            .publish(collisionData);
+    }
+
     void RTypeClient::handleEvent()
     {
         struct rtype::Event event;
@@ -66,6 +74,9 @@ namespace RType::Client
                 break;
             case static_cast<uint8_t>(RType::Protocol::ComponentType::COLLISION):
                 handleCollisionComponent(event);
+                break;
+            case static_cast<uint8_t>(RType::Protocol::ComponentType::CONTROLLABLE):
+                handleControllableComponent(event);
                 break;
             case static_cast<uint8_t>(rtype::PacketType::ENTITY):
                 handleEntity(event);

@@ -45,6 +45,7 @@ namespace RType::Client
         setTransformCallback();
         setTextureCallback();
         setCollisionCallback();
+        setControllableCallback();
     }
 
     void RTypeClient::setGameEngineSystem()

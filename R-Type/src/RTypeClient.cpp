@@ -21,6 +21,29 @@
 #include "systems/PressableSystem.hpp"
 #include "systems/CollisionSystem.hpp"
 
+void parallaxCollision(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
+    SparseArray<GameEngine::TransformComponent> &transforms)
+{
+    auto &selfCol = collisions[entityId];
+    auto &selfTsf = transforms[entityId];
+
+    if (!selfCol || !selfTsf)
+        return;
+    for (std::size_t i = 0; i < collisions.size(); i++) {
+        if (i == entityId)
+            continue;
+        auto &col = collisions[i];
+        auto &tsf = transforms[i];
+
+        if (!col || !tsf || !col.value().isActive || col.value().layer != 10)
+            continue;
+        if (selfCol.value().collider.isColliding(
+                selfTsf.value().position, col.value().collider, tsf.value().position)) {
+            tsf.value().position.x = 199;
+        }
+    }
+}
+
 RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned short port)
     : _serverUdpEndpoint(asio::ip::make_address(address), port), _serverTcpEndpoint(asio::ip::make_address(address), 0),
       _udpClient(_IOContext, _serverUdpEndpoint, std::ref(_eventQueue)), /*_tcpClient(_IOContext, _serverTcpEndpoint),*/
@@ -44,13 +67,39 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
     _gameEngine.prefabManager.loadPrefabFromFile("config/BorderMapLeft.json");
     _gameEngine.prefabManager.loadPrefabFromFile("config/BorderMapRight.json");
 
-    _listTextureTypePrefab.insert({static_cast<uint8_t>(rtype::TextureType::PLAYER), "player"});
-    _listTextureTypePrefab.insert({static_cast<uint8_t>(rtype::TextureType::SHOOT), "shoot"});
-    _listTextureTypePrefab.insert({static_cast<uint8_t>(rtype::TextureType::MOB), "patapata"});
+    _listTextureTypePrefab.insert({static_cast<uint8_t>(rtype::EntityType::PLAYER), "player"});
+    _listTextureTypePrefab.insert({static_cast<uint8_t>(rtype::EntityType::SHOOT), "shoot"});
+    _listTextureTypePrefab.insert({static_cast<uint8_t>(rtype::EntityType::MOB), "patapata"});
 
     _listPathTextureId.insert({static_cast<uint8_t> (RType::Protocol::TextureType::PLAYER), "R-Type/assets/image.png"});
     _listPathTextureId.insert({static_cast<uint8_t> (RType::Protocol::TextureType::MOB), "R-Type/assets/pata_pata.gif"});
     _listPathTextureId.insert({static_cast<uint8_t> (RType::Protocol::TextureType::SHOOT), "R-Type/assets/r-typesheet1.gif"});
+
+    GameEngine::Entity camera = _gameEngine.registry.spawnEntity();
+    GameEngine::CameraComponent cam = {GameEngine::View{GameEngine::Rect<float>(0.0f, 0.0f, 200.0f, 200.0f)}};
+    auto &refCamera = _gameEngine.registry.addComponent<GameEngine::CameraComponent>(camera, cam);
+    if (refCamera)
+        _gameEngine.eventManager.publish<GameEngine::View &>(
+            GameEngine::Event::WindowSetView, refCamera.value().view);
+
+    auto parallax1 = _gameEngine.prefabManager.createEntityFromPrefab("parallax", _gameEngine.registry);
+    auto &textureParallax = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[parallax1];
+    textureParallax->sprite.setScale(0.1851, 0.1851);
+
+    auto parallax2 = _gameEngine.prefabManager.createEntityFromPrefab("parallax", _gameEngine.registry);
+    auto &posParallax2 = _gameEngine.registry.getComponent<GameEngine::TransformComponent>()[parallax2];
+    posParallax2.value().position = GameEngine::Vector2<float>(199.0, 0.0);
+    auto &textureParallax2 = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[parallax2];
+    textureParallax2->sprite.setScale(0.1851, 0.1851);
+
+    auto parallaxRange =
+        _gameEngine.prefabManager.createEntityFromPrefab("parallaxCollision", _gameEngine.registry);
+    auto &parallaxBox = _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[parallaxRange];
+    parallaxBox.value()
+        .addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
+                        SparseArray<GameEngine::TransformComponent> &)>,
+            GameEngine::CollisionComponent, GameEngine::TransformComponent>(
+            _gameEngine.registry, parallaxCollision);
 
     _isAlive = true;
     _isRunning = true;
@@ -80,9 +129,9 @@ void RType::Client::RTypeClient::runTcpServer()
 void RType::Client::RTypeClient::handleQuit()
 {
     _IOContext.stop();
-    struct rtype::EntityId entityId = {.id = this->_serverId};
+    struct RType::Protocol::EntityIdData entityId = {.id = this->_serverId};
     std::vector<std::byte> dataToSend =
-        Serialization::serializeData<struct rtype::EntityId>(entityId, sizeof(entityId));
+        Serialization::serializeData<struct RType::Protocol::EntityIdData>(entityId, sizeof(entityId));
     _udpClient.sendDataInformation(dataToSend, static_cast<uint8_t>(rtype::PacketType::DESTROY));
     std::cout << "Player " << _serverId << " died :( !" << std::endl;
 }

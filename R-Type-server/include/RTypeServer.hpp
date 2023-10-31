@@ -18,6 +18,8 @@
 #include <map>
 #include "Protocol.hpp"
 
+using componentList = std::map<std::size_t, std::map<RType::Protocol::ComponentType, std::vector<bool>>>;
+
 namespace RType::Server
 {
     class RTypeServer
@@ -30,7 +32,7 @@ namespace RType::Server
         /// @brief Function that will handle every event from the udp server
         void handleEvent();
         /// @brief Function that will handle the connexion of a client
-        void handleConnexion();
+        void handleConnexion(struct rtype::Event event);
         /// @brief Function that will handle the move from a client
         /// @param event struct that contain the data (Information about the move)
         void handleMove(struct rtype::Event event);
@@ -44,15 +46,42 @@ namespace RType::Server
         void updateEntities();
         void handleShoot(struct rtype::Event event);
 
-        void destroyEntityCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
-            SparseArray<GameEngine::TransformComponent> &transforms);
-        void replaceEntityCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
-            SparseArray<GameEngine::TransformComponent> &transforms);
         void spawnMob();
 
+        void broadcastInformation();
+
+        void destroyEntityCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
+            SparseArray<GameEngine::TransformComponent> &transforms);
+
+        void playerCollisionCallback(const std::size_t &entityId,
+            SparseArray<GameEngine::CollisionComponent> &collisions,
+            SparseArray<GameEngine::TransformComponent> &transforms);
+
+        void playerDamageCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
+            SparseArray<GameEngine::TransformComponent> &transforms);
+
         void broadcastTransformComponent();
+        void sendTransformComponent(uint16_t id, GameEngine::Vector2<float> position,
+            GameEngine::Vector2<float> velocity, asio::ip::udp::endpoint &endpoint);
+
         void broadcastCollisionComponent();
+        void sendCollisionComponent(
+            uint16_t id, GameEngine::Rectf collider, std::size_t layer, asio::ip::udp::endpoint &endpoint);
+
         void broadcastTextureComponent();
+
+        void sendTextureComponent(uint16_t id, std::size_t index, std::vector<GameEngine::Recti> textureRects,
+            std::size_t renderLayer, asio::ip::udp::endpoint &endpoint);
+
+        void handleTextureResponse(struct rtype::Event event);
+        void handleCollisionResponse(struct rtype::Event event);
+
+        componentList setEntitiesComponent();
+
+        void broadcastEntityInformation(const GameEngine::Entity &entity);
+
+        void checkSendingTexture(
+            std::vector<bool> listDisplayTexture, const GameEngine::Entity &entity, asio::ip::udp::endpoint &endpoint);
 
       protected:
       private:
@@ -60,16 +89,15 @@ namespace RType::Server
         asio::io_context _IOContext;
         asio::signal_set _signal;
         bool _isRunning;
-        SafeQueue<std::string> _clientsMessages;
         RType::Server::UdpServer _udpServer;
         RType::Server::TcpServer _tcpServer;
         std::map<struct rtype::Room, std::map<unsigned short, struct rtype::Entity>> _listPlayersInfos;
         std::map<unsigned short, asio::ip::udp::endpoint> _listClients;
         SafeQueue<struct rtype::Event> _eventQueue;
         GameEngine::EntityManager _entityManager;
-        std::map<uint16_t, uint8_t> _listIdTexture;
+        std::map<uint16_t, uint8_t> _listIdType;
         std::map<uint16_t, uint8_t> _listLifePoints;
-        std::map<uint16_t, std::map<RType::Protocol::ComponentType, std::vector<bool>>> _listInformationsComponent;
+        std::map<unsigned short, componentList> _listInfosComponent;
         std::size_t _nbPlayers;
         float pos;
     };

@@ -52,7 +52,7 @@ namespace RType::Client
         void handleDisconnexion(struct rtype::Event event);
         /// @brief Function that delete a Entity
         /// @param entity delete the corresponding entity
-        void deleteEntity(const struct rtype::EntityId id);
+        void deleteEntity(const struct RType::Protocol::EntityIdData id);
         /// @brief Function that will handle when entity needed to be move
         /// @param event struct that will contain the information about the entity
         void handlePlayerMovement();
@@ -73,6 +73,7 @@ namespace RType::Client
         void setUpdateEntityCallback();
         void setDeleteEntityCallback();
         void setMovementEntityCallback();
+        void setControllableCallback();
 
         void shootEvent(const GameEngine::TransformComponent &transform);
         void handlePlayerShoot();
@@ -82,6 +83,9 @@ namespace RType::Client
         void runTcpServer();
         void handleQuit();
 
+        void handleControllableComponent(struct rtype::Event event);
+        void setControllable(struct RType::Protocol::ControllableData controllableData);
+
         void getTransformInformation(struct RType::Protocol::TransformData transformData);
         void setTransformCallback();
 
@@ -90,6 +94,9 @@ namespace RType::Client
 
         void getTextureInformation(struct RType::Protocol::TextureData textureData);
         void setTextureCallback();
+
+        void playerCollisionCallback(const std::size_t &entityId,
+          SparseArray<GameEngine::CollisionComponent> &collisions, SparseArray<GameEngine::TransformComponent> &transforms);
 
       protected:
       private:

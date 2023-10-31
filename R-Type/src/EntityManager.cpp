@@ -101,13 +101,13 @@ void GameEngine::EntityManager::setEntityFromClient(struct rtype::Entity entityI
     registry.addComponent<GameEngine::TransformComponent>(entity, tsf);
 
     switch (entityInfo.idTexture) {
-    case static_cast<uint8_t>(rtype::TextureType::PLAYER):
+    case static_cast<uint8_t>(rtype::EntityType::PLAYER):
         setPlayerEntityComponent(entity, registry);
         break;
-    case static_cast<uint8_t>(rtype::TextureType::SHOOT):
+    case static_cast<uint8_t>(rtype::EntityType::SHOOT):
         setShootEntityComponent(entity, registry);
         break;
-        // case static_cast<uint8_t>(rtype::TextureType::MOB):
+        // case static_cast<uint8_t>(rtype::EntityType::MOB):
         //     playerTex.value().texture.load("R-Type/assets/image.png", GameEngine::Rect<int>(0, 0, 32, 16));
         //     break;
     }

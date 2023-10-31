@@ -14,14 +14,20 @@ namespace RType::Client
     {
         auto &textures = _gameEngine.registry.getComponent<GameEngine::TextureComponent>();
         std::size_t id = 0;
-
         if (!_searchEntity(textureData.id)) {
             GameEngine::Entity entity = _gameEngine.registry.spawnEntity();
             _gameEngine.registry.addComponent<GameEngine::NetworkIdComponent>(
                 entity, GameEngine::NetworkIdComponent{textureData.id});
-            GameEngine::TextureComponent texture = {_listPathTextureId.at(textureData.idTexture), GameEngine::Sprite(),
-                false, {}, 0, true, 0, 0, textureData.renderLayer};
-            auto &entityTexture = _gameEngine.registry.addComponent<GameEngine::TextureComponent>(entity, texture);
+            std::vector<GameEngine::Rect<int>> rectTextures;
+            rectTextures.push_back({static_cast<int>(textureData.rectLeft), static_cast<int>(textureData.rectTop),
+                static_cast<int>(textureData.rectWidth), static_cast<int>(textureData.rectHeight)});
+            if (_listPathTextureId.find(textureData.idTexture) != _listPathTextureId.end() &&
+                textureData.idTexture != static_cast<uint8_t>(rtype::EntityType::NONE)) {
+                GameEngine::TextureComponent texture = {_listPathTextureId.at(textureData.idTexture),
+                    GameEngine::Sprite(), false, rectTextures, 0, true, 0, 0, textureData.renderLayer};
+                auto &entityTexture = _gameEngine.registry.addComponent<GameEngine::TextureComponent>(entity, texture);
+                entityTexture.value().sprite.load(_gameEngine.assetManager.getTexture(_listPathTextureId.at(textureData.idTexture)));
+            }
         }
         id = _findEntity(textureData.id);
         if (!textures[id]) {
@@ -29,9 +35,13 @@ namespace RType::Client
             std::vector<GameEngine::Rect<int>> rectTextures;
             rectTextures.push_back({static_cast<int>(textureData.rectLeft), static_cast<int>(textureData.rectTop),
                 static_cast<int>(textureData.rectWidth), static_cast<int>(textureData.rectHeight)});
-            GameEngine::TextureComponent texture = {_listPathTextureId.at(textureData.idTexture), GameEngine::Sprite(),
-                false, rectTextures, 0, true, 0, 0, textureData.renderLayer};
-            auto &entityTexture = _gameEngine.registry.addComponent<GameEngine::TextureComponent>(entity, texture);
+            if (_listPathTextureId.find(textureData.idTexture) != _listPathTextureId.end() &&
+                textureData.idTexture != static_cast<uint8_t>(rtype::EntityType::NONE)) {
+                GameEngine::TextureComponent texture = {_listPathTextureId.at(textureData.idTexture),
+                    GameEngine::Sprite(), false, rectTextures, 0, true, 0, 0, textureData.renderLayer};
+                auto &entityTexture = _gameEngine.registry.addComponent<GameEngine::TextureComponent>(entity, texture);
+                entityTexture.value().sprite.load(_gameEngine.assetManager.getTexture(_listPathTextureId.at(textureData.idTexture)));
+            }
         } else {
             GameEngine::Recti rect = {
                 textureData.rectLeft, textureData.rectHeight, textureData.rectWidth, textureData.rectHeight};
@@ -48,8 +58,6 @@ namespace RType::Client
                 textures[id].value().textureRects.resize(textureData.idOrderTexture + 1);
                 textures[id].value().textureRects[textureData.idOrderTexture] = rect;
             }
-            // textures[id].value().textureRects.at()
-            // BESOIN D'ENVOYER MESSAGE AU SERVEUR POUR DIRE I GOT IT
         }
     }
 

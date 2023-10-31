@@ -18,19 +18,24 @@ namespace RType::Protocol
         TRANSFORM = 1,
         COLLISION,
         TEXTURE,
+        CONTROLLABLE,
         COLLISION_RES,
         TEXTURE_RES,
     };
 
-    enum class InputType : uint8_t {
-        UP = 1,
-        RIGHT,
-        DOWN,
-        LEFT,
-        SHOOT
-    };
+    enum class InputType : uint8_t { UP = 1, RIGHT, DOWN, LEFT, SHOOT };
 
     enum class TextureType : uint8_t { NONE = 1, PLAYER, SHOOT, MOB };
+
+    struct ControllableData
+    {
+        uint16_t id;
+    };
+
+    struct EntityIdData
+    {
+        uint16_t id;
+    };
 
     struct HeaderDataPacket
     {
@@ -62,7 +67,7 @@ namespace RType::Protocol
     struct CollisionData
     {
         uint16_t id;
-        // uint8_t idCallback;
+        uint8_t idCallback;
         float rectLeft;
         float rectTop;
         float rectWidth;
@@ -85,8 +90,6 @@ namespace RType::Protocol
     struct MoveData
     {
         uint16_t id;
-        float x;
-        float y;
         float dx;
         float dy;
     };

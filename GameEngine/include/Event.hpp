@@ -31,6 +31,7 @@ namespace GameEngine
         GetTransform,
         GetCollision,
         GetTexture,
+        GetControllable,
         GetNewEntity,
         GetEntity,
         DeleteEntity,

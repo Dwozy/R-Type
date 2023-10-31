@@ -44,16 +44,15 @@ void GameEngine::Network::ACommunication::handleReceive(
     const asio::error_code &error, std::size_t recvBytes, struct rtype::HeaderDataPacket &header)
 {
     if (!error) {
-        if (_listClient.find(_endpoint.port()) == _listClient.end()) {
+        if (_listClient.find(_endpoint.port()) == _listClient.end())
             _listClient[_endpoint.port()] = std::move(_endpoint);
-        }
         _streamBuffer.commit(recvBytes);
         std::memcpy(&header, _buffer.data(), recvBytes);
         _streamBuffer.consume(sizeof(header));
         if (header.magicNumber != rtype::MAGIC_NUMBER)
             std::cerr << "Invalid Magic Number" << std::endl;
         else
-            handleData(header);
+            handleData(header, _endpoint.port());
         _streamBuffer.consume(rtype::MAX_BUFFER_SIZE - sizeof(header));
         readHeader();
     } else {

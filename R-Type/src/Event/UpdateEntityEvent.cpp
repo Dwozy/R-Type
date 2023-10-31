@@ -17,13 +17,17 @@ namespace RType::Client
         if (_listTextureTypePrefab.find(entity.idTexture) == _listTextureTypePrefab.end())
             return;
         if (!_searchEntity(entity.id)) {
-            // std::cout << _listTextureTypePrefab.at(entity.idTexture) << std::endl;
             GameEngine::Entity newEntity = _gameEngine.prefabManager.createEntityFromPrefab(
-                _listTextureTypePrefab.at(entity.idTexture), _gameEngine.registry);
+                _listTextureTypePrefab.at(entity.idTexture), _gameEngine.registry, true);
+            // if (_isPlayer) {
+            //     GameEngine::ControllableComponent con = {GameEngine::Input::Keyboard::Z, GameEngine::Input::Keyboard::Q,
+            //     GameEngine::Input::Keyboard::S, GameEngine::Input::Keyboard::D, 100.0f};
+            //     registry.addComponent<GameEngine::ControllableComponent>(entity, con);
+            //     _isPlayer = false;
+            //     // _id = entity;
+            // }
             _gameEngine.registry.addComponent<GameEngine::NetworkIdComponent>(
                 newEntity, GameEngine::NetworkIdComponent{entity.id});
-            auto &texture = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[newEntity];
-            texture->sprite.load(_gameEngine.assetManager.getTexture(texture->path));
             auto &tsf = _gameEngine.registry.getComponent<GameEngine::TransformComponent>()[newEntity];
             tsf.value().position.x = entity.positionX;
             tsf.value().position.y = entity.positionY;
@@ -34,11 +38,9 @@ namespace RType::Client
         std::size_t id = _findEntity(entity.id);
         if (!transforms[id].has_value()) {
             GameEngine::Entity newEntity = _gameEngine.prefabManager.createEntityFromPrefab(
-                _listTextureTypePrefab.at(entity.idTexture), _gameEngine.registry);
+                _listTextureTypePrefab.at(entity.idTexture), _gameEngine.registry, true);
             _gameEngine.registry.addComponent<GameEngine::NetworkIdComponent>(
                 newEntity, GameEngine::NetworkIdComponent{entity.id});
-            auto &texture = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[newEntity];
-            texture->sprite.load(_gameEngine.assetManager.getTexture(texture->path));
             auto &tsf = _gameEngine.registry.getComponent<GameEngine::TransformComponent>()[newEntity];
             tsf.value().position.x = entity.positionX;
             tsf.value().position.y = entity.positionY;

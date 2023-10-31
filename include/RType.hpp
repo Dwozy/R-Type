@@ -33,11 +33,12 @@ namespace rtype
         DESTROY
     };
 
-    enum class TextureType : uint8_t { NONE = 1, PLAYER, SHOOT, MOB };
+    enum class EntityType : uint8_t { NONE = 1, PLAYER, SHOOT, MOB };
 
     struct Event
     {
         uint8_t packetType;
+        unsigned short port;
         std::any data;
     };
 

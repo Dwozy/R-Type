@@ -9,7 +9,7 @@
 
 namespace RType::Client
 {
-    void RTypeClient::deleteEntity(const struct rtype::EntityId entityId)
+    void RTypeClient::deleteEntity(const struct RType::Protocol::EntityIdData entityId)
     {
         if (!_searchEntity(entityId.id))
             return;
@@ -25,7 +25,7 @@ namespace RType::Client
     void RTypeClient::setDeleteEntityCallback()
     {
         auto &refHandlerDelete =
-            _gameEngine.eventManager.addHandler<struct rtype::EntityId>(GameEngine::Event::DeleteEntity);
+            _gameEngine.eventManager.addHandler<struct RType::Protocol::EntityIdData>(GameEngine::Event::DeleteEntity);
         auto handleDelete = std::bind(&RType::Client::RTypeClient::deleteEntity, this, std::placeholders::_1);
         refHandlerDelete.subscribe(handleDelete);
     }
