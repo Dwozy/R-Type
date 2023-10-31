@@ -100,17 +100,17 @@ void GameEngine::EntityManager::setEntityFromClient(struct rtype::Entity entityI
         GameEngine::Vector2<float>(entityInfo.directionX, entityInfo.directionY)};
     registry.addComponent<GameEngine::TransformComponent>(entity, tsf);
 
-    switch (entityInfo.idTexture) {
-    case static_cast<uint8_t>(EntityType::PLAYER):
-        setPlayerEntityComponent(entity, registry);
-        break;
-    case static_cast<uint8_t>(EntityType::SHOOT):
-        setShootEntityComponent(entity, registry);
-        break;
-        // case static_cast<uint8_t>(EntityType::MOB):
-        //     playerTex.value().texture.load("R-Type/assets/image.png", GameEngine::Rect<int>(0, 0, 32, 16));
-        //     break;
-    }
+    // switch (entityInfo.idTexture) {
+    // case static_cast<uint8_t>(rtype::Te::PLAYER):
+    //     setPlayerEntityComponent(entity, registry);
+    //     break;
+    // case static_cast<uint8_t>(rtype::Te::SHOOT):
+    //     setShootEntityComponent(entity, registry);
+    //     break;
+    //     // case static_cast<uint8_t>(EntityType::MOB):
+    //     //     playerTex.value().texture.load("R-Type/assets/image.png", GameEngine::Rect<int>(0, 0, 32, 16));
+    //     //     break;
+    // }
 }
 
 void GameEngine::EntityManager::setControlPlayerEntity(Entity entity, Registry &registry)
