@@ -29,6 +29,8 @@ class Platformer {
         void setGameEngineScene();
         void setGameEngine();
         void handleScreenChange();
+        void setGameEngineTexture();
+        void setGameEnginePrefab();
         void gameLoop();
     private:
         GameState _state;

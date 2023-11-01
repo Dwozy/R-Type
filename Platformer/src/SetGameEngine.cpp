@@ -36,6 +36,7 @@ void Platformer::setGameEngineComponent()
     _gameEngine.registry.registerComponent<GameEngine::TextComponent>();
     _gameEngine.registry.registerComponent<GameEngine::PressableComponent>();
     _gameEngine.registry.registerComponent<GameEngine::NetworkIdComponent>();
+    _gameEngine.registry.registerComponent<GameEngine::GravityComponent>();
 }
 
 void Platformer::setGameEngineCallback()
@@ -77,10 +78,20 @@ void Platformer::setGameEngineScene()
     _gameEngine.sceneManager.loadScene("MainMenu");
 }
 
+void Platformer::setGameEngineTexture() {
+    _gameEngine.assetManager.loadTexture("Platformer/assets/image.png", GameEngine::Recti(0, 0, 32, 16));
+}
+
+void Platformer::setGameEnginePrefab() {
+    _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/Player.json");
+}
+
 void Platformer::setGameEngine()
 {
     setGameEngineComponent();
     setGameEngineSystem();
+    setGameEngineTexture();
+    setGameEnginePrefab();
     setGameEngineScene();
     setGameEngineCallback();
 }

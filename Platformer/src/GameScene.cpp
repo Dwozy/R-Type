@@ -13,7 +13,6 @@ void GameScene::load()
     std::cout << "Loading GameScene" << std::endl;
     if (_state == GameState::Mainmenu || _state == GameState::Restart) {
         std::cout << "create game from start" << std::endl;
-        _gameEngine.prefabManager.loadPrefabFromFile("./Platformer/config/Player.json");
         GameEngine::Entity player = _gameEngine.prefabManager.createEntityFromPrefab("player", _gameEngine.registry);
     }
     if (_state == GameState::Pause) {

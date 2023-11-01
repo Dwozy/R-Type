@@ -18,6 +18,7 @@
 #include "components/TextComponent.hpp"
 #include "components/TextureComponent.hpp"
 #include "components/TransformComponent.hpp"
+#include "components/GravityComponent.hpp"
 
 using json = nlohmann::json;
 
@@ -126,6 +127,14 @@ namespace GameEngine
         j.at("collider").get_to(cc.collider);
         j.at("layer").get_to(cc.layer);
         cc.isActive = j.contains("isActive") ? j.at("isActive").get<bool>() : true;
+    }
+
+    /// @brief Function to convert a json object to a GravityComponent
+    /// @param j reference to the json object
+    /// @param gc reference to the gravity component
+    void from_json(const json &j, GravityComponent &gc)
+    {
+        j.at("gravityForce").get_to(gc.gravityForce);
     }
 } // namespace GameEngine
 
