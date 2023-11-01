@@ -26,13 +26,15 @@ namespace RType::Server
             auto &tsf = transforms[i];
             if (!col || !tsf || !col.value().isActive)
                 continue;
-            if (selfCol.value().layer != 3 && selfCol.value().layer != 5 && selfCol.value().layer != 6)
+            if (selfCol.value().layer != 3 && selfCol.value().layer != 5 && selfCol.value().layer != 6 &&
+                selfCol.value().layer != 7)
                 continue;
             if (selfCol.value().layer == 5 && col.value().layer != 6)
                 continue;
             if (selfCol.value().layer == 6 && col.value().layer != 5)
                 continue;
-
+            if (selfCol.value().layer == 7 && col.value().layer != 6)
+                continue;
             if (selfCol.value().collider.isColliding(
                     selfTsf.value().position, col.value().collider, tsf.value().position)) {
                 struct RType::Protocol::EntityIdData entityId = {.id = static_cast<uint16_t>(i)};

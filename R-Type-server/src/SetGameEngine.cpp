@@ -24,7 +24,8 @@ namespace RType::Server
         _gameEngine.prefabManager.loadPrefabFromFile("config/ParallaxCollision.json");
         _gameEngine.prefabManager.loadPrefabFromFile("config/Parallax.json");
         _gameEngine.prefabManager.loadPrefabFromFile("config/PataPata.json");
-        _gameEngine.prefabManager.loadPrefabFromFile("config/Shoot.json");
+        _gameEngine.prefabManager.loadPrefabFromFile("config/SimpleShoot.json");
+        _gameEngine.prefabManager.loadPrefabFromFile("config/ChargedShoot.json");
         _gameEngine.prefabManager.loadPrefabFromFile("config/DestroyEntityLeft.json");
         _gameEngine.prefabManager.loadPrefabFromFile("config/DestroyEntityRight.json");
         _gameEngine.prefabManager.loadPrefabFromFile("config/BorderMapUp.json");

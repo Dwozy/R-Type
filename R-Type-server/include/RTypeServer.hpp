@@ -87,6 +87,13 @@ namespace RType::Server
         void setGameEngineSystem();
         void setGameEngine();
         void setupGame();
+        void handlingTimers();
+        void handlingEndGame();
+        void setTimers();
+
+        void handleShootType(
+            const std::string &typeShootString, struct RType::Protocol::ShootData shootData, uint8_t typeShoot);
+        void updateComponentInformation(GameEngine::Entity &entity);
 
       protected:
       private:
@@ -102,7 +109,9 @@ namespace RType::Server
         std::map<uint16_t, uint8_t> _listIdType;
         std::map<uint16_t, uint8_t> _listLifePoints;
         std::map<unsigned short, componentList> _listInfosComponent;
+        std::map<std::string, std::chrono::steady_clock::time_point> _timers;
         std::size_t _nbPlayers;
+        bool _chargedAttack;
         float pos;
     };
 } // namespace RType::Server

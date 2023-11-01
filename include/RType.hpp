@@ -33,7 +33,7 @@ namespace rtype
         DESTROY
     };
 
-    enum class EntityType : uint8_t { NONE = 1, PLAYER, SHOOT, MOB };
+    enum class EntityType : uint8_t { NONE = 1, PLAYER, SIMPLE_SHOOT, CHARGED_SHOOT, MOB };
 
     struct Event
     {

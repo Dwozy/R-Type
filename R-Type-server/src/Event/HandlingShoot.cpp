@@ -10,14 +10,17 @@
 namespace RType::Server
 {
 
-    void RTypeServer::handleShoot(struct rtype::Event event)
+    void RTypeServer::handleShootType(
+        const std::string &typeShootString, struct RType::Protocol::ShootData shootInfo, uint8_t typeShoot)
     {
-        auto shootInfo = std::any_cast<RType::Protocol::ShootData>(event.data);
         GameEngine::Entity shootEntity =
-            _gameEngine.prefabManager.createEntityFromPrefab("shoot", _gameEngine.registry, false);
+            _gameEngine.prefabManager.createEntityFromPrefab(typeShootString, _gameEngine.registry, false);
         GameEngine::Recti rectPlayer = {0, 0, 0, 0};
-
         auto &shootPos = _gameEngine.registry.getComponent<GameEngine::TransformComponent>()[shootEntity];
+        auto &shootCollider = _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[shootEntity];
+        auto destroyShootCallback = std::bind(&RTypeServer::destroyEntityCallback, this, std::placeholders::_1,
+            std::placeholders::_2, std::placeholders::_3);
+
         for (auto &entityTexture : _listIdType) {
             if (entityTexture.second == static_cast<uint8_t>(rtype::EntityType::PLAYER)) {
                 rectPlayer = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[entityTexture.first]
@@ -26,31 +29,31 @@ namespace RType::Server
                 break;
             }
         }
-        auto &shootCollider = _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[shootEntity];
-        auto destroyShootCallback = std::bind(&RTypeServer::destroyEntityCallback, this,
-            std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
+
         shootCollider.value()
             .addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
                            SparseArray<GameEngine::TransformComponent> &)>,
                 GameEngine::CollisionComponent, GameEngine::TransformComponent>(
                 _gameEngine.registry, destroyShootCallback);
-        shootPos->position =
-            GameEngine::Vector2<float>(shootInfo.x + (rectPlayer.width / 2), shootInfo.y + (rectPlayer.height / 2));
 
-        std::map<RType::Protocol::ComponentType, std::vector<bool>> componentInfo;
-        componentInfo.insert({RType::Protocol::ComponentType::TRANSFORM, {true}});
-        componentInfo.insert({RType::Protocol::ComponentType::COLLISION, {true}});
-
-        auto &texture = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[shootEntity];
-        if (texture) {
-            std::vector<bool> distribTexture(texture.value().textureRects.size(), true);
-            componentInfo.insert({RType::Protocol::ComponentType::TEXTURE, distribTexture});
-        } else
-            componentInfo.insert({RType::Protocol::ComponentType::TEXTURE, {false}});
-
-        for (auto &listInfo : _listInfosComponent)
-            listInfo.second.insert({shootEntity, componentInfo});
-        _listIdType.insert({static_cast<uint16_t>(shootEntity), static_cast<uint8_t>(rtype::EntityType::SHOOT)});
+        shootPos->position = GameEngine::Vector2<float>(shootInfo.x + (rectPlayer.width / 2),
+            shootInfo.y + (rectPlayer.height / 2) - (shootCollider.value().collider.height / 2));
+        updateComponentInformation(shootEntity);
+        _listIdType.insert({static_cast<uint16_t>(shootEntity), typeShoot});
         broadcastEntityInformation(shootEntity);
+    }
+
+    void RTypeServer::handleShoot(struct rtype::Event event)
+    {
+        struct RType::Protocol::ShootData shootInfo = std::any_cast<RType::Protocol::ShootData>(event.data);
+
+        _timers["charged"] = std::chrono::steady_clock::now();
+        if (_chargedAttack) {
+            handleShootType(
+                "charged_shoot", shootInfo, static_cast<uint8_t>(RType::Protocol::TextureType::CHARGED_SHOOT));
+            _chargedAttack = false;
+        } else
+            handleShootType(
+                "simple_shoot", shootInfo, static_cast<uint8_t>(RType::Protocol::TextureType::SIMPLE_SHOOT));
     }
 } // namespace RType::Server

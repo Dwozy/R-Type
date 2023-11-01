@@ -54,14 +54,12 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
     _gameEngine.prefabManager.loadPrefabFromFile("config/ParallaxCollision.json");
     _gameEngine.prefabManager.loadPrefabFromFile("config/Parallax.json");
 
-    _listTextureTypePrefab.insert({static_cast<uint8_t>(rtype::EntityType::PLAYER), "player"});
-    _listTextureTypePrefab.insert({static_cast<uint8_t>(rtype::EntityType::SHOOT), "shoot"});
-    _listTextureTypePrefab.insert({static_cast<uint8_t>(rtype::EntityType::MOB), "patapata"});
-
     _listPathTextureId.insert({static_cast<uint8_t>(RType::Protocol::TextureType::PLAYER), "R-Type/assets/image.png"});
     _listPathTextureId.insert({static_cast<uint8_t>(RType::Protocol::TextureType::MOB), "R-Type/assets/pata_pata.gif"});
     _listPathTextureId.insert(
-        {static_cast<uint8_t>(RType::Protocol::TextureType::SHOOT), "R-Type/assets/player_projectile.png"});
+        {static_cast<uint8_t>(RType::Protocol::TextureType::SIMPLE_SHOOT), "R-Type/assets/player_projectile.png"});
+    _listPathTextureId.insert({static_cast<uint8_t>(RType::Protocol::TextureType::CHARGED_SHOOT),
+        "R-Type/assets/player_projectile_charged.png"});
 
     GameEngine::Entity camera = _gameEngine.registry.spawnEntity();
     GameEngine::CameraComponent cam = {GameEngine::View{GameEngine::Rect<float>(0.0f, 0.0f, 200.0f, 200.0f)}};
