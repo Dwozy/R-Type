@@ -69,8 +69,8 @@ namespace RType::Server
 
         void broadcastTextureComponent();
 
-        void sendTextureComponent(uint16_t id, std::size_t index, std::vector<GameEngine::Recti> textureRects,
-            std::size_t renderLayer, asio::ip::udp::endpoint &endpoint);
+        void sendTextureComponent(
+            uint16_t id, std::size_t index, GameEngine::TextureComponent texture, asio::ip::udp::endpoint &endpoint);
 
         void handleTextureResponse(struct rtype::Event event);
         void handleCollisionResponse(struct rtype::Event event);

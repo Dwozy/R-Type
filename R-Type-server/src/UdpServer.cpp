@@ -43,7 +43,8 @@ RType::Server::UdpServer::~UdpServer()
     std::string message = "Server down";
 
     for (auto endpoint : _listClient) {
-        sendData(message.data(), message.size(), static_cast<uint8_t>(rtype::PacketType::STRING), _udpSocket, endpoint.second);
+        sendData(message.data(), message.size(), static_cast<uint8_t>(rtype::PacketType::STRING), _udpSocket,
+            endpoint.second);
     }
     _udpSocket.close();
 }

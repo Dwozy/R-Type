@@ -84,7 +84,13 @@ namespace RType::Protocol
         uint16_t rectTop;
         uint16_t rectWidth;
         uint16_t rectHeight;
+        uint16_t rectTextureLeft;
+        uint16_t rectTextureTop;
+        uint16_t rectTextureWidth;
+        uint16_t rectTextureHeight;
         uint8_t renderLayer;
+        uint8_t isAnimated;
+        float animationSpeed;
     };
 
     struct MoveData

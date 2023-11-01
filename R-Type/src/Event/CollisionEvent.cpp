@@ -25,7 +25,6 @@ namespace RType::Client
             _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(entity, col);
             auto &entityCollider = _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(entity, col);
             if (collisionData.idCallback == static_cast<uint8_t>(rtype::EntityType::PLAYER)) {
-                std::cout << "PLAYER" << std::endl;
                 auto colliderCallback = std::bind(&RType::Client::RTypeClient::playerCollisionCallback, this,
                     std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
                 entityCollider.value()
@@ -43,7 +42,6 @@ namespace RType::Client
             GameEngine::CollisionComponent col = {.collider = rect, .layer = collisionData.layer};
             auto &entityCollider = _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(entity, col);
             if (collisionData.idCallback == static_cast<uint8_t>(rtype::EntityType::PLAYER)) {
-                std::cout << "PLAYER" << std::endl;
                 auto colliderCallback = std::bind(&RType::Client::RTypeClient::playerCollisionCallback, this,
                     std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
                 entityCollider.value()
@@ -52,7 +50,6 @@ namespace RType::Client
                         GameEngine::CollisionComponent, GameEngine::TransformComponent>(
                         _gameEngine.registry, colliderCallback);
             }
-            // entityCollider.value().addAction
         } else {
             struct RType::Protocol::CollisionResponse response = {.id = collisionData.id};
             std::vector<std::byte> dataToSend =

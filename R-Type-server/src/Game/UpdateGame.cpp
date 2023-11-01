@@ -34,6 +34,32 @@ namespace RType::Server
         }
     }
 
+    componentList RType::Server::RTypeServer::setEntitiesComponent()
+    {
+        componentList infos;
+
+        auto transforms = _gameEngine.registry.getComponent<GameEngine::TransformComponent>();
+        auto textures = _gameEngine.registry.getComponent<GameEngine::TextureComponent>();
+
+        for (std::size_t i = 0; i < transforms.size(); i++) {
+            std::map<RType::Protocol::ComponentType, std::vector<bool>> componentInfo;
+            componentInfo.insert({RType::Protocol::ComponentType::TRANSFORM, {true}});
+            componentInfo.insert({RType::Protocol::ComponentType::COLLISION, {true}});
+            auto texture = textures[i];
+            auto transform = transforms[i];
+            if (!texture && !transform)
+                continue;
+            if (texture) {
+                std::vector<bool> distribTexture(texture->textureRects.size(), true);
+                componentInfo.insert({RType::Protocol::ComponentType::TEXTURE, distribTexture});
+            } else
+                componentInfo.insert({RType::Protocol::ComponentType::TEXTURE, {false}});
+            GameEngine::Entity entity = _gameEngine.registry.getEntityById(i);
+            infos.insert({entity, componentInfo});
+        }
+        return infos;
+    }
+
     void RTypeServer::broadcastInformation()
     {
         broadcastTransformComponent();

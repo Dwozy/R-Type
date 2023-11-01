@@ -17,14 +17,28 @@
         {
             "type": "TextureComponent",
             "value": {
-                "texturePath": "R-Type/assets/r-typesheet1.gif",
+                "texturePath": "R-Type/assets/player_projectile.png",
+                "textureSize": {
+                    "left": 0.0,
+                    "top": 0.0,
+                    "width": 32.0,
+                    "height": 16.0
+                },
                 "textureRects": [{
-                    "left": 251.0,
-                    "top": 107.0,
-                    "width": 12.0,
-                    "height": 4.0
+                    "left": 0.0,
+                    "top": 0.0,
+                    "width": 16.0,
+                    "height": 16.0
+                },
+                {
+                    "left": 16.0,
+                    "top": 0.0,
+                    "width": 16.0,
+                    "height": 16.0
                 }],
-                "renderLayer": 1
+                "renderLayer": 1,
+                "animated": true,
+                "animationSpeed": 0.25
             }
         },
         {

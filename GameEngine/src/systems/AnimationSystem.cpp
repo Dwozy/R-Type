@@ -11,23 +11,24 @@
 
 namespace GameEngine
 {
-    void AnimationSystem::operator()(SparseArray<TextureComponent> &texture)
+    void AnimationSystem::operator()(SparseArray<TextureComponent> &textures)
     {
-        _currentDeltaTime += _deltaTime;
-        for (size_t i = 0; i < texture.size(); i++) {
-            auto &tex = texture[i];
+        for (size_t i = 0; i < textures.size(); i++) {
+            auto &tex = textures[i];
             if (!tex)
-                return;
-            if (!(tex.value().animated == true))
-                return;
-            if (!(_currentDeltaTime >= tex.value().animationSpeed))
-                return;
-            _currentDeltaTime = 0;
+                continue;
+            if (!tex.value().animated)
+                continue;
+            tex.value().lastUpdate += _deltaTime;
+            if (tex.value().lastUpdate < tex.value().animationSpeed)
+                continue;
             if (tex.value().animeid < tex.value().textureRects.size() - 1)
                 tex.value().animeid += 1;
             else
                 tex.value().animeid = 0;
             tex.value().sprite.setTextureRect(tex.value().textureRects[tex.value().animeid]);
+            tex.value().lastUpdate = 0;
         }
+        // _currentDeltaTime = 0;
     }
 } // namespace GameEngine

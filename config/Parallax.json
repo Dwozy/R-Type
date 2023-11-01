@@ -18,6 +18,12 @@
             "type": "TextureComponent",
             "value": {
                 "texturePath": "R-Type/assets/parallax.png",
+                "textureSize": {
+                    "left": 0.0,
+                    "top": 0.0,
+                    "width": 1080.0,
+                    "height": 1080.0
+                },
                 "textureRects": [{
                     "left": 199.0,
                     "top": 0.0,

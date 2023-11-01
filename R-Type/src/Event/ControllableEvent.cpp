@@ -20,8 +20,6 @@ namespace RType::Client
             std::size_t id = _findEntity(controllableData.id);
             GameEngine::Entity entity = _gameEngine.registry.getEntityById(id);
             _gameEngine.registry.addComponent<GameEngine::ControllableComponent>(entity, con);
-            std::cout << "CONTROLLABLE ID FROM SERVER " << controllableData.id << std::endl;
-            std::cout << "Set Controllable on " << id << std::endl;
             _id = entity;
             _serverId = controllableData.id;
         }

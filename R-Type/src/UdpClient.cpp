@@ -20,30 +20,13 @@ RType::Client::UdpClient::UdpClient(
         std::bind(&RType::Client::UdpClient::handleCollisionComponent, this, std::placeholders::_1, std::placeholders::_2));
     _commands.emplace(static_cast<uint8_t>(RType::Protocol::ComponentType::CONTROLLABLE),
         std::bind(&RType::Client::UdpClient::handleControllableComponent, this, std::placeholders::_1, std::placeholders::_2));
-
-
-
     _commands.emplace(static_cast<uint8_t>(rtype::PacketType::STRING),
         std::bind(&RType::Client::UdpClient::handleString, this, std::placeholders::_1, std::placeholders::_2));
-    _commands.emplace(static_cast<uint8_t>(rtype::PacketType::ENTITY),
-        std::bind(&RType::Client::UdpClient::handleEntity, this, std::placeholders::_1, std::placeholders::_2));
-    _commands.emplace(static_cast<uint8_t>(rtype::PacketType::CONNECTED),
-        std::bind(&RType::Client::UdpClient::handleConnexionSuccess, this, std::placeholders::_1, std::placeholders::_2));
     _commands.emplace(static_cast<uint8_t>(rtype::PacketType::DESTROY),
         std::bind(&RType::Client::UdpClient::handleDisconnexion, this, std::placeholders::_1, std::placeholders::_2));
-    _commands.emplace(static_cast<uint8_t>(rtype::PacketType::SHOOT),
-        std::bind(&RType::Client::UdpClient::handleShoot, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 RType::Client::UdpClient::~UdpClient() { _udpSocket.close(); }
-
-void RType::Client::UdpClient::handleShoot(struct rtype::HeaderDataPacket header, unsigned short port)
-{
-    struct rtype::Shoot shoot = Serialization::deserializeData<struct rtype::Shoot>(_streamBuffer, header.payloadSize);
-    struct rtype::Event event = {.packetType = header.packetType, .data = shoot};
-
-    _eventQueue.push(event);
-}
 
 void RType::Client::UdpClient::handleControllableComponent(struct rtype::HeaderDataPacket header, unsigned short port)
 {
@@ -91,24 +74,6 @@ void RType::Client::UdpClient::handleString(struct rtype::HeaderDataPacket heade
             std::cout << message << std::endl;
         _IOContext.stop();
     }
-}
-
-void RType::Client::UdpClient::handleEntity(struct rtype::HeaderDataPacket header, unsigned short port)
-{
-    struct rtype::Entity entity =
-        Serialization::deserializeData<struct rtype::Entity>(_streamBuffer, header.payloadSize);
-    struct rtype::Event event = {.packetType = header.packetType, .data = entity};
-
-    _eventQueue.push(event);
-}
-
-void RType::Client::UdpClient::handleConnexionSuccess(struct rtype::HeaderDataPacket header, unsigned short port)
-{
-    struct rtype::Entity entity =
-        Serialization::deserializeData<struct rtype::Entity>(_streamBuffer, header.payloadSize);
-    struct rtype::Event event = {.packetType = header.packetType, .data = entity};
-
-    _eventQueue.push(event);
 }
 
 void RType::Client::UdpClient::handleDisconnexion(struct rtype::HeaderDataPacket header, unsigned short port)

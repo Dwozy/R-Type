@@ -37,15 +37,9 @@ namespace RType::Client
         /// @brief Function that will handle when new entity needed to be create
         /// @param event struct that will contain the information about the new entity
         void handleNewEntity(struct rtype::Event event);
-        /// @brief Function that create a new Entity
-        /// @param entity that will contain informations
-        void entitySpawn(const struct rtype::Entity);
         /// @brief Function that will handle when entity needed to be update
         /// @param event struct that will contain the information about the entity
         void handleEntity(struct rtype::Event event);
-        /// @brief Function that update a Entity
-        /// @param entity update the corresponding entity
-        void updateEntity(const struct rtype::Entity);
         /// @brief Function that will handle when entity needed to be delete
         /// @param event struct that will contain the information about the entity
         void handleDisconnexion(struct rtype::Event event);
@@ -68,8 +62,6 @@ namespace RType::Client
 
         void setGameEngine();
 
-        void setConnexionCallback();
-        void setUpdateEntityCallback();
         void setDeleteEntityCallback();
         void setMovementEntityCallback();
         void setControllableCallback();

@@ -34,16 +34,9 @@ namespace RType::Client
         /// @brief Handle String
         /// @param header that contains the size of the payload
         void handleString(struct rtype::HeaderDataPacket header, unsigned short port);
-        /// @brief Handle Entity
-        /// @param header that contains the size of the payload
-        void handleEntity(struct rtype::HeaderDataPacket header, unsigned short port);
-        /// @brief Handle when a connexion successfully done
-        /// @param header that contains the size of the payload
-        void handleConnexionSuccess(struct rtype::HeaderDataPacket header, unsigned short port);
         /// @brief Handle Disconnexion
         /// @param header that contains the size of the payload
         void handleDisconnexion(struct rtype::HeaderDataPacket header, unsigned short port);
-        void handleShoot(struct rtype::HeaderDataPacket header, unsigned short port);
         /// @brief Function that will send information to the server
         /// @param dataInformation that contains the information
         /// @param packetType corresponding the type of data

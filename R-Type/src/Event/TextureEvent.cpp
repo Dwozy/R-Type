@@ -23,10 +23,27 @@ namespace RType::Client
                 static_cast<int>(textureData.rectWidth), static_cast<int>(textureData.rectHeight)});
             if (_listPathTextureId.find(textureData.idTexture) != _listPathTextureId.end() &&
                 textureData.idTexture != static_cast<uint8_t>(rtype::EntityType::NONE)) {
-                GameEngine::TextureComponent texture = {_listPathTextureId.at(textureData.idTexture),
-                    GameEngine::Sprite(), false, rectTextures, 0, true, 0, 0, textureData.renderLayer};
+                GameEngine::Rect<int> textureSize = {static_cast<int>(textureData.rectTextureLeft),
+                    static_cast<int>(textureData.rectTextureTop), static_cast<int>(textureData.rectTextureWidth),
+                    static_cast<int>(textureData.rectTextureHeight)};
+
+                GameEngine::TextureComponent texture = {.path = _listPathTextureId.at(textureData.idTexture),
+                    .sprite = GameEngine::Sprite(),
+                    .animated = (textureData.isAnimated == '1') ? true : false,
+                    .textureSize = textureSize,
+                    .textureRects = rectTextures,
+                    .animationSpeed = textureData.animationSpeed,
+                    .isRendered = true,
+                    .lastUpdate = 0,
+                    .animeid = 0,
+                    .renderLayer = textureData.renderLayer};
+
                 auto &entityTexture = _gameEngine.registry.addComponent<GameEngine::TextureComponent>(entity, texture);
-                entityTexture.value().sprite.load(_gameEngine.assetManager.getTexture(_listPathTextureId.at(textureData.idTexture)));
+                _gameEngine.assetManager.loadTexture(_listPathTextureId.at(textureData.idTexture), textureSize);
+                entityTexture.value().sprite.load(
+                    _gameEngine.assetManager.getTexture(_listPathTextureId.at(textureData.idTexture)));
+                entityTexture.value().sprite.setTextureRect(
+                    entityTexture.value().textureRects[entityTexture.value().animeid]);
             }
         }
         id = _findEntity(textureData.id);
@@ -37,14 +54,31 @@ namespace RType::Client
                 static_cast<int>(textureData.rectWidth), static_cast<int>(textureData.rectHeight)});
             if (_listPathTextureId.find(textureData.idTexture) != _listPathTextureId.end() &&
                 textureData.idTexture != static_cast<uint8_t>(rtype::EntityType::NONE)) {
-                GameEngine::TextureComponent texture = {_listPathTextureId.at(textureData.idTexture),
-                    GameEngine::Sprite(), false, rectTextures, 0, true, 0, 0, textureData.renderLayer};
+                GameEngine::Rect<int> textureSize = {static_cast<int>(textureData.rectTextureLeft),
+                    static_cast<int>(textureData.rectTextureTop), static_cast<int>(textureData.rectTextureWidth),
+                    static_cast<int>(textureData.rectTextureHeight)};
+
+                GameEngine::TextureComponent texture = {.path = _listPathTextureId.at(textureData.idTexture),
+                    .sprite = GameEngine::Sprite(),
+                    .animated = (textureData.isAnimated == '1') ? true : false,
+                    .textureSize = textureSize,
+                    .textureRects = rectTextures,
+                    .animationSpeed = textureData.animationSpeed,
+                    .isRendered = true,
+                    .lastUpdate = 0,
+                    .animeid = 0,
+                    .renderLayer = textureData.renderLayer};
                 auto &entityTexture = _gameEngine.registry.addComponent<GameEngine::TextureComponent>(entity, texture);
-                entityTexture.value().sprite.load(_gameEngine.assetManager.getTexture(_listPathTextureId.at(textureData.idTexture)));
+
+                _gameEngine.assetManager.loadTexture(_listPathTextureId.at(textureData.idTexture), textureSize);
+                entityTexture.value().sprite.load(
+                    _gameEngine.assetManager.getTexture(_listPathTextureId.at(textureData.idTexture)));
+                entityTexture.value().sprite.setTextureRect(
+                    entityTexture.value().textureRects[entityTexture.value().animeid]);
             }
         } else {
-            GameEngine::Recti rect = {
-                textureData.rectLeft, textureData.rectHeight, textureData.rectWidth, textureData.rectHeight};
+            GameEngine::Recti rect = {static_cast<int>(textureData.rectLeft), static_cast<int>(textureData.rectTop),
+                static_cast<int>(textureData.rectWidth), static_cast<int>(textureData.rectHeight)};
 
             try {
                 textures[id].value().textureRects.at(textureData.idOrderTexture);

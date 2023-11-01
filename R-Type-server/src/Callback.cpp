@@ -36,7 +36,6 @@ namespace RType::Server
             if (selfCol.value().collider.isColliding(
                     selfTsf.value().position, col.value().collider, tsf.value().position)) {
                 struct RType::Protocol::EntityIdData entityId = {.id = static_cast<uint16_t>(i)};
-                std::cout << "Delete engaged !" << std::endl;
                 struct rtype::Event destroyEvent = {
                     .packetType = static_cast<uint8_t>(rtype::PacketType::DESTROY), .data = entityId};
                 _eventQueue.push(destroyEvent);

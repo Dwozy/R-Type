@@ -17,7 +17,6 @@ namespace RType::Server
         entityPos.value().position = GameEngine::Vector2<float>(pos * 25, pos * 25);
         auto &entityCollider = _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[entity];
 
-        std::cout << "ENTITY SPAAAAWN " << entity << std::endl;
         auto colliderCallback = std::bind(&RType::Server::RTypeServer::playerCollisionCallback, this,
             std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
         entityCollider.value()
@@ -53,7 +52,6 @@ namespace RType::Server
 
         _listLifePoints.insert({static_cast<uint16_t>(entity), 5});
         _listIdType.insert({static_cast<uint16_t>(entity), static_cast<uint8_t>(rtype::EntityType::PLAYER)});
-        std::cout << "INSERT PLAYER : " << entity << std::endl;
         broadcastEntityInformation(entity);
 
         struct RType::Protocol::ControllableData player = {.id = static_cast<uint8_t> (entity)};
