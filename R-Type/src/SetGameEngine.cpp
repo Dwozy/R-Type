@@ -19,6 +19,7 @@
 #include "systems/ControlSystem.hpp"
 #include "systems/PressableSystem.hpp"
 #include "systems/CollisionSystem.hpp"
+#include "systems/AnimationSystem.hpp"
 
 namespace RType::Client
 {
@@ -37,11 +38,13 @@ namespace RType::Client
 
     void RTypeClient::setGameEngineCallback()
     {
-        setConnexionCallback();
-        setUpdateEntityCallback();
         setDeleteEntityCallback();
         setMovementEntityCallback();
         setShootCallback();
+        setTransformCallback();
+        setTextureCallback();
+        setCollisionCallback();
+        setControllableCallback();
     }
 
     void RTypeClient::setGameEngineSystem()
@@ -51,6 +54,8 @@ namespace RType::Client
         GameEngine::PressableSystem pressableSystem(_gameEngine.eventManager);
         GameEngine::ControlSystem controlSystem;
         GameEngine::CollisionSystem collisionSystem;
+        GameEngine::AnimationSystem animationSystem(_gameEngine.deltaTime.getDeltaTime());
+
         _gameEngine.registry.addSystem<std::function<void(SparseArray<GameEngine::TransformComponent> &,
                                            SparseArray<GameEngine::ControllableComponent> &)>,
             GameEngine::TransformComponent, GameEngine::ControllableComponent>(controlSystem);
@@ -64,6 +69,10 @@ namespace RType::Client
 
         _gameEngine.registry.addSystem<GameEngine::PressableFunction, GameEngine::TransformComponent,
             GameEngine::TextureComponent, GameEngine::PressableComponent>(pressableSystem);
+
+        _gameEngine.registry
+            .addSystem<std::function<void(SparseArray<GameEngine::TextureComponent> &)>, GameEngine::TextureComponent>(
+                animationSystem);
 
         _gameEngine.registry.addSystem<GameEngine::DrawSystem, GameEngine::TextComponent, GameEngine::TextureComponent>(
             drawSystem);

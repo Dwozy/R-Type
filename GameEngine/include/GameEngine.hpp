@@ -36,8 +36,8 @@ namespace GameEngine
     {
       public:
         /// @brief Constructor for the game engine.
-        /// @param maxEntities Maximum number of entities at once. Default value is 512.
-        GameEngine(std::size_t maxEntities = 512) : registry(maxEntities), prefabManager(assetManager)
+        /// @param maxEntities Maximum number of entities at once. Default value is 1024.
+        GameEngine(std::size_t maxEntities = 1024) : registry(maxEntities), prefabManager(assetManager)
         {
             deltaTime.update();
         };

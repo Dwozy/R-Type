@@ -26,8 +26,10 @@ namespace GameEngine
         /// @param area area of the texture
         void loadTexture(const std::string &filename, Recti area)
         {
-            _texture[filename] = Texture();
-            _texture[filename].load(filename, area);
+            if (_texture.find(filename) == _texture.end()) {
+                _texture[filename] = Texture();
+                _texture[filename].load(filename, area);
+            }
         }
 
         /// @brief Get a texture previously loaded

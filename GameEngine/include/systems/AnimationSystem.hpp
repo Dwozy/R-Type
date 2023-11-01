@@ -18,7 +18,7 @@ namespace GameEngine
       public:
         /// @brief constructor
         /// @param deltaTime The delta time of the game for handle game animation
-        AnimationSystem(const float &deltaTime) : _deltaTime(deltaTime), _currentDeltaTime(0.0f){};
+        AnimationSystem(const float &deltaTime) : _deltaTime(deltaTime){};
         /// @brief destructor
         ~AnimationSystem() = default;
         /// @brief overload of () operator function that updates the texture to the next animation
@@ -27,7 +27,6 @@ namespace GameEngine
 
       private:
         const float &_deltaTime;
-        float _currentDeltaTime;
     };
 } // namespace GameEngine
 

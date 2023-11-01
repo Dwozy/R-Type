@@ -21,6 +21,10 @@ namespace Error
     TooMuchEntitiesError::~TooMuchEntitiesError() {}
     char const *TooMuchEntitiesError::what() const noexcept { return message.c_str(); }
 
+    InvalidEntityIdError::InvalidEntityIdError() : message("Invalid id entity") {}
+    InvalidEntityIdError::~InvalidEntityIdError() {}
+    char const *InvalidEntityIdError::what() const noexcept { return message.c_str(); }
+
     InvalidSceneNameError::InvalidSceneNameError() : message("The scene name is invalid or already used") {}
     InvalidSceneNameError::~InvalidSceneNameError() {}
     char const *InvalidSceneNameError::what() const noexcept { return message.c_str(); }
@@ -36,4 +40,5 @@ namespace Error
     PrefabNameAlreadyUsedError::PrefabNameAlreadyUsedError() : message("Prefab name already used") {}
     PrefabNameAlreadyUsedError::~PrefabNameAlreadyUsedError() {}
     char const *PrefabNameAlreadyUsedError::what() const noexcept { return message.c_str(); }
+
 } // namespace Error

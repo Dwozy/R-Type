@@ -17,6 +17,7 @@ namespace GameEngine
         std::string path;
         Sprite sprite;
         bool animated;
+        Rect<int> textureSize;
         std::vector<Rect<int>> textureRects;
         float animationSpeed;
         bool isRendered;

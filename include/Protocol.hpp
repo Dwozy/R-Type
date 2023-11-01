@@ -18,17 +18,41 @@ namespace RType::Protocol
         TRANSFORM = 1,
         COLLISION,
         TEXTURE,
+        CONTROLLABLE,
+        COLLISION_RES,
+        TEXTURE_RES,
     };
 
-    // enum class 
+    enum class InputType : uint8_t { UP = 1, RIGHT, DOWN, LEFT, SHOOT };
 
-    enum class TextureType : uint8_t { NONE = 1, PLAYER, SHOOT, MOB };
+    enum class TextureType : uint8_t { NONE = 1, PLAYER, SIMPLE_SHOOT, CHARGED_SHOOT, MOB };
+
+    struct ControllableData
+    {
+        uint16_t id;
+    };
+
+    struct EntityIdData
+    {
+        uint16_t id;
+    };
 
     struct HeaderDataPacket
     {
         uint32_t magicNumber = MAGIC_NUMBER;
         uint8_t packetType;
         uint16_t payloadSize;
+    };
+
+    struct CollisionResponse
+    {
+        uint16_t id;
+    };
+
+    struct TextureResponse
+    {
+        uint16_t id;
+        uint16_t idTexture;
     };
 
     struct TransformData
@@ -43,6 +67,7 @@ namespace RType::Protocol
     struct CollisionData
     {
         uint16_t id;
+        uint8_t idCallback;
         float rectLeft;
         float rectTop;
         float rectWidth;
@@ -54,6 +79,18 @@ namespace RType::Protocol
     {
         uint16_t id;
         uint8_t idTexture;
+        uint8_t idOrderTexture;
+        uint16_t rectLeft;
+        uint16_t rectTop;
+        uint16_t rectWidth;
+        uint16_t rectHeight;
+        uint16_t rectTextureLeft;
+        uint16_t rectTextureTop;
+        uint16_t rectTextureWidth;
+        uint16_t rectTextureHeight;
+        uint8_t renderLayer;
+        uint8_t isAnimated;
+        float animationSpeed;
     };
 
     struct MoveData
