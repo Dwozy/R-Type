@@ -12,6 +12,7 @@
 #include <any>
 #include <asio.hpp>
 #include <iostream>
+#include "../../include/Protocol.hpp"
 
 namespace GameEngine::Network
 {
@@ -35,7 +36,7 @@ namespace GameEngine::Network
         template <typename Socket, typename Endpoint>
         void sendData(void *data, std::size_t size, uint8_t packetType, Socket &socket, Endpoint &endpoint)
         {
-            struct rtype::HeaderDataPacket header = {};
+            struct RType::Protocol::HeaderDataPacket header = {};
 
             header.packetType = packetType;
             header.payloadSize = size;
@@ -48,7 +49,7 @@ namespace GameEngine::Network
         /// @param endpoint data sending to
         /// @param header that will determined the type of data
         void sendInformation(void *data, std::size_t size, asio::ip::udp::socket &socket,
-            asio::ip::udp::endpoint &endpoint, struct rtype::HeaderDataPacket &header);
+            asio::ip::udp::endpoint &endpoint, struct RType::Protocol::HeaderDataPacket &header);
         /// @brief send the data to endpoint from the socket
         /// @param data that will be send
         /// @param size of the data
@@ -56,25 +57,25 @@ namespace GameEngine::Network
         /// @param endpoint data sending to
         /// @param header that will determined the type of data
         void sendInformation(void *data, std::size_t size, asio::ip::tcp::socket &socket, asio::ip::tcp::endpoint &,
-            struct rtype::HeaderDataPacket &header);
+            struct RType::Protocol::HeaderDataPacket &header);
         /// @brief handle the header information
         /// @param error if asynchronous operation failed, will be checked
         /// @param recvBytes corresponding to the ammount of bytes receive
         /// @param header type of data;
         void handleReceive(
-            const asio::error_code &error, std::size_t recvBytes, struct rtype::HeaderDataPacket &header);
+            const asio::error_code &error, std::size_t recvBytes, struct RType::Protocol::HeaderDataPacket &header);
         /// @brief read the header to retrieve informations
         void readHeader();
 
       protected:
         /// @brief function that will be set and used from derived class from this abstract
-        virtual void handleData(struct rtype::HeaderDataPacket &, unsigned short port) = 0;
+        virtual void handleData(struct RType::Protocol::HeaderDataPacket &, unsigned short port) = 0;
 
       protected:
         asio::streambuf _streamBuffer;
         asio::ip::udp::socket _udpSocket;
         asio::streambuf::mutable_buffers_type _buffer;
-        struct rtype::HeaderDataPacket _header;
+        struct RType::Protocol::HeaderDataPacket _header;
         asio::ip::udp::endpoint _endpoint;
         std::map<unsigned short, asio::ip::udp::endpoint> _listClient;
 

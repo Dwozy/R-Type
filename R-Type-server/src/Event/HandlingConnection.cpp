@@ -9,14 +9,27 @@
 
 namespace RType::Server
 {
-    void RTypeServer::handleConnexion(struct rtype::Event event)
+
+    void RTypeServer::sendControllableInformation(GameEngine::Entity &entity, unsigned short port)
+    {
+        struct RType::Protocol::ControllableData player = {
+            .id = static_cast<uint16_t>(entity),
+        };
+        std::vector<std::byte> dataToSend =
+            Serialization::serializeData<struct RType::Protocol::ControllableData>(player, sizeof(player));
+        _udpServer.sendInformation(static_cast<uint8_t>(RType::Protocol::ComponentType::CONTROLLABLE), dataToSend,
+            _udpServer.getListClients()[port]);
+    }
+
+    void RTypeServer::handleConnexion(struct RType::Event event)
     {
         GameEngine::Entity entity =
             _gameEngine.prefabManager.createEntityFromPrefab("player", _gameEngine.registry, false);
         auto &entityPos = _gameEngine.registry.getComponent<GameEngine::TransformComponent>()[entity];
-        entityPos.value().position = GameEngine::Vector2<float>(pos * 25, pos * 25);
         auto &entityCollider = _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[entity];
+        auto &entityControllable = _gameEngine.registry.getComponent<GameEngine::ControllableComponent>()[entity];
 
+        entityPos.value().position = GameEngine::Vector2<float>(pos * 25, pos * 25);
         auto colliderCallback = std::bind(&RType::Server::RTypeServer::playerCollisionCallback, this,
             std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
         entityCollider.value()
@@ -35,28 +48,10 @@ namespace RType::Server
         pos++;
         _nbPlayers++;
         _listInfosComponent.insert({event.port, setEntitiesComponent()});
-
-        std::map<RType::Protocol::ComponentType, std::vector<bool>> componentInfo;
-        componentInfo.insert({RType::Protocol::ComponentType::TRANSFORM, {true}});
-        componentInfo.insert({RType::Protocol::ComponentType::COLLISION, {true}});
-
-        auto &texture = _gameEngine.registry.getComponent<GameEngine::TextureComponent> () [entity];
-        if (texture) {
-            std::vector<bool> distribTexture(texture.value().textureRects.size(), true);
-            componentInfo.insert({RType::Protocol::ComponentType::TEXTURE, distribTexture});
-        } else
-            componentInfo.insert({RType::Protocol::ComponentType::TEXTURE, {false}});
-
-        for (auto &listInfo : _listInfosComponent)
-            listInfo.second.insert({entity, componentInfo});
-
         _listLifePoints.insert({static_cast<uint16_t>(entity), 5});
-        _listIdType.insert({static_cast<uint16_t>(entity), static_cast<uint8_t>(rtype::EntityType::PLAYER)});
+        updateComponentInformation(entity, RType::TextureType::PLAYER);
         broadcastEntityInformation(entity);
-
-        struct RType::Protocol::ControllableData player = {.id = static_cast<uint8_t> (entity)};
-        std::vector<std::byte> dataToSend = Serialization::serializeData<struct RType::Protocol::ControllableData> (player, sizeof(player));
-        _udpServer.sendInformation(static_cast<uint8_t> (RType::Protocol::ComponentType::CONTROLLABLE), dataToSend, _udpServer.getListClients()[event.port]);
+        sendControllableInformation(entity, event.port);
     }
 
 } // namespace RType::Server

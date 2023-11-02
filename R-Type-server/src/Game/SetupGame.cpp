@@ -22,7 +22,7 @@ namespace RType::Server
             .addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
                            SparseArray<GameEngine::TransformComponent> &)>,
                 GameEngine::CollisionComponent, GameEngine::TransformComponent>(_gameEngine.registry, destroyCallback);
-        _listIdType.insert({static_cast<uint16_t>(rightBoxEntity), static_cast<uint8_t>(rtype::EntityType::NONE)});
+        _listIdType.insert({static_cast<uint16_t>(rightBoxEntity), static_cast<uint8_t>(RType::TextureType::NONE)});
 
         auto leftBoxEntity =
             _gameEngine.prefabManager.createEntityFromPrefab("destroy_left_box", _gameEngine.registry, false);
@@ -31,22 +31,29 @@ namespace RType::Server
             .addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
                            SparseArray<GameEngine::TransformComponent> &)>,
                 GameEngine::CollisionComponent, GameEngine::TransformComponent>(_gameEngine.registry, destroyCallback);
-        _listIdType.insert({static_cast<uint16_t>(leftBoxEntity), static_cast<uint8_t>(rtype::EntityType::NONE)});
+        _listIdType.insert({static_cast<uint16_t>(leftBoxEntity), static_cast<uint8_t>(RType::TextureType::NONE)});
 
         auto borderBoxUp =
             _gameEngine.prefabManager.createEntityFromPrefab("border_map_up", _gameEngine.registry, false);
-        _listIdType.insert({static_cast<uint16_t>(borderBoxUp), static_cast<uint8_t>(rtype::EntityType::NONE)});
+        _listIdType.insert({static_cast<uint16_t>(borderBoxUp), static_cast<uint8_t>(RType::TextureType::NONE)});
 
         auto borderBoxDown =
             _gameEngine.prefabManager.createEntityFromPrefab("border_map_down", _gameEngine.registry, false);
-        _listIdType.insert({static_cast<uint16_t>(borderBoxDown), static_cast<uint8_t>(rtype::EntityType::NONE)});
+        _listIdType.insert({static_cast<uint16_t>(borderBoxDown), static_cast<uint8_t>(RType::TextureType::NONE)});
 
         auto borderBoxLeft =
             _gameEngine.prefabManager.createEntityFromPrefab("border_map_left", _gameEngine.registry, false);
-        _listIdType.insert({static_cast<uint16_t>(borderBoxLeft), static_cast<uint8_t>(rtype::EntityType::NONE)});
+        _listIdType.insert({static_cast<uint16_t>(borderBoxLeft), static_cast<uint8_t>(RType::TextureType::NONE)});
 
         auto borderBoxRight =
             _gameEngine.prefabManager.createEntityFromPrefab("border_map_right", _gameEngine.registry, false);
-        _listIdType.insert({static_cast<uint16_t>(borderBoxRight), static_cast<uint8_t>(rtype::EntityType::NONE)});
+        _listIdType.insert({static_cast<uint16_t>(borderBoxRight), static_cast<uint8_t>(RType::TextureType::NONE)});
+
+        _inputsType.push_back(static_cast<uint8_t> (RType::Protocol::InputType::UP));
+        _inputsType.push_back(static_cast<uint8_t> (RType::Protocol::InputType::DOWN));
+        _inputsType.push_back(static_cast<uint8_t> (RType::Protocol::InputType::LEFT));
+        _inputsType.push_back(static_cast<uint8_t> (RType::Protocol::InputType::RIGHT));
+        _inputsType.push_back(static_cast<uint8_t> (RType::Protocol::InputType::SHOOT));
+
     }
 } // namespace RType::Server

@@ -21,22 +21,22 @@ namespace RType::Client
     {
       public:
         UdpClient(asio::io_context &IOContext, asio::ip::udp::endpoint &serverEndpoint,
-            SafeQueue<struct rtype::Event> &eventQueue);
+            SafeQueue<struct RType::Event> &eventQueue);
         ~UdpClient();
 
-        void handleTransformComponent(struct rtype::HeaderDataPacket header, unsigned short port);
-        void handleTextureComponent(struct rtype::HeaderDataPacket header, unsigned short port);
-        void handleCollisionComponent(struct rtype::HeaderDataPacket header, unsigned short port);
-        void handleControllableComponent(struct rtype::HeaderDataPacket header, unsigned short port);
+        void handleTransformComponent(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
+        void handleTextureComponent(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
+        void handleCollisionComponent(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
+        void handleControllableComponent(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
 
 
 
         /// @brief Handle String
         /// @param header that contains the size of the payload
-        void handleString(struct rtype::HeaderDataPacket header, unsigned short port);
+        void handleString(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
         /// @brief Handle Disconnexion
         /// @param header that contains the size of the payload
-        void handleDisconnexion(struct rtype::HeaderDataPacket header, unsigned short port);
+        void handleDisconnexion(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
         /// @brief Function that will send information to the server
         /// @param dataInformation that contains the information
         /// @param packetType corresponding the type of data
@@ -46,15 +46,14 @@ namespace RType::Client
         /// @brief Handle the data depends of the header
         /// @param error if asynchronous operation fails, it will be checked
         /// @param header that contain the type of data
-        void handleData(struct rtype::HeaderDataPacket &, unsigned short port);
+        void handleData(struct RType::Protocol::HeaderDataPacket &, unsigned short port);
 
       protected:
       private:
         asio::io_context &_IOContext;
         asio::ip::udp::endpoint &_serverEndpoint;
-        std::unordered_map<uint8_t, std::function<void(struct rtype::HeaderDataPacket header, unsigned short port)>> _commands;
-        std::map<unsigned short, struct rtype::Entity> _listPlayersInfos;
-        SafeQueue<struct rtype::Event> &_eventQueue;
+        std::unordered_map<uint8_t, std::function<void(struct RType::Protocol::HeaderDataPacket header, unsigned short port)>> _commands;
+        SafeQueue<struct RType::Event> &_eventQueue;
     };
 } // namespace RType::Client
 #endif /* !UDPCLIENT_HPP_ */

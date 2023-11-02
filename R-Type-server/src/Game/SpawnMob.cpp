@@ -25,27 +25,8 @@ namespace RType::Server
                 GameEngine::CollisionComponent, GameEngine::TransformComponent>(
                 _gameEngine.registry, destroyMobCallback);
 
-        struct rtype::Entity newEntity = {.id = static_cast<uint16_t>(mobEntity),
-            .idTexture = static_cast<uint8_t>(rtype::EntityType::MOB),
-            .positionX = entityPos->position.x,
-            .positionY = entityPos->position.y,
-            .directionX = entityPos->velocity.x,
-            .directionY = entityPos->velocity.y};
-        _listIdType.insert({static_cast<uint16_t>(mobEntity), static_cast<uint8_t>(rtype::EntityType::MOB)});
 
-        std::map<RType::Protocol::ComponentType, std::vector<bool>> componentInfo;
-        componentInfo.insert({RType::Protocol::ComponentType::TRANSFORM, {true}});
-        componentInfo.insert({RType::Protocol::ComponentType::COLLISION, {true}});
-        auto &texture = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[mobEntity];
-        if (texture) {
-            std::vector<bool> distribTexture(texture->textureRects.size(), true);
-            componentInfo.insert({RType::Protocol::ComponentType::TEXTURE, distribTexture});
-        } else
-            componentInfo.insert({RType::Protocol::ComponentType::TEXTURE, {false}});
-
-        for (auto &listInfo : _listInfosComponent)
-            listInfo.second.insert({mobEntity, componentInfo});
+        updateComponentInformation(mobEntity, RType::TextureType::MOB);
         broadcastEntityInformation(mobEntity);
-        // _udpServer.sendInformation(static_cast<uint8_t>(rtype::PacketType::ENTITY), dataToSend);
     }
 } // namespace RType::Server
