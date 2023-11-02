@@ -111,7 +111,7 @@ if [ "$1" == "tests" ]; then
     exit 0
 fi
 
-if [ "$1" == "platformer" ]; then
+if [ "$1" == "Platformer" ]; then
     setup_game_platformer
     build
     exit 0

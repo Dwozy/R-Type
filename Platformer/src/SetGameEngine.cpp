@@ -67,7 +67,7 @@ void Platformer::setGameEngineSystem()
 
     _gameEngine.registry.addSystem<GameEngine::DrawSystem, GameEngine::TextComponent, GameEngine::TextureComponent>(
         drawSystem);
-    _gameEngine.registry.addSystem<GameEngine::GravityFunction, GameEngine::TransformComponent, GameEngine::TextureComponent, GameEngine::GravityComponent>(gravitySystem);
+    _gameEngine.registry.addSystem<GameEngine::GravityFunction, GameEngine::TransformComponent, GameEngine::GravityComponent>(gravitySystem);
 }
 
 void Platformer::setGameEngineScene()

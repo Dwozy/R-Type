@@ -15,13 +15,13 @@
 
 namespace GameEngine
 {
-    using GravityFunction = std::function<void(SparseArray<TransformComponent> &, SparseArray<TextureComponent> &, SparseArray<GravityComponent> &)>;
+    using GravityFunction = std::function<void(SparseArray<TransformComponent> &, SparseArray<GravityComponent> &)>;
 
     class GravitySystem {
         public:
             GravitySystem(const float &deltaTime) : _deltaTime(deltaTime){};;
             ~GravitySystem() = default;
-            void operator()(SparseArray<TransformComponent> &transforms, SparseArray<TextureComponent> &textures, SparseArray<GravityComponent> &gravity);
+            void operator()(SparseArray<TransformComponent> &transforms, SparseArray<GravityComponent> &gravity);
         protected:
             const float &_deltaTime;
             float _currentDeltaTime;

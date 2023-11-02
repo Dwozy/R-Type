@@ -18,7 +18,6 @@ namespace GameEngine
             auto &tsf = transforms[i];
             if (con && tsf) {
                 tsf.value().velocity = Vector2<float>(0.0f, 0.0f);
-                tsf.value().velocity = Vector2<float>(0.0f, 0.0f);
                 if (InputManager::isKeyPressed(con.value().key_up))
                     tsf.value().velocity += Vector2<float>(0.0f, -1.0f);
                 if (InputManager::isKeyPressed(con.value().key_left))
