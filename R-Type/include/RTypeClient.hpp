@@ -73,6 +73,8 @@ namespace RType::Client
         void runTcpServer();
         void handleQuit();
 
+        void setTextureInformation(struct RType::Protocol::TextureData textureData, GameEngine::Entity &entity);
+
         void handleControllableComponent(struct RType::Event event);
         void setControllable(struct RType::Protocol::ControllableData controllableData);
 

@@ -24,7 +24,7 @@ namespace RType::Server
 
         for (auto &listInfo : _listInfosComponent)
             listInfo.second.insert({entity, componentInfo});
-        _listIdType.insert({static_cast<uint16_t> (entity), static_cast<uint8_t> (entityType)});
+        _listIdType.insert({static_cast<uint16_t>(entity), static_cast<uint8_t>(entityType)});
     }
 
     void RTypeServer::broadcastEntityInformation(const GameEngine::Entity &entity)

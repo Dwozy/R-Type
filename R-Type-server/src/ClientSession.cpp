@@ -30,7 +30,6 @@ void RType::Server::ClientSession::handleRead(const asio::error_code &error, std
     if (!error) {
         std::string message;
         message += std::string(_readBuffer.begin(), _readBuffer.begin() + transferredBytes);
-        // _clientsMessages.push(message);
         asio::async_write(_socket, asio::buffer(_readBuffer, transferredBytes),
             std::bind(&RType::Server::ClientSession::handleWrite, get(), std::placeholders::_1));
     } else {

@@ -98,6 +98,11 @@ namespace RType::Server
             RType::TextureType typeShoot);
         void updateComponentInformation(GameEngine::Entity &entity, RType::TextureType entityType);
 
+        void handlingLifePoint(std::size_t entityId);
+
+        GameEngine::Vector2<float> handlingMovement(
+            GameEngine::TransformComponent &transform, struct RType::Protocol::InputData inputInfo);
+
       protected:
       private:
         GameEngine::GameEngine _gameEngine;

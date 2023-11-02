@@ -53,7 +53,8 @@ void RType::Server::UdpServer::handleInput(struct RType::Protocol::HeaderDataPac
     _eventQueue.push(event);
 }
 
-void RType::Server::UdpServer::handleTextureResponse(struct RType::Protocol::HeaderDataPacket header, unsigned short port)
+void RType::Server::UdpServer::handleTextureResponse(
+    struct RType::Protocol::HeaderDataPacket header, unsigned short port)
 {
     struct RType::Protocol::TextureResponse response =
         Serialization::deserializeData<RType::Protocol::TextureResponse>(_streamBuffer, header.payloadSize);
@@ -65,7 +66,8 @@ void RType::Server::UdpServer::handleTextureResponse(struct RType::Protocol::Hea
     _eventQueue.push(event);
 }
 
-void RType::Server::UdpServer::handleCollisionResponse(struct RType::Protocol::HeaderDataPacket header, unsigned short port)
+void RType::Server::UdpServer::handleCollisionResponse(
+    struct RType::Protocol::HeaderDataPacket header, unsigned short port)
 {
     struct RType::Protocol::CollisionResponse response =
         Serialization::deserializeData<RType::Protocol::CollisionResponse>(_streamBuffer, header.payloadSize);
