@@ -34,9 +34,6 @@ void RType::Server::ClientSession::handleRead(const asio::error_code &error, std
         asio::async_write(_socket, asio::buffer(_readBuffer, transferredBytes),
             std::bind(&RType::Server::ClientSession::handleWrite, get(), std::placeholders::_1));
     } else {
-        // Need to know how to tell UDP server that client has disconnected
-        // std::cout << "Delete " << _socket.remote_endpoint().port() <<
-        // std::endl;
         std::cerr << "The client disconnected" << std::endl;
     }
 }

@@ -31,19 +31,19 @@ namespace RType::Server
         /// @brief Function that will handle every event from the udp server
         void handleEvent();
         /// @brief Function that will handle the connexion of a client
-        void handleConnexion(struct rtype::Event event);
+        void handleConnexion(struct RType::Event event);
         /// @brief Function that will handle the move from a client
         /// @param event struct that contain the data (Information about the move)
-        void handleMove(struct rtype::Event event);
+        void handleMove(struct RType::Protocol::MoveData moveInfo);
         /// @brief Function that will handle the disconnexion of a client
         /// @param event struct that contain the data (information about the client)
-        void handleDestroy(struct rtype::Event event);
+        void handleDestroy(struct RType::Event event);
         /// @brief Function that will start the Network in a thread
         /// @param isRunning boolean to know if the server is down
         void startNetwork(bool &isRunning);
         /// @brief Function that will brodcast informations to all clients
         void updateEntities();
-        void handleShoot(struct rtype::Event event);
+        void handleShoot(struct RType::Protocol::ShootData shootInfo);
 
         void spawnMob();
 
@@ -72,8 +72,9 @@ namespace RType::Server
         void sendTextureComponent(
             uint16_t id, std::size_t index, GameEngine::TextureComponent texture, asio::ip::udp::endpoint &endpoint);
 
-        void handleTextureResponse(struct rtype::Event event);
-        void handleCollisionResponse(struct rtype::Event event);
+        void handleTextureResponse(struct RType::Event event);
+        void handleCollisionResponse(struct RType::Event event);
+        void handleInput(struct RType::Event event);
 
         componentList setEntitiesComponent();
 
@@ -91,9 +92,13 @@ namespace RType::Server
         void handlingEndGame();
         void setTimers();
 
-        void handleShootType(
-            const std::string &typeShootString, struct RType::Protocol::ShootData shootData, uint8_t typeShoot);
-        void updateComponentInformation(GameEngine::Entity &entity);
+        void sendControllableInformation(GameEngine::Entity &entity, unsigned short port);
+
+        void checkCollisionComponent(GameEngine::CollisionComponent &collision, std::size_t i);
+
+        void handleShootType(const std::string &typeShootString, struct RType::Protocol::ShootData shootData,
+            RType::TextureType typeShoot);
+        void updateComponentInformation(GameEngine::Entity &entity, RType::TextureType entityType);
 
       protected:
       private:
@@ -103,9 +108,8 @@ namespace RType::Server
         bool _isRunning;
         RType::Server::UdpServer _udpServer;
         RType::Server::TcpServer _tcpServer;
-        std::map<struct rtype::Room, std::map<unsigned short, struct rtype::Entity>> _listPlayersInfos;
         std::map<unsigned short, asio::ip::udp::endpoint> _listClients;
-        SafeQueue<struct rtype::Event> _eventQueue;
+        SafeQueue<struct RType::Event> _eventQueue;
         std::map<uint16_t, uint8_t> _listIdType;
         std::map<uint16_t, uint8_t> _listLifePoints;
         std::map<unsigned short, componentList> _listInfosComponent;
@@ -113,6 +117,7 @@ namespace RType::Server
         std::size_t _nbPlayers;
         bool _chargedAttack;
         float pos;
+        std::vector<uint8_t> _inputsType;
     };
 } // namespace RType::Server
 #endif /* !RTYPESERVER_HPP_ */

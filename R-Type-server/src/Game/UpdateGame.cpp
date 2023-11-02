@@ -9,7 +9,7 @@
 
 namespace RType::Server
 {
-    void RTypeServer::updateComponentInformation(GameEngine::Entity &entity)
+    void RTypeServer::updateComponentInformation(GameEngine::Entity &entity, RType::TextureType entityType)
     {
         std::map<RType::Protocol::ComponentType, std::vector<bool>> componentInfo;
         auto &texture = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[entity];
@@ -24,6 +24,7 @@ namespace RType::Server
 
         for (auto &listInfo : _listInfosComponent)
             listInfo.second.insert({entity, componentInfo});
+        _listIdType.insert({static_cast<uint16_t> (entity), static_cast<uint8_t> (entityType)});
     }
 
     void RTypeServer::broadcastEntityInformation(const GameEngine::Entity &entity)

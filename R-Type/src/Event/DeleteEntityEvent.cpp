@@ -24,8 +24,8 @@ namespace RType::Client
 
     void RTypeClient::setDeleteEntityCallback()
     {
-        auto &refHandlerDelete =
-            _gameEngine.eventManager.addHandler<struct RType::Protocol::EntityIdData>(GameEngine::Event::DeleteEntity);
+        auto &refHandlerDelete = _gameEngine.eventManager.addHandler<struct RType::Protocol::EntityIdData>(
+            static_cast<GameEngine::EventType>(GameEngine::Event::DeleteEntity));
         auto handleDelete = std::bind(&RType::Client::RTypeClient::deleteEntity, this, std::placeholders::_1);
         refHandlerDelete.subscribe(handleDelete);
     }

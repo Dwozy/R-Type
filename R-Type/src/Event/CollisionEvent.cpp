@@ -24,7 +24,7 @@ namespace RType::Client
             GameEngine::CollisionComponent col = {.collider = rect, .layer = collisionData.layer};
             _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(entity, col);
             auto &entityCollider = _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(entity, col);
-            if (collisionData.idCallback == static_cast<uint8_t>(rtype::EntityType::PLAYER)) {
+            if (collisionData.idCallback == static_cast<uint8_t>(RType::TextureType::PLAYER)) {
                 auto colliderCallback = std::bind(&RType::Client::RTypeClient::playerCollisionCallback, this,
                     std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
                 entityCollider.value()
@@ -41,7 +41,7 @@ namespace RType::Client
                 collisionData.rectLeft, collisionData.rectTop, collisionData.rectWidth, collisionData.rectHeight);
             GameEngine::CollisionComponent col = {.collider = rect, .layer = collisionData.layer};
             auto &entityCollider = _gameEngine.registry.addComponent<GameEngine::CollisionComponent>(entity, col);
-            if (collisionData.idCallback == static_cast<uint8_t>(rtype::EntityType::PLAYER)) {
+            if (collisionData.idCallback == static_cast<uint8_t>(RType::TextureType::PLAYER)) {
                 auto colliderCallback = std::bind(&RType::Client::RTypeClient::playerCollisionCallback, this,
                     std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
                 entityCollider.value()
@@ -61,8 +61,8 @@ namespace RType::Client
 
     void RTypeClient::setCollisionCallback()
     {
-        auto &refHandleCollision =
-            _gameEngine.eventManager.addHandler<struct RType::Protocol::CollisionData>(GameEngine::Event::GetCollision);
+        auto &refHandleCollision = _gameEngine.eventManager.addHandler<struct RType::Protocol::CollisionData>(
+            static_cast<GameEngine::EventType>(GameEngine::Event::GetCollision));
         auto handleGetCollision =
             std::bind(&RType::Client::RTypeClient::getCollisionInformation, this, std::placeholders::_1);
         refHandleCollision.subscribe(handleGetCollision);

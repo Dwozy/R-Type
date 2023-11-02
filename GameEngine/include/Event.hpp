@@ -34,6 +34,7 @@ namespace GameEngine
         GetControllable,
         GetNewEntity,
         GetEntity,
+        SendInput,
         DeleteEntity,
         EnemiesSpawnedEvent,
         EnemiesMoveEvent,
@@ -85,20 +86,20 @@ namespace GameEngine
         /// @param eventType type of the event for the new event handler
         /// @return return a reference to the newly created event handler
         template <class EventData = NoEventData>
-        EventHandler<EventData> &addHandler(Event eventType)
+        EventHandler<EventData> &addHandler(EventType eventType)
         {
             _handlers.insert({eventType, EventHandler<EventData>()});
             return getHandler<EventData>(eventType);
         }
         /// @brief remove an event handler
         /// @param eventType event type of the handler to remove
-        void removeHandler(const Event eventType) { _handlers.erase(eventType); }
+        void removeHandler(const EventType eventType) { _handlers.erase(eventType); }
         /// @brief call all the subscribed functions with the given eventData
         /// @tparam EventData type of the data to be send to subscribed functions when the event is published
         /// @param eventType type of the event to publish
         /// @param eventData data to be given to subscribed functions
         template <class EventData = NoEventData>
-        void publish(const Event eventType, EventData eventData)
+        void publish(const EventType eventType, EventData eventData)
         {
             getHandler<EventData>(eventType).publish(eventData);
         }
@@ -107,14 +108,14 @@ namespace GameEngine
         /// @param eventType type of the event handler to retrive
         /// @return returns a reference to the event handler obtained
         template <class EventData = NoEventData>
-        EventHandler<EventData> &getHandler(const Event eventType)
+        EventHandler<EventData> &getHandler(const EventType eventType)
         {
             return std::any_cast<EventHandler<EventData> &>(_handlers[eventType]);
         }
 
       private:
         /// @brief map that store all the event handlers
-        std::unordered_map<Event, std::any> _handlers;
+        std::unordered_map<EventType, std::any> _handlers;
     };
 } // namespace GameEngine
 

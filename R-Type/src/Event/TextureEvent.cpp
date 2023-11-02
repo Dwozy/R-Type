@@ -22,7 +22,7 @@ namespace RType::Client
             rectTextures.push_back({static_cast<int>(textureData.rectLeft), static_cast<int>(textureData.rectTop),
                 static_cast<int>(textureData.rectWidth), static_cast<int>(textureData.rectHeight)});
             if (_listPathTextureId.find(textureData.idTexture) != _listPathTextureId.end() &&
-                textureData.idTexture != static_cast<uint8_t>(rtype::EntityType::NONE)) {
+                textureData.idTexture != static_cast<uint8_t>(RType::TextureType::NONE)) {
                 GameEngine::Rect<int> textureSize = {static_cast<int>(textureData.rectTextureLeft),
                     static_cast<int>(textureData.rectTextureTop), static_cast<int>(textureData.rectTextureWidth),
                     static_cast<int>(textureData.rectTextureHeight)};
@@ -53,7 +53,7 @@ namespace RType::Client
             rectTextures.push_back({static_cast<int>(textureData.rectLeft), static_cast<int>(textureData.rectTop),
                 static_cast<int>(textureData.rectWidth), static_cast<int>(textureData.rectHeight)});
             if (_listPathTextureId.find(textureData.idTexture) != _listPathTextureId.end() &&
-                textureData.idTexture != static_cast<uint8_t>(rtype::EntityType::NONE)) {
+                textureData.idTexture != static_cast<uint8_t>(RType::TextureType::NONE)) {
                 GameEngine::Rect<int> textureSize = {static_cast<int>(textureData.rectTextureLeft),
                     static_cast<int>(textureData.rectTextureTop), static_cast<int>(textureData.rectTextureWidth),
                     static_cast<int>(textureData.rectTextureHeight)};
@@ -98,7 +98,7 @@ namespace RType::Client
     void RTypeClient::setTextureCallback()
     {
         auto &refHandleTexture =
-            _gameEngine.eventManager.addHandler<struct RType::Protocol::TextureData>(GameEngine::Event::GetTexture);
+            _gameEngine.eventManager.addHandler<struct RType::Protocol::TextureData>(static_cast<GameEngine::EventType> (GameEngine::Event::GetTexture));
         auto handleGetTexture =
             std::bind(&RType::Client::RTypeClient::getTextureInformation, this, std::placeholders::_1);
         refHandleTexture.subscribe(handleGetTexture);

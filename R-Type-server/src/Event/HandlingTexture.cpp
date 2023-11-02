@@ -9,7 +9,7 @@
 
 namespace RType::Server
 {
-    void RTypeServer::handleTextureResponse(struct rtype::Event event)
+    void RTypeServer::handleTextureResponse(struct RType::Event event)
     {
         struct RType::Protocol::TextureResponse response =
             std::any_cast<struct RType::Protocol::TextureResponse>(event.data);

@@ -13,6 +13,7 @@ set(SRCS_CLIENT
     ${CLIENT_FOLDER}/src/Event/DeleteEntityEvent.cpp
     ${CLIENT_FOLDER}/src/Event/MoveEntityEvent.cpp
     ${CLIENT_FOLDER}/src/Event/ShootEvent.cpp
+    ${CLIENT_FOLDER}/src/Event/InputEvent.cpp
     ${CLIENT_FOLDER}/src/Event/TransformEvent.cpp
     ${CLIENT_FOLDER}/src/Event/TextureEvent.cpp
     ${CLIENT_FOLDER}/src/Event/CollisionEvent.cpp

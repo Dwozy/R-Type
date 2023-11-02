@@ -30,12 +30,10 @@ namespace RType::Client
                 GameEngine::Vector2<float>(transformData.dx, transformData.dy)};
             _gameEngine.registry.addComponent<GameEngine::TransformComponent>(entity, tsf);
         } else {
-            transforms[id]->position.x = (fabs(transforms[id]->position.x - transformData.x) < 2)
-                                             ? transforms[id]->position.x
-                                             : transformData.x;
-            transforms[id]->position.y = (fabs(transforms[id]->position.y - transformData.y) < 2)
-                                             ? transforms[id]->position.y
-                                             : transformData.y;
+            transforms[id]->position.x =
+                (fabs(transforms[id]->position.x - transformData.x) < 2) ? transforms[id]->position.x : transformData.x;
+            transforms[id]->position.y =
+                (fabs(transforms[id]->position.y - transformData.y) < 2) ? transforms[id]->position.y : transformData.y;
             transforms[id]->velocity.x = transformData.dx;
             transforms[id]->velocity.y = transformData.dy;
         }
@@ -43,8 +41,8 @@ namespace RType::Client
 
     void RTypeClient::setTransformCallback()
     {
-        auto &refHandleTransform =
-            _gameEngine.eventManager.addHandler<struct RType::Protocol::TransformData>(GameEngine::Event::GetTransform);
+        auto &refHandleTransform = _gameEngine.eventManager.addHandler<struct RType::Protocol::TransformData>(
+            static_cast<GameEngine::EventType>(GameEngine::Event::GetTransform));
         auto handleGetTransform =
             std::bind(&RType::Client::RTypeClient::getTransformInformation, this, std::placeholders::_1);
         refHandleTransform.subscribe(handleGetTransform);

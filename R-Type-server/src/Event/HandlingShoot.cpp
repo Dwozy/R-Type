@@ -11,7 +11,7 @@ namespace RType::Server
 {
 
     void RTypeServer::handleShootType(
-        const std::string &typeShootString, struct RType::Protocol::ShootData shootInfo, uint8_t typeShoot)
+        const std::string &typeShootString, struct RType::Protocol::ShootData shootInfo, RType::TextureType typeShoot)
     {
         GameEngine::Entity shootEntity =
             _gameEngine.prefabManager.createEntityFromPrefab(typeShootString, _gameEngine.registry, false);
@@ -22,7 +22,7 @@ namespace RType::Server
             std::placeholders::_2, std::placeholders::_3);
 
         for (auto &entityTexture : _listIdType) {
-            if (entityTexture.second == static_cast<uint8_t>(rtype::EntityType::PLAYER)) {
+            if (entityTexture.second == static_cast<uint8_t>(RType::TextureType::PLAYER)) {
                 rectPlayer = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[entityTexture.first]
                                  .value()
                                  .textureRects[0];
@@ -38,22 +38,17 @@ namespace RType::Server
 
         shootPos->position = GameEngine::Vector2<float>(shootInfo.x + (rectPlayer.width / 2),
             shootInfo.y + (rectPlayer.height / 2) - (shootCollider.value().collider.height / 2));
-        updateComponentInformation(shootEntity);
-        _listIdType.insert({static_cast<uint16_t>(shootEntity), typeShoot});
+        updateComponentInformation(shootEntity, typeShoot);
         broadcastEntityInformation(shootEntity);
     }
 
-    void RTypeServer::handleShoot(struct rtype::Event event)
+    void RTypeServer::handleShoot(struct RType::Protocol::ShootData shootInfo)
     {
-        struct RType::Protocol::ShootData shootInfo = std::any_cast<RType::Protocol::ShootData>(event.data);
-
         _timers["charged"] = std::chrono::steady_clock::now();
         if (_chargedAttack) {
-            handleShootType(
-                "charged_shoot", shootInfo, static_cast<uint8_t>(RType::Protocol::TextureType::CHARGED_SHOOT));
+            handleShootType("charged_shoot", shootInfo, RType::TextureType::CHARGED_SHOOT);
             _chargedAttack = false;
         } else
-            handleShootType(
-                "simple_shoot", shootInfo, static_cast<uint8_t>(RType::Protocol::TextureType::SIMPLE_SHOOT));
+            handleShootType("simple_shoot", shootInfo, RType::TextureType::SIMPLE_SHOOT);
     }
 } // namespace RType::Server

@@ -38,8 +38,8 @@ namespace RType::Server
             if (selfCol.value().collider.isColliding(
                     selfTsf.value().position, col.value().collider, tsf.value().position)) {
                 struct RType::Protocol::EntityIdData entityId = {.id = static_cast<uint16_t>(i)};
-                struct rtype::Event destroyEvent = {
-                    .packetType = static_cast<uint8_t>(rtype::PacketType::DESTROY), .data = entityId};
+                struct RType::Event destroyEvent = {
+                    .packetType = static_cast<uint8_t>(RType::PacketType::DESTROY), .data = entityId};
                 _eventQueue.push(destroyEvent);
             }
         }
@@ -92,8 +92,8 @@ namespace RType::Server
                         if (_nbPlayers == 0)
                             _nbPlayers = -1;
                         struct RType::Protocol::EntityIdData entityValue = {.id = static_cast<uint16_t>(entityId)};
-                        struct rtype::Event destroyEvent = {
-                            .packetType = static_cast<uint8_t>(rtype::PacketType::DESTROY), .data = entityValue};
+                        struct RType::Event destroyEvent = {
+                            .packetType = static_cast<uint8_t>(RType::PacketType::DESTROY), .data = entityValue};
                         _eventQueue.push(destroyEvent);
                     } else
                         _listLifePoints.at(static_cast<uint16_t>(entityId))--;

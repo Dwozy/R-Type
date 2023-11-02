@@ -25,11 +25,11 @@ namespace GameEngine
         : _eventManager(eventManager)
     {
         _window = std::make_shared<Window>(width, height, title);
-        auto &isOpenHandler = _eventManager.addHandler<bool &>(Event::WindowIsOpen);
-        auto &pollEventHandler = _eventManager.addHandler<PollEventStruct &>(Event::PollEvent);
-        auto &windowCloseHandler = _eventManager.addHandler<SEvent &>(Event::WindowCloseEvent);
-        auto &getWorldMousePosHandler = _eventManager.addHandler<Vector2<float> &>(Event::GetWorldMousePos);
-        auto &WindowSetViewHandler = _eventManager.addHandler<View &>(Event::WindowSetView);
+        auto &isOpenHandler = _eventManager.addHandler<bool &>(static_cast<EventType> (Event::WindowIsOpen));
+        auto &pollEventHandler = _eventManager.addHandler<PollEventStruct &>(static_cast<EventType>  (Event::PollEvent));
+        auto &windowCloseHandler = _eventManager.addHandler<SEvent &>(static_cast<EventType>  (Event::WindowCloseEvent));
+        auto &getWorldMousePosHandler = _eventManager.addHandler<Vector2<float> &>(static_cast<EventType> (Event::GetWorldMousePos));
+        auto &WindowSetViewHandler = _eventManager.addHandler<View &>(static_cast<EventType> (Event::WindowSetView));
 
         _window->setFramerateLimit(60);
         isOpenHandler.subscribe([this](bool &isOpen) { isOpen = this->_window->isOpen(); });
