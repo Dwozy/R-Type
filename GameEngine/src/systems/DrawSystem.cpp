@@ -76,18 +76,21 @@ namespace GameEngine
                 return false;
             });
 
-        for (const auto &item : rend) {
-            if (std::holds_alternative<TextureComponent>(item)) {
-                const auto &tex = std::get<TextureComponent>(item);
-                _window->draw(tex.sprite.getSprite());
-            } else if (std::holds_alternative<TextComponent>(item)) {
-                const auto &tex = std::get<TextComponent>(item);
-                _window->draw(tex.text.getText());
+
+        for (auto &camera : cameras) {
+            if (!camera || !camera->isActive)
+                continue;
+            for (const auto &item : rend) {
+                if (std::holds_alternative<TextureComponent>(item)) {
+                    const auto &tex = std::get<TextureComponent>(item);
+                    _window->draw(tex.sprite.getSprite());
+                } else if (std::holds_alternative<TextComponent>(item)) {
+                    const auto &tex = std::get<TextComponent>(item);
+                    _window->draw(tex.text.getText());
+                }
             }
-        }
-        auto &camera = cameras[0];
-        if (camera)
             _window->setView(camera->view);
+        }
         _window->display();
     }
 } // namespace GameEngine

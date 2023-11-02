@@ -21,6 +21,7 @@
 #include "systems/PressableSystem.hpp"
 #include "systems/CollisionSystem.hpp"
 #include "systems/GravitySystem.hpp"
+#include "systems/CameraSystem.hpp"
 #include "scenes/GameScene.hpp"
 #include "scenes/MainMenuScene.hpp"
 #include "scenes/PauseScene.hpp"
@@ -39,9 +40,7 @@ void Platformer::setGameEngineComponent()
     _gameEngine.registry.registerComponent<GameEngine::GravityComponent>();
 }
 
-void Platformer::setGameEngineCallback()
-{
-}
+void Platformer::setGameEngineCallback() {}
 
 void Platformer::setGameEngineSystem()
 {
@@ -51,23 +50,30 @@ void Platformer::setGameEngineSystem()
     GameEngine::ControlSystem controlSystem;
     GameEngine::CollisionSystem collisionSystem;
     GameEngine::GravitySystem gravitySystem(_gameEngine.deltaTime.getDeltaTime());
+    GameEngine::CameraSystem cameraSystem;
 
     _gameEngine.registry.addSystem<std::function<void(SparseArray<GameEngine::TransformComponent> &,
                                        SparseArray<GameEngine::ControllableComponent> &)>,
         GameEngine::TransformComponent, GameEngine::ControllableComponent>(controlSystem);
-    _gameEngine.registry.addSystem<std::function<void(SparseArray<GameEngine::TransformComponent> &,
-                                       SparseArray<GameEngine::TextureComponent> &, SparseArray<GameEngine::GravityComponent> &)>,
-        GameEngine::TransformComponent, GameEngine::TextureComponent, GameEngine::GravityComponent>(positionSystem);
+    _gameEngine.registry
+        .addSystem<std::function<void(SparseArray<GameEngine::TransformComponent> &,
+                       SparseArray<GameEngine::TextureComponent> &, SparseArray<GameEngine::GravityComponent> &)>,
+            GameEngine::TransformComponent, GameEngine::TextureComponent, GameEngine::GravityComponent>(positionSystem);
 
-    _gameEngine.registry.addSystem<std::function<void(SparseArray<GameEngine::CollisionComponent> &)>,
-    GameEngine::CollisionComponent>(collisionSystem);
+    _gameEngine.registry
+        .addSystem<std::function<void(SparseArray<GameEngine::CollisionComponent> &)>, GameEngine::CollisionComponent>(
+            collisionSystem);
 
     _gameEngine.registry.addSystem<GameEngine::PressableFunction, GameEngine::TransformComponent,
         GameEngine::TextureComponent, GameEngine::PressableComponent>(pressableSystem);
 
-    _gameEngine.registry.addSystem<GameEngine::DrawSystem, GameEngine::TextComponent, GameEngine::TextureComponent, GameEngine::CameraComponent>(
-        drawSystem);
+    _gameEngine.registry.addSystem<GameEngine::DrawSystem, GameEngine::TextComponent, GameEngine::TextureComponent,
+        GameEngine::CameraComponent>(drawSystem);
     _gameEngine.registry.addSystem<GameEngine::GravityFunction, GameEngine::GravityComponent>(gravitySystem);
+
+    _gameEngine.registry.addSystem<
+        std::function<void(SparseArray<GameEngine::CameraComponent> &, SparseArray<GameEngine::TransformComponent> &)>,
+        GameEngine::CameraComponent, GameEngine::TransformComponent>(cameraSystem);
 }
 
 void Platformer::setGameEngineScene()
@@ -79,12 +85,14 @@ void Platformer::setGameEngineScene()
     _gameEngine.sceneManager.loadScene("MainMenu");
 }
 
-void Platformer::setGameEngineTexture() {
+void Platformer::setGameEngineTexture()
+{
     _gameEngine.assetManager.loadTexture("Platformer/assets/image.png", GameEngine::Recti(0, 0, 32, 16));
     _gameEngine.assetManager.loadTexture("Platformer/assets/pata_pata.gif", GameEngine::Recti(7, 8, 17, 20));
 }
 
-void Platformer::setGameEnginePrefab() {
+void Platformer::setGameEnginePrefab()
+{
     _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/Player.json");
     _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/PataPata.json");
     _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/BorderMapDown.json");

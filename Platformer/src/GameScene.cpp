@@ -42,11 +42,15 @@ void GameScene::load()
     std::cout << "Loading GameScene" << std::endl;
     if (_state == GameState::Mainmenu || _state == GameState::Restart) {
         std::cout << "create game from start" << std::endl;
+
         GameEngine::Entity camera = _gameEngine.registry.spawnEntity();
-        GameEngine::CameraComponent cam = {GameEngine::View{GameEngine::Rect<float>(0.0f, 0.0f, 200.0f, 112.5f)}};
+        GameEngine::CameraComponent cam = {GameEngine::View{GameEngine::Rect<float>(0.0f, 0.0f, 400.0f, 225.0f)}};
         auto &refCamera = _gameEngine.registry.addComponent<GameEngine::CameraComponent>(camera, cam);
         _id = _gameEngine.prefabManager.createEntityFromPrefab("player", _gameEngine.registry);
         std::cout << "player is " << _id << std::endl;
+        refCamera->target = _id;
+        refCamera->follow_x = true;
+
         _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[_id].value().addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
                       SparseArray<GameEngine::TransformComponent> &, SparseArray<GameEngine::GravityComponent> &)>, GameEngine::CollisionComponent, GameEngine::TransformComponent, GameEngine::GravityComponent>(_gameEngine.registry, BlockcollisionCallback);
         GameEngine::Entity block = _gameEngine.prefabManager.createEntityFromPrefab("patapata", _gameEngine.registry);

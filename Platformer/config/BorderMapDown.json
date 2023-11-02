@@ -20,8 +20,8 @@
                 "collider": {
                     "left": 0.0,
                     "top": 0.0,
-                    "width": 500.0,
-                    "height": 20.0
+                    "width": 2000.0,
+                    "height": 100.0
                 },
                 "layer": 30
             }

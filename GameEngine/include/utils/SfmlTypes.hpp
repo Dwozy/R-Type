@@ -68,6 +68,24 @@ namespace GameEngine
         /// @brief Returns the wrapped sf::View
         /// @return Reference to the sf::View instance
         const sf::View &getBaseView() const override { return _view; }
+        /// @brief set center of the view
+        /// @param center point to center the view
+        void setCenter(const Vector2<float> &center) override { _view.setCenter(center.x, center.y); }
+        /// @brief get the center of the view
+        /// @return the center of the view
+        Vector2<float> getCenter() const override
+        {
+            auto center = _view.getCenter();
+            return Vector2<float>{center.x, center.y};
+        }
+        /// @brief set a viewport rectangle
+        /// @param startingPoint the point at the up left corner of the viewport rectangle
+        /// @param width the width of the viewport
+        /// @param height the height of the viewport
+        void setViewPort(const Vector2<float> &startingPoint, float width, float height) override
+        {
+            _view.setViewport(sf::FloatRect{startingPoint.x, startingPoint.y, width, height});
+        }
 
       private:
         sf::View _view;
