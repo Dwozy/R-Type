@@ -43,8 +43,8 @@ void GameScene::load()
     if (_state == GameState::Mainmenu || _state == GameState::Restart) {
         std::cout << "create game from start" << std::endl;
 
-        auto camera = _gameEngine.prefabManager.createEntityFromPrefab("main_camera", _gameEngine.registry);
         auto minimap_camera = _gameEngine.prefabManager.createEntityFromPrefab("minimap_camera", _gameEngine.registry);
+        auto camera = _gameEngine.prefabManager.createEntityFromPrefab("main_camera", _gameEngine.registry);
         _id = _gameEngine.prefabManager.createEntityFromPrefab("player", _gameEngine.registry);
         std::cout << "player is " << _id << std::endl;
 
@@ -53,7 +53,13 @@ void GameScene::load()
 
         _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[_id].value().addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
                       SparseArray<GameEngine::TransformComponent> &, SparseArray<GameEngine::GravityComponent> &)>, GameEngine::CollisionComponent, GameEngine::TransformComponent, GameEngine::GravityComponent>(_gameEngine.registry, BlockcollisionCallback);
-        GameEngine::Entity block = _gameEngine.prefabManager.createEntityFromPrefab("patapata", _gameEngine.registry);
+
+        GameEngine::Entity block = _gameEngine.prefabManager.createEntityFromPrefab("box", _gameEngine.registry);
+        auto &blockTransform = _gameEngine.registry.getComponent<GameEngine::TransformComponent>()[block];
+        blockTransform->position = {50, 50};
+
+        _gameEngine.prefabManager.createEntityFromPrefab("background", _gameEngine.registry);
+
         // petit probleme quand le rect du player est plus grand que le sol il se tp full sur un side
         GameEngine::Entity block2 = _gameEngine.prefabManager.createEntityFromPrefab("border_map_down", _gameEngine.registry);
     }

@@ -1,0 +1,26 @@
+{
+    "name": "background",
+    "components": [
+        {
+            "type": "TransformComponent",
+            "value": {
+                "position": {
+                    "x": -1000.0,
+                    "y": -100.0
+                },
+                "velocity": {
+                    "x": 0.0,
+                    "y": 0.0
+                }
+            }
+        },
+        {
+            "type": "TextureComponent",
+            "value": {
+                "texturePath": "Platformer/assets/dark_city_background.png",
+                "textureRects": [],
+                "renderLayer": 0
+            }
+        }
+    ]
+}
