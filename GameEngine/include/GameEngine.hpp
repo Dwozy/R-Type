@@ -40,7 +40,7 @@ namespace GameEngine
       public:
 #ifdef DEBUG
         /// @brief Constructor for the game engine.
-        /// @param maxEntities Maximum number of entities at once. Default value is 512.
+        /// @param maxEntities Maximum number of entities at once. Default value is 1024.
         GameEngine(std::size_t maxEntities = 512) : registry(maxEntities), prefabManager(assetManager), debugMenu(registry)
         {
             deltaTime.update();
@@ -48,11 +48,9 @@ namespace GameEngine
             assetManager.loadTexture("R-Type/assets/r-typesheet1.gif", {168, 135, 47, 15});
         };
 #else
-        GameEngine(std::size_t maxEntities = 512) : registry(maxEntities), prefabManager(assetManager)
+        GameEngine(std::size_t maxEntities = 1024) : registry(maxEntities), prefabManager(assetManager)
         {
             deltaTime.update();
-            assetManager.loadTexture("R-Type/assets/image.png", {0, 0, 32, 16});
-            assetManager.loadTexture("R-Type/assets/r-typesheet1.gif", {168, 135, 47, 15});
         };
 #endif
         /// @brief Default destructor.

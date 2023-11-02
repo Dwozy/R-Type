@@ -97,7 +97,7 @@ namespace GameEngine
         Entity spawnEntity(const std::size_t &id)
         {
             if (id > _maxEntities)
-                throw;
+                throw Error::InvalidEntityIdError();
             if (!_emptyIndexes.empty()) {
                 auto it = std::lower_bound(_emptyIndexes.begin(), _emptyIndexes.end(), id);
                 if (it != _emptyIndexes.end())
@@ -116,9 +116,9 @@ namespace GameEngine
         Entity getEntityById(const std::size_t &id) const
         {
             if (id > _nbEntities || id > _maxEntities)
-                throw;
+                throw Error::InvalidEntityIdError();
             if (std::binary_search(_emptyIndexes.begin(), _emptyIndexes.end(), id))
-                throw;
+                throw Error::InvalidEntityIdError();
             return Entity(id);
         };
         /// @brief Kills the entity given, it destroys all the components to this entity.

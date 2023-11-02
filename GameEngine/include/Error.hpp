@@ -62,6 +62,22 @@ namespace Error
 
     /**
      * @brief
+     * TooMuchEntitiesError Class Error
+     * Error thrown when exceeding the maximum number of entities
+     */
+    class InvalidEntityIdError : public std::exception
+    {
+      public:
+        InvalidEntityIdError();
+        ~InvalidEntityIdError();
+        const char *what() const noexcept override;
+
+      private:
+        std::string message;
+    };
+
+    /**
+     * @brief
      * InvalidSceneNameError Class Error
      * Error thrown when registering a scene with an invalid name or already used name.
      */

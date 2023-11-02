@@ -12,6 +12,7 @@
 #include <SFML/Graphics/Rect.hpp>
 #include <algorithm>
 #include <cmath>
+#include <iostream>
 
 namespace GameEngine
 {
@@ -62,7 +63,7 @@ namespace GameEngine
         /// @param pos
         /// @param rect
         /// @param rectPos
-        void handleCollisionFromRect(Vector2<T> &pos, const Rect<T> &rect, const Vector2<T> &rectPos)
+        void  handleCollisionFromRect(Vector2<T> &pos, const Rect<T> &rect, const Vector2<T> &rectPos)
         {
             if (!isColliding(pos, rect, rectPos))
                 return;
@@ -70,8 +71,7 @@ namespace GameEngine
             Vector2<T> rectCenter(rectPos.x + (rect.width / 2), rectPos.y + (rect.height / 2));
             T diffX = center.x - rectCenter.x;
             T diffY = center.y - rectCenter.y;
-
-            if (std::abs(diffX / width) > std::abs(diffY / height)) {
+            if (std::abs(diffX / width) < std::abs(diffY / height)) {
                 if (diffX < 0)
                     pos.x = rectPos.x - width;
                 else

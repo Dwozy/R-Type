@@ -19,10 +19,10 @@ namespace rtype
     static const std::size_t MAX_BUFFER_SIZE = 65535;
     static const std::size_t HEADER_SIZE = 8;
     static const uint32_t MAGIC_NUMBER = 0xA54CDEF5;
-    static const float PLAYER_SPEED = 25.0f;
+    static const float PLAYER_SPEED = 100.0f;
 
     enum class PacketType : uint8_t {
-        ROOM = 1,
+        ROOM = 10,
         STRING,
         ENTITY,
         CONNEXION,
@@ -30,14 +30,15 @@ namespace rtype
         MOVE,
         SHOOT,
         CREATE_PLAYER,
-        DISCONNEXION
+        DESTROY
     };
 
-    enum class TextureType : uint8_t { NONE = 1, PLAYER, SHOOT, MOB };
+    enum class EntityType : uint8_t { NONE = 1, PLAYER, SIMPLE_SHOOT, CHARGED_SHOOT, MOB };
 
     struct Event
     {
         uint8_t packetType;
+        unsigned short port;
         std::any data;
     };
 
@@ -45,6 +46,7 @@ namespace rtype
     {
         uint16_t id;
         uint8_t idTexture;
+        // uint8_t lifePoint;
         float positionX;
         float positionY;
         float directionX;
