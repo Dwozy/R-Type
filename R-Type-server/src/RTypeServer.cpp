@@ -85,6 +85,7 @@ RType::Server::RTypeServer::RTypeServer(unsigned short port)
     _gameEngine.registry.registerComponent<GameEngine::CollisionComponent>();
     _gameEngine.registry.registerComponent<GameEngine::TextureComponent>();
     _gameEngine.registry.registerComponent<GameEngine::ControllableComponent>();
+    _gameEngine.registry.registerComponent<GameEngine::GravityComponent>();
 
     _gameEngine.prefabManager.loadPrefabFromFile("config/NonPlayerStarship.json");
     _gameEngine.prefabManager.loadPrefabFromFile("config/Player.json");
@@ -144,8 +145,8 @@ RType::Server::RTypeServer::RTypeServer(unsigned short port)
     pos = 1;
     GameEngine::PositionSystem positionSystem(_gameEngine.deltaTime.getDeltaTime());
     _gameEngine.registry.addSystem<
-        std::function<void(SparseArray<GameEngine::TransformComponent> &, SparseArray<GameEngine::TextureComponent> &)>,
-        GameEngine::TransformComponent, GameEngine::TextureComponent>(positionSystem);
+        std::function<void(SparseArray<GameEngine::TransformComponent> &, SparseArray<GameEngine::TextureComponent> &, SparseArray<GameEngine::GravityComponent> &)>,
+        GameEngine::TransformComponent, GameEngine::TextureComponent, GameEngine::GravityComponent>(positionSystem);
 
     _isRunning = true;
     std::thread network(&RType::Server::RTypeServer::startNetwork, this, std::ref(_isRunning));

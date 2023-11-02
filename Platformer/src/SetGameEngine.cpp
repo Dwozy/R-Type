@@ -56,8 +56,8 @@ void Platformer::setGameEngineSystem()
                                        SparseArray<GameEngine::ControllableComponent> &)>,
         GameEngine::TransformComponent, GameEngine::ControllableComponent>(controlSystem);
     _gameEngine.registry.addSystem<std::function<void(SparseArray<GameEngine::TransformComponent> &,
-                                       SparseArray<GameEngine::TextureComponent> &)>,
-        GameEngine::TransformComponent, GameEngine::TextureComponent>(positionSystem);
+                                       SparseArray<GameEngine::TextureComponent> &, SparseArray<GameEngine::GravityComponent> &)>,
+        GameEngine::TransformComponent, GameEngine::TextureComponent, GameEngine::GravityComponent>(positionSystem);
 
     _gameEngine.registry.addSystem<std::function<void(SparseArray<GameEngine::CollisionComponent> &)>,
     GameEngine::CollisionComponent>(collisionSystem);
@@ -67,7 +67,7 @@ void Platformer::setGameEngineSystem()
 
     _gameEngine.registry.addSystem<GameEngine::DrawSystem, GameEngine::TextComponent, GameEngine::TextureComponent>(
         drawSystem);
-    _gameEngine.registry.addSystem<GameEngine::GravityFunction, GameEngine::TransformComponent, GameEngine::GravityComponent>(gravitySystem);
+    _gameEngine.registry.addSystem<GameEngine::GravityFunction, GameEngine::GravityComponent>(gravitySystem);
 }
 
 void Platformer::setGameEngineScene()

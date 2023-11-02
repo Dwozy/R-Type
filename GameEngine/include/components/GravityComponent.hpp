@@ -14,6 +14,7 @@ namespace GameEngine
     struct GravityComponent
     {
         Vector2<float> gravityForce;
+        Vector2<float> cumulatedGVelocity;
         bool isActive;
     };
 }

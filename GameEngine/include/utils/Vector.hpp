@@ -31,7 +31,7 @@ namespace GameEngine
         /// @return the length of the vector
         float length() const { return (sqrt(pow(x, 2) + pow(y, 2))); };
         /// @brief normalize the vector
-        /// @return the vector normalized
+        /// @return a normalized copy of the vector
         Vector2 normalize() const { return Vector2(x / length(), y / length()); };
         /// @brief calculate the dot product of the vector
         /// @param vec the vector to calculate the dot product with

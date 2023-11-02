@@ -9,20 +9,19 @@
 
 namespace GameEngine
 {
-    void GravitySystem::operator()(SparseArray<TransformComponent> &transforms, SparseArray<GravityComponent> &gravity)
+    void GravitySystem::operator()(SparseArray<GravityComponent> &gravity)
     {
         _currentDeltaTime += _deltaTime;
         for (size_t i = 0; i < gravity.size(); ++i)
         {
-            auto &tsf = transforms[i];
             auto &grav = gravity[i];
             if (!(_currentDeltaTime >= 0.001))
                 return;
             _currentDeltaTime = 0;
-            if (tsf && grav) {
+            if (grav) {
                 // std::cout << " x = " << tsf->position.x << " y = " << tsf->position.y << " velocity.y = "<< tsf->velocity.y << std::endl;
                 if (grav->isActive == true)
-                    tsf->velocity += grav->gravityForce;
+                    grav->cumulatedGVelocity += grav->gravityForce;
             }
         }
     }

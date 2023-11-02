@@ -29,8 +29,7 @@ namespace GameEngine
                 if (tsf.value().velocity.x == 0.0f && tsf.value().velocity.y == 0.0f)
                     return;
                 tsf.value().velocity = tsf.value().velocity.normalize();
-                tsf.value().velocity.x = tsf.value().velocity.x * con.value().speed;
-                tsf.value().velocity.y = tsf.value().velocity.y * con.value().speed;
+                tsf.value().velocity *= con.value().speed;
             }
         }
     }

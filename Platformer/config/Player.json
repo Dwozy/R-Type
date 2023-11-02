@@ -15,6 +15,16 @@
             }
         },
         {
+            "type": "ControllableComponent",
+            "value": {
+                "key_up": "No_Key",
+                "key_left": "Q",
+                "key_down": "No_Key",
+                "key_right": "D",
+                "speed": 100.0
+            }
+        },
+        {
             "type": "TextureComponent",
             "value": {
                 "texturePath": "Platformer/assets/image.png",
