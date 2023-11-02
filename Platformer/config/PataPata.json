@@ -1,12 +1,12 @@
 {
-    "name": "player",
+    "name": "patapata",
     "components": [
         {
             "type": "TransformComponent",
             "value": {
                 "position": {
                     "x": 0.0,
-                    "y": 0.0
+                    "y": 100.0
                 },
                 "velocity": {
                     "x": 0.0,
@@ -17,24 +17,14 @@
         {
             "type": "TextureComponent",
             "value": {
-                "texturePath": "Platformer/assets/image.png",
+                "texturePath": "Platformer/assets/pata_pata.gif",
                 "textureRects": [{
-                    "left": 0.0,
-                    "top": 0.0,
-                    "width": 32.0,
-                    "height": 16.0
+                    "left": 7.0,
+                    "top": 8.0,
+                    "width": 17.0,
+                    "height": 20.0
                 }],
                 "renderLayer": 2
-            }
-        },
-        {
-            "type" : "GravityComponent",
-            "value" : {
-                "gravityForce" : {
-                    "x": 0.0,
-                    "y": 2
-                },
-                "isActive" : true
             }
         },
         {
@@ -43,8 +33,8 @@
                 "collider": {
                     "left": 0.0,
                     "top": 0.0,
-                    "width": 32.0,
-                    "height": 16.0
+                    "width": 17.0,
+                    "height": 20.0
                 },
                 "layer": 30
             }

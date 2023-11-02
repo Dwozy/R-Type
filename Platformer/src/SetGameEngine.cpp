@@ -67,11 +67,12 @@ void Platformer::setGameEngineSystem()
 
     _gameEngine.registry.addSystem<GameEngine::DrawSystem, GameEngine::TextComponent, GameEngine::TextureComponent>(
         drawSystem);
+    _gameEngine.registry.addSystem<GameEngine::GravityFunction, GameEngine::TransformComponent, GameEngine::TextureComponent, GameEngine::GravityComponent>(gravitySystem);
 }
 
 void Platformer::setGameEngineScene()
 {
-    _gameEngine.sceneManager.registerScene("Game", std::make_unique<GameScene>(_gameEngine, _state));
+    _gameEngine.sceneManager.registerScene("Game", std::make_unique<GameScene>(_gameEngine, _state, _id));
     _gameEngine.sceneManager.registerScene("Pause", std::make_unique<PauseScene>());
     _gameEngine.sceneManager.registerScene("MainMenu", std::make_unique<MainMenuScene>());
     _gameEngine.sceneManager.registerScene("WinLose", std::make_unique<WinLoseScene>(_state));
@@ -80,10 +81,13 @@ void Platformer::setGameEngineScene()
 
 void Platformer::setGameEngineTexture() {
     _gameEngine.assetManager.loadTexture("Platformer/assets/image.png", GameEngine::Recti(0, 0, 32, 16));
+    _gameEngine.assetManager.loadTexture("Platformer/assets/pata_pata.gif", GameEngine::Recti(7, 8, 17, 20));
 }
 
 void Platformer::setGameEnginePrefab() {
     _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/Player.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/PataPata.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/BorderMapDown.json");
 }
 
 void Platformer::setGameEngine()

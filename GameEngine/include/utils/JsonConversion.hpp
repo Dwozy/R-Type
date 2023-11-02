@@ -135,6 +135,7 @@ namespace GameEngine
     void from_json(const json &j, GravityComponent &gc)
     {
         j.at("gravityForce").get_to(gc.gravityForce);
+        j.at("isActive").get_to(gc.isActive);
     }
 } // namespace GameEngine
 

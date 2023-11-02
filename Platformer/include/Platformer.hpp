@@ -22,19 +22,24 @@ enum class GameState {
 class Platformer {
     public:
         Platformer();
-        ~Platformer();
+        ~Platformer() = default;
         void setGameEngineComponent();
         void setGameEngineCallback();
         void setGameEngineSystem();
         void setGameEngineScene();
         void setGameEngine();
         void handleScreenChange();
+        void handlePlayerMove();
+        void handlePlayerjump();
         void setGameEngineTexture();
         void setGameEnginePrefab();
         void gameLoop();
     private:
         GameState _state;
         GameEngine::GameEngine _gameEngine;
+        std::size_t _id;
+        std::size_t _score;
+        std::size_t _hp;
 };
 
 #endif /* !PLATFORMER_HPP_ */

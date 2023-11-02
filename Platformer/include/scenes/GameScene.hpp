@@ -13,13 +13,14 @@
 
 class GameScene : public GameEngine::IScene {
     public:
-        GameScene(GameEngine::GameEngine &gameEngine, GameState &state) : _gameEngine(gameEngine), _state(state) {};
+        GameScene(GameEngine::GameEngine &gameEngine, GameState &state, size_t &id) : _gameEngine(gameEngine), _state(state), _id(id) {};
         ~GameScene() = default;
         void load() override;
         void unload() override;
     private:
         GameEngine::GameEngine &_gameEngine;
         GameState &_state;
+        size_t &_id;
 };
 
 #endif /* !GAMESCENE_HPP_ */

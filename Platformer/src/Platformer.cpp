@@ -9,12 +9,32 @@
 
 Platformer::Platformer()
 {
+    // spawn l'entity camera me fait quelque probleme avec l'entity player
+    // GameEngine::Entity camera = _gameEngine.registry.spawnEntity();
+    // GameEngine::CameraComponent cam = {GameEngine::View{GameEngine::Rect<float>(0.0f, 0.0f, 200.0f, 200.0f)}};
+    // auto &refCamera = _gameEngine.registry.addComponent<GameEngine::CameraComponent>(camera, cam);
     _state = GameState::Mainmenu;
     setGameEngine();
     gameLoop();
 }
 
-Platformer::~Platformer()
+void Platformer::handlePlayerjump()
+{
+    static bool canJump = true;
+    if (_state != GameState::Game)
+        return;
+    auto &transforms = _gameEngine.registry.getComponent<GameEngine::TransformComponent>();
+    if (!transforms[_id].has_value())
+        return;
+    if (GameEngine::InputManager::isKeyPressed(GameEngine::Input::Keyboard::Space) == true && canJump == true) {
+        transforms[_id]->velocity.y = -100;
+        canJump = false;
+    }
+    if (GameEngine::InputManager::isKeyReleased(GameEngine::Input::Keyboard::Space) == true)
+        canJump = true;
+}
+
+void Platformer::handlePlayerMove()
 {
 }
 
@@ -33,6 +53,8 @@ void Platformer::gameLoop()
         }
         _gameEngine.registry.runSystems();
         handleScreenChange();
+        handlePlayerjump();
+        handlePlayerMove();
         _gameEngine.eventManager.publish<bool &>(GameEngine::Event::WindowIsOpen, isOpen);
     }
 }

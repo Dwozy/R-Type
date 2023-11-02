@@ -29,8 +29,6 @@ namespace GameEngine
             return std::pair(std::type_index(typeid(CollisionComponent)), json.get<CollisionComponent>());
         };
         _componentConverters["GravityComponent"] = [](json json) {
-            std::cout << json.get<GravityComponent>().gravityForce.x << std::endl;
-            std::cout << json.get<GravityComponent>().gravityForce.y << std::endl;
             return std::pair(std::type_index(typeid(GravityComponent)), json.get<GravityComponent>());
         };
 

@@ -21,8 +21,9 @@ namespace GameEngine
                 return;
             _currentDeltaTime = 0;
             if (tsf && grav) {
-                std::cout << " x = " << tsf->position.x << " y = " << tsf->position.y << std::endl;
-                tsf->velocity += grav->gravityForce;
+                // std::cout << " x = " << tsf->position.x << " y = " << tsf->position.y << " velocity.y = "<< tsf->velocity.y << std::endl;
+                if (grav->isActive == true)
+                    tsf->velocity += grav->gravityForce;
             }
             if (tsf && tex)
                 tex.value().sprite.setPosition(tsf.value().position);
