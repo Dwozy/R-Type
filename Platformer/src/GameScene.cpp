@@ -42,6 +42,9 @@ void GameScene::load()
     std::cout << "Loading GameScene" << std::endl;
     if (_state == GameState::Mainmenu || _state == GameState::Restart) {
         std::cout << "create game from start" << std::endl;
+        GameEngine::Entity camera = _gameEngine.registry.spawnEntity();
+        GameEngine::CameraComponent cam = {GameEngine::View{GameEngine::Rect<float>(0.0f, 0.0f, 200.0f, 112.5f)}};
+        auto &refCamera = _gameEngine.registry.addComponent<GameEngine::CameraComponent>(camera, cam);
         _id = _gameEngine.prefabManager.createEntityFromPrefab("player", _gameEngine.registry);
         std::cout << "player is " << _id << std::endl;
         _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[_id].value().addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,

@@ -10,9 +10,6 @@
 Platformer::Platformer()
 {
     // spawn l'entity camera me fait quelque probleme avec l'entity player
-    // GameEngine::Entity camera = _gameEngine.registry.spawnEntity();
-    // GameEngine::CameraComponent cam = {GameEngine::View{GameEngine::Rect<float>(0.0f, 0.0f, 200.0f, 200.0f)}};
-    // auto &refCamera = _gameEngine.registry.addComponent<GameEngine::CameraComponent>(camera, cam);
     _state = GameState::Mainmenu;
     setGameEngine();
     gameLoop();

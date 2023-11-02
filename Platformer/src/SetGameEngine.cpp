@@ -45,7 +45,7 @@ void Platformer::setGameEngineCallback()
 
 void Platformer::setGameEngineSystem()
 {
-    auto drawSystem = std::make_shared<GameEngine::DrawSystem>(_gameEngine.eventManager, 1920, 1080, "GAMING");
+    auto drawSystem = std::make_shared<GameEngine::DrawSystem>(_gameEngine.eventManager, 1920, 1080, "SCP");
     GameEngine::PositionSystem positionSystem(_gameEngine.deltaTime.getDeltaTime());
     GameEngine::PressableSystem pressableSystem(_gameEngine.eventManager);
     GameEngine::ControlSystem controlSystem;
@@ -65,7 +65,7 @@ void Platformer::setGameEngineSystem()
     _gameEngine.registry.addSystem<GameEngine::PressableFunction, GameEngine::TransformComponent,
         GameEngine::TextureComponent, GameEngine::PressableComponent>(pressableSystem);
 
-    _gameEngine.registry.addSystem<GameEngine::DrawSystem, GameEngine::TextComponent, GameEngine::TextureComponent>(
+    _gameEngine.registry.addSystem<GameEngine::DrawSystem, GameEngine::TextComponent, GameEngine::TextureComponent, GameEngine::CameraComponent>(
         drawSystem);
     _gameEngine.registry.addSystem<GameEngine::GravityFunction, GameEngine::GravityComponent>(gravitySystem);
 }

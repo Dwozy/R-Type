@@ -45,7 +45,7 @@ namespace GameEngine
         WindowSetViewHandler.subscribe([this](View &view) { this->_window->setView(view); });
     }
 
-    void DrawSystem::operator()(SparseArray<TextComponent> &texts, SparseArray<TextureComponent> &textures)
+    void DrawSystem::operator()(SparseArray<TextComponent> &texts, SparseArray<TextureComponent> &textures, SparseArray<CameraComponent> &cameras)
     {
         std::vector<std::variant<TextureComponent, TextComponent>> rend;
         _window->clear();
@@ -85,6 +85,9 @@ namespace GameEngine
                 _window->draw(tex.text.getText());
             }
         }
+        auto &camera = cameras[0];
+        if (camera)
+            _window->setView(camera->view);
         _window->display();
     }
 } // namespace GameEngine

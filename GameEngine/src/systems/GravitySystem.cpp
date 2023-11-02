@@ -17,12 +17,12 @@ namespace GameEngine
             auto &grav = gravity[i];
             if (!(_currentDeltaTime >= 0.001))
                 return;
-            _currentDeltaTime = 0;
             if (grav) {
                 // std::cout << " x = " << tsf->position.x << " y = " << tsf->position.y << " velocity.y = "<< tsf->velocity.y << std::endl;
                 if (grav->isActive == true)
                     grav->cumulatedGVelocity += grav->gravityForce;
             }
         }
+        _currentDeltaTime = 0;
     }
 }
