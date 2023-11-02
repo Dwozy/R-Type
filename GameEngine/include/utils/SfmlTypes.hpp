@@ -60,6 +60,8 @@ namespace GameEngine
     class View : public IView<sf::View>
     {
       public:
+        /// @brief default constructor
+        View() = default;
         /// @brief Constructor for View
         /// @param rect The rectangle defining the initial position and size of the view
         View(const Rect<float> &rect) : _view{sf::Rect<float>{rect.left, rect.top, rect.width, rect.height}} {};

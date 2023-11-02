@@ -96,6 +96,8 @@ void Platformer::setGameEnginePrefab()
     _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/Player.json");
     _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/PataPata.json");
     _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/BorderMapDown.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/MainCam.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/MinimapCam.json");
 }
 
 void Platformer::setGameEngine()

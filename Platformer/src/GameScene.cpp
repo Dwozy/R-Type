@@ -43,13 +43,13 @@ void GameScene::load()
     if (_state == GameState::Mainmenu || _state == GameState::Restart) {
         std::cout << "create game from start" << std::endl;
 
-        GameEngine::Entity camera = _gameEngine.registry.spawnEntity();
-        GameEngine::CameraComponent cam = {GameEngine::View{GameEngine::Rect<float>(0.0f, 0.0f, 400.0f, 225.0f)}};
-        auto &refCamera = _gameEngine.registry.addComponent<GameEngine::CameraComponent>(camera, cam);
+        auto camera = _gameEngine.prefabManager.createEntityFromPrefab("main_camera", _gameEngine.registry);
+        auto minimap_camera = _gameEngine.prefabManager.createEntityFromPrefab("minimap_camera", _gameEngine.registry);
         _id = _gameEngine.prefabManager.createEntityFromPrefab("player", _gameEngine.registry);
         std::cout << "player is " << _id << std::endl;
-        refCamera->target = _id;
-        refCamera->follow_x = true;
+
+        auto &camComponent = _gameEngine.registry.getComponent<GameEngine::CameraComponent>()[camera];
+        camComponent->target = _id;
 
         _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[_id].value().addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
                       SparseArray<GameEngine::TransformComponent> &, SparseArray<GameEngine::GravityComponent> &)>, GameEngine::CollisionComponent, GameEngine::TransformComponent, GameEngine::GravityComponent>(_gameEngine.registry, BlockcollisionCallback);

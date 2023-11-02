@@ -31,6 +31,9 @@ namespace GameEngine
         _componentConverters["GravityComponent"] = [](json json) {
             return std::pair(std::type_index(typeid(GravityComponent)), json.get<GravityComponent>());
         };
+        _componentConverters["CameraComponent"] = [](json json) {
+            return std::pair(std::type_index(typeid(CameraComponent)), json.get<CameraComponent>());
+        };
 
         _componentAdders[typeid(TransformComponent)] = [](Registry &registry, const std::any &component,
                                                            Entity entity) {
@@ -50,6 +53,10 @@ namespace GameEngine
         _componentAdders[typeid(GravityComponent)] = [](Registry &registry, const std::any &component,
                                                               Entity entity) {
             return registry.addComponent(entity, std::any_cast<GravityComponent>(component));
+        };
+        _componentAdders[typeid(CameraComponent)] = [](Registry &registry, const std::any &component,
+                                                              Entity entity) {
+            return registry.addComponent(entity, std::any_cast<CameraComponent>(component));
         };
     }
 

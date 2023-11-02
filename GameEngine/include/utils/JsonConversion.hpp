@@ -137,6 +137,25 @@ namespace GameEngine
         j.at("gravityForce").get_to(gc.gravityForce);
         j.at("isActive").get_to(gc.isActive);
     }
+
+    /// @brief Function to convert a json object to a CameraComponent
+    /// @param j reference to the json object
+    /// @param cc reference to the camera component
+    void from_json(const json &j, CameraComponent &cc)
+    {
+        auto rect = j.at("cameraView").get<Rect<float>>();
+        cc.view = GameEngine::View(rect);
+        if (j.contains("cameraViewport")) {
+            rect = j.at("cameraViewport").get<Rect<float>>();
+            cc.view.setViewPort({rect.left, rect.top}, rect.width, rect.height);
+        }
+        if (j.contains("follow_x"))
+            j.at("follow_x").get_to(cc.follow_x);
+        if (j.contains("follow_y"))
+            j.at("follow_y").get_to(cc.follow_y);
+        if (j.contains("isActive"))
+            j.at("isActive").get_to(cc.isActive);
+    }
 } // namespace GameEngine
 
 #endif /* !JSONCONVERSION_HPP_ */
