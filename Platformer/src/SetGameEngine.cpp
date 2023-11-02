@@ -92,6 +92,7 @@ void Platformer::setGameEngineTexture()
     _gameEngine.assetManager.loadTexture("Platformer/assets/SCP-745.png", GameEngine::Recti(0, 64, 64, 64));
     _gameEngine.assetManager.loadTexture("Platformer/assets/box.png", GameEngine::Recti(0, 0, 32, 32));
     _gameEngine.assetManager.loadTexture("Platformer/assets/dark_city_background.png", GameEngine::Recti(0, 0, 5000, 500));
+    _gameEngine.assetManager.loadTexture("Platformer/assets/Gunner_Black_Run.png", GameEngine::Recti(0, 0, 48, 48));
 }
 
 void Platformer::setGameEnginePrefab()
@@ -103,6 +104,7 @@ void Platformer::setGameEnginePrefab()
     _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/MinimapCam.json");
     _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/Box.json");
     _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/Background.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/Enemy.json");
 }
 
 void Platformer::setGameEngine()

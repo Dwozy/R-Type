@@ -60,6 +60,10 @@ void GameScene::load()
 
         _gameEngine.prefabManager.createEntityFromPrefab("background", _gameEngine.registry);
 
+        auto enemy = _gameEngine.prefabManager.createEntityFromPrefab("enemy", _gameEngine.registry);
+        _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[enemy].value().addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
+                      SparseArray<GameEngine::TransformComponent> &, SparseArray<GameEngine::GravityComponent> &)>, GameEngine::CollisionComponent, GameEngine::TransformComponent, GameEngine::GravityComponent>(_gameEngine.registry, BlockcollisionCallback);
+
         // petit probleme quand le rect du player est plus grand que le sol il se tp full sur un side
         GameEngine::Entity block2 = _gameEngine.prefabManager.createEntityFromPrefab("border_map_down", _gameEngine.registry);
     }
