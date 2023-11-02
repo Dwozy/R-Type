@@ -28,6 +28,7 @@ namespace GameEngine
         PollEvent,
         GetWorldMousePos,
         WindowSetView,
+        SetFpsLimitEvent,
         GetTransform,
         GetCollision,
         GetTexture,

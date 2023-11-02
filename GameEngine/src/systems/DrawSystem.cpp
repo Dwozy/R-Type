@@ -21,7 +21,8 @@
 namespace GameEngine
 {
 #ifdef DEBUG
-    DrawSystem::DrawSystem(EventManager &eventManager, Debug::DebugMenu &debugMenu, int width, int height, std::string title)
+    DrawSystem::DrawSystem(
+        EventManager &eventManager, Debug::DebugMenu &debugMenu, int width, int height, std::string title)
         : _eventManager(eventManager), _debugMenu(debugMenu)
     {
         _window = std::make_shared<Window>(_debugMenu, width, height, title);
@@ -51,8 +52,9 @@ namespace GameEngine
         auto &windowCloseHandler = _eventManager.addHandler<SEvent &>(Event::WindowCloseEvent);
         auto &getWorldMousePosHandler = _eventManager.addHandler<Vector2<float> &>(Event::GetWorldMousePos);
         auto &WindowSetViewHandler = _eventManager.addHandler<View &>(Event::WindowSetView);
+        auto &SetFpsLimitHandler = _eventManager.addHandler<const float &>(Event::SetFpsLimitEvent);
 
-        _window->setFramerateLimit(60);
+        _window->setFramerateLimit(DEFAULT_FPS_LIMIT);
         isOpenHandler.subscribe([this](bool &isOpen) { isOpen = this->_window->isOpen(); });
         pollEventHandler.subscribe(
             [this](PollEventStruct &pollEvent) { pollEvent.isEvent = _window->pollEvent(pollEvent.event); });
@@ -64,6 +66,7 @@ namespace GameEngine
             pos = this->_window->mapPixelToCoords(Input::Mouse::getPosition(*this->_window));
         });
         WindowSetViewHandler.subscribe([this](View &view) { this->_window->setView(view); });
+        SetFpsLimitHandler.subscribe([this](const float &newFpsLimit) { this->_setFpsLimit(newFpsLimit); });
     }
 
     void DrawSystem::operator()(SparseArray<TextComponent> &texts, SparseArray<TextureComponent> &textures)
@@ -112,4 +115,7 @@ namespace GameEngine
 #endif
         _window->display();
     }
+
+    void DrawSystem::_setFpsLimit(const float &newFpsLimit) { _window->setFramerateLimit(newFpsLimit); }
+
 } // namespace GameEngine

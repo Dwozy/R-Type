@@ -50,7 +50,8 @@ namespace Debug
         if (_registry.isComponentRegistered<GameEngine::TextureComponent>()) {
             static int currentComponent = 0;
             ImGui::BeginGroup();
-            SparseArray<GameEngine::TextureComponent> &textures = _registry.getComponent<GameEngine::TextureComponent>();
+            SparseArray<GameEngine::TextureComponent> &textures =
+                _registry.getComponent<GameEngine::TextureComponent>();
             _showComponentList<GameEngine::TextureComponent>(textures, currentComponent);
             ImGui::SameLine();
             ImGui::BeginGroup();
@@ -136,24 +137,24 @@ namespace Debug
         if (_registry.isComponentRegistered<GameEngine::PressableComponent>()) {
             static int currentComponent = 0;
             ImGui::BeginGroup();
-            SparseArray<GameEngine::PressableComponent> &pressables = _registry.getComponent<GameEngine::PressableComponent>();
+            SparseArray<GameEngine::PressableComponent> &pressables =
+                _registry.getComponent<GameEngine::PressableComponent>();
             _showComponentList<GameEngine::PressableComponent>(pressables, currentComponent);
             ImGui::SameLine();
             ImGui::BeginGroup();
             if (pressables[currentComponent]) {
-                switch(pressables[currentComponent]->state)
-                {
-                    case GameEngine::PressableState::defaultState:
-                        ImGui::Text("State: Default");
-                        break;
-                    case GameEngine::PressableState::hoveredState:
-                        ImGui::Text("State: Hovered");
-                        break;
-                    case GameEngine::PressableState::pressedState:
-                        ImGui::Text("State: Pressed");
-                        break;
-                    default:
-                        ImGui::Text("State: Undifined");
+                switch (pressables[currentComponent]->state) {
+                case GameEngine::PressableState::defaultState:
+                    ImGui::Text("State: Default");
+                    break;
+                case GameEngine::PressableState::hoveredState:
+                    ImGui::Text("State: Hovered");
+                    break;
+                case GameEngine::PressableState::pressedState:
+                    ImGui::Text("State: Pressed");
+                    break;
+                default:
+                    ImGui::Text("State: Undifined");
                 }
             }
             ImGui::EndGroup();
@@ -192,7 +193,8 @@ namespace Debug
         if (_registry.isComponentRegistered<GameEngine::ControllableComponent>()) {
             static int currentComponent = 0;
             ImGui::BeginGroup();
-            SparseArray<GameEngine::ControllableComponent> &controllables = _registry.getComponent<GameEngine::ControllableComponent>();
+            SparseArray<GameEngine::ControllableComponent> &controllables =
+                _registry.getComponent<GameEngine::ControllableComponent>();
             _showComponentList<GameEngine::ControllableComponent>(controllables, currentComponent);
             ImGui::SameLine();
             ImGui::BeginGroup();
@@ -207,10 +209,64 @@ namespace Debug
         ImGui::TreePop();
     }
 
+    void DebugMenu::_showGameMenu()
+    {
+        static int fpsLimit = 60.0f;
+        static int oldFpsLimit = 0;
+        static bool unlimitedFps = false;
+        static int fpsValuesOffset = 0;
+        static int maxFps = 0;
+        static int lowFps = fpsLimit;
+        static float fpsValues[DEFAULT_FPS_PLOT_NB_VALUES] = {};
+        static double plotRefreshRate = DEFAULT_FPS_PLOT_REFRESH_RATE;
+        static double plotDeltaTime = 0.0;
+        float fps = 0.0f;
+        char fpsText[DEFAULT_FPS_PLOT_TEXT_LENGTH];
+
+        if (plotDeltaTime == 0.0)
+            plotDeltaTime = ImGui::GetTime();
+        fps = 1 / _deltaTime.getDeltaTime();
+        if (fps > maxFps)
+            maxFps = fps;
+        if (fps < lowFps)
+            lowFps = fps;
+        while (plotDeltaTime < ImGui::GetTime()) {
+            fpsValues[fpsValuesOffset] = fps;
+            fpsValuesOffset = (fpsValuesOffset + 1) % IM_ARRAYSIZE(fpsValues);
+            plotDeltaTime += 1.0f / plotRefreshRate;
+        }
+        sprintf(fpsText, "FPS: %f", fps);
+        ImGui::SeparatorText("FPS");
+        ImGui::PlotLines("##fpsPlot", fpsValues, IM_ARRAYSIZE(fpsValues), fpsValuesOffset, fpsText, 0.0f, fpsLimit * 2,
+            DEFAULT_FPS_PLOT_SIZE);
+
+        if (!unlimitedFps) {
+            if (ImGui::SliderInt("##fpsLimitSlider", &fpsLimit, 1, 1000, "%d"))
+                _eventManager.getHandler<const float &>(GameEngine::Event::SetFpsLimitEvent).publish((float)fpsLimit);
+        } else {
+            fpsLimit = maxFps;
+        }
+        if (ImGui::Checkbox("Unlimited Fps", &unlimitedFps)) {
+            if (unlimitedFps) {
+                oldFpsLimit = fpsLimit;
+                maxFps = 0;
+                lowFps = fpsLimit;
+                _eventManager.getHandler<const float &>(GameEngine::Event::SetFpsLimitEvent).publish(-1.0f);
+            } else {
+                fpsLimit = oldFpsLimit;
+                _eventManager.getHandler<const float &>(GameEngine::Event::SetFpsLimitEvent).publish((float)fpsLimit);
+            }
+        }
+        ImGui::Text("Low: %d, Max: %d", lowFps, maxFps);
+        ImGui::EndTabItem();
+    }
+
     void DebugMenu::_showRegistryMenu()
     {
         if (ImGui::CollapsingHeader("Entities")) {
-            ImGui::Text("Living Entities: %d/%d", _registry._nbEntities, _registry._maxEntities);
+            ImGui::Text("Living Entities: %d/%d", _registry._nbEntities - _registry._emptyIndexes.size(),
+                _registry._maxEntities);
+            ImGui::Text("Max Entity Id Used: %d/%d", _registry._nbEntities, _registry._maxEntities);
         }
         if (ImGui::CollapsingHeader("Components")) {
             if (ImGui::TreeNode("Transform")) {

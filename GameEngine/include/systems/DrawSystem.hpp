@@ -18,6 +18,8 @@
     #include "Debug.hpp"
 #endif
 
+static const float DEFAULT_FPS_LIMIT = 60.0f;
+
 namespace GameEngine
 {
     struct PollEventStruct
@@ -50,7 +52,9 @@ namespace GameEngine
       private:
         std::shared_ptr<Window> _window;
         EventManager &_eventManager;
+        float _fpsLimit = DEFAULT_FPS_LIMIT;
         void _initDrawSystem();
+        void _setFpsLimit(const float &newFpsLimit);
 #ifdef DEBUG
         Debug::DebugMenu &_debugMenu;
 #endif

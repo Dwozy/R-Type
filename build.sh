@@ -70,7 +70,7 @@ setup_tests()
 
 build()
 {
-    cmake --build ./build --config Release
+    cmake --build ./build -j --config Release
     status=$?
     if [ "$status" -ne 0 ]; then
         exit "$status"
