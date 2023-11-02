@@ -37,18 +37,9 @@ namespace RType::Server
         /// @param packetType the type of data that will be send
         /// @param dataToSend that will be send to clients
         void sendInformation(uint8_t packetType, std::vector<std::byte> dataToSend, asio::ip::udp::endpoint &endpoint);
-        /// @brief Handle Room
-        /// @param header that contains the size of the payload
-        void handleRoom(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
-        /// @brief Handle Entity that will be retrieve and push a event
-        /// @param header that contains the size of the payload
-        void handleEntity(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
         /// @brief Handle String that will be retrieve and push a event
         /// @param header that contains the size of the payload
         void handleString(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
-        /// @brief Handle Move that will be retrieve and push a event
-        /// @param header that contains the size of the payload
-        void handleMove(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
         /// @brief Handle Connexion that will be retrieve and push a event
         /// @param header that contains the size of the payload
         void handleConnexion(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
@@ -57,7 +48,6 @@ namespace RType::Server
         void handleDisconnexion(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
         /// @brief Start the UDP Server
         void run();
-        void handleShoot(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
         void handleTextureResponse(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
         void handleCollisionResponse(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
         void handleInput(struct RType::Protocol::HeaderDataPacket header, unsigned short port);

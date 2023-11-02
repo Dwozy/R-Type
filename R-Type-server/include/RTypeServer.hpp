@@ -41,10 +41,8 @@ namespace RType::Server
         /// @brief Function that will start the Network in a thread
         /// @param isRunning boolean to know if the server is down
         void startNetwork(bool &isRunning);
-        /// @brief Function that will brodcast informations to all clients
-        void updateEntities();
-        void handleShoot(struct RType::Protocol::ShootData shootInfo);
 
+        void handleShoot(struct RType::Protocol::ShootData shootInfo);
         void spawnMob();
 
         void broadcastInformation();
