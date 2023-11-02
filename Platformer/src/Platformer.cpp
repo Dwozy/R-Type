@@ -23,14 +23,14 @@ void Platformer::handlePlayerjump()
     static bool canJump = true;
     if (_state != GameState::Game)
         return;
-    auto &transforms = _gameEngine.registry.getComponent<GameEngine::TransformComponent>();
-    if (!transforms[_id].has_value())
+    auto &grav = _gameEngine.registry.getComponent<GameEngine::GravityComponent>();
+    if (!grav[_id].has_value())
         return;
-    if (GameEngine::InputManager::isKeyPressed(GameEngine::Input::Keyboard::Space) == true && canJump == true) {
-        transforms[_id]->velocity.y = -100;
+    if (GameEngine::InputManager::isKeyPressed(GameEngine::Input::Keyboard::Space) && canJump) {
+        grav[_id]->cumulatedGVelocity.y = -100;
         canJump = false;
     }
-    if (GameEngine::InputManager::isKeyReleased(GameEngine::Input::Keyboard::Space) == true)
+    if (GameEngine::InputManager::isKeyReleased(GameEngine::Input::Keyboard::Space))
         canJump = true;
 }
 
