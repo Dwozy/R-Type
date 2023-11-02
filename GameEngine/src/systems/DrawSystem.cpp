@@ -7,9 +7,6 @@
 #include "systems/DrawSystem.hpp"
 #include "components/TextComponent.hpp"
 #include "components/TextureComponent.hpp"
-#include "systems/DrawSystem.hpp"
-#include "components/TextComponent.hpp"
-#include "components/TextureComponent.hpp"
 #include "utils/SfmlTypes.hpp"
 #include "Mouse.hpp"
 #include <algorithm>
@@ -19,12 +16,36 @@
 #include <variant>
 #include <vector>
 
+#include <iostream>
+
 namespace GameEngine
 {
+#ifdef DEBUG
+    DrawSystem::DrawSystem(EventManager &eventManager, Debug::DebugMenu &debugMenu, int width, int height, std::string title)
+        : _eventManager(eventManager), _debugMenu(debugMenu)
+    {
+        _window = std::make_shared<Window>(_debugMenu, width, height, title);
+        _window->initDebug();
+        _initDrawSystem();
+    }
+#else
     DrawSystem::DrawSystem(EventManager &eventManager, int width, int height, std::string title)
         : _eventManager(eventManager)
     {
         _window = std::make_shared<Window>(width, height, title);
+        _initDrawSystem();
+    }
+#endif
+
+    DrawSystem::~DrawSystem()
+    {
+#ifdef DEBUG
+        _window->shutdownDebug();
+#endif
+    }
+
+    void DrawSystem::_initDrawSystem()
+    {
         auto &isOpenHandler = _eventManager.addHandler<bool &>(Event::WindowIsOpen);
         auto &pollEventHandler = _eventManager.addHandler<PollEventStruct &>(Event::PollEvent);
         auto &windowCloseHandler = _eventManager.addHandler<SEvent &>(Event::WindowCloseEvent);
@@ -58,8 +79,9 @@ namespace GameEngine
 
         for (size_t i = 0; i < textures.size(); i++) {
             auto &tex = textures[i];
-            if (tex)
+            if (tex) {
                 rend.push_back(tex.value());
+            }
         }
 
         std::sort(rend.begin(), rend.end(),
@@ -85,6 +107,9 @@ namespace GameEngine
                 _window->draw(tex.text.getText());
             }
         }
+#ifdef DEBUG
+        _window->drawDebug();
+#endif
         _window->display();
     }
 } // namespace GameEngine

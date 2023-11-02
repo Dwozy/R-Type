@@ -83,7 +83,7 @@ namespace GameEngine
     void from_json(const json &j, TextureComponent &tc)
     {
         j.at("texturePath").get_to(tc.path);
-        tc.animated = j.contains("animated") ? j.at("animated").get<bool>() : false;
+        tc.animated = j.contains("animated") ? j.at("animated").get<bool>() : true;
         for (auto &trect : j.at("textureRects"))
             tc.textureRects.push_back(j.get<Rect<int>>());
         tc.animationSpeed = j.contains("animationSpeed") ? j.at("animationSpeed").get<float>() : 0.0f;

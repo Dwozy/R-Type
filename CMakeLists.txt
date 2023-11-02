@@ -37,7 +37,7 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 message(CHECK_PASS "Done")
 
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+if(DEBUG)
     message(CHECK_START "Fetching imgui...")
     FetchContent_Declare(
         imgui
@@ -64,13 +64,14 @@ project(${PROJECT_NAME} LANGUAGES CXX)
 
 set(INCLUDES_GLOBAL include)
 
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+if(DEBUG)
     add_compile_definitions(DEBUG)
     set(INCLUDES_DEBUG
-        # ${imgui_SOURCE_DIR}
-        # ${imgui-sfml_SOURCE_DIR}
+        ${imgui_SOURCE_DIR}
+        ${imgui-sfml_SOURCE_DIR}
+        GameEngine/include/imgui/
     )
-    # set(SRCS_DEBUG GameEngine/src/Debug.cpp)
+    set(SRCS_DEBUG GameEngine/src/Debug.cpp)
 endif()
 
 if(((NOT DEFINED BUILD_GAME_ENGINE) AND (NOT DEFINED BUILD_CLIENT) AND (NOT DEFINED BUILD_SERVER) AND (NOT DEFINED BUILD_TESTS)) OR (DEFINED BUILD_GAME_ENGINE))

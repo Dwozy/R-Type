@@ -20,7 +20,6 @@
 #include "systems/AnimationSystem.hpp"
 #include "components/CameraComponent.hpp"
 #include "components/CollisionComponent.hpp"
-#include "components/ControllableComponent.hpp"
 #include "components/FontComponent.hpp"
 #include "components/MusicComponent.hpp"
 #include "components/PressableComponent.hpp"
@@ -29,20 +28,33 @@
 #include "components/ControllableComponent.hpp"
 #include "components/TransformComponent.hpp"
 
+#ifdef DEBUG
+    #include "Debug.hpp"
+#endif
+
 namespace GameEngine
 {
     /// @brief Game engine class, will manage all the necessary classes for the game.
     class GameEngine
     {
       public:
+#ifdef DEBUG
         /// @brief Constructor for the game engine.
         /// @param maxEntities Maximum number of entities at once. Default value is 512.
+        GameEngine(std::size_t maxEntities = 512) : registry(maxEntities), prefabManager(assetManager), debugMenu(registry)
+        {
+            deltaTime.update();
+            assetManager.loadTexture("R-Type/assets/image.png", {0, 0, 32, 16});
+            assetManager.loadTexture("R-Type/assets/r-typesheet1.gif", {168, 135, 47, 15});
+        };
+#else
         GameEngine(std::size_t maxEntities = 512) : registry(maxEntities), prefabManager(assetManager)
         {
             deltaTime.update();
             assetManager.loadTexture("R-Type/assets/image.png", {0, 0, 32, 16});
             assetManager.loadTexture("R-Type/assets/r-typesheet1.gif", {168, 135, 47, 15});
         };
+#endif
         /// @brief Default destructor.
         ~GameEngine() = default;
 
@@ -56,6 +68,9 @@ namespace GameEngine
         SceneManager sceneManager;
         AssetManager assetManager;
         PrefabManager prefabManager;
+#ifdef DEBUG
+        Debug::DebugMenu debugMenu;
+#endif
     };
 } // namespace GameEngine
 

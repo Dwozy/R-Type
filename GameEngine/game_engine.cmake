@@ -26,7 +26,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/GameEngine/${LIBR
 
 file(MAKE_DIRECTORY GameEngine/${LIBRARY_NAME})
 
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+if(DEBUG)
     add_library(${LIBRARY_NAME} STATIC ${SRCS_LIB} ${SRCS_DEBUG})
     target_include_directories(${LIBRARY_NAME} PRIVATE ${INCLUDES_DEBUG})
     target_link_libraries(${LIBRARY_NAME} PRIVATE ImGui-SFML::ImGui-SFML)
