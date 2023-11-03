@@ -28,6 +28,7 @@ namespace GameEngine
         PollEvent,
         GetWorldMousePos,
         WindowSetView,
+        SetFpsLimitEvent,
         GetTransform,
         GetCollision,
         GetTexture,
@@ -42,7 +43,7 @@ namespace GameEngine
         PlayerMoveEvent,
         PlayerSpawnedEvent,
         PlayersDieEvent,
-        PlayerShootEvent,
+        PlayerShootEvent
     };
 
     /// @brief class that store all the callback functions for a specific event type

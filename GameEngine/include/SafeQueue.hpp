@@ -5,7 +5,8 @@
 ** SafeQueue
 */
 
-#pragma once
+#ifndef SAFEQUEUE_HPP_
+#define SAFEQUEUE_HPP_
 #include "ISafeQueue.hpp"
 #include <condition_variable>
 #include <mutex>
@@ -66,3 +67,4 @@ class SafeQueue : public ISafeQueue<T>
     std::mutex mutex;
     std::condition_variable cond;
 };
+#endif
