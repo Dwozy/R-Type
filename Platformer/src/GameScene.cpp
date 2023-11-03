@@ -6,6 +6,7 @@
 */
 
 #include "scenes/GameScene.hpp"
+#include "utils/CollisionsUtils.hpp"
 #include <iostream>
 #include <functional>
 
@@ -16,7 +17,9 @@ void BlockcollisionCallback(const std::size_t &entityId, SparseArray<GameEngine:
     auto &selfTsf = transforms[entityId];
     auto &selfGrav = gravity[entityId];
 
-    if (!selfCol || !selfTsf)
+    bool hasCollidedOnTop = false;
+
+    if (!selfCol || !selfTsf || !selfGrav)
         return;
     for (std::size_t i = 0; i < collisions.size(); i++) {
         if (i == entityId)
@@ -26,15 +29,15 @@ void BlockcollisionCallback(const std::size_t &entityId, SparseArray<GameEngine:
 
         if (!col || !tsf || !col.value().isActive || col.value().layer != 30)
             continue;
-        if (selfCol.value().collider.isColliding(
-            selfTsf.value().position, col.value().collider, tsf.value().position)) {
-            selfTsf.value().velocity.y = 0;
-            selfGrav.value().isActive = false;
-        } else
-            selfGrav.value().isActive = true;
-        selfCol.value().collider.handleCollisionFromRect(
-            selfTsf.value().position, col.value().collider, tsf.value().position);
+        auto result = GameEngine::replaceOnTop(selfTsf->position, selfCol->collider, tsf->position, col->collider);
+        if (result == 1)
+            hasCollidedOnTop = true;
     }
+    if (hasCollidedOnTop) {
+        selfGrav.value().cumulatedGVelocity = {0, 0};
+        selfGrav.value().isActive = false;
+    } else
+        selfGrav.value().isActive = true;
 }
 
 void GameScene::load()
@@ -51,8 +54,12 @@ void GameScene::load()
         auto &camComponent = _gameEngine.registry.getComponent<GameEngine::CameraComponent>()[camera];
         camComponent->target = _id;
 
-        _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[_id].value().addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
-                      SparseArray<GameEngine::TransformComponent> &, SparseArray<GameEngine::GravityComponent> &)>, GameEngine::CollisionComponent, GameEngine::TransformComponent, GameEngine::GravityComponent>(_gameEngine.registry, BlockcollisionCallback);
+        _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[_id]
+            .value()
+            .addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
+                           SparseArray<GameEngine::TransformComponent> &, SparseArray<GameEngine::GravityComponent> &)>,
+                GameEngine::CollisionComponent, GameEngine::TransformComponent, GameEngine::GravityComponent>(
+                _gameEngine.registry, BlockcollisionCallback);
 
         GameEngine::Entity block = _gameEngine.prefabManager.createEntityFromPrefab("box", _gameEngine.registry);
         auto &blockTransform = _gameEngine.registry.getComponent<GameEngine::TransformComponent>()[block];
@@ -61,18 +68,20 @@ void GameScene::load()
         _gameEngine.prefabManager.createEntityFromPrefab("background", _gameEngine.registry);
 
         auto enemy = _gameEngine.prefabManager.createEntityFromPrefab("enemy", _gameEngine.registry);
-        _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[enemy].value().addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
-                      SparseArray<GameEngine::TransformComponent> &, SparseArray<GameEngine::GravityComponent> &)>, GameEngine::CollisionComponent, GameEngine::TransformComponent, GameEngine::GravityComponent>(_gameEngine.registry, BlockcollisionCallback);
+        _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[enemy]
+            .value()
+            .addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
+                           SparseArray<GameEngine::TransformComponent> &, SparseArray<GameEngine::GravityComponent> &)>,
+                GameEngine::CollisionComponent, GameEngine::TransformComponent, GameEngine::GravityComponent>(
+                _gameEngine.registry, BlockcollisionCallback);
 
         // petit probleme quand le rect du player est plus grand que le sol il se tp full sur un side
-        GameEngine::Entity block2 = _gameEngine.prefabManager.createEntityFromPrefab("border_map_down", _gameEngine.registry);
+        GameEngine::Entity block2 =
+            _gameEngine.prefabManager.createEntityFromPrefab("border_map_down", _gameEngine.registry);
     }
     if (_state == GameState::Pause) {
         std::cout << "resume game" << std::endl;
     }
 }
 
-void GameScene::unload()
-{
-    std::cout << "unloading GameScene" << std::endl;
-}
+void GameScene::unload() { std::cout << "unloading GameScene" << std::endl; }
