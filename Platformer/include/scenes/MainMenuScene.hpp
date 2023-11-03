@@ -9,15 +9,16 @@
 #define MAINMENUSCENE_HPP_
 #include "utils/IScene.hpp"
 
-class MainMenuScene : public GameEngine::IScene {
-    public:
-        MainMenuScene();
-        ~MainMenuScene() = default;
-        void load() override;
-        void unload() override;
+class MainMenuScene : public GameEngine::IScene
+{
+  public:
+    MainMenuScene();
+    ~MainMenuScene() = default;
+    void load() override;
+    void unload() override;
 
-    protected:
-    private:
+  protected:
+  private:
 };
 
 #endif /* !MAINMENUSCENE_HPP_ */

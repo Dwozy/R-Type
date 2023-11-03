@@ -10,14 +10,16 @@
 #include "utils/IScene.hpp"
 #include "Platformer.hpp"
 
-class WinLoseScene : public GameEngine::IScene {
-    public:
-        WinLoseScene(GameState &state) : _state(state) {};
-        ~WinLoseScene() = default;
-        void load() override;
-        void unload() override;
-    private:
-        GameState &_state;
+class WinLoseScene : public GameEngine::IScene
+{
+  public:
+    WinLoseScene(GameState &state) : _state(state){};
+    ~WinLoseScene() = default;
+    void load() override;
+    void unload() override;
+
+  private:
+    GameState &_state;
 };
 
 #endif /* !WINLOSESCENE_HPP_ */

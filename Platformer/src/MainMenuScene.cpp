@@ -8,16 +8,8 @@
 #include "scenes/MainMenuScene.hpp"
 #include <iostream>
 
-MainMenuScene::MainMenuScene()
-{
-}
+MainMenuScene::MainMenuScene() {}
 
-void MainMenuScene::load()
-{
-    std::cout << "Loading MainMenuScene" << std::endl;
-}
+void MainMenuScene::load() { std::cout << "Loading MainMenuScene" << std::endl; }
 
-void MainMenuScene::unload()
-{
-    std::cout << "Unloading MainMenuScene" << std::endl;
-}
+void MainMenuScene::unload() { std::cout << "Unloading MainMenuScene" << std::endl; }

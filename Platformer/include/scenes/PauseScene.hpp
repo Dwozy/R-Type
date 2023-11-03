@@ -9,15 +9,16 @@
 #define PAUSESCENE_HPP_
 #include "utils/IScene.hpp"
 
-class PauseScene : public GameEngine::IScene {
-    public:
-        PauseScene();
-        ~PauseScene() = default;
-        void load() override;
-        void unload() override;
+class PauseScene : public GameEngine::IScene
+{
+  public:
+    PauseScene();
+    ~PauseScene() = default;
+    void load() override;
+    void unload() override;
 
-    protected:
-    private:
+  protected:
+  private:
 };
 
 #endif /* !PAUSESCENE_HPP_ */

@@ -8,16 +8,8 @@
 #include "scenes/PauseScene.hpp"
 #include <iostream>
 
-PauseScene::PauseScene()
-{
-}
+PauseScene::PauseScene() {}
 
-void PauseScene::load()
-{
-    std::cout << "Loading PauseScene" << std::endl;
-}
+void PauseScene::load() { std::cout << "Loading PauseScene" << std::endl; }
 
-void PauseScene::unload()
-{
-    std::cout << "Unloading PauseScene" << std::endl;
-}
+void PauseScene::unload() { std::cout << "Unloading PauseScene" << std::endl; }
