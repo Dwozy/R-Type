@@ -10,6 +10,7 @@ permissions:
   contents: write
   checks: write
 
+jobs:
   create_artifacts:
     if: success()
     strategy:
@@ -22,15 +23,17 @@ permissions:
             container: biozzzzz/r-type
           - os: windows-latest
             install_cmd: cmd /c build_artifact.bat
-      steps:
-        - name: Build artifacts
-          run: ${{ matrix.cmd }} ${{ github.ref_name }}
-        - name: Upload artifacts
-          uses: actions/upload-artifact@v3
-          with:
-            name: ${{ matrix.os }}-artifacts
-            path: artifacts/
-            retention-days: 3
+    runs-on: ${{ matrix.os }}
+    container: ${{ matrix.container }}
+    steps:
+      - name: Build artifacts
+        run: ${{ matrix.cmd }} ${{ github.ref_name }}
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.os }}-artifacts
+          path: artifacts/
+          retention-days: 3
 
   create_release:
     if: success() && github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
