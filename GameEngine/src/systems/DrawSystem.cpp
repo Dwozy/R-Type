@@ -48,12 +48,14 @@ namespace GameEngine
 
     void DrawSystem::_initDrawSystem()
     {
-        auto &isOpenHandler = _eventManager.addHandler<bool &>(static_cast<EventType> (Event::WindowIsOpen));
-        auto &pollEventHandler = _eventManager.addHandler<PollEventStruct &>(static_cast<EventType>  (Event::PollEvent));
-        auto &windowCloseHandler = _eventManager.addHandler<SEvent &>(static_cast<EventType>  (Event::WindowCloseEvent));
-        auto &getWorldMousePosHandler = _eventManager.addHandler<Vector2<float> &>(static_cast<EventType> (Event::GetWorldMousePos));
-        auto &WindowSetViewHandler = _eventManager.addHandler<View &>(static_cast<EventType> (Event::WindowSetView));
-        auto &SetFpsLimitHandler = _eventManager.addHandler<const float &>(static_cast<EventType> (Event::SetFpsLimitEvent));
+        auto &isOpenHandler = _eventManager.addHandler<bool &>(static_cast<EventType>(Event::WindowIsOpen));
+        auto &pollEventHandler = _eventManager.addHandler<PollEventStruct &>(static_cast<EventType>(Event::PollEvent));
+        auto &windowCloseHandler = _eventManager.addHandler<SEvent &>(static_cast<EventType>(Event::WindowCloseEvent));
+        auto &getWorldMousePosHandler =
+            _eventManager.addHandler<Vector2<float> &>(static_cast<EventType>(Event::GetWorldMousePos));
+        auto &WindowSetViewHandler = _eventManager.addHandler<View &>(static_cast<EventType>(Event::WindowSetView));
+        auto &SetFpsLimitHandler =
+            _eventManager.addHandler<const float &>(static_cast<EventType>(Event::SetFpsLimitEvent));
 
         _window->setFramerateLimit(DEFAULT_FPS_LIMIT);
         isOpenHandler.subscribe([this](bool &isOpen) { isOpen = this->_window->isOpen(); });
@@ -70,7 +72,8 @@ namespace GameEngine
         SetFpsLimitHandler.subscribe([this](const float &newFpsLimit) { this->_setFpsLimit(newFpsLimit); });
     }
 
-    void DrawSystem::operator()(SparseArray<TextComponent> &texts, SparseArray<TextureComponent> &textures)
+    void DrawSystem::operator()(SparseArray<TextComponent> &texts, SparseArray<TextureComponent> &textures,
+        SparseArray<CameraComponent> &cameras)
     {
         std::vector<std::variant<TextureComponent, TextComponent>> rend;
         _window->clear();
@@ -102,14 +105,19 @@ namespace GameEngine
                 return false;
             });
 
-        for (const auto &item : rend) {
-            if (std::holds_alternative<TextureComponent>(item)) {
-                const auto &tex = std::get<TextureComponent>(item);
-                _window->draw(tex.sprite.getSprite());
-            } else if (std::holds_alternative<TextComponent>(item)) {
-                const auto &tex = std::get<TextComponent>(item);
-                _window->draw(tex.text.getText());
+        for (auto &camera : cameras) {
+            if (!camera || !camera->isActive)
+                continue;
+            for (const auto &item : rend) {
+                if (std::holds_alternative<TextureComponent>(item)) {
+                    const auto &tex = std::get<TextureComponent>(item);
+                    _window->draw(tex.sprite.getSprite());
+                } else if (std::holds_alternative<TextComponent>(item)) {
+                    const auto &tex = std::get<TextComponent>(item);
+                    _window->draw(tex.text.getText());
+                }
             }
+            _window->setView(camera->view);
         }
 #ifdef DEBUG
         _window->drawDebug();

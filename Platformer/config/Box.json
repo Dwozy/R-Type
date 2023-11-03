@@ -1,0 +1,44 @@
+{
+    "name": "box",
+    "components": [
+        {
+            "type": "TransformComponent",
+            "value": {
+                "position": {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                "velocity": {
+                    "x": 0.0,
+                    "y": 0.0
+                }
+            }
+        },
+        {
+            "type": "TextureComponent",
+            "value": {
+                "texturePath": "Platformer/assets/box.png",
+                "textureRects": [],
+                "textureSize": {
+                    "left": 0.0,
+                    "top": 0.0,
+                    "width": 32.0,
+                    "height": 32.0
+                },
+                "renderLayer": 2
+            }
+        },
+        {
+            "type": "CollisionComponent",
+            "value": {
+                "collider": {
+                    "left": 0.0,
+                    "top": 0.0,
+                    "width": 32.0,
+                    "height": 32.0
+                },
+                "layer": 30
+            }
+        }
+    ]
+}

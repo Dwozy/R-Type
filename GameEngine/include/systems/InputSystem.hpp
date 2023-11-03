@@ -21,8 +21,7 @@ namespace GameEngine
         ~InputSystem() = default;
 
         void operator()(SparseArray<InputComponent> &inputs);
-        void handleInput(
-            std::size_t id, std::pair<Input::InputType, Input::Keyboard::Key> inputInfo);
+        void handleInput(std::size_t id, std::pair<Input::InputType, Input::Keyboard::Key> inputInfo);
 
       private:
         EventManager &_eventManager;

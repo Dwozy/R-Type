@@ -63,7 +63,7 @@ namespace GameEngine
         /// @param pos
         /// @param rect
         /// @param rectPos
-        void  handleCollisionFromRect(Vector2<T> &pos, const Rect<T> &rect, const Vector2<T> &rectPos)
+        void handleCollisionFromRect(Vector2<T> &pos, const Rect<T> &rect, const Vector2<T> &rectPos)
         {
             if (!isColliding(pos, rect, rectPos))
                 return;

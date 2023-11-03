@@ -30,6 +30,11 @@ if "%~1"=="tests" (
     exit /b
 )
 
+if "%~1"=="platformer" (
+    call:build_game_platformer
+    exit /b
+)
+
 call:build_all
 
 exit /b
@@ -44,6 +49,7 @@ goto:eof
     call:clean_all
     if exist ".\R-Type\r-type_client.exe" del ".\R-Type\r-type_client.exe"
     if exist ".\R-Type-server\r-type_server.exe" del ".\R-Type-server\r-type_server.exe"
+    if exist ".\Platformer\platformer.exe" del ".\Platformer\platformer.exe"
     if exist "unit_tests.exe" del "unit_tests.exe"
     if exist ".\r-type_client.lnk" del ".\r-type_client.lnk"
     if exist ".\r-type_server.lnk" del ".\r-type_server.lnk"
@@ -51,11 +57,12 @@ goto:eof
 
 :build_all
     cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
-    cmake --build .\build -j --config Release
+    cmake --build .\build --config Release
 
     for /R .\build %%f in (*.dll) do copy %%f .\R-Type
     for /R .\build %%f in (*.dll) do copy %%f .\R-Type-server
     for /R .\build %%f in (*.dll) do copy %%f .\tests
+    for /R .\build %%f in (*.dll) do copy %%f .\Platformer
 goto:eof
 
 :build_game_engine
@@ -82,4 +89,11 @@ goto:eof
     cmake --build .\build --config Release
 
     for /R .\build %%f in (*.dll) do copy %%f .\tests
+
+:build_game_platformer
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_GAME_PLATFORMER=""
+    cmake --build .\build --config Release
+
+    for /R .\build %%f in (*.dll) do copy %%f .\Platformer
+
 goto:eof

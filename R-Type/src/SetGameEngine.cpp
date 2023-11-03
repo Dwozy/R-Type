@@ -20,6 +20,7 @@
 #include "systems/ControlSystem.hpp"
 #include "systems/PressableSystem.hpp"
 #include "systems/CollisionSystem.hpp"
+#include "systems/GravitySystem.hpp"
 #include "systems/AnimationSystem.hpp"
 #include "systems/InputSystem.hpp"
 
@@ -36,6 +37,7 @@ namespace RType::Client
         _gameEngine.registry.registerComponent<GameEngine::TextComponent>();
         _gameEngine.registry.registerComponent<GameEngine::PressableComponent>();
         _gameEngine.registry.registerComponent<GameEngine::NetworkIdComponent>();
+        _gameEngine.registry.registerComponent<GameEngine::GravityComponent>();
         _gameEngine.registry.registerComponent<GameEngine::InputComponent>();
     }
 
@@ -62,6 +64,7 @@ namespace RType::Client
         GameEngine::PressableSystem pressableSystem(_gameEngine.eventManager);
         GameEngine::ControlSystem controlSystem;
         GameEngine::CollisionSystem collisionSystem;
+        GameEngine::GravitySystem gravitySystem(_gameEngine.deltaTime.getDeltaTime());
         GameEngine::AnimationSystem animationSystem(_gameEngine.deltaTime.getDeltaTime());
         GameEngine::InputSystem inputSystem(_gameEngine.eventManager);
 
@@ -69,15 +72,20 @@ namespace RType::Client
                                            SparseArray<GameEngine::ControllableComponent> &)>,
             GameEngine::TransformComponent, GameEngine::ControllableComponent>(controlSystem);
 
-        _gameEngine.registry.addSystem<std::function<void(SparseArray<GameEngine::TransformComponent> &,
-                                           SparseArray<GameEngine::TextureComponent> &)>,
-            GameEngine::TransformComponent, GameEngine::TextureComponent>(positionSystem);
+        _gameEngine.registry
+            .addSystem<std::function<void(SparseArray<GameEngine::TransformComponent> &,
+                           SparseArray<GameEngine::TextureComponent> &, SparseArray<GameEngine::GravityComponent> &)>,
+                GameEngine::TransformComponent, GameEngine::TextureComponent, GameEngine::GravityComponent>(
+                positionSystem);
 
         _gameEngine.registry.addSystem<std::function<void(SparseArray<GameEngine::CollisionComponent> &)>,
             GameEngine::CollisionComponent>(collisionSystem);
 
         _gameEngine.registry.addSystem<GameEngine::PressableFunction, GameEngine::TransformComponent,
             GameEngine::TextureComponent, GameEngine::PressableComponent>(pressableSystem);
+
+        _gameEngine.registry.addSystem<GameEngine::DrawSystem, GameEngine::TextComponent, GameEngine::TextureComponent,
+            GameEngine::CameraComponent>(drawSystem);
 
         _gameEngine.registry
             .addSystem<std::function<void(SparseArray<GameEngine::TextureComponent> &)>, GameEngine::TextureComponent>(
@@ -86,9 +94,6 @@ namespace RType::Client
         _gameEngine.registry
             .addSystem<std::function<void(SparseArray<GameEngine::InputComponent> &)>, GameEngine::InputComponent>(
                 inputSystem);
-
-        _gameEngine.registry.addSystem<GameEngine::DrawSystem, GameEngine::TextComponent, GameEngine::TextureComponent>(
-            drawSystem);
     }
 
     void RTypeClient::setGameEngine()

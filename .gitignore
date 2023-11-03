@@ -15,6 +15,7 @@ testFolder
 r-type_client*
 r-type_server*
 unit_tests*
+platformer*
 
 *.o
 *.gcno

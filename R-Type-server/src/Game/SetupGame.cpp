@@ -49,11 +49,10 @@ namespace RType::Server
             _gameEngine.prefabManager.createEntityFromPrefab("border_map_right", _gameEngine.registry, false);
         _listIdType.insert({static_cast<uint16_t>(borderBoxRight), static_cast<uint8_t>(RType::TextureType::NONE)});
 
-        _inputsType.push_back(static_cast<uint8_t> (RType::Protocol::InputType::UP));
-        _inputsType.push_back(static_cast<uint8_t> (RType::Protocol::InputType::DOWN));
-        _inputsType.push_back(static_cast<uint8_t> (RType::Protocol::InputType::LEFT));
-        _inputsType.push_back(static_cast<uint8_t> (RType::Protocol::InputType::RIGHT));
-        _inputsType.push_back(static_cast<uint8_t> (RType::Protocol::InputType::SHOOT));
-
+        _inputsType.push_back(static_cast<uint8_t>(RType::Protocol::InputType::UP));
+        _inputsType.push_back(static_cast<uint8_t>(RType::Protocol::InputType::DOWN));
+        _inputsType.push_back(static_cast<uint8_t>(RType::Protocol::InputType::LEFT));
+        _inputsType.push_back(static_cast<uint8_t>(RType::Protocol::InputType::RIGHT));
+        _inputsType.push_back(static_cast<uint8_t>(RType::Protocol::InputType::SHOOT));
     }
 } // namespace RType::Server

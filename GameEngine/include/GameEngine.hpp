@@ -27,6 +27,7 @@
 #include "components/TextComponent.hpp"
 #include "components/ControllableComponent.hpp"
 #include "components/TransformComponent.hpp"
+#include "components/GravityComponent.hpp"
 
 #ifdef DEBUG
     #include "Debug.hpp"

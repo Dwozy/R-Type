@@ -38,10 +38,7 @@ namespace RType::Server
         _gameEngine.prefabManager.loadPrefabFromFile("config/BorderMapRight.json");
     }
 
-    void RTypeServer::setGameEngineCallback()
-    {
-        setDestroyCallback();
-    }
+    void RTypeServer::setGameEngineCallback() { setDestroyCallback(); }
 
     void RTypeServer::setGameEngineComponent()
     {
@@ -51,6 +48,7 @@ namespace RType::Server
         _gameEngine.registry.registerComponent<GameEngine::ControllableComponent>();
         _gameEngine.registry.registerComponent<GameEngine::HealthComponent>();
         _gameEngine.registry.registerComponent<GameEngine::DamageComponent>();
+        _gameEngine.registry.registerComponent<GameEngine::GravityComponent>();
     }
 
     void RTypeServer::setGameEngineSystem()
@@ -61,7 +59,8 @@ namespace RType::Server
 
         _gameEngine.registry.addSystem<std::function<void(SparseArray<GameEngine::CollisionComponent> &)>,
             GameEngine::CollisionComponent>(collisionSystem);
-        _gameEngine.registry.addSystem<std::function<void(SparseArray<GameEngine::DamageComponent> &, SparseArray<GameEngine::HealthComponent> &)>,
+        _gameEngine.registry.addSystem<
+            std::function<void(SparseArray<GameEngine::DamageComponent> &, SparseArray<GameEngine::HealthComponent> &)>,
             GameEngine::DamageComponent, GameEngine::HealthComponent>(damageSystem);
         _gameEngine.registry.addSystem<std::function<void(SparseArray<GameEngine::TransformComponent> &,
                                            SparseArray<GameEngine::TextureComponent> &)>,

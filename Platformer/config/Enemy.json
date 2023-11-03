@@ -1,0 +1,89 @@
+{
+    "name": "enemy",
+    "components": [
+        {
+            "type": "TransformComponent",
+            "value": {
+                "position": {
+                    "x": 100.0,
+                    "y": 100.0
+                },
+                "velocity": {
+                    "x": 10.0,
+                    "y": 0.0
+                }
+            }
+        },
+        {
+            "type": "TextureComponent",
+            "value": {
+                "texturePath": "Platformer/assets/Gunner_Black_Run.png",
+                "textureRects": [{
+                    "left": 0.0,
+                    "top": 0.0,
+                    "width": 48.0,
+                    "height": 48.0
+                },
+                {
+                    "left": 48.0,
+                    "top": 0.0,
+                    "width": 48.0,
+                    "height": 48.0
+                },
+                {
+                    "left": 96.0,
+                    "top": 0.0,
+                    "width": 48.0,
+                    "height": 48.0
+                },
+                {
+                    "left": 144.0,
+                    "top": 0.0,
+                    "width": 48.0,
+                    "height": 48.0
+                },
+                {
+                    "left": 192.0,
+                    "top": 0.0,
+                    "width": 48.0,
+                    "height": 48.0
+                },
+                {
+                    "left": 240.0,
+                    "top": 0.0,
+                    "width": 48.0,
+                    "height": 48.0
+                }],
+                "textureSize": {
+                    "left": 0.0,
+                    "top": 0.0,
+                    "width": 48.0,
+                    "height": 48.0
+                },
+                "renderLayer": 2
+            }
+        },
+        {
+            "type": "CollisionComponent",
+            "value": {
+                "collider": {
+                    "left": 11.0,
+                    "top": 3.0,
+                    "width": 29.0,
+                    "height": 36.0
+                },
+                "layer": 30
+            }
+        },
+        {
+            "type" : "GravityComponent",
+            "value" : {
+                "gravityForce" : {
+                    "x": 0.0,
+                    "y": 2
+                },
+                "isActive" : true
+            }
+        }
+    ]
+}

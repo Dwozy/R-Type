@@ -15,11 +15,13 @@
 #include "components/TextComponent.hpp"
 #include "components/PressableComponent.hpp"
 #include "components/NetworkIdComponent.hpp"
+#include "components/GravityComponent.hpp"
 #include "systems/DrawSystem.hpp"
 #include "systems/PositionSystem.hpp"
 #include "systems/ControlSystem.hpp"
 #include "systems/PressableSystem.hpp"
 #include "systems/CollisionSystem.hpp"
+#include "utils/Vector.hpp"
 
 void parallaxCollision(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
     SparseArray<GameEngine::TransformComponent> &transforms)
