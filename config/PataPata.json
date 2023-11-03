@@ -15,6 +15,18 @@
             }
         },
         {
+            "type": "HealthComponent",
+            "value": {
+                "health": 5
+            }
+        },
+        {
+            "type": "DamageComponent",
+            "value": {
+                "damage": 1
+            }
+        },
+        {
             "type": "TextureComponent",
             "value": {
                 "texturePath": "R-Type/assets/pata_pata.gif",

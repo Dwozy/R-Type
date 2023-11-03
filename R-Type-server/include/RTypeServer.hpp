@@ -43,9 +43,12 @@ namespace RType::Server
         void startNetwork(bool &isRunning);
 
         void handleShoot(struct RType::Protocol::ShootData shootInfo);
-        void spawnMob();
+        void spawnMob(std::chrono::steady_clock::time_point &now);
 
         void broadcastInformation();
+
+        void handlingDamage(
+            std::size_t entityId, std::size_t i, SparseArray<GameEngine::CollisionComponent> &collisions);
 
         void destroyEntityCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
             SparseArray<GameEngine::TransformComponent> &transforms);
@@ -98,11 +101,17 @@ namespace RType::Server
             RType::TextureType typeShoot);
         void updateComponentInformation(GameEngine::Entity &entity, RType::TextureType entityType);
 
-        void handlingLifePoint(std::size_t entityId);
+        void handlingLifePoint(std::size_t entityId, std::size_t id);
 
         GameEngine::Vector2<float> handlingMovement(
             GameEngine::TransformComponent &transform, struct RType::Protocol::InputData inputInfo);
 
+        void handleDestroyCallback(std::size_t &id);
+        void setDestroyCallback();
+        void setGameEngineCallback();
+
+        void spawnEntityMob(const std::string &mob, RType::TextureType mobType);
+        void handleImmunity(std::chrono::steady_clock::time_point &now);
       protected:
       private:
         GameEngine::GameEngine _gameEngine;

@@ -11,6 +11,7 @@ set(SRCS_LIB
     GameEngine/src/systems/PressableSystem.cpp
     GameEngine/src/systems/AnimationSystem.cpp
     GameEngine/src/systems/InputSystem.cpp
+    GameEngine/src/systems/DamageSystem.cpp
     GameEngine/src/SceneManager.cpp
     GameEngine/src/PrefabManager.cpp
 )

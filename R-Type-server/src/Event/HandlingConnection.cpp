@@ -27,7 +27,6 @@ namespace RType::Server
             _gameEngine.prefabManager.createEntityFromPrefab("player", _gameEngine.registry, false);
         auto &entityPos = _gameEngine.registry.getComponent<GameEngine::TransformComponent>()[entity];
         auto &entityCollider = _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[entity];
-        auto &entityControllable = _gameEngine.registry.getComponent<GameEngine::ControllableComponent>()[entity];
 
         entityPos.value().position = GameEngine::Vector2<float>(pos * 25, pos * 25);
         auto colliderCallback = std::bind(&RType::Server::RTypeServer::playerCollisionCallback, this,

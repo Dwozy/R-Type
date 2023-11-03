@@ -35,6 +35,7 @@ namespace GameEngine
         GetControllable,
         GetNewEntity,
         GetEntity,
+        GetDestroy,
         SendInput,
         GetStateTexture,
         DeleteEntity,

@@ -25,6 +25,18 @@
             }
         },
         {
+            "type": "DamageComponent",
+            "value": {
+                "damage": 0
+            }
+        },
+        {
+            "type": "HealthComponent",
+            "value": {
+                "health": 5
+            }
+        },
+        {
             "type": "TextureComponent",
             "value": {
                 "texturePath": "R-Type/assets/image.png",

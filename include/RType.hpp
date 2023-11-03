@@ -27,7 +27,7 @@ namespace RType
         DESTROY
     };
 
-    enum class TextureType : uint8_t { NONE = 1, PLAYER, SIMPLE_SHOOT, CHARGED_SHOOT, MOB };
+    enum class TextureType : uint8_t { NONE = 1, PLAYER, SIMPLE_SHOOT, CHARGED_SHOOT, SIMPLE_MOB, MEDIUM_MOB };
 
     struct Event
     {

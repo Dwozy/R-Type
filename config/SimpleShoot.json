@@ -15,6 +15,18 @@
             }
         },
         {
+            "type": "DamageComponent",
+            "value": {
+                "damage": 1
+            }
+        },
+        {
+            "type": "HealthComponent",
+            "value": {
+                "health": 1
+            }
+        },
+        {
             "type": "TextureComponent",
             "value": {
                 "texturePath": "R-Type/assets/player_projectile.png",

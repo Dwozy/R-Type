@@ -34,7 +34,7 @@ namespace RType::Protocol
 
     enum class InputType : uint8_t { UP = 0, RIGHT, DOWN, LEFT, SHOOT };
 
-    enum class TextureType : uint8_t { NONE = 1, PLAYER, SIMPLE_SHOOT, CHARGED_SHOOT, MOB };
+    enum class TextureType : uint8_t { NONE = 1, PLAYER, SIMPLE_SHOOT, CHARGED_SHOOT, SIMPLE_MOB, MEDIUM_MOB };
 
     struct InputData
     {

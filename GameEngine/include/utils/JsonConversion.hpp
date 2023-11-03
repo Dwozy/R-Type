@@ -18,6 +18,8 @@
 #include "components/TextComponent.hpp"
 #include "components/TextureComponent.hpp"
 #include "components/TransformComponent.hpp"
+#include "components/HealthComponent.hpp"
+#include "components/DamageComponent.hpp"
 
 using json = nlohmann::json;
 
@@ -88,6 +90,22 @@ namespace GameEngine
     {
         j.at("position").get_to(tc.position);
         j.at("velocity").get_to(tc.velocity);
+    }
+
+    /// @brief Function to convert a json object to a HealthComponent
+    /// @param j reference to the json object
+    /// @param tc reference to the health component
+    void from_json(const json &j, HealthComponent &hc)
+    {
+        hc.health = j.contains("health") ? j.at("health").get<int>() : 5;
+    }
+
+    /// @brief Function to convert a json object to a DamageComponent
+    /// @param j reference to the json object
+    /// @param tc reference to the damage component
+    void from_json(const json &j, DamageComponent &dc)
+    {
+        j.at("damage").get_to(dc.damage);
     }
 
     /// @brief Function to convert a json object to a ControllableComponent

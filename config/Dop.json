@@ -1,5 +1,5 @@
 {
-    "name": "boss",
+    "name": "dop",
     "components": [
         {
             "type": "TransformComponent",
@@ -12,6 +12,18 @@
                     "x": -30.0,
                     "y": 0.0
                 }
+            }
+        },
+        {
+        "type": "HealthComponent",
+            "value": {
+                "health": 30
+            }
+        },
+        {
+            "type": "DamageComponent",
+            "value": {
+                "damage": 5
             }
         },
         {
@@ -33,7 +45,7 @@
                 {
                     "left": 65.0,
                     "top": 0.0,
-                    "width": 640,
+                    "width": 64.0,
                     "height": 50.0
                 },
                 {

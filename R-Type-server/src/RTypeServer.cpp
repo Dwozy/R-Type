@@ -19,7 +19,8 @@ void RType::Server::RTypeServer::setTimers()
     std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
     srand(time(0));
 
-    _timers["mob"] = now;
+    _timers["patapata"] = now;
+    _timers["dop"] = now;
     _timers["gameloop"] = now;
     _timers["charged"] = now;
 }
@@ -52,28 +53,8 @@ void RType::Server::RTypeServer::startNetwork(bool &isRunning)
     isRunning = false;
 }
 
-void RType::Server::RTypeServer::handlingTimers()
+void RType::Server::RTypeServer::handleImmunity(std::chrono::steady_clock::time_point &now)
 {
-    std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
-    std::chrono::duration<float> _deltaTime =
-        std::chrono::duration_cast<std::chrono::duration<float>>(now - _timers["gameloop"]);
-    std::chrono::duration<float> _deltaTimeSpawn =
-        std::chrono::duration_cast<std::chrono::duration<float>>(now - _timers["mob"]);
-    std::chrono::duration<float> _deltaTimeChargedAttack =
-        std::chrono::duration_cast<std::chrono::duration<float>>(now - _timers["charged"]);
-
-    if (_deltaTime.count() > 0.1) {
-        broadcastInformation();
-        _timers["gameloop"] = now;
-    }
-    if (_deltaTimeSpawn.count() > 2.0) {
-        spawnMob();
-        _timers["mob"] = now;
-    }
-    if (_deltaTimeChargedAttack.count() > 5.0) {
-        _chargedAttack = true;
-        _timers["charged"] = now;
-    }
     for (auto &playerTimer : _timerLifePoint) {
         if (playerTimer.second.first)
             continue;
@@ -93,6 +74,26 @@ void RType::Server::RTypeServer::handlingTimers()
     }
 }
 
+void RType::Server::RTypeServer::handlingTimers()
+{
+    std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
+    std::chrono::duration<float> _deltaTime =
+        std::chrono::duration_cast<std::chrono::duration<float>>(now - _timers["gameloop"]);
+    std::chrono::duration<float> _deltaTimeChargedAttack =
+        std::chrono::duration_cast<std::chrono::duration<float>>(now - _timers["charged"]);
+
+    if (_deltaTime.count() > 0.1) {
+        broadcastInformation();
+        _timers["gameloop"] = now;
+    }
+    if (_deltaTimeChargedAttack.count() > 5.0) {
+        _chargedAttack = true;
+        _timers["charged"] = now;
+    }
+    spawnMob(now);
+    handleImmunity(now);
+}
+
 void RType::Server::RTypeServer::handlingEndGame()
 {
     if (_nbPlayers == -1) {
@@ -110,10 +111,10 @@ void RType::Server::RTypeServer::gameLoop()
 {
     while (_isRunning) {
         _gameEngine.deltaTime.update();
+        _gameEngine.registry.runSystems();
         if (_eventQueue.size() != 0)
             handleEvent();
         handlingTimers();
         handlingEndGame();
-        _gameEngine.registry.runSystems();
     }
 }
