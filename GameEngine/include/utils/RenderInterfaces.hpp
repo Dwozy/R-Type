@@ -135,6 +135,9 @@ namespace GameEngine
         /// @brief Get the view stored
         /// @return the view
         virtual const T &getBaseView() const = 0;
+        virtual void setCenter(const Vector2<float> &center) = 0;
+        virtual Vector2<float> getCenter() const = 0;
+        virtual void setViewPort(const Vector2<float> &startingPoint, float width, float height) = 0;
     };
 
     /// @brief Interface for the window

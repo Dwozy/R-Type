@@ -13,6 +13,7 @@
 #include "SparseArray.hpp"
 #include "components/TextureComponent.hpp"
 #include "components/TextComponent.hpp"
+#include "components/CameraComponent.hpp"
 
 #ifdef DEBUG
     #include "Debug.hpp"
@@ -47,7 +48,7 @@ namespace GameEngine
         /// @brief overloaded of () operator, function that draws the textures on the window
         /// @param texts Array that contains the text components of the game
         /// @param textures Array that contains the texture components of the game
-        void operator()(SparseArray<TextComponent> &texts, SparseArray<TextureComponent> &textures);
+        void operator()(SparseArray<TextComponent> &texts, SparseArray<TextureComponent> &textures, SparseArray<CameraComponent> &cameras);
 
       private:
         std::shared_ptr<Window> _window;

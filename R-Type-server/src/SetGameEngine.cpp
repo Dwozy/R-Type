@@ -39,6 +39,7 @@ namespace RType::Server
         _gameEngine.registry.registerComponent<GameEngine::CollisionComponent>();
         _gameEngine.registry.registerComponent<GameEngine::TextureComponent>();
         _gameEngine.registry.registerComponent<GameEngine::ControllableComponent>();
+        _gameEngine.registry.registerComponent<GameEngine::GravityComponent>();
     }
 
     void RTypeServer::setGameEngineSystem()
@@ -49,8 +50,8 @@ namespace RType::Server
         _gameEngine.registry.addSystem<std::function<void(SparseArray<GameEngine::CollisionComponent> &)>,
             GameEngine::CollisionComponent>(collisionSystem);
         _gameEngine.registry.addSystem<std::function<void(SparseArray<GameEngine::TransformComponent> &,
-                                           SparseArray<GameEngine::TextureComponent> &)>,
-            GameEngine::TransformComponent, GameEngine::TextureComponent>(positionSystem);
+                                           SparseArray<GameEngine::TextureComponent> &, SparseArray<GameEngine::GravityComponent> &)>,
+            GameEngine::TransformComponent, GameEngine::TextureComponent, GameEngine::GravityComponent>(positionSystem);
     }
 
     void RTypeServer::setGameEngine()

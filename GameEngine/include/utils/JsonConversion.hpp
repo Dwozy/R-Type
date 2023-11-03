@@ -18,6 +18,7 @@
 #include "components/TextComponent.hpp"
 #include "components/TextureComponent.hpp"
 #include "components/TransformComponent.hpp"
+#include "components/GravityComponent.hpp"
 
 using json = nlohmann::json;
 
@@ -37,7 +38,7 @@ namespace GameEngine::Input::Keyboard
         {"Numpad3", Numpad3}, {"Numpad4", Numpad4}, {"Numpad5", Numpad5}, {"Numpad6", Numpad6}, {"Numpad7", Numpad7},
         {"Numpad8", Numpad8}, {"Numpad9", Numpad9}, {"F1", F1}, {"F2", F2}, {"F3", F3}, {"F4", F4}, {"F5", F5},
         {"F6", F6}, {"F7", F7}, {"F8", F8}, {"F9", F9}, {"F10", F10}, {"F11", F11}, {"F12", F12}, {"F13", F13},
-        {"F14", F14}, {"F15", F15}, {"Pause", Pause}};
+        {"F14", F14}, {"F15", F15}, {"Pause", Pause}, {"No_Key", NO_KEY}};
 };
 
 namespace GameEngine
@@ -127,6 +128,34 @@ namespace GameEngine
         j.at("collider").get_to(cc.collider);
         j.at("layer").get_to(cc.layer);
         cc.isActive = j.contains("isActive") ? j.at("isActive").get<bool>() : true;
+    }
+
+    /// @brief Function to convert a json object to a GravityComponent
+    /// @param j reference to the json object
+    /// @param gc reference to the gravity component
+    void from_json(const json &j, GravityComponent &gc)
+    {
+        j.at("gravityForce").get_to(gc.gravityForce);
+        j.at("isActive").get_to(gc.isActive);
+    }
+
+    /// @brief Function to convert a json object to a CameraComponent
+    /// @param j reference to the json object
+    /// @param cc reference to the camera component
+    void from_json(const json &j, CameraComponent &cc)
+    {
+        auto rect = j.at("cameraView").get<Rect<float>>();
+        cc.view = GameEngine::View(rect);
+        if (j.contains("cameraViewport")) {
+            rect = j.at("cameraViewport").get<Rect<float>>();
+            cc.view.setViewPort({rect.left, rect.top}, rect.width, rect.height);
+        }
+        if (j.contains("follow_x"))
+            j.at("follow_x").get_to(cc.follow_x);
+        if (j.contains("follow_y"))
+            j.at("follow_y").get_to(cc.follow_y);
+        if (j.contains("isActive"))
+            j.at("isActive").get_to(cc.isActive);
     }
 } // namespace GameEngine
 

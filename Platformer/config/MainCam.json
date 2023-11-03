@@ -1,0 +1,17 @@
+{
+    "name": "main_camera",
+    "components": [
+        {
+            "type": "CameraComponent",
+            "value": {
+                "cameraView": {
+                    "left": 0.0,
+                    "top": 0.0,
+                    "width": 400.0,
+                    "height": 225.0
+                },
+                "follow_x": true
+            }
+        }
+    ]
+}

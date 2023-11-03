@@ -10,6 +10,8 @@ set(SRCS_LIB
     GameEngine/src/systems/CollisionSystem.cpp
     GameEngine/src/systems/PressableSystem.cpp
     GameEngine/src/systems/AnimationSystem.cpp
+    GameEngine/src/systems/GravitySystem.cpp
+    GameEngine/src/systems/CameraSystem.cpp
     GameEngine/src/systems/InputSystem.cpp
     GameEngine/src/SceneManager.cpp
     GameEngine/src/PrefabManager.cpp

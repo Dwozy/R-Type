@@ -70,7 +70,7 @@ namespace GameEngine
         SetFpsLimitHandler.subscribe([this](const float &newFpsLimit) { this->_setFpsLimit(newFpsLimit); });
     }
 
-    void DrawSystem::operator()(SparseArray<TextComponent> &texts, SparseArray<TextureComponent> &textures)
+    void DrawSystem::operator()(SparseArray<TextComponent> &texts, SparseArray<TextureComponent> &textures, SparseArray<CameraComponent> &cameras)
     {
         std::vector<std::variant<TextureComponent, TextComponent>> rend;
         _window->clear();
@@ -102,14 +102,20 @@ namespace GameEngine
                 return false;
             });
 
-        for (const auto &item : rend) {
-            if (std::holds_alternative<TextureComponent>(item)) {
-                const auto &tex = std::get<TextureComponent>(item);
-                _window->draw(tex.sprite.getSprite());
-            } else if (std::holds_alternative<TextComponent>(item)) {
-                const auto &tex = std::get<TextComponent>(item);
-                _window->draw(tex.text.getText());
+
+        for (auto &camera : cameras) {
+            if (!camera || !camera->isActive)
+                continue;
+            for (const auto &item : rend) {
+                if (std::holds_alternative<TextureComponent>(item)) {
+                    const auto &tex = std::get<TextureComponent>(item);
+                    _window->draw(tex.sprite.getSprite());
+                } else if (std::holds_alternative<TextComponent>(item)) {
+                    const auto &tex = std::get<TextComponent>(item);
+                    _window->draw(tex.text.getText());
+                }
             }
+            _window->setView(camera->view);
         }
 #ifdef DEBUG
         _window->drawDebug();
