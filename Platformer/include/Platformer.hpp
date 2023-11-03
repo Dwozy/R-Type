@@ -32,6 +32,7 @@ class Platformer
     GameState _state;
     GameEngine::GameEngine _gameEngine;
     bool isOpen;
+    bool isJumping;
     std::size_t _id;
     std::size_t _score;
     std::size_t _hp;

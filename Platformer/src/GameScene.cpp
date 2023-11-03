@@ -10,7 +10,7 @@
 #include <iostream>
 #include <functional>
 
-void BlockcollisionCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
+void GameScene::BlockcollisionCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
     SparseArray<GameEngine::TransformComponent> &transforms, SparseArray<GameEngine::GravityComponent> &gravity)
 {
     auto &selfCol = collisions[entityId];
@@ -34,6 +34,8 @@ void BlockcollisionCallback(const std::size_t &entityId, SparseArray<GameEngine:
             hasCollidedOnTop = true;
     }
     if (hasCollidedOnTop) {
+        if (entityId == _id)
+            _jumping = false;
         selfGrav.value().cumulatedGVelocity = {0, 0};
         selfGrav.value().isActive = false;
     } else
@@ -56,12 +58,13 @@ void GameScene::load()
         auto &camComponent = _gameEngine.registry.getComponent<GameEngine::CameraComponent>()[camera];
         camComponent->target = _id;
 
+        auto bolckColliderCallback = std::bind(&GameScene::BlockcollisionCallback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
         _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[_id]
             .value()
             .addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
                            SparseArray<GameEngine::TransformComponent> &, SparseArray<GameEngine::GravityComponent> &)>,
                 GameEngine::CollisionComponent, GameEngine::TransformComponent, GameEngine::GravityComponent>(
-                _gameEngine.registry, BlockcollisionCallback);
+                _gameEngine.registry, bolckColliderCallback);
 
         GameEngine::Entity block = _gameEngine.prefabManager.createEntityFromPrefab("box", _gameEngine.registry);
         _entities.push_back(block);
@@ -77,7 +80,7 @@ void GameScene::load()
             .addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
                            SparseArray<GameEngine::TransformComponent> &, SparseArray<GameEngine::GravityComponent> &)>,
                 GameEngine::CollisionComponent, GameEngine::TransformComponent, GameEngine::GravityComponent>(
-                _gameEngine.registry, BlockcollisionCallback);
+                _gameEngine.registry, bolckColliderCallback);
 
         GameEngine::Entity block2 =
             _gameEngine.prefabManager.createEntityFromPrefab("border_map_down", _gameEngine.registry);
@@ -90,5 +93,7 @@ void GameScene::load()
 
 void GameScene::unload()
 {
+    for (std::size_t i = 0; i < _entities.size(); i++)
+        _gameEngine.registry.killEntity(_entities[i]);
     std::cout << "unloading GameScene" << std::endl;
 }

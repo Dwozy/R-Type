@@ -10,6 +10,7 @@
 Platformer::Platformer()
 {
     _state = GameState::Mainmenu;
+    isJumping = false;
     setGameEngine();
     gameLoop();
     isOpen = false;
@@ -26,8 +27,9 @@ void Platformer::handlePlayerjump()
     if (GameEngine::InputManager::isKeyPressed(GameEngine::Input::Keyboard::Space) && canJump) {
         grav[_id]->cumulatedGVelocity.y = -100;
         canJump = false;
+        isJumping = true;
     }
-    if (GameEngine::InputManager::isKeyReleased(GameEngine::Input::Keyboard::Space))
+    if (GameEngine::InputManager::isKeyReleased(GameEngine::Input::Keyboard::Space) && !isJumping)
         canJump = true;
 }
 

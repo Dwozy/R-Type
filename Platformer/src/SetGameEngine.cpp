@@ -84,7 +84,7 @@ void Platformer::setGameEngineSystem()
 
 void Platformer::setGameEngineScene()
 {
-    _gameEngine.sceneManager.registerScene("Game", std::make_unique<GameScene>(_gameEngine, _state, _id));
+    _gameEngine.sceneManager.registerScene("Game", std::make_unique<GameScene>(_gameEngine, _state, _id, isJumping));
     _gameEngine.sceneManager.registerScene("Pause", std::make_unique<PauseScene>(_gameEngine, _state, isOpen));
     _gameEngine.sceneManager.registerScene("MainMenu", std::make_unique<MainMenuScene>(_gameEngine, _state));
     _gameEngine.sceneManager.registerScene("WinLose", std::make_unique<WinLoseScene>(_gameEngine, _state, isOpen));
