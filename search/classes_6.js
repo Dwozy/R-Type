@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['headerdatapacket_617',['HeaderDataPacket',['../structrtype_1_1HeaderDataPacket.html',1,'rtype']]]
+  ['headerdatapacket_782',['HeaderDataPacket',['../structRType_1_1Protocol_1_1HeaderDataPacket.html',1,'RType::Protocol']]]
 ];

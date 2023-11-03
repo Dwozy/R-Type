@@ -67,11 +67,17 @@ $(function() {
 <li>_buffer
 : <a class="el" href="classGameEngine_1_1Network_1_1ACommunication.html#a888643d5ed7f1625fa0c58e30037a74e">GameEngine::Network::ACommunication</a>
 </li>
+<li>_currentDeltaTime
+: <a class="el" href="classGameEngine_1_1GravitySystem.html#a90b0ee8dac6b514d4d6faa322d867d6a">GameEngine::GravitySystem</a>
+</li>
+<li>_deltaTime
+: <a class="el" href="classGameEngine_1_1GravitySystem.html#ab2a9bb42b38eb65cbcfc2e977f7d58ff">GameEngine::GravitySystem</a>
+</li>
 <li>_endpoint
 : <a class="el" href="classGameEngine_1_1Network_1_1ACommunication.html#a7e6bb046840e8e641b52d1725b1efdf8">GameEngine::Network::ACommunication</a>
 </li>
 <li>_header
-: <a class="el" href="classGameEngine_1_1Network_1_1ACommunication.html#a4d129ebf07164d55106f4776a05a3aa5">GameEngine::Network::ACommunication</a>
+: <a class="el" href="classGameEngine_1_1Network_1_1ACommunication.html#ab178ef090b88034281eedc104a96df62">GameEngine::Network::ACommunication</a>
 </li>
 <li>_listClient
 : <a class="el" href="classGameEngine_1_1Network_1_1ACommunication.html#ac70d7ac652f8c87c447fcaf024bda2f5">GameEngine::Network::ACommunication</a>
@@ -97,6 +103,7 @@ $(function() {
 </li>
 <li>animationSpeed
 : <a class="el" href="structGameEngine_1_1TextureComponent.html#a56728cdcd8ce1980ef1fdfb7c232d504">GameEngine::TextureComponent</a>
+, <a class="el" href="structRType_1_1Protocol_1_1TextureData.html#af479ab912b075c26c4cd35d614c182a4">RType::Protocol::TextureData</a>
 </li>
 <li>animeid
 : <a class="el" href="structGameEngine_1_1TextureComponent.html#a95732a5cf9444af6b3eba4d9aa48b9c2">GameEngine::TextureComponent</a>
@@ -111,30 +118,31 @@ $(function() {
 <li>collider
 : <a class="el" href="structGameEngine_1_1CollisionComponent.html#a4ac97c0fc1fbf13712bc43306461891d">GameEngine::CollisionComponent</a>
 </li>
+<li>cumulatedGVelocity
+: <a class="el" href="structGameEngine_1_1GravityComponent.html#a4dbd0c587ca47158f368648ea5bacdd3">GameEngine::GravityComponent</a>
+</li>
 </ul>
 
 
 <h3><a id="index_d"></a>- d -</h3><ul>
+<li>damage
+: <a class="el" href="structGameEngine_1_1DamageComponent.html#ab664bec870d5cbc1eef0ff44792cb45c">GameEngine::DamageComponent</a>
+</li>
 <li>data
-: <a class="el" href="structrtype_1_1Event.html#aae761fbea624de46bb7067b87681c045">rtype::Event</a>
+: <a class="el" href="structRType_1_1Event.html#a8adf9306e8cc0930d4fe232d263c95cb">RType::Event</a>
 </li>
 <li>deltaTime
 : <a class="el" href="classGameEngine_1_1GameEngine.html#a994aba2ff27146563424965829f52769">GameEngine::GameEngine</a>
-, <a class="el" href="classGameEngine_1_1GameEngineServer.html#ac2f6a25d922b2e66f4495663cf82b692">GameEngine::GameEngineServer</a>
-</li>
-<li>directionX
-: <a class="el" href="structrtype_1_1Entity.html#ab60bc919e85ca7a71183fb8447e9e09e">rtype::Entity</a>
-</li>
-<li>directionY
-: <a class="el" href="structrtype_1_1Entity.html#ae29164ef29376b2c67fd46aa5f35ee42">rtype::Entity</a>
 </li>
 <li>dx
 : <a class="el" href="structRType_1_1Protocol_1_1MoveData.html#aba679b615833cd2701c1765871163366">RType::Protocol::MoveData</a>
 , <a class="el" href="structRType_1_1Protocol_1_1ShootData.html#af2211e03a7c317497c34b2d5b11ae6b9">RType::Protocol::ShootData</a>
+, <a class="el" href="structRType_1_1Protocol_1_1TransformData.html#a650b827abf74eaf69d1b1242fa5f17bb">RType::Protocol::TransformData</a>
 </li>
 <li>dy
 : <a class="el" href="structRType_1_1Protocol_1_1MoveData.html#ae85f16ceab3a60881e88df12b576366a">RType::Protocol::MoveData</a>
 , <a class="el" href="structRType_1_1Protocol_1_1ShootData.html#a89db4542481ca155848682d5f7801191">RType::Protocol::ShootData</a>
+, <a class="el" href="structRType_1_1Protocol_1_1TransformData.html#a990748674a5651ae17dd6a109273ede0">RType::Protocol::TransformData</a>
 </li>
 </ul>
 
@@ -150,8 +158,21 @@ $(function() {
 
 
 <h3><a id="index_f"></a>- f -</h3><ul>
+<li>follow_x
+: <a class="el" href="structGameEngine_1_1CameraComponent.html#ae67d8809cc76aa39de1e4bd7581b17ed">GameEngine::CameraComponent</a>
+</li>
+<li>follow_y
+: <a class="el" href="structGameEngine_1_1CameraComponent.html#a0d1d459d23ca1d17c22a48779198441a">GameEngine::CameraComponent</a>
+</li>
 <li>font
 : <a class="el" href="structGameEngine_1_1FontComponent.html#a1f67f815755ddc056adddbfc1cd547af">GameEngine::FontComponent</a>
+</li>
+</ul>
+
+
+<h3><a id="index_g"></a>- g -</h3><ul>
+<li>gravityForce
+: <a class="el" href="structGameEngine_1_1GravityComponent.html#a26fa0a8f0d090b344e60ad96940b0311">GameEngine::GravityComponent</a>
 </li>
 </ul>
 
@@ -168,19 +189,45 @@ $(function() {
 
 <h3><a id="index_i"></a>- i -</h3><ul>
 <li>id
-: <a class="el" href="structGameEngine_1_1NetworkIdComponent.html#a29f2278d573c3544c6493fb626dec112">GameEngine::NetworkIdComponent</a>
-, <a class="el" href="structrtype_1_1Entity.html#a521237497245920dbb855b5097ffcc5f">rtype::Entity</a>
-, <a class="el" href="structrtype_1_1EntityId.html#ace8361c56472143a05b1abb2d7b3469d">rtype::EntityId</a>
+: <a class="el" href="structGameEngine_1_1Input_1_1InputInfo.html#a6ec30f7b32ce502d50f533efd1d8c936">GameEngine::Input::InputInfo</a>
+, <a class="el" href="structGameEngine_1_1NetworkIdComponent.html#a29f2278d573c3544c6493fb626dec112">GameEngine::NetworkIdComponent</a>
+, <a class="el" href="structRType_1_1Protocol_1_1CollisionData.html#a0ab9ec5c4dcd3367242bf3f211414941">RType::Protocol::CollisionData</a>
+, <a class="el" href="structRType_1_1Protocol_1_1CollisionResponse.html#a9a77e9bd565f3c04569dff35ca356fc5">RType::Protocol::CollisionResponse</a>
+, <a class="el" href="structRType_1_1Protocol_1_1ControllableData.html#adafdd8600a2d34bf42fb939ead38fbc2">RType::Protocol::ControllableData</a>
+, <a class="el" href="structRType_1_1Protocol_1_1EntityIdData.html#a8ef9da66370a0e2f6e3ddcef389a157d">RType::Protocol::EntityIdData</a>
+, <a class="el" href="structRType_1_1Protocol_1_1InputData.html#a7d7bd41f4ec8df9fe0a7762d62d4bcb7">RType::Protocol::InputData</a>
 , <a class="el" href="structRType_1_1Protocol_1_1MoveData.html#aad862137c529d05cb13d8fc564207289">RType::Protocol::MoveData</a>
 , <a class="el" href="structRType_1_1Protocol_1_1ShootData.html#a9cdefbd1f8d6fbd45a9b22b225d3db45">RType::Protocol::ShootData</a>
-, <a class="el" href="structrtype_1_1Room.html#a6a22e5f1ff63afe5ca8122f28dff9803">rtype::Room</a>
-, <a class="el" href="structrtype_1_1Shoot.html#acc9df163959e75971f22443b790aff46">rtype::Shoot</a>
+, <a class="el" href="structRType_1_1Protocol_1_1TextureData.html#a7c326c487c4581be6d6dd7b4033de5da">RType::Protocol::TextureData</a>
+, <a class="el" href="structRType_1_1Protocol_1_1TextureResponse.html#a79735611cf4d8cf52d2b3d58b3d1d48e">RType::Protocol::TextureResponse</a>
+, <a class="el" href="structRType_1_1Protocol_1_1TransformData.html#afb5171133fa607adba5b1bcb2731aa6d">RType::Protocol::TransformData</a>
+</li>
+<li>idCallback
+: <a class="el" href="structRType_1_1Protocol_1_1CollisionData.html#a0c5dd5421765dc12786bf86d0146b791">RType::Protocol::CollisionData</a>
+</li>
+<li>idInput
+: <a class="el" href="structGameEngine_1_1Input_1_1InputInfo.html#a10581ca4ea68be6101b500a908a36560">GameEngine::Input::InputInfo</a>
+</li>
+<li>idOrderTexture
+: <a class="el" href="structRType_1_1Protocol_1_1TextureData.html#a832e511505dcbb390201a4cae29c5e7f">RType::Protocol::TextureData</a>
 </li>
 <li>idTexture
-: <a class="el" href="structrtype_1_1Entity.html#a8c7c190bf9e611421a00e26352ffb176">rtype::Entity</a>
+: <a class="el" href="structRType_1_1Protocol_1_1TextureData.html#a83075d449fe4423f0ea5c64c65d93b1d">RType::Protocol::TextureData</a>
+, <a class="el" href="structRType_1_1Protocol_1_1TextureResponse.html#af594c8c97125a45e972bac8e14cb5099">RType::Protocol::TextureResponse</a>
+</li>
+<li>inputId
+: <a class="el" href="structRType_1_1Protocol_1_1InputData.html#aa5b1a05401c25f0281e76a1b31a6e230">RType::Protocol::InputData</a>
+</li>
+<li>inputs
+: <a class="el" href="structGameEngine_1_1InputComponent.html#a8b96e9c350b1988442fabeb1d90577a0">GameEngine::InputComponent</a>
 </li>
 <li>isActive
-: <a class="el" href="structGameEngine_1_1CollisionComponent.html#ac701a72df2c5c2c4c820babaf8060281">GameEngine::CollisionComponent</a>
+: <a class="el" href="structGameEngine_1_1CameraComponent.html#a2334d514cd02c73997cae7a0e2a368f3">GameEngine::CameraComponent</a>
+, <a class="el" href="structGameEngine_1_1CollisionComponent.html#ac701a72df2c5c2c4c820babaf8060281">GameEngine::CollisionComponent</a>
+, <a class="el" href="structGameEngine_1_1GravityComponent.html#a7e42320a0cbe035c3d005243dedcb950">GameEngine::GravityComponent</a>
+</li>
+<li>isAnimated
+: <a class="el" href="structRType_1_1Protocol_1_1TextureData.html#a0cc03bbc1f931b54aac71f378590da0b">RType::Protocol::TextureData</a>
 </li>
 <li>isEvent
 : <a class="el" href="structGameEngine_1_1PollEventStruct.html#a16f8ff4e23eef62576389ce7ec8e1ece">GameEngine::PollEventStruct</a>
@@ -214,16 +261,20 @@ $(function() {
 </li>
 <li>layer
 : <a class="el" href="structGameEngine_1_1CollisionComponent.html#a0cffe3500437e7b2fe6df49bbea2c7a6">GameEngine::CollisionComponent</a>
+, <a class="el" href="structRType_1_1Protocol_1_1CollisionData.html#a5c59a18a2b68aa49f4780da895d16cb4">RType::Protocol::CollisionData</a>
 </li>
 <li>left
 : <a class="el" href="classGameEngine_1_1Rect.html#a6c4fae170e76863803bf093acb68b1c9">GameEngine::Rect&lt; T &gt;</a>
+</li>
+<li>lifePoint
+: <a class="el" href="structGameEngine_1_1LifePointComponent.html#ac1bb60daee527c4b691455adccb94ceb">GameEngine::LifePointComponent</a>
 </li>
 </ul>
 
 
 <h3><a id="index_m"></a>- m -</h3><ul>
 <li>magicNumber
-: <a class="el" href="structrtype_1_1HeaderDataPacket.html#acb0d85743b256a7f5418a4edd2e6ba18">rtype::HeaderDataPacket</a>
+: <a class="el" href="structRType_1_1Protocol_1_1HeaderDataPacket.html#a500a260b56c81dec3f7d84b9a063fe8a">RType::Protocol::HeaderDataPacket</a>
 </li>
 <li>music
 : <a class="el" href="structGameEngine_1_1MusicComponent.html#abf0684d1c357374060df7b010ae3ecaa">GameEngine::MusicComponent</a>
@@ -233,8 +284,8 @@ $(function() {
 
 <h3><a id="index_p"></a>- p -</h3><ul>
 <li>packetType
-: <a class="el" href="structrtype_1_1Event.html#a1bc6d0df375e0b5c1a6344a479d13d10">rtype::Event</a>
-, <a class="el" href="structrtype_1_1HeaderDataPacket.html#ad0e02ebb34ce9149c1a518864e0d0ded">rtype::HeaderDataPacket</a>
+: <a class="el" href="structRType_1_1Event.html#a88ff965f7651abcacbd680b69a68a94f">RType::Event</a>
+, <a class="el" href="structRType_1_1Protocol_1_1HeaderDataPacket.html#a0c4cce217cb566c4aec96c6eaf3d3f22">RType::Protocol::HeaderDataPacket</a>
 </li>
 <li>path
 : <a class="el" href="structGameEngine_1_1FontComponent.html#a014bb776cd9090da8dac3e54a2706c6a">GameEngine::FontComponent</a>
@@ -242,18 +293,13 @@ $(function() {
 , <a class="el" href="structGameEngine_1_1TextureComponent.html#ace7a128ae3402e56110c0ceba216400d">GameEngine::TextureComponent</a>
 </li>
 <li>payloadSize
-: <a class="el" href="structrtype_1_1HeaderDataPacket.html#aa234812d0a24252c14652cf10e193dd4">rtype::HeaderDataPacket</a>
+: <a class="el" href="structRType_1_1Protocol_1_1HeaderDataPacket.html#afe136d2c88504340fc8d658292a4f592">RType::Protocol::HeaderDataPacket</a>
+</li>
+<li>port
+: <a class="el" href="structRType_1_1Event.html#a36108bb3b0a95000185080e4eaad9e0f">RType::Event</a>
 </li>
 <li>position
 : <a class="el" href="structGameEngine_1_1TransformComponent.html#acc9a1da12b2c8c1623f220283532b402">GameEngine::TransformComponent</a>
-</li>
-<li>positionX
-: <a class="el" href="structrtype_1_1Entity.html#ac6ba13f7cc6cc79495ab4ba9ae653c17">rtype::Entity</a>
-, <a class="el" href="structrtype_1_1Shoot.html#a70f18848c6d641e4f812992122c491af">rtype::Shoot</a>
-</li>
-<li>positionY
-: <a class="el" href="structrtype_1_1Entity.html#ab20f41396e3fe3b4bd0a3a1d047127f0">rtype::Entity</a>
-, <a class="el" href="structrtype_1_1Shoot.html#a5b45bc20532c6044c14bef54475c946a">rtype::Shoot</a>
 </li>
 <li>prefabManager
 : <a class="el" href="classGameEngine_1_1GameEngine.html#a9794e879c53932c421ce2d72083818b0">GameEngine::GameEngine</a>
@@ -262,13 +308,41 @@ $(function() {
 
 
 <h3><a id="index_r"></a>- r -</h3><ul>
+<li>rectHeight
+: <a class="el" href="structRType_1_1Protocol_1_1CollisionData.html#a207fd551f7f44c5328942c3f08929b8e">RType::Protocol::CollisionData</a>
+, <a class="el" href="structRType_1_1Protocol_1_1TextureData.html#ae3e77a192d08cf6bb645b8157b041637">RType::Protocol::TextureData</a>
+</li>
+<li>rectLeft
+: <a class="el" href="structRType_1_1Protocol_1_1CollisionData.html#a49f83c16783ec3281e6acd8f19f236e0">RType::Protocol::CollisionData</a>
+, <a class="el" href="structRType_1_1Protocol_1_1TextureData.html#a6138598f6eb19217e90aebd6ff6afe53">RType::Protocol::TextureData</a>
+</li>
+<li>rectTextureHeight
+: <a class="el" href="structRType_1_1Protocol_1_1TextureData.html#a0b21d3021a6aa1d6a6f5604c6ad9bc0f">RType::Protocol::TextureData</a>
+</li>
+<li>rectTextureLeft
+: <a class="el" href="structRType_1_1Protocol_1_1TextureData.html#a8ca40cb4ae9dc27bbdbac55c70a54150">RType::Protocol::TextureData</a>
+</li>
+<li>rectTextureTop
+: <a class="el" href="structRType_1_1Protocol_1_1TextureData.html#afcadb5eb42a681aa757acd98371f23ac">RType::Protocol::TextureData</a>
+</li>
+<li>rectTextureWidth
+: <a class="el" href="structRType_1_1Protocol_1_1TextureData.html#a4d2a301342b98d3e50bab364c3b43f3e">RType::Protocol::TextureData</a>
+</li>
+<li>rectTop
+: <a class="el" href="structRType_1_1Protocol_1_1CollisionData.html#a57e58598f9a128c1670c20e5b1de4b91">RType::Protocol::CollisionData</a>
+, <a class="el" href="structRType_1_1Protocol_1_1TextureData.html#a1d51bce4827972c25824e3370d00535b">RType::Protocol::TextureData</a>
+</li>
+<li>rectWidth
+: <a class="el" href="structRType_1_1Protocol_1_1CollisionData.html#a2c473b083dac256a5d88533ce6587a80">RType::Protocol::CollisionData</a>
+, <a class="el" href="structRType_1_1Protocol_1_1TextureData.html#a7c5c60e57ec4a9feaeba28aab77dbfe8">RType::Protocol::TextureData</a>
+</li>
 <li>registry
 : <a class="el" href="classGameEngine_1_1GameEngine.html#a39f4820e35f9aa004938528e2650dd1e">GameEngine::GameEngine</a>
-, <a class="el" href="classGameEngine_1_1GameEngineServer.html#a8105665c08f02b7a0409a30a99812267">GameEngine::GameEngineServer</a>
 </li>
 <li>renderLayer
 : <a class="el" href="structGameEngine_1_1TextComponent.html#a8dec8efdaf4c0aa467297eff0ba821b2">GameEngine::TextComponent</a>
 , <a class="el" href="structGameEngine_1_1TextureComponent.html#a2e40368b0dee6c7de3859c6770c7f11e">GameEngine::TextureComponent</a>
+, <a class="el" href="structRType_1_1Protocol_1_1TextureData.html#a0511b29412c48363437321880b82d80a">RType::Protocol::TextureData</a>
 </li>
 </ul>
 
@@ -283,23 +357,16 @@ $(function() {
 <li>size
 : <a class="el" href="structGameEngine_1_1TextComponent.html#a37b1ba213890505b93660dcca881ab36">GameEngine::TextComponent</a>
 </li>
-<li>slots
-: <a class="el" href="structrtype_1_1Room.html#abe8c535a60ba89d3eccdf48d52546cc6">rtype::Room</a>
-</li>
-<li>slotsUsed
-: <a class="el" href="structrtype_1_1Room.html#ad767db839d937e19064c6269ceb62946">rtype::Room</a>
-</li>
 <li>speed
 : <a class="el" href="structGameEngine_1_1ControllableComponent.html#a1cc434dc38da148bf61128fcf80934bd">GameEngine::ControllableComponent</a>
 </li>
 <li>sprite
 : <a class="el" href="structGameEngine_1_1TextureComponent.html#a634b0264a75e6203370fde0e71c373f3">GameEngine::TextureComponent</a>
 </li>
-<li>stageLevel
-: <a class="el" href="structrtype_1_1Room.html#ab205faff2332f4951e7aace7dc6a1415">rtype::Room</a>
-</li>
 <li>state
-: <a class="el" href="structGameEngine_1_1PressableComponent.html#a9c086e5487ee49c3141fe39d1b4e4770">GameEngine::PressableComponent</a>
+: <a class="el" href="structGameEngine_1_1Input_1_1InputInfo.html#aa4627e38ac153ede392274703364b9af">GameEngine::Input::InputInfo</a>
+, <a class="el" href="structGameEngine_1_1PressableComponent.html#a9c086e5487ee49c3141fe39d1b4e4770">GameEngine::PressableComponent</a>
+, <a class="el" href="structRType_1_1Protocol_1_1InputData.html#a934d37952428abad397c3971877da72d">RType::Protocol::InputData</a>
 </li>
 <li>str
 : <a class="el" href="structGameEngine_1_1TextComponent.html#a7b3832947ac99e9e1104256c59b03449">GameEngine::TextComponent</a>
@@ -308,6 +375,9 @@ $(function() {
 
 
 <h3><a id="index_t"></a>- t -</h3><ul>
+<li>target
+: <a class="el" href="structGameEngine_1_1CameraComponent.html#a63c5c9a00d6e56b658d2c9c4e9f8aa9b">GameEngine::CameraComponent</a>
+</li>
 <li>text
 : <a class="el" href="structGameEngine_1_1TextComponent.html#a3d9057a2de1b9d6ab9d9284578c17e61">GameEngine::TextComponent</a>
 </li>
@@ -322,6 +392,9 @@ $(function() {
 </li>
 <li>textureRects
 : <a class="el" href="structGameEngine_1_1TextureComponent.html#a76c7193828072789e66c0279907a047b">GameEngine::TextureComponent</a>
+</li>
+<li>textureSize
+: <a class="el" href="structGameEngine_1_1TextureComponent.html#a9395d2d46ff86150a4c6fd644fdcee95">GameEngine::TextureComponent</a>
 </li>
 <li>top
 : <a class="el" href="classGameEngine_1_1Rect.html#a2795fe3cc1e9461d2ea209801e4be0b8">GameEngine::Rect&lt; T &gt;</a>
@@ -354,6 +427,7 @@ $(function() {
 : <a class="el" href="classGameEngine_1_1Vector2.html#ab4eec7fdc2a755d334a4aa31270e7b80">GameEngine::Vector2&lt; T &gt;</a>
 , <a class="el" href="structRType_1_1Protocol_1_1MoveData.html#a69b3de5c3f9dedb9fca052bec6d59423">RType::Protocol::MoveData</a>
 , <a class="el" href="structRType_1_1Protocol_1_1ShootData.html#af1ad1eef4b2479e5482552e856e644da">RType::Protocol::ShootData</a>
+, <a class="el" href="structRType_1_1Protocol_1_1TransformData.html#af86ee774eebe94986a3fa56710a4b4e3">RType::Protocol::TransformData</a>
 </li>
 </ul>
 
@@ -363,6 +437,7 @@ $(function() {
 : <a class="el" href="classGameEngine_1_1Vector2.html#ab16c547b1191bd34bce5c7e05804c9e6">GameEngine::Vector2&lt; T &gt;</a>
 , <a class="el" href="structRType_1_1Protocol_1_1MoveData.html#a14b03b3a09729d62fe83df119c3321cb">RType::Protocol::MoveData</a>
 , <a class="el" href="structRType_1_1Protocol_1_1ShootData.html#a5f47f43080ff77860b04f0db10341425">RType::Protocol::ShootData</a>
+, <a class="el" href="structRType_1_1Protocol_1_1TransformData.html#aed88d89c3e17b05d82186a499c67b7f7">RType::Protocol::TransformData</a>
 </li>
 </ul>
 </div><!-- contents -->

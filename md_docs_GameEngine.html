@@ -215,7 +215,7 @@ Systems</h2>
 <div class="line">while (1)</div>
 <div class="line">    gameEngine.registry.runSystems();</div>
 </div><!-- fragment --><h3><a class="anchor" id="autotoc_md13"></a>
-AnimeSystem</h3>
+AnimationSystem</h3>
 <p>This system will handle the animation of the texture. The class takes a reference to the DeltaTime and the method that overload the <code>operator()</code> takes as parameter the <code>TextureComponent</code>'s <code><a class="el" href="classSparseArray.html" title="Array which can have empty indexes.">SparseArray</a></code>.</p>
 <h3><a class="anchor" id="autotoc_md14"></a>
 CollisionSystem</h3>
@@ -262,11 +262,11 @@ EventManager</h2>
 <div class="line"><span class="comment">// Add a callback function</span></div>
 <div class="line">myHandler.subscribe(myCallback);</div>
 <div class="line">MyCallbackDataType</div>
-<div class="ttc" id="aclassGameEngine_1_1EventHandler_html"><div class="ttname"><a href="classGameEngine_1_1EventHandler.html">GameEngine::EventHandler</a></div><div class="ttdoc">class that store all the callback functions for a specific event type</div><div class="ttdef"><b>Definition:</b> Event.hpp:47</div></div>
+<div class="ttc" id="aclassGameEngine_1_1EventHandler_html"><div class="ttname"><a href="classGameEngine_1_1EventHandler.html">GameEngine::EventHandler</a></div><div class="ttdoc">class that store all the callback functions for a specific event type</div><div class="ttdef"><b>Definition:</b> Event.hpp:53</div></div>
 </div><!-- fragment --><p>Then now if the user wants to call the callbacks of the event he must call the <code>publish</code> methode</p>
 <p>Publish event exemple </p><div class="fragment"><div class="line"><span class="comment">// Pass the data to the callbacks</span></div>
 <div class="line">myHandler.<a class="code" href="classGameEngine_1_1EventHandler.html#a085f6fff9072360a9e73a51a0aa42031">publish</a>(MyCallbackDataType());</div>
-<div class="ttc" id="aclassGameEngine_1_1EventHandler_html_a085f6fff9072360a9e73a51a0aa42031"><div class="ttname"><a href="classGameEngine_1_1EventHandler.html#a085f6fff9072360a9e73a51a0aa42031">GameEngine::EventHandler::publish</a></div><div class="ttdeci">void publish(EventData eventData)</div><div class="ttdoc">call all the subscribed functions with the given eventData</div><div class="ttdef"><b>Definition:</b> Event.hpp:51</div></div>
+<div class="ttc" id="aclassGameEngine_1_1EventHandler_html_a085f6fff9072360a9e73a51a0aa42031"><div class="ttname"><a href="classGameEngine_1_1EventHandler.html#a085f6fff9072360a9e73a51a0aa42031">GameEngine::EventHandler::publish</a></div><div class="ttdeci">void publish(EventData eventData)</div><div class="ttdoc">call all the subscribed functions with the given eventData</div><div class="ttdef"><b>Definition:</b> Event.hpp:57</div></div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md21"></a>
 Registry</h2>
 <p>This is the Entity Component System described above.</p>
@@ -291,7 +291,7 @@ Game loop example</h1>
 <div class="line">    gameEngine.deltaTime.update();</div>
 <div class="line">    _gameEngine.registry.runSystems();</div>
 <div class="line">}</div>
-<div class="ttc" id="aclassGameEngine_1_1GameEngine_html"><div class="ttname"><a href="classGameEngine_1_1GameEngine.html">GameEngine::GameEngine</a></div><div class="ttdoc">Game engine class, will manage all the necessary classes for the game.</div><div class="ttdef"><b>Definition:</b> GameEngine.hpp:36</div></div>
+<div class="ttc" id="aclassGameEngine_1_1GameEngine_html"><div class="ttname"><a href="classGameEngine_1_1GameEngine.html">GameEngine::GameEngine</a></div><div class="ttdoc">Game engine class, will manage all the necessary classes for the game.</div><div class="ttdef"><b>Definition:</b> GameEngine.hpp:40</div></div>
 </div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->

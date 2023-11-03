@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['lastupdate_1038',['lastUpdate',['../structGameEngine_1_1TextureComponent.html#a86156731b01fec982d901830ad033d65',1,'GameEngine::TextureComponent']]],
-  ['layer_1039',['layer',['../structGameEngine_1_1CollisionComponent.html#a0cffe3500437e7b2fe6df49bbea2c7a6',1,'GameEngine::CollisionComponent']]],
-  ['left_1040',['left',['../classGameEngine_1_1Rect.html#a6c4fae170e76863803bf093acb68b1c9',1,'GameEngine::Rect']]]
+  ['key_5fdown_1321',['key_down',['../structGameEngine_1_1ControllableComponent.html#aa1ee9f50ba730e07b4bc7bca97e1f397',1,'GameEngine::ControllableComponent']]],
+  ['key_5fleft_1322',['key_left',['../structGameEngine_1_1ControllableComponent.html#a7c8fa650064a76da6265238283b0c5f5',1,'GameEngine::ControllableComponent']]],
+  ['key_5fright_1323',['key_right',['../structGameEngine_1_1ControllableComponent.html#a44033e1eb58fdd9827c4711b309a9cdc',1,'GameEngine::ControllableComponent']]],
+  ['key_5fup_1324',['key_up',['../structGameEngine_1_1ControllableComponent.html#ab4ff90e240382bdf6ca76a8baa63579b',1,'GameEngine::ControllableComponent']]]
 ];

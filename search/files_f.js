@@ -1,11 +1,12 @@
 var searchData=
 [
-  ['tcpclient_2ecpp_759',['TcpClient.cpp',['../TcpClient_8cpp.html',1,'']]],
-  ['tcpclient_2ehpp_760',['TcpClient.hpp',['../TcpClient_8hpp.html',1,'']]],
-  ['tcpserver_2ecpp_761',['TcpServer.cpp',['../TcpServer_8cpp.html',1,'']]],
-  ['tcpserver_2ehpp_762',['TcpServer.hpp',['../TcpServer_8hpp.html',1,'']]],
-  ['testvector_2ecpp_763',['TestVector.cpp',['../TestVector_8cpp.html',1,'']]],
-  ['textcomponent_2ehpp_764',['TextComponent.hpp',['../TextComponent_8hpp.html',1,'']]],
-  ['texturecomponent_2ehpp_765',['TextureComponent.hpp',['../TextureComponent_8hpp.html',1,'']]],
-  ['transformcomponent_2ehpp_766',['TransformComponent.hpp',['../TransformComponent_8hpp.html',1,'']]]
+  ['safequeue_2ehpp_960',['SafeQueue.hpp',['../SafeQueue_8hpp.html',1,'']]],
+  ['scenemanager_2ecpp_961',['SceneManager.cpp',['../SceneManager_8cpp.html',1,'']]],
+  ['scenemanager_2ehpp_962',['SceneManager.hpp',['../SceneManager_8hpp.html',1,'']]],
+  ['serialization_2ehpp_963',['Serialization.hpp',['../Serialization_8hpp.html',1,'']]],
+  ['setgameengine_2ecpp_964',['SetGameEngine.cpp',['../Platformer_2src_2SetGameEngine_8cpp.html',1,'(Global Namespace)'],['../R-Type_2src_2SetGameEngine_8cpp.html',1,'(Global Namespace)'],['../R-Type-server_2src_2SetGameEngine_8cpp.html',1,'(Global Namespace)']]],
+  ['setupgame_2ecpp_965',['SetupGame.cpp',['../SetupGame_8cpp.html',1,'']]],
+  ['sfmltypes_2ehpp_966',['SfmlTypes.hpp',['../SfmlTypes_8hpp.html',1,'']]],
+  ['sparsearray_2ehpp_967',['SparseArray.hpp',['../SparseArray_8hpp.html',1,'']]],
+  ['spawnmob_2ecpp_968',['SpawnMob.cpp',['../SpawnMob_8cpp.html',1,'']]]
 ];

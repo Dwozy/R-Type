@@ -76,62 +76,64 @@ $(function() {
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">** SafeQueue</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">*/</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ISafeQueue_8hpp.html">ISafeQueue.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;condition_variable&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;queue&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classSafeQueue.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="classSafeQueue.html">SafeQueue</a> : <span class="keyword">public</span> <a class="code" href="classISafeQueue.html">ISafeQueue</a>&lt;T&gt;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classSafeQueue.html#a802bf49b2bb2b5ac296bbaa5955d5020">   20</a></span>&#160;    <a class="code" href="classSafeQueue.html#a802bf49b2bb2b5ac296bbaa5955d5020">SafeQueue</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classSafeQueue.html#a639e3eb096849bc6166a20799f1c78db">   22</a></span>&#160;    <a class="code" href="classSafeQueue.html#a639e3eb096849bc6166a20799f1c78db">~SafeQueue</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classSafeQueue.html#a95a9c7d6e1a76eb525e967fef3ce484a">   25</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classSafeQueue.html#a95a9c7d6e1a76eb525e967fef3ce484a">push</a>(<a class="code" href="namespaceGameEngine_1_1Input_1_1Keyboard.html#ae7a13060cb2848c5bb8efa7c9f71cbaca4e22b29e1cdd5c3b55fb09185027bc34">T</a> value)<span class="keyword"> override</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        std::unique_lock&lt;std::mutex&gt; l(mutex);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        queue.push(value);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        cond.notify_one();</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    }</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="classSafeQueue.html#a00f86f06ee418f783f367f3f45ebfbbe">   37</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classSafeQueue.html#a00f86f06ee418f783f367f3f45ebfbbe">tryPop</a>(<a class="code" href="namespaceGameEngine_1_1Input_1_1Keyboard.html#ae7a13060cb2848c5bb8efa7c9f71cbaca4e22b29e1cdd5c3b55fb09185027bc34">T</a> &amp;value)<span class="keyword"> override</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        std::unique_lock&lt;std::mutex&gt; l(mutex);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordflow">if</span> (queue.size() == 0)</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        value = queue.front();</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        queue.pop();</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    }</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="classSafeQueue.html#a2e65646107e4542c024e6094d58cab8e">   50</a></span>&#160;    <a class="code" href="namespaceGameEngine_1_1Input_1_1Keyboard.html#ae7a13060cb2848c5bb8efa7c9f71cbaca4e22b29e1cdd5c3b55fb09185027bc34">T</a> <a class="code" href="classSafeQueue.html#a2e65646107e4542c024e6094d58cab8e">pop</a>()<span class="keyword"> override</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        std::unique_lock&lt;std::mutex&gt; l(mutex);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">if</span> (queue.size() == 0)</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            cond.wait(l);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <a class="code" href="namespaceGameEngine_1_1Input_1_1Keyboard.html#ae7a13060cb2848c5bb8efa7c9f71cbaca4e22b29e1cdd5c3b55fb09185027bc34">T</a> value = queue.front();</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        queue.pop();</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">return</span> value;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="classSafeQueue.html#ae80ce615654331a9577aaf56c5cfd073">   62</a></span>&#160;    <span class="keywordtype">size_t</span> <a class="code" href="classSafeQueue.html#ae80ce615654331a9577aaf56c5cfd073">size</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> queue.size(); }</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    std::queue&lt;T&gt; queue;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    std::mutex mutex;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    std::condition_variable cond;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;};</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#ifndef SAFEQUEUE_HPP_</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#define SAFEQUEUE_HPP_</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ISafeQueue_8hpp.html">ISafeQueue.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;condition_variable&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;queue&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classSafeQueue.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="classSafeQueue.html">SafeQueue</a> : <span class="keyword">public</span> <a class="code" href="classISafeQueue.html">ISafeQueue</a>&lt;T&gt;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classSafeQueue.html#a802bf49b2bb2b5ac296bbaa5955d5020">   21</a></span>&#160;    <a class="code" href="classSafeQueue.html#a802bf49b2bb2b5ac296bbaa5955d5020">SafeQueue</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classSafeQueue.html#a639e3eb096849bc6166a20799f1c78db">   23</a></span>&#160;    <a class="code" href="classSafeQueue.html#a639e3eb096849bc6166a20799f1c78db">~SafeQueue</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="classSafeQueue.html#a95a9c7d6e1a76eb525e967fef3ce484a">   26</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classSafeQueue.html#a95a9c7d6e1a76eb525e967fef3ce484a">push</a>(<a class="code" href="namespaceGameEngine_1_1Input_1_1Keyboard.html#ae7a13060cb2848c5bb8efa7c9f71cbaca4e22b29e1cdd5c3b55fb09185027bc34">T</a> value)<span class="keyword"> override</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        std::unique_lock&lt;std::mutex&gt; l(mutex);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        queue.push(value);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        cond.notify_one();</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    }</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="classSafeQueue.html#a00f86f06ee418f783f367f3f45ebfbbe">   38</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classSafeQueue.html#a00f86f06ee418f783f367f3f45ebfbbe">tryPop</a>(<a class="code" href="namespaceGameEngine_1_1Input_1_1Keyboard.html#ae7a13060cb2848c5bb8efa7c9f71cbaca4e22b29e1cdd5c3b55fb09185027bc34">T</a> &amp;value)<span class="keyword"> override</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        std::unique_lock&lt;std::mutex&gt; l(mutex);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">if</span> (queue.size() == 0)</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        value = queue.front();</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        queue.pop();</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    }</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="classSafeQueue.html#a2e65646107e4542c024e6094d58cab8e">   51</a></span>&#160;    <a class="code" href="namespaceGameEngine_1_1Input_1_1Keyboard.html#ae7a13060cb2848c5bb8efa7c9f71cbaca4e22b29e1cdd5c3b55fb09185027bc34">T</a> <a class="code" href="classSafeQueue.html#a2e65646107e4542c024e6094d58cab8e">pop</a>()<span class="keyword"> override</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        std::unique_lock&lt;std::mutex&gt; l(mutex);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">if</span> (queue.size() == 0)</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            cond.wait(l);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <a class="code" href="namespaceGameEngine_1_1Input_1_1Keyboard.html#ae7a13060cb2848c5bb8efa7c9f71cbaca4e22b29e1cdd5c3b55fb09185027bc34">T</a> value = queue.front();</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        queue.pop();</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordflow">return</span> value;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    }</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="classSafeQueue.html#ae80ce615654331a9577aaf56c5cfd073">   63</a></span>&#160;    <span class="keywordtype">size_t</span> <a class="code" href="classSafeQueue.html#ae80ce615654331a9577aaf56c5cfd073">size</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> queue.size(); }</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    std::queue&lt;T&gt; queue;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    std::mutex mutex;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    std::condition_variable cond;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;};</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aISafeQueue_8hpp_html"><div class="ttname"><a href="ISafeQueue_8hpp.html">ISafeQueue.hpp</a></div></div>
 <div class="ttc" id="aclassISafeQueue_html"><div class="ttname"><a href="classISafeQueue.html">ISafeQueue</a></div><div class="ttdoc">Interface for queue that is thread safe.</div><div class="ttdef"><b>Definition:</b> ISafeQueue.hpp:14</div></div>
-<div class="ttc" id="aclassSafeQueue_html"><div class="ttname"><a href="classSafeQueue.html">SafeQueue</a></div><div class="ttdoc">A queue class that is thread safe.</div><div class="ttdef"><b>Definition:</b> SafeQueue.hpp:18</div></div>
-<div class="ttc" id="aclassSafeQueue_html_a00f86f06ee418f783f367f3f45ebfbbe"><div class="ttname"><a href="classSafeQueue.html#a00f86f06ee418f783f367f3f45ebfbbe">SafeQueue::tryPop</a></div><div class="ttdeci">bool tryPop(T &amp;value) override</div><div class="ttdoc">Try to pop a value from the queue, lock a mutex while trying to pop the value.</div><div class="ttdef"><b>Definition:</b> SafeQueue.hpp:37</div></div>
-<div class="ttc" id="aclassSafeQueue_html_a2e65646107e4542c024e6094d58cab8e"><div class="ttname"><a href="classSafeQueue.html#a2e65646107e4542c024e6094d58cab8e">SafeQueue::pop</a></div><div class="ttdeci">T pop() override</div><div class="ttdoc">Pop a value from the queue, lock a mutex and wait if the queue is empty.</div><div class="ttdef"><b>Definition:</b> SafeQueue.hpp:50</div></div>
+<div class="ttc" id="aclassSafeQueue_html"><div class="ttname"><a href="classSafeQueue.html">SafeQueue</a></div><div class="ttdoc">A queue class that is thread safe.</div><div class="ttdef"><b>Definition:</b> SafeQueue.hpp:19</div></div>
+<div class="ttc" id="aclassSafeQueue_html_a00f86f06ee418f783f367f3f45ebfbbe"><div class="ttname"><a href="classSafeQueue.html#a00f86f06ee418f783f367f3f45ebfbbe">SafeQueue::tryPop</a></div><div class="ttdeci">bool tryPop(T &amp;value) override</div><div class="ttdoc">Try to pop a value from the queue, lock a mutex while trying to pop the value.</div><div class="ttdef"><b>Definition:</b> SafeQueue.hpp:38</div></div>
+<div class="ttc" id="aclassSafeQueue_html_a2e65646107e4542c024e6094d58cab8e"><div class="ttname"><a href="classSafeQueue.html#a2e65646107e4542c024e6094d58cab8e">SafeQueue::pop</a></div><div class="ttdeci">T pop() override</div><div class="ttdoc">Pop a value from the queue, lock a mutex and wait if the queue is empty.</div><div class="ttdef"><b>Definition:</b> SafeQueue.hpp:51</div></div>
 <div class="ttc" id="aclassSafeQueue_html_a639e3eb096849bc6166a20799f1c78db"><div class="ttname"><a href="classSafeQueue.html#a639e3eb096849bc6166a20799f1c78db">SafeQueue::~SafeQueue</a></div><div class="ttdeci">~SafeQueue()=default</div><div class="ttdoc">Destructor.</div></div>
 <div class="ttc" id="aclassSafeQueue_html_a802bf49b2bb2b5ac296bbaa5955d5020"><div class="ttname"><a href="classSafeQueue.html#a802bf49b2bb2b5ac296bbaa5955d5020">SafeQueue::SafeQueue</a></div><div class="ttdeci">SafeQueue()=default</div></div>
-<div class="ttc" id="aclassSafeQueue_html_a95a9c7d6e1a76eb525e967fef3ce484a"><div class="ttname"><a href="classSafeQueue.html#a95a9c7d6e1a76eb525e967fef3ce484a">SafeQueue::push</a></div><div class="ttdeci">void push(T value) override</div><div class="ttdoc">Push in queue, lock a mutex while pushing the value.</div><div class="ttdef"><b>Definition:</b> SafeQueue.hpp:25</div></div>
-<div class="ttc" id="aclassSafeQueue_html_ae80ce615654331a9577aaf56c5cfd073"><div class="ttname"><a href="classSafeQueue.html#ae80ce615654331a9577aaf56c5cfd073">SafeQueue::size</a></div><div class="ttdeci">size_t size() const</div><div class="ttdoc">Returns the current size of the queue.</div><div class="ttdef"><b>Definition:</b> SafeQueue.hpp:62</div></div>
-<div class="ttc" id="anamespaceGameEngine_1_1Input_1_1Keyboard_html_ae7a13060cb2848c5bb8efa7c9f71cbaca4e22b29e1cdd5c3b55fb09185027bc34"><div class="ttname"><a href="namespaceGameEngine_1_1Input_1_1Keyboard.html#ae7a13060cb2848c5bb8efa7c9f71cbaca4e22b29e1cdd5c3b55fb09185027bc34">GameEngine::Input::Keyboard::T</a></div><div class="ttdeci">@ T</div><div class="ttdef"><b>Definition:</b> Keyboard.hpp:39</div></div>
+<div class="ttc" id="aclassSafeQueue_html_a95a9c7d6e1a76eb525e967fef3ce484a"><div class="ttname"><a href="classSafeQueue.html#a95a9c7d6e1a76eb525e967fef3ce484a">SafeQueue::push</a></div><div class="ttdeci">void push(T value) override</div><div class="ttdoc">Push in queue, lock a mutex while pushing the value.</div><div class="ttdef"><b>Definition:</b> SafeQueue.hpp:26</div></div>
+<div class="ttc" id="aclassSafeQueue_html_ae80ce615654331a9577aaf56c5cfd073"><div class="ttname"><a href="classSafeQueue.html#ae80ce615654331a9577aaf56c5cfd073">SafeQueue::size</a></div><div class="ttdeci">size_t size() const</div><div class="ttdoc">Returns the current size of the queue.</div><div class="ttdef"><b>Definition:</b> SafeQueue.hpp:63</div></div>
+<div class="ttc" id="anamespaceGameEngine_1_1Input_1_1Keyboard_html_ae7a13060cb2848c5bb8efa7c9f71cbaca4e22b29e1cdd5c3b55fb09185027bc34"><div class="ttname"><a href="namespaceGameEngine_1_1Input_1_1Keyboard.html#ae7a13060cb2848c5bb8efa7c9f71cbaca4e22b29e1cdd5c3b55fb09185027bc34">GameEngine::Input::Keyboard::T</a></div><div class="ttdeci">@ T</div><div class="ttdef"><b>Definition:</b> Keyboard.hpp:49</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -65,25 +65,35 @@ $(function() {
 <div class="title">R-Type </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>R-type is a multiplayer 2D shoot'em up game. The game is separated in two part: the client that display the game to the user, and the server who handle connections and running the game.</p>
+<div class="textblock"><p><a href="https://github.com/EpitechPromo2026/B-CPP-500-PAR-5-1-rtype-timothe.zheng/releases"><img src="https://img.shields.io/github/v/release/EpitechPromo2026/B-CPP-500-PAR-5-1-rtype-timothe.zheng?sort=semver" alt="release" class="inline"/></a> <a href="https://dwozy.github.io/R-Type/"><img src="https://img.shields.io/static/v1?label=Documentation&amp;message=reference&amp;color=blue" alt="Documentation" class="inline"/></a> <a href="https://github.com/EpitechPromo2026/B-CPP-500-PAR-5-1-rtype-timothe.zheng/actions?query=workflow%3AActions"><img src="https://github.com/EpitechPromo2026/B-CPP-500-PAR-5-1-rtype-timothe.zheng/workflows/Actions/badge.svg" alt="Test Status" style="pointer-events: none;" class="inline"/></a></p>
+<p>R-type is a multiplayer 2D shoot'em up game. The game is separated in two part: the client that display the game to the user, and the server who handle connections and running the game.</p>
+<p>This repository contains the game R-type, the server program for R-Type, the Game Engine and a sample platformer game.</p>
 <h1><a class="anchor" id="autotoc_md30"></a>
+Exchange protocol</h1>
+<p>The R-Type client and server respect a protocol detailed <a class="el" href="md_docs_Protocol.html">here</a></p>
+<p>For any creation of new clients or server programs, the protocol must be respected otherwise it will not be compatible.</p>
+<h1><a class="anchor" id="autotoc_md31"></a>
+Game engine</h1>
+<p>The R-Type Game Engine is the game engine used to build the R-Type client and server program. It is composed of a static library and headers files. You can use the game engine to create a variety of games.</p>
+<p>To use the game engine, refer to <a class="el" href="md_docs_GameEngine.html">this documentation</a> or the <a href="https://dwozy.github.io/R-Type/namespaceGameEngine.html">reference</a>.</p>
+<h1><a class="anchor" id="autotoc_md32"></a>
 Downloading</h1>
 <p>There is two ways to get each part of the game:</p>
-<h2><a class="anchor" id="autotoc_md31"></a>
+<h2><a class="anchor" id="autotoc_md33"></a>
 Get the release</h2>
 <p>Go to the latest release, you can download the archive for either the server or the client depending of your platform and architecture</p>
-<h3><a class="anchor" id="autotoc_md32"></a>
+<h3><a class="anchor" id="autotoc_md34"></a>
 On Linux</h3>
-<p>Extract the archive then run the install script as this: </p><div class="fragment"><div class="line">$&gt; cd [extracted folder]/[client or server]</div>
-<div class="line">$&gt; ./install.sh</div>
+<p>Extract the archive then run the install script as this: </p><div class="fragment"><div class="line">cd [extracted folder]/[client or server]</div>
+<div class="line">./install.sh</div>
 </div><!-- fragment --><p> Note: if you change shell, you'll have to repeat this step.</p>
 <p>After restarting the shell you can then run the client with <code>r-type_client</code> and/or the server with <code>r-type_server</code></p>
-<h3><a class="anchor" id="autotoc_md33"></a>
+<h3><a class="anchor" id="autotoc_md35"></a>
 On Windows</h3>
 <p>Extract the archive then go to the extracted folder and double-click on the <code>install.bat</code> file</p>
-<h2><a class="anchor" id="autotoc_md34"></a>
+<h2><a class="anchor" id="autotoc_md36"></a>
 Build from source</h2>
-<h3><a class="anchor" id="autotoc_md35"></a>
+<h3><a class="anchor" id="autotoc_md37"></a>
 On Linux</h3>
 <p><b>Requirements</b>:</p><ul>
 <li>freetype</li>
@@ -104,9 +114,16 @@ On Linux</h3>
 </ul>
 <p>You should have this installed beforehand.</p>
 <p>To build from source, you'll have to download the source code from either a release or in the <code>Code</code> menu on the repository Github page.</p>
-<p>Then you'll have to go the folder and execute the <code>build_unix.sh</code> script like this: </p><div class="fragment"><div class="line">$&gt; ./build_unix.sh</div>
-</div><!-- fragment --><p>You'll then have the corresponding binary in the R-Type folder for the client and the R-Type-server for the server.</p>
-<h3><a class="anchor" id="autotoc_md36"></a>
+<p>Then you'll have to go the folder and execute the <code>build.sh</code> script like this: </p><div class="fragment"><div class="line">./build.sh [part to build]</div>
+</div><!-- fragment --><p>This command without specifying the part to build will build all the parts of R-Type (the game engine, the client, the server, the sample game and the unit tests), the parts to precise are the following:</p><ul>
+<li>Client</li>
+<li>Server</li>
+<li><a class="el" href="namespaceGameEngine.html">GameEngine</a></li>
+<li><a class="el" href="classPlatformer.html">Platformer</a> (for the sample game)</li>
+<li>tests</li>
+</ul>
+<p>You'll then have the corresponding binary/library in the R-Type folder for the client, the R-Type-server folder for the server, the <a class="el" href="classPlatformer.html">Platformer</a> folder for the sample platformer game, the GameEngine/GameEngine/lib folder for the game engine and tests folder for the unit tests.</p>
+<h3><a class="anchor" id="autotoc_md38"></a>
 On Windows</h3>
 <p><b>Requiremants</b>:</p><ul>
 <li>cmake</li>
@@ -114,26 +131,34 @@ On Windows</h3>
 </ul>
 <p>You should have this installed beforehand.</p>
 <p>To build from source, you'll have to download the source code from either a release or in the <code>Code</code> menu on the repository Github page.</p>
-<p>Then you'll have to go the folder and execute the <code>build_win.bat</code> script by double-clicking on it.</p>
-<p>You'll then have the corresponding binary in the R-Type folder for the client and the R-Type-server for the server.</p>
-<h1><a class="anchor" id="autotoc_md37"></a>
+<p>Then you'll have to go the folder and execute the <code>build.bat</code> script by double-clicking on it.</p>
+<p>You can also run the <code>build.bat</code> script through the Windows cmd like this: </p><div class="fragment"><div class="line">cmd /c build.bat [part to build]</div>
+</div><!-- fragment --><p>Simply double-clicking on the script or running the command without specifying the part to build will build all the parts of R-Type (the game engine, the client, the server, the sample game and the unit tests), the parts to precise are the following:</p><ul>
+<li>Client</li>
+<li>Server</li>
+<li><a class="el" href="namespaceGameEngine.html">GameEngine</a></li>
+<li><a class="el" href="classPlatformer.html">Platformer</a> (for the sample game)</li>
+<li>tests</li>
+</ul>
+<p>You'll then have the corresponding binary/library in the R-Type folder for the client, the R-Type-server folder for the server, the <a class="el" href="classPlatformer.html">Platformer</a> folder for the sample platformer game, the <a class="el" href="namespaceGameEngine.html">GameEngine</a>\GameEngine\lib folder for the game engine and tests folder for the unit tests.</p>
+<h1><a class="anchor" id="autotoc_md39"></a>
 Usage</h1>
 <p><b>Important</b>: Always run the executable alongside the .dll files on windows. For Linux, you should run the binary with the .so files alongside it or as is if you're building from source.</p>
-<h2><a class="anchor" id="autotoc_md38"></a>
+<h2><a class="anchor" id="autotoc_md40"></a>
 Linux</h2>
-<h3><a class="anchor" id="autotoc_md39"></a>
+<h3><a class="anchor" id="autotoc_md41"></a>
 Server</h3>
-<div class="fragment"><div class="line">$&gt; ./r-type_server [port (default: 8080)]</div>
-</div><!-- fragment --> <h3><a class="anchor" id="autotoc_md40"></a>
+<div class="fragment"><div class="line">./r-type_server [port (default: 8080)]</div>
+</div><!-- fragment --> <h3><a class="anchor" id="autotoc_md42"></a>
 Client</h3>
-<p>You should always run from a folder containing the <code>R-Type/assets</code> folder. </p><div class="fragment"><div class="line">$&gt; ./r-type_client [ip (default: 127.0.0.1)] [port (default: 8080)]</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md41"></a>
+<p>You should always run from a folder containing the <code>R-Type/assets</code> folder. </p><div class="fragment"><div class="line">./r-type_client [ip (default: 127.0.0.1)] [port (default: 8080)]</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md43"></a>
 Windows</h2>
-<h3><a class="anchor" id="autotoc_md42"></a>
+<h3><a class="anchor" id="autotoc_md44"></a>
 Server</h3>
 <div class="fragment"><div class="line">.\r-type_server.exe [port (default: 8080)]</div>
 </div><!-- fragment --><p> You can also double clicking on the executable, however you'll only use the default parameters this way. </p>
-<h3><a class="anchor" id="autotoc_md43"></a>
+<h3><a class="anchor" id="autotoc_md45"></a>
 Client</h3>
 <p>You should always run from a folder containing the <code>R-Type/assets</code> folder. </p><div class="fragment"><div class="line">./r-type_client.exe [ip (default: 127.0.0.1)] [port (default: 8080)]</div>
 </div><!-- fragment --><p> You can also double clicking on the executable, however you'll only use the default parameters this way. </p>

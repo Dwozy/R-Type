@@ -73,20 +73,29 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>Class to manage assets.  
+ <a href="classGameEngine_1_1AssetManager.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="AssetManager_8hpp_source.html">AssetManager.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a92292fa6963a20a33dd236b1b5b29e7b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1AssetManager.html#a92292fa6963a20a33dd236b1b5b29e7b">AssetManager</a> ()=default</td></tr>
+<tr class="memdesc:a92292fa6963a20a33dd236b1b5b29e7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="classGameEngine_1_1AssetManager.html#a92292fa6963a20a33dd236b1b5b29e7b">More...</a><br /></td></tr>
 <tr class="separator:a92292fa6963a20a33dd236b1b5b29e7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a22438dabad9459a5a8f997e43cddb158"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1AssetManager.html#a22438dabad9459a5a8f997e43cddb158">~AssetManager</a> ()=default</td></tr>
+<tr class="memdesc:a22438dabad9459a5a8f997e43cddb158"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default destructor.  <a href="classGameEngine_1_1AssetManager.html#a22438dabad9459a5a8f997e43cddb158">More...</a><br /></td></tr>
 <tr class="separator:a22438dabad9459a5a8f997e43cddb158"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae1aed3661ca6ce2a6ff579ea1199d2dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1AssetManager.html#ae1aed3661ca6ce2a6ff579ea1199d2dc">loadTexture</a> (const std::string &amp;filename, <a class="el" href="namespaceGameEngine.html#a45ef7bd4c1cad49d9b798f54ffdae568">Recti</a> area)</td></tr>
+<tr class="memdesc:ae1aed3661ca6ce2a6ff579ea1199d2dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load a texture from a file.  <a href="classGameEngine_1_1AssetManager.html#ae1aed3661ca6ce2a6ff579ea1199d2dc">More...</a><br /></td></tr>
 <tr class="separator:ae1aed3661ca6ce2a6ff579ea1199d2dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3056a0c6e7744beec044fa7243f5057b"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classGameEngine_1_1Texture.html">Texture</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1AssetManager.html#a3056a0c6e7744beec044fa7243f5057b">getTexture</a> (const std::string &amp;textureName) const</td></tr>
+<tr class="memdesc:a3056a0c6e7744beec044fa7243f5057b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a texture previously loaded.  <a href="classGameEngine_1_1AssetManager.html#a3056a0c6e7744beec044fa7243f5057b">More...</a><br /></td></tr>
 <tr class="separator:a3056a0c6e7744beec044fa7243f5057b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Class to manage assets. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a92292fa6963a20a33dd236b1b5b29e7b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a92292fa6963a20a33dd236b1b5b29e7b">&#9670;&nbsp;</a></span>AssetManager()</h2>
 
@@ -109,6 +118,8 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Default constructor. </p>
 
 </div>
 </div>
@@ -134,6 +145,8 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Default destructor. </p>
 
 </div>
 </div>
@@ -161,6 +174,15 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Get a texture previously loaded. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">textureName</td><td>name of the texture </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>const reference to the texture </dd></dl>
 
 </div>
 </div>
@@ -197,6 +219,15 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Load a texture from a file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>name of the file </td></tr>
+    <tr><td class="paramname">area</td><td>area of the texture </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

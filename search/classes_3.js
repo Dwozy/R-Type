@@ -1,9 +1,8 @@
 var searchData=
 [
-  ['entity_607',['Entity',['../classGameEngine_1_1Entity.html',1,'GameEngine::Entity'],['../structrtype_1_1Entity.html',1,'rtype::Entity']]],
-  ['entityid_608',['EntityId',['../structrtype_1_1EntityId.html',1,'rtype']]],
-  ['entitymanager_609',['EntityManager',['../classGameEngine_1_1EntityManager.html',1,'GameEngine']]],
-  ['event_610',['Event',['../structrtype_1_1Event.html',1,'rtype']]],
-  ['eventhandler_611',['EventHandler',['../classGameEngine_1_1EventHandler.html',1,'GameEngine']]],
-  ['eventmanager_612',['EventManager',['../classGameEngine_1_1EventManager.html',1,'GameEngine']]]
+  ['entity_771',['Entity',['../classGameEngine_1_1Entity.html',1,'GameEngine']]],
+  ['entityiddata_772',['EntityIdData',['../structRType_1_1Protocol_1_1EntityIdData.html',1,'RType::Protocol']]],
+  ['event_773',['Event',['../structRType_1_1Event.html',1,'RType']]],
+  ['eventhandler_774',['EventHandler',['../classGameEngine_1_1EventHandler.html',1,'GameEngine']]],
+  ['eventmanager_775',['EventManager',['../classGameEngine_1_1EventManager.html',1,'GameEngine']]]
 ];

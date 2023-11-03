@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['registry_1219',['Registry',['../classGameEngine_1_1Entity.html#ac7b716e6d41ff508ad2d8e5dad655d72',1,'GameEngine::Entity']]]
+  ['debugmenu_1542',['DebugMenu',['../classGameEngine_1_1Registry.html#a73edf01bb79256fc6d88853a169d5ac4',1,'GameEngine::Registry']]]
 ];

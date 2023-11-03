@@ -86,6 +86,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a16a18e8d9030ffc3abb49ff361597d6b"><td class="memItemLeft" align="right" valign="top">virtual const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1IView.html#a16a18e8d9030ffc3abb49ff361597d6b">getBaseView</a> () const =0</td></tr>
 <tr class="memdesc:a16a18e8d9030ffc3abb49ff361597d6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the view stored.  <a href="classGameEngine_1_1IView.html#a16a18e8d9030ffc3abb49ff361597d6b">More...</a><br /></td></tr>
 <tr class="separator:a16a18e8d9030ffc3abb49ff361597d6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63a8f85d7452fcf39872900a81209db4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1IView.html#a63a8f85d7452fcf39872900a81209db4">setCenter</a> (const <a class="el" href="classGameEngine_1_1Vector2.html">Vector2</a>&lt; float &gt; &amp;center)=0</td></tr>
+<tr class="separator:a63a8f85d7452fcf39872900a81209db4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca6ee3c99e2410188cbd9c15fa44e6f3"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classGameEngine_1_1Vector2.html">Vector2</a>&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1IView.html#aca6ee3c99e2410188cbd9c15fa44e6f3">getCenter</a> () const =0</td></tr>
+<tr class="separator:aca6ee3c99e2410188cbd9c15fa44e6f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af94fcb22a3a5fbe64ab9eb0acd0ea0f2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1IView.html#af94fcb22a3a5fbe64ab9eb0acd0ea0f2">setViewPort</a> (const <a class="el" href="classGameEngine_1_1Vector2.html">Vector2</a>&lt; float &gt; &amp;startingPoint, float width, float height)=0</td></tr>
+<tr class="separator:af94fcb22a3a5fbe64ab9eb0acd0ea0f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;class T&gt;<br />
@@ -158,6 +164,111 @@ template&lt;class T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>the view </dd></dl>
 
 <p>Implemented in <a class="el" href="classGameEngine_1_1View.html#aaf094c117364a5303d60e03a3d727a0b">GameEngine::View</a>.</p>
+
+</div>
+</div>
+<a id="aca6ee3c99e2410188cbd9c15fa44e6f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca6ee3c99e2410188cbd9c15fa44e6f3">&#9670;&nbsp;</a></span>getCenter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classGameEngine_1_1Vector2.html">Vector2</a>&lt;float&gt; <a class="el" href="classGameEngine_1_1IView.html">GameEngine::IView</a>&lt; T &gt;::getCenter </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classGameEngine_1_1View.html#a6a4e60f6f67d16073d471e9aed1b7b18">GameEngine::View</a>.</p>
+
+</div>
+</div>
+<a id="a63a8f85d7452fcf39872900a81209db4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63a8f85d7452fcf39872900a81209db4">&#9670;&nbsp;</a></span>setCenter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classGameEngine_1_1IView.html">GameEngine::IView</a>&lt; T &gt;::setCenter </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classGameEngine_1_1Vector2.html">Vector2</a>&lt; float &gt; &amp;&#160;</td>
+          <td class="paramname"><em>center</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classGameEngine_1_1View.html#ab49cec2dc630b312d9dd1dac1d6673da">GameEngine::View</a>.</p>
+
+</div>
+</div>
+<a id="af94fcb22a3a5fbe64ab9eb0acd0ea0f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af94fcb22a3a5fbe64ab9eb0acd0ea0f2">&#9670;&nbsp;</a></span>setViewPort()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classGameEngine_1_1IView.html">GameEngine::IView</a>&lt; T &gt;::setViewPort </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classGameEngine_1_1Vector2.html">Vector2</a>&lt; float &gt; &amp;&#160;</td>
+          <td class="paramname"><em>startingPoint</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>height</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classGameEngine_1_1View.html#a151babd052c1b2ec5b5b353a27940541">GameEngine::View</a>.</p>
 
 </div>
 </div>
