@@ -33,6 +33,7 @@ namespace GameEngine
         };
         _componentConverters["DamageComponent"] = [](json json) {
             return std::pair(std::type_index(typeid(DamageComponent)), json.get<DamageComponent>());
+        };
         _componentConverters["GravityComponent"] = [](json json) {
             return std::pair(std::type_index(typeid(GravityComponent)), json.get<GravityComponent>());
         };
@@ -60,6 +61,7 @@ namespace GameEngine
         };
         _componentAdders[typeid(DamageComponent)] = [](Registry &registry, const std::any &component, Entity entity) {
             return registry.addComponent(entity, std::any_cast<DamageComponent>(component));
+        };
         _componentAdders[typeid(GravityComponent)] = [](Registry &registry, const std::any &component, Entity entity) {
             return registry.addComponent(entity, std::any_cast<GravityComponent>(component));
         };

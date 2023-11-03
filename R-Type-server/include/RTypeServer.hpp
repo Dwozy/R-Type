@@ -112,6 +112,7 @@ namespace RType::Server
 
         void spawnEntityMob(const std::string &mob, RType::TextureType mobType);
         void handleImmunity(std::chrono::steady_clock::time_point &now);
+
       protected:
       private:
         GameEngine::GameEngine _gameEngine;

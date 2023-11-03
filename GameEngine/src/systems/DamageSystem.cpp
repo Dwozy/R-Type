@@ -10,8 +10,7 @@
 
 namespace GameEngine
 {
-    void DamageSystem::operator()(
-        SparseArray<DamageComponent> &damages, SparseArray<HealthComponent> &healths)
+    void DamageSystem::operator()(SparseArray<DamageComponent> &damages, SparseArray<HealthComponent> &healths)
     {
         for (std::size_t i = 0; i < damages.size(); i++) {
             auto &damage = damages[i];
