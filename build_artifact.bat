@@ -1,52 +1,60 @@
 @echo off
+set version=%1
 
-cmd /c build_win.bat
+echo -- Cleaning build folder
+rmdir /s /q "build"
+echo -- Cleaning build folder - done
 
-if not exist ".\artifacts" mkdir ".\artifacts" 2>nul
-if not exist ".\artifacts\server" mkdir ".\artifacts\server" 2>nul
-if not exist ".\artifacts\client" mkdir ".\artifacts\client" 2>nul
-if not exist ".\artifacts\client\R-Type" mkdir ".\artifacts\clientR-Type" 2>nul
-if not exist ".\artifacts\client\R-Type\assets" mkdir ".\artifacts\client\R-Type\assets" 2>nul
+mkdir artifacts
 
-for /R .\build %%f in (*.dll) do (
-	copy %%f .\artifacts\server
-	copy %%f .\artifacts\client
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_CLIENT="" -DINSTALL=""
+cd build
+cpack --config CPackConfig.cmake -G ZIP
+cpack --config CPackConfig.cmake -G NSIS64
+set status=%ERRORLEVEL%
+if %status% neq 0 (
+    exit /b %status%
 )
+move "R-Type-client-0.1.1-win64.zip" "..\artifacts\r-type_client-%version%-windows_x86-64.zip"
+move "R-Type-client-0.1.1-win64.sh" "..\artifacts\r-type_client-%version%-windows_x86-64.sh"
+cd ..
+del /f "build\CMakeCache.txt"
 
-xcopy .\R-Type\assets .\artifacts\client\R-Type\assets /E
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_SERVER="" -DINSTALL=""
+cd build
+cpack --config CPackConfig.cmake -G ZIP
+cpack --config CPackConfig.cmake -G NSIS64
+set status=%ERRORLEVEL%
+if %status% neq 0 (
+    exit /b %status%
+)
+move "R-Type-server-0.1.1-win64.zip" "..\artifacts\r-type_server-%version%-windows_x86-64.zip"
+move "R-Type-server-0.1.1-win64.sh" "..\artifacts\r-type_server-%version%-windows_x86-64.sh"
+cd ..
+del /f "build\CMakeCache.txt"
 
-copy .\R-Type\r-type_client.exe .\artifacts\client
-copy .\R-Type-server\r-type_server.exe .\artifacts\server
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_GAME_PLATFORMER="" -DINSTALL=""
+cd build
+cpack --config CPackConfig.cmake -G ZIP
+cpack --config CPackConfig.cmake -G NSIS64
+set status=%ERRORLEVEL%
+if %status% neq 0 (
+    exit /b %status%
+)
+move "SCP-Adventures-0.1.1-win64.zip" "..\artifacts\scp_adventures-%version%-windows_x86-64.zip"
+move "SCP-Adventures-0.1.1-win64.sh" "..\artifacts\scp_adventures-%version%-windows_x86-64.sh"
+cd ..
+del /f "build\CMakeCache.txt"
 
-(
-	echo "set SCRIPT=^"%TEMP%\%RANDOM%-%RANDOM%-%RANDOM%-%RANDOM%.vbs^""
-
-    echo "echo Set oWS = WScript.CreateObject(^"WScript.Shell^") >> %SCRIPT%"
-    echo "echo sLinkFile = ^"%USERPROFILE%\Desktop\R-Type.lnk^" >> %SCRIPT%"
-    echo "echo Set oLink = oWS.CreateShortcut(sLinkFile) >> %SCRIPT%"
-    echo "echo oLink.TargetPath = ^"%cd%\r-type_client.exe^" >> %SCRIPT%"
-    echo "echo oLink.WorkingDirectory = ^"%cd%^" >> %SCRIPT%"
-    echo "echo oLink.Save >> %SCRIPT%"
-
-    echo "cscript /nologo %SCRIPT%"
-    echo "del %SCRIPT%"
-) > .\artifacts\client\install.bat
-
-(
-	echo "set SCRIPT=^"%TEMP%\%RANDOM%-%RANDOM%-%RANDOM%-%RANDOM%.vbs^""
-
-    echo "echo Set oWS = WScript.CreateObject(^"WScript.Shell^") >> %SCRIPT%"
-    echo "echo sLinkFile = ^"%USERPROFILE%\Desktop\R-Type_Server.lnk^" >> %SCRIPT%"
-    echo "echo Set oLink = oWS.CreateShortcut(sLinkFile) >> %SCRIPT%"
-    echo "echo oLink.TargetPath = ^"%cd%\r-type_server.exe^" >> %SCRIPT%"
-    echo "echo oLink.WorkingDirectory = ^"%cd%^" >> %SCRIPT%"
-    echo "echo oLink.Save >> %SCRIPT%"
-
-    echo "cscript /nologo %SCRIPT%"
-    echo "del %SCRIPT%"
-) > .\artifacts\server\install.bat
-
-7z a ".\artifacts\r-type_client_windows_x86-64.zip" ".\artifacts\client\*"
-7z a ".\artifacts\r-type_server_windows_x86-64.zip" ".\artifacts\server\*"
-
-exit /b
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_GAME_ENGINE="" -DINSTALL=""
+cd build
+cpack --config CPackConfig.cmake -G ZIP
+cpack --config CPackConfig.cmake -G NSIS64
+set status=%ERRORLEVEL%
+if %status% neq 0 (
+    exit /b %status%
+)
+move "R-Type-Game-Engine-0.1.1-win64.zip" "..\artifacts\r-type_game_engine-%version%-windows_x86-64.zip"
+move "R-Type-Game-Engine-0.1.1-win64.sh" "..\artifacts\r-type_game_engine-%version%-windows_x86-64.sh"
+cd ..
+del /f "build\CMakeCache.txt"
