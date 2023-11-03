@@ -1,0 +1,73 @@
+name: Tests
+
+on:
+  repository_dispatch:
+  pull_request:
+    branches:
+    - 'main'
+
+permissions:
+  contents: write
+  checks: write
+
+jobs:
+  check_program_compilation_and_test:
+    if: success()
+    strategy:
+      max-parallel: 2
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            install_cmd: ./build.sh
+            run_tests_cmd: ./tests/unit_tests
+            container: biozzzzz/r-type
+            executables: R-Type-server/r-type_server,R-Type/r-type_client
+          - os: windows-latest
+            install_cmd: cmd /c build.bat
+            run_tests_cmd: cmd /c .\tests\unit_tests.exe
+            executables: R-Type-server\r-type_server.exe,R-Type\r-type_client.exe
+    runs-on: ${{ matrix.os }}
+    container: ${{ matrix.container }}
+    name: check_program_compilation_and_test
+    steps:
+      - name: Checkout files
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: Build
+        run: ${{ matrix.install_cmd }}
+        timeout-minutes: 15
+
+      - name: Run tests
+        run: ${{ matrix.run_tests_cmd }}
+
+      - name: Clean build files
+        run: ${{ matrix.install_cmd }} clean
+
+      - name: Check file existence
+        id: check_files
+        uses: andstor/file-existence-action@v2
+        with:
+          files: "${{ matrix.executables }}"
+          fail: true
+
+  check_style:
+    needs: [check_program_compilation_and_test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install clang-format
+        run: sudo apt-get install -y clang-format
+
+      - name: Run linters
+        uses: wearerequired/lint-action@v2
+        with:
+          clang_format: true
+          continue_on_error: false
