@@ -25,6 +25,7 @@ namespace GameEngine
     enum class Event : EventType {
         WindowIsOpen,
         WindowCloseEvent,
+        QuitEvent,
         PollEvent,
         GetWorldMousePos,
         WindowSetView,

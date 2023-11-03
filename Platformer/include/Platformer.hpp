@@ -31,6 +31,7 @@ class Platformer
   private:
     GameState _state;
     GameEngine::GameEngine _gameEngine;
+    bool isOpen;
     std::size_t _id;
     std::size_t _score;
     std::size_t _hp;

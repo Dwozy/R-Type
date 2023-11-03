@@ -21,6 +21,7 @@ class GameScene : public GameEngine::IScene
     void unload() override;
 
   private:
+    std::vector<GameEngine::Entity> _entities;
     GameEngine::GameEngine &_gameEngine;
     GameState &_state;
     size_t &_id;

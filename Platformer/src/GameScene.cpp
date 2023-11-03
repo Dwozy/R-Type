@@ -48,6 +48,8 @@ void GameScene::load()
 
         auto minimap_camera = _gameEngine.prefabManager.createEntityFromPrefab("minimap_camera", _gameEngine.registry);
         auto camera = _gameEngine.prefabManager.createEntityFromPrefab("main_camera", _gameEngine.registry);
+        _entities.push_back(camera);
+        _entities.push_back(minimap_camera);
         _id = _gameEngine.prefabManager.createEntityFromPrefab("player", _gameEngine.registry);
         std::cout << "player is " << _id << std::endl;
 
@@ -62,12 +64,14 @@ void GameScene::load()
                 _gameEngine.registry, BlockcollisionCallback);
 
         GameEngine::Entity block = _gameEngine.prefabManager.createEntityFromPrefab("box", _gameEngine.registry);
+        _entities.push_back(block);
         auto &blockTransform = _gameEngine.registry.getComponent<GameEngine::TransformComponent>()[block];
         blockTransform->position = {50, 50};
 
-        _gameEngine.prefabManager.createEntityFromPrefab("background", _gameEngine.registry);
-
+        GameEngine::Entity background = _gameEngine.prefabManager.createEntityFromPrefab("background", _gameEngine.registry);
+        _entities.push_back(background);
         auto enemy = _gameEngine.prefabManager.createEntityFromPrefab("enemy", _gameEngine.registry);
+        _entities.push_back(enemy);
         _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[enemy]
             .value()
             .addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
@@ -77,10 +81,14 @@ void GameScene::load()
 
         GameEngine::Entity block2 =
             _gameEngine.prefabManager.createEntityFromPrefab("border_map_down", _gameEngine.registry);
+        _entities.push_back(enemy);
     }
     if (_state == GameState::Pause) {
         std::cout << "resume game" << std::endl;
     }
 }
 
-void GameScene::unload() { std::cout << "unloading GameScene" << std::endl; }
+void GameScene::unload()
+{
+    std::cout << "unloading GameScene" << std::endl;
+}

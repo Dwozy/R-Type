@@ -12,6 +12,7 @@ Platformer::Platformer()
     _state = GameState::Mainmenu;
     setGameEngine();
     gameLoop();
+    isOpen = false;
 }
 
 void Platformer::handlePlayerjump()
@@ -34,7 +35,6 @@ void Platformer::handlePlayerMove() {}
 
 void Platformer::gameLoop()
 {
-    bool isOpen = false;
     GameEngine::PollEventStruct event;
 
     _gameEngine.eventManager.publish<bool &>(
