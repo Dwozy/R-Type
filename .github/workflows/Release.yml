@@ -86,6 +86,8 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: ${{ matrix.os }}-artifacts
+      - name: list files
+        run: ls -lR
       - name: Upload Release Asset archive
         id: upload-release-asset-1
         uses: actions/upload-release-asset@v1
