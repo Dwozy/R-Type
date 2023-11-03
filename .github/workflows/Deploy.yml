@@ -1,0 +1,47 @@
+name: Deploy
+
+on:
+  repository_dispatch:
+  push:
+    branches:
+    - 'main'
+
+permissions:
+  contents: write
+  checks: write
+
+env:
+  MIRROR_URL: git@github.com:EpitechPromo2026/B-CPP-500-PAR-5-1-rtype-timothe.zheng.git
+
+jobs:
+  push_to_mirror:
+    if: success()
+    runs-on: ubuntu-latest
+    name: push_to_mirror
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          submodules: recursive
+      - uses: pixta-dev/repository-mirroring-action@v1
+        with:
+          target_repo_url:
+            ${{ env.MIRROR_URL }}
+          ssh_private_key:
+            ${{ secrets.GIT_SSH_PRIVATE_KEY }}
+
+  make_deploy_doxygen:
+    if: success()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current branch
+        uses: actions/checkout@v2
+      - name: Install doxygen
+        run: sudo apt-get update; sudo apt-get install -y doxygen
+      - name: Create the doxygen
+        run: doxygen Doxyfile
+      - name: Deploy documentation
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./html
