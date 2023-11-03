@@ -36,18 +36,20 @@
                     "width": 32.0,
                     "height": 16.0
                 },
-                "textureRects": [{
-                    "left": 0.0,
-                    "top": 0.0,
-                    "width": 16.0,
-                    "height": 16.0
-                },
-                {
-                    "left": 16.0,
-                    "top": 0.0,
-                    "width": 16.0,
-                    "height": 16.0
-                }],
+                "textureRects": [
+                    {
+                        "left": 0.0,
+                        "top": 0.0,
+                        "width": 16.0,
+                        "height": 16.0
+                    },
+                    {
+                        "left": 16.0,
+                        "top": 0.0,
+                        "width": 16.0,
+                        "height": 16.0
+                    }
+                ],
                 "renderLayer": 1,
                 "animated": true,
                 "animationSpeed": 0.15

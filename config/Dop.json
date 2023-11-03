@@ -15,7 +15,7 @@
             }
         },
         {
-        "type": "HealthComponent",
+            "type": "HealthComponent",
             "value": {
                 "health": 30
             }
@@ -36,24 +36,26 @@
                     "width": 196.0,
                     "height": 50.0
                 },
-                "textureRects": [{
-                    "left": 0.0,
-                    "top": 0.0,
-                    "width": 64.0,
-                    "height": 50.0
-                },
-                {
-                    "left": 65.0,
-                    "top": 0.0,
-                    "width": 64.0,
-                    "height": 50.0
-                },
-                {
-                    "left": 129.0,
-                    "top": 0.0,
-                    "width": 64.0,
-                    "height": 50.0
-                }],
+                "textureRects": [
+                    {
+                        "left": 0.0,
+                        "top": 0.0,
+                        "width": 64.0,
+                        "height": 50.0
+                    },
+                    {
+                        "left": 65.0,
+                        "top": 0.0,
+                        "width": 64.0,
+                        "height": 50.0
+                    },
+                    {
+                        "left": 129.0,
+                        "top": 0.0,
+                        "width": 64.0,
+                        "height": 50.0
+                    }
+                ],
                 "renderLayer": 2,
                 "animated": true,
                 "animationSpeed": 0.30

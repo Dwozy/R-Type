@@ -14,7 +14,7 @@ namespace RType::Server
         GameEngine::Entity mobEntity =
             _gameEngine.prefabManager.createEntityFromPrefab(mob, _gameEngine.registry, false);
         auto &entityPos = _gameEngine.registry.getComponent<GameEngine::TransformComponent>()[mobEntity];
-        auto &entityTexture = _gameEngine.registry.getComponent<GameEngine::TextureComponent> () [mobEntity];
+        auto &entityTexture = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[mobEntity];
 
         GameEngine::Recti rect = entityTexture.value().textureRects[0];
         float randPosY = (rand() % (200 - rect.height)) + 5;
@@ -46,6 +46,5 @@ namespace RType::Server
             spawnEntityMob("patapata", RType::TextureType::SIMPLE_MOB);
             _timers["patapata"] = now;
         }
-
     }
 } // namespace RType::Server

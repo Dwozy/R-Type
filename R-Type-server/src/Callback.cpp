@@ -92,7 +92,6 @@ namespace RType::Server
             return;
         if (!damages[entityId] || !damages[id] || !_timerLifePoint.at(static_cast<uint16_t>(entityId)).first)
             return;
-        std::cout << "TAKE DAMAGE" << std::endl;
         damages[entityId].value().listDamage.push_back(damages[id].value().damage);
         _timerLifePoint.at(static_cast<uint16_t>(entityId)).first = false;
         struct RType::Protocol::StatePlayerData statePlayer = {
