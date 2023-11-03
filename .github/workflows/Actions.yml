@@ -44,7 +44,7 @@ jobs:
 
       - name: Build
         run: ${{ matrix.install_cmd }}
-        timeout-minutes: 10
+        timeout-minutes: 15
 
       - name: Run tests
         run: ${{ matrix.run_tests_cmd }}
