@@ -25,7 +25,6 @@ namespace RType::Server
                 GameEngine::CollisionComponent, GameEngine::TransformComponent>(
                 _gameEngine.registry, destroyMobCallback);
 
-
         updateComponentInformation(mobEntity, RType::TextureType::MOB);
         broadcastEntityInformation(mobEntity);
     }

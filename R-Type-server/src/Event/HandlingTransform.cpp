@@ -36,8 +36,8 @@ namespace RType::Server
                 continue;
             for (auto client : _udpServer.getListClients()) {
                 if (_listInfosComponent[client.first].find(i) != _listInfosComponent[client.first].end()) {
-                    sendTransformComponent(
-                        static_cast<uint16_t>(i), transform.value().position, transform.value().velocity, client.second);
+                    sendTransformComponent(static_cast<uint16_t>(i), transform.value().position,
+                        transform.value().velocity, client.second);
                 }
             }
         }

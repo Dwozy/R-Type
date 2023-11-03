@@ -19,7 +19,7 @@ namespace RType::Server
         if (!transforms[moveInfo.id])
             return;
         if (moveInfo.dx == 0 && moveInfo.dy == 0)
-        transforms[moveInfo.id]->position = {moveInfo.x, moveInfo.y};
+            transforms[moveInfo.id]->position = {moveInfo.x, moveInfo.y};
         transforms[moveInfo.id]->velocity.x = moveInfo.dx;
         transforms[moveInfo.id]->velocity.y = moveInfo.dy;
         GameEngine::Entity entity = _gameEngine.registry.getEntityById(moveInfo.id);

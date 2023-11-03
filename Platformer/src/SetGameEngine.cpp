@@ -45,10 +45,10 @@ void Platformer::setGameEngineCallback() {}
 void Platformer::setGameEngineSystem()
 {
 #ifdef DEBUG
-        auto drawSystem =
-            std::make_shared<GameEngine::DrawSystem>(_gameEngine.eventManager, _gameEngine.debugMenu, 1920, 1080, "SCP Adventures");
+    auto drawSystem = std::make_shared<GameEngine::DrawSystem>(
+        _gameEngine.eventManager, _gameEngine.debugMenu, 1920, 1080, "SCP Adventures");
 #else
-        auto drawSystem = std::make_shared<GameEngine::DrawSystem>(_gameEngine.eventManager, 1920, 1080, "SCP Adventures");
+    auto drawSystem = std::make_shared<GameEngine::DrawSystem>(_gameEngine.eventManager, 1920, 1080, "SCP Adventures");
 #endif
     GameEngine::PositionSystem positionSystem(_gameEngine.deltaTime.getDeltaTime());
     GameEngine::PressableSystem pressableSystem(_gameEngine.eventManager);
@@ -94,7 +94,8 @@ void Platformer::setGameEngineTexture()
 {
     _gameEngine.assetManager.loadTexture("Platformer/assets/SCP-745.png", GameEngine::Recti(0, 64, 64, 64));
     _gameEngine.assetManager.loadTexture("Platformer/assets/box.png", GameEngine::Recti(0, 0, 32, 32));
-    _gameEngine.assetManager.loadTexture("Platformer/assets/dark_city_background.png", GameEngine::Recti(0, 0, 5000, 500));
+    _gameEngine.assetManager.loadTexture(
+        "Platformer/assets/dark_city_background.png", GameEngine::Recti(0, 0, 5000, 500));
     _gameEngine.assetManager.loadTexture("Platformer/assets/Gunner_Black_Run.png", GameEngine::Recti(0, 0, 48, 48));
 }
 

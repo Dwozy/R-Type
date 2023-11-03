@@ -30,27 +30,30 @@ void Platformer::handlePlayerjump()
         canJump = true;
 }
 
-void Platformer::handlePlayerMove()
-{
-}
+void Platformer::handlePlayerMove() {}
 
 void Platformer::gameLoop()
 {
     bool isOpen = false;
     GameEngine::PollEventStruct event;
 
-    _gameEngine.eventManager.publish<bool &>(static_cast<GameEngine::EventType>(GameEngine::Event::WindowIsOpen), isOpen);
+    _gameEngine.eventManager.publish<bool &>(
+        static_cast<GameEngine::EventType>(GameEngine::Event::WindowIsOpen), isOpen);
     while (isOpen) {
         _gameEngine.deltaTime.update();
-        _gameEngine.eventManager.publish<GameEngine::PollEventStruct &>(static_cast<GameEngine::EventType>(GameEngine::Event::PollEvent), event);
+        _gameEngine.eventManager.publish<GameEngine::PollEventStruct &>(
+            static_cast<GameEngine::EventType>(GameEngine::Event::PollEvent), event);
         while (event.isEvent) {
-            _gameEngine.eventManager.publish<GameEngine::SEvent &>(static_cast<GameEngine::EventType>(GameEngine::Event::WindowCloseEvent), event.event);
-            _gameEngine.eventManager.publish<GameEngine::PollEventStruct &>(static_cast<GameEngine::EventType>(GameEngine::Event::PollEvent), event);
+            _gameEngine.eventManager.publish<GameEngine::SEvent &>(
+                static_cast<GameEngine::EventType>(GameEngine::Event::WindowCloseEvent), event.event);
+            _gameEngine.eventManager.publish<GameEngine::PollEventStruct &>(
+                static_cast<GameEngine::EventType>(GameEngine::Event::PollEvent), event);
         }
         _gameEngine.registry.runSystems();
         handleScreenChange();
         handlePlayerjump();
         handlePlayerMove();
-        _gameEngine.eventManager.publish<bool &>(static_cast<GameEngine::EventType>(GameEngine::Event::WindowIsOpen), isOpen);
+        _gameEngine.eventManager.publish<bool &>(
+            static_cast<GameEngine::EventType>(GameEngine::Event::WindowIsOpen), isOpen);
     }
 }

@@ -29,8 +29,6 @@ namespace RType::Client
         void handleCollisionComponent(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
         void handleControllableComponent(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
 
-
-
         /// @brief Handle String
         /// @param header that contains the size of the payload
         void handleString(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
@@ -52,7 +50,9 @@ namespace RType::Client
       private:
         asio::io_context &_IOContext;
         asio::ip::udp::endpoint &_serverEndpoint;
-        std::unordered_map<uint8_t, std::function<void(struct RType::Protocol::HeaderDataPacket header, unsigned short port)>> _commands;
+        std::unordered_map<uint8_t,
+            std::function<void(struct RType::Protocol::HeaderDataPacket header, unsigned short port)>>
+            _commands;
         SafeQueue<struct RType::Event> &_eventQueue;
     };
 } // namespace RType::Client

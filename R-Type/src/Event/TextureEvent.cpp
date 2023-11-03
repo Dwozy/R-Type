@@ -38,7 +38,7 @@ namespace RType::Client
                 _gameEngine.assetManager.getTexture(_listPathTextureId.at(textureData.idTexture)));
             entityTexture.value().sprite.setTextureRect(
                 entityTexture.value().textureRects[entityTexture.value().animeid]);
-            }
+        }
     }
 
     void RTypeClient::getTextureInformation(struct RType::Protocol::TextureData textureData)
