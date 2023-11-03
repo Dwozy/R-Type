@@ -68,12 +68,12 @@ jobs:
         include:
           - os: ubuntu-latest
             arch: linux_x86-64
-            installer_extension: .sh
+            installer_extension: sh
             installer_MIME: text/plain
             container: biozzzzz/r-type
           - os: windows-latest
             arch: windows_x86-64
-            installer_extension: .exe
+            installer_extension: exe
             installer_MIME: application/vnd.microsoft.portable-executable
     runs-on: ${{ matrix.os }}
     container: ${{ matrix.container }}
@@ -83,6 +83,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Download artifacts
+        id: download
         uses: actions/download-artifact@v3
         with:
           name: ${{ matrix.os }}-artifacts
@@ -93,7 +94,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create_release.outputs.upload_url }}
-          asset_path: ./artifacts/${{ matrix.category }}-${{ github.ref_name }}-${{ matrix.arch }}.zip
+          asset_path: ${{ matrix.category }}-${{ github.ref_name }}-${{ matrix.arch }}.zip
           asset_name: ${{ matrix.category }}-${{ github.ref_name }}-${{ matrix.arch }}.zip
           asset_content_type: application/zip
       - name: Upload Release Asset installer
@@ -103,6 +104,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create_release.outputs.upload_url }}
-          asset_path: ./artifacts/${{ matrix.category }}-${{ github.ref_name }}-${{ matrix.arch }}.${{ matrix.installer_extension }}
+          asset_path: ${{ matrix.category }}-${{ github.ref_name }}-${{ matrix.arch }}.${{ matrix.installer_extension }}
           asset_name: ${{ matrix.category }}-${{ github.ref_name }}-${{ matrix.arch }}.${{ matrix.installer_extension }}
           asset_content_type: ${{ matrix.installer_MIME }}
