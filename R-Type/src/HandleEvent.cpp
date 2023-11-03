@@ -9,43 +9,77 @@
 
 namespace RType::Client
 {
-    void RTypeClient::handleNewEntity(struct rtype::Event event)
+    void RTypeClient::handleDisconnexion(struct RType::Event event)
     {
-        struct rtype::Entity entity = std::any_cast<struct rtype::Entity>(event.data);
-        _gameEngine.eventManager.getHandler<struct rtype::Entity>(GameEngine::Event::GetNewEntity).publish(entity);
+        struct RType::Protocol::EntityIdData entity = std::any_cast<struct RType::Protocol::EntityIdData>(event.data);
+        _gameEngine.eventManager
+            .getHandler<struct RType::Protocol::EntityIdData>(
+                static_cast<GameEngine::EventType>(GameEngine::Event::DeleteEntity))
+            .publish(entity);
     }
 
-    void RTypeClient::handleDisconnexion(struct rtype::Event event)
+    void RTypeClient::handleTransformComponent(struct RType::Event event)
     {
-        struct rtype::EntityId entity = std::any_cast<struct rtype::EntityId>(event.data);
-        _gameEngine.eventManager.getHandler<struct rtype::EntityId>(GameEngine::Event::DeleteEntity).publish(entity);
+        struct RType::Protocol::TransformData transformData =
+            std::any_cast<struct RType::Protocol::TransformData>(event.data);
+        _gameEngine.eventManager
+            .getHandler<struct RType::Protocol::TransformData>(
+                static_cast<GameEngine::EventType>(GameEngine::Event::GetTransform))
+            .publish(transformData);
     }
 
-    void RTypeClient::handleEntity(struct rtype::Event event)
+    void RTypeClient::handleTextureComponent(struct RType::Event event)
     {
-        struct rtype::Entity entity = std::any_cast<struct rtype::Entity>(event.data);
-        _gameEngine.eventManager.getHandler<struct rtype::Entity>(GameEngine::Event::GetEntity).publish(entity);
+        struct RType::Protocol::TextureData textureData =
+            std::any_cast<struct RType::Protocol::TextureData>(event.data);
+        _gameEngine.eventManager
+            .getHandler<struct RType::Protocol::TextureData>(
+                static_cast<GameEngine::EventType>(GameEngine::Event::GetTexture))
+            .publish(textureData);
+    }
+
+    void RTypeClient::handleCollisionComponent(struct RType::Event event)
+    {
+        struct RType::Protocol::CollisionData collisionData =
+            std::any_cast<struct RType::Protocol::CollisionData>(event.data);
+        _gameEngine.eventManager
+            .getHandler<struct RType::Protocol::CollisionData>(
+                static_cast<GameEngine::EventType>(GameEngine::Event::GetCollision))
+            .publish(collisionData);
+    }
+
+    void RTypeClient::handleControllableComponent(struct RType::Event event)
+    {
+        struct RType::Protocol::ControllableData collisionData =
+            std::any_cast<struct RType::Protocol::ControllableData>(event.data);
+        _gameEngine.eventManager
+            .getHandler<struct RType::Protocol::ControllableData>(
+                static_cast<GameEngine::EventType>(GameEngine::Event::GetControllable))
+            .publish(collisionData);
     }
 
     void RTypeClient::handleEvent()
     {
-        struct rtype::Event event;
+        struct RType::Event event;
 
         while (_eventQueue.size() != 0) {
             event = _eventQueue.pop();
             switch (event.packetType) {
-            case static_cast<uint8_t>(rtype::PacketType::ENTITY):
-                handleEntity(event);
+            case static_cast<uint8_t>(RType::Protocol::ComponentType::TRANSFORM):
+                handleTransformComponent(event);
                 break;
-            case static_cast<uint8_t>(rtype::PacketType::CONNECTED):
-                handleNewEntity(event);
+            case static_cast<uint8_t>(RType::Protocol::ComponentType::TEXTURE):
+                handleTextureComponent(event);
                 break;
-            case static_cast<uint8_t>(rtype::PacketType::DISCONNEXION):
+            case static_cast<uint8_t>(RType::Protocol::ComponentType::COLLISION):
+                handleCollisionComponent(event);
+                break;
+            case static_cast<uint8_t>(RType::Protocol::ComponentType::CONTROLLABLE):
+                handleControllableComponent(event);
+                break;
+            case static_cast<uint8_t>(RType::PacketType::DESTROY):
                 handleDisconnexion(event);
                 break;
-                // case static_cast<uint8_t>(rtype::PacketType::SHOOT):
-                //     handleShoot(event);
-                //     break;
             }
         }
     }

@@ -5,8 +5,8 @@
 ** ISafeQueue
 */
 
-#pragma once
-
+#ifndef ISAFEQUEUE_HPP_
+#define ISAFEQUEUE_HPP_
 /// @brief Interface for queue that is thread safe
 /// @tparam T The type contained in the queue
 template <typename T>
@@ -26,3 +26,4 @@ class ISafeQueue
     /// @return The popped value
     virtual T pop() = 0;
 };
+#endif // ISAFEQUEUE_HPP_

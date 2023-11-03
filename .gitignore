@@ -3,10 +3,8 @@
 *.lib
 *.so
 *.dll
-*.cmake
 
 GameEngine/GameEngine
-Tests
 
 .vscode
 Makefile
@@ -17,6 +15,7 @@ testFolder
 r-type_client*
 r-type_server*
 unit_tests*
+platformer*
 
 *.o
 *.gcno
@@ -30,3 +29,5 @@ a.out
 .vs
 artifacts*
 .idea
+
+vgcore*

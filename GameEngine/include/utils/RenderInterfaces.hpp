@@ -41,6 +41,19 @@ namespace GameEngine
         virtual const M<T> getBaseRect() const = 0;
     };
 
+    /// @brief Interface for clock
+    /// @tparam T type of the clock
+    template <typename T>
+    class IClock
+    {
+      public:
+        /// @brief Destructor
+        ~IClock() = default;
+        /// @brief Get the clock stored
+        /// @return reference to the clock
+        virtual T &getClock() = 0;
+    };
+
     /// @brief Interface for texture
     /// @tparam T type of the texture
     /// @tparam rectT type of rect that will be used
@@ -122,6 +135,9 @@ namespace GameEngine
         /// @brief Get the view stored
         /// @return the view
         virtual const T &getBaseView() const = 0;
+        virtual void setCenter(const Vector2<float> &center) = 0;
+        virtual Vector2<float> getCenter() const = 0;
+        virtual void setViewPort(const Vector2<float> &startingPoint, float width, float height) = 0;
     };
 
     /// @brief Interface for the window
@@ -138,6 +154,9 @@ namespace GameEngine
         /// @brief Get the window
         /// @return the window
         virtual const T &getWindow() const = 0;
+        /// @brief Get the window
+        /// @return the window
+        virtual T &getWindow() = 0;
         /// @brief draw a drawable on the window
         /// @param drawable object that can be draw
         virtual void draw(const D &drawable) = 0;
@@ -165,6 +184,13 @@ namespace GameEngine
         /// @param height height of the window
         /// @param title title of the window
         virtual void create(int width, int height, const std::string &title) = 0;
+
+#ifdef DEBUG
+        /// @brief init debug context
+        virtual void initDebug() = 0;
+        virtual void shutdownDebug() = 0;
+        virtual void drawDebug() = 0;
+#endif
     };
 } // namespace GameEngine
 

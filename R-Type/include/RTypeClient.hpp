@@ -8,13 +8,13 @@
 #ifndef RTYPECLIENT_HPP_
 #define RTYPECLIENT_HPP_
 
+#include <asio.hpp>
+#include <cstdint>
+#include "GameEngine.hpp"
 #include "Protocol.hpp"
 #include "UdpClient.hpp"
 #include "TcpClient.hpp"
-#include <asio.hpp>
-#include "GameEngine.hpp"
-#include "EntityManager.hpp"
-#include <cstdint>
+#include "Keyboard.hpp"
 
 namespace RType::Client
 {
@@ -30,24 +30,23 @@ namespace RType::Client
         void gameLoop();
         /// @brief Function that will handle every event from the UDP Client
         void handleEvent();
+
+        void handleTransformComponent(struct RType::Event event);
+        void handleTextureComponent(struct RType::Event event);
+        void handleCollisionComponent(struct RType::Event event);
+
         /// @brief Function that will handle when new entity needed to be create
         /// @param event struct that will contain the information about the new entity
-        void handleNewEntity(struct rtype::Event event);
-        /// @brief Function that create a new Entity
-        /// @param entity that will contain informations
-        void entitySpawn(const struct rtype::Entity);
+        void handleNewEntity(struct RType::Event event);
         /// @brief Function that will handle when entity needed to be update
         /// @param event struct that will contain the information about the entity
-        void handleEntity(struct rtype::Event event);
-        /// @brief Function that update a Entity
-        /// @param entity update the corresponding entity
-        void updateEntity(const struct rtype::Entity);
+        void handleEntity(struct RType::Event event);
         /// @brief Function that will handle when entity needed to be delete
         /// @param event struct that will contain the information about the entity
-        void handleDisconnexion(struct rtype::Event event);
+        void handleDisconnexion(struct RType::Event event);
         /// @brief Function that delete a Entity
         /// @param entity delete the corresponding entity
-        void deleteEntity(const struct rtype::EntityId id);
+        void deleteEntity(const struct RType::Protocol::EntityIdData id);
         /// @brief Function that will handle when entity needed to be move
         /// @param event struct that will contain the information about the entity
         void handlePlayerMovement();
@@ -64,17 +63,38 @@ namespace RType::Client
 
         void setGameEngine();
 
-        void setConnexionCallback();
-        void setUpdateEntityCallback();
         void setDeleteEntityCallback();
         void setMovementEntityCallback();
+        void setControllableCallback();
 
         void shootEvent(const GameEngine::TransformComponent &transform);
         void handlePlayerShoot();
-        void setShootCallback();
-        void setNewShootCallback();
         void runUdpServer();
         void runTcpServer();
+        void handleQuit();
+
+        void setTextureInformation(struct RType::Protocol::TextureData textureData, GameEngine::Entity &entity);
+
+        void handleControllableComponent(struct RType::Event event);
+        void setControllable(struct RType::Protocol::ControllableData controllableData);
+
+        void getTransformInformation(struct RType::Protocol::TransformData transformData);
+        void setTransformCallback();
+
+        void getCollisionInformation(struct RType::Protocol::CollisionData collisionData);
+        void setCollisionCallback();
+
+        void getTextureInformation(struct RType::Protocol::TextureData textureData);
+        void setTextureCallback();
+
+        void playerCollisionCallback(const std::size_t &entityId,
+            SparseArray<GameEngine::CollisionComponent> &collisions,
+            SparseArray<GameEngine::TransformComponent> &transforms);
+
+        void setInputCallback();
+        void handleInput(struct GameEngine::Input::InputInfo inputData);
+
+        void handleMoveInput(std::vector<std::byte> data, struct GameEngine::Input::InputInfo input);
 
       protected:
       private:
@@ -88,13 +108,15 @@ namespace RType::Client
         RType::Client::UdpClient _udpClient;
         // RType::Client::TcpClient _tcpClient;
         asio::signal_set _signal;
-        SafeQueue<struct rtype::Event> _eventQueue;
-        GameEngine::EntityManager _entityManager;
+        SafeQueue<struct RType::Event> _eventQueue;
+        bool _isAlive;
         bool _isRunning;
         bool _isPlayer;
         uint16_t _serverId;
         std::size_t _id;
+        GameEngine::Input::InputType _lastInput;
         std::map<uint8_t, std::string> _listTextureTypePrefab;
+        std::map<uint8_t, std::string> _listPathTextureId;
     };
 } // namespace RType::Client
 

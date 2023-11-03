@@ -1,0 +1,69 @@
+{
+    "name": "player",
+    "components": [
+        {
+            "type": "TransformComponent",
+            "value": {
+                "position": {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                "velocity": {
+                    "x": 0.0,
+                    "y": 0.0
+                }
+            }
+        },
+        {
+            "type": "ControllableComponent",
+            "value": {
+                "key_up": "No_Key",
+                "key_left": "Q",
+                "key_down": "No_Key",
+                "key_right": "D",
+                "speed": 100.0
+            }
+        },
+        {
+            "type": "TextureComponent",
+            "value": {
+                "texturePath": "Platformer/assets/SCP-745.png",
+                "textureRects": [{
+                    "left": 0.0,
+                    "top": 64.0,
+                    "width": 64.0,
+                    "height": 64.0
+                }],
+                "textureSize": {
+                    "left": 0.0,
+                    "top": 64.0,
+                    "width": 64.0,
+                    "height": 64.0
+                },
+                "renderLayer": 2
+            }
+        },
+        {
+            "type" : "GravityComponent",
+            "value" : {
+                "gravityForce" : {
+                    "x": 0.0,
+                    "y": 2
+                },
+                "isActive" : true
+            }
+        },
+        {
+            "type": "CollisionComponent",
+            "value": {
+                "collider": {
+                    "left": 0.0,
+                    "top": 0.0,
+                    "width": 40.0,
+                    "height": 64.0
+                },
+                "layer": 30
+            }
+        }
+    ]
+}

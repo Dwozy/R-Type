@@ -1,0 +1,93 @@
+{
+    "name": "patapata",
+    "components": [
+        {
+            "type": "TransformComponent",
+            "value": {
+                "position": {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                "velocity": {
+                    "x": -60.0,
+                    "y": 0.0
+                }
+            }
+        },
+        {
+            "type": "TextureComponent",
+            "value": {
+                "texturePath": "R-Type/assets/pata_pata.gif",
+                "textureSize": {
+                    "left": 0.0,
+                    "top": 0.0,
+                    "width": 533.0,
+                    "height": 36.0
+                },
+                "textureRects": [{
+                    "left": 7.0,
+                    "top": 8.0,
+                    "width": 17.0,
+                    "height": 20.0
+                },
+                {
+                    "left": 40.0,
+                    "top": 8.0,
+                    "width": 17.0,
+                    "height": 20.0
+                },
+                {
+                    "left": 73.0,
+                    "top": 8.0,
+                    "width": 17.0,
+                    "height": 20.0
+                },
+                {
+                    "left": 106.0,
+                    "top": 8.0,
+                    "width": 17.0,
+                    "height": 20.0
+                },
+                {
+                    "left": 139.0,
+                    "top": 8.0,
+                    "width": 17.0,
+                    "height": 20.0
+                },
+                {
+                    "left": 172.0,
+                    "top": 8.0,
+                    "width": 17.0,
+                    "height": 20.0
+                },
+                {
+                    "left": 205.0,
+                    "top": 8.0,
+                    "width": 17.0,
+                    "height": 20.0
+                },
+                {
+                    "left": 238.0,
+                    "top": 8.0,
+                    "width": 17.0,
+                    "height": 20.0
+                }],
+                "renderLayer": 2,
+                "animated": true,
+                "animationSpeed": 0.25
+            }
+        },
+        {
+            "type": "CollisionComponent",
+            "value": {
+                "collider": {
+                    "left": 0.0,
+                    "top": 0.0,
+                    "width": 17.0,
+                    "height": 20.0
+                },
+                "layer": 6
+            }
+        }
+    ]
+}

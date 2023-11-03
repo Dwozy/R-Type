@@ -28,6 +28,12 @@ namespace GameEngine
         _componentConverters["CollisionComponent"] = [](json json) {
             return std::pair(std::type_index(typeid(CollisionComponent)), json.get<CollisionComponent>());
         };
+        _componentConverters["GravityComponent"] = [](json json) {
+            return std::pair(std::type_index(typeid(GravityComponent)), json.get<GravityComponent>());
+        };
+        _componentConverters["CameraComponent"] = [](json json) {
+            return std::pair(std::type_index(typeid(CameraComponent)), json.get<CameraComponent>());
+        };
 
         _componentAdders[typeid(TransformComponent)] = [](Registry &registry, const std::any &component,
                                                            Entity entity) {
@@ -43,6 +49,12 @@ namespace GameEngine
         _componentAdders[typeid(ControllableComponent)] = [](Registry &registry, const std::any &component,
                                                               Entity entity) {
             return registry.addComponent(entity, std::any_cast<ControllableComponent>(component));
+        };
+        _componentAdders[typeid(GravityComponent)] = [](Registry &registry, const std::any &component, Entity entity) {
+            return registry.addComponent(entity, std::any_cast<GravityComponent>(component));
+        };
+        _componentAdders[typeid(CameraComponent)] = [](Registry &registry, const std::any &component, Entity entity) {
+            return registry.addComponent(entity, std::any_cast<CameraComponent>(component));
         };
     }
 
@@ -69,23 +81,31 @@ namespace GameEngine
         }
     }
 
-    Entity PrefabManager::createEntityFromPrefab(const std::string &prefabName, Registry &registry)
+    Entity PrefabManager::createEntityFromPrefab(const std::string &prefabName, Registry &registry, bool loadTexture)
     {
         auto entity = registry.spawnEntity();
 
-        for (const auto &prefab : _prefabs.at(prefabName))
+        for (const auto &prefab : _prefabs.at(prefabName)) {
             _componentAdders.at(prefab.first)(registry, prefab.second, entity);
+            if (prefab.first == typeid(TextureComponent) && loadTexture) {
+                auto &texture = registry.getComponent<TextureComponent>()[entity];
+                _assetManager.get().loadTexture(texture->path, texture->textureSize);
+                texture->sprite.load(_assetManager.get().getTexture(texture->path));
+            }
+        }
         return entity;
     }
 
-    Entity PrefabManager::createEntityFromPrefab(const std::string &prefabName, Registry &registry, size_t id)
+    Entity PrefabManager::createEntityFromPrefab(
+        const std::string &prefabName, Registry &registry, size_t id, bool loadTexture)
     {
         auto entity = registry.spawnEntity(id);
 
         for (const auto &prefab : _prefabs.at(prefabName)) {
             _componentAdders.at(prefab.first)(registry, prefab.second, entity);
-            if (prefab.first == typeid(TextureComponent)) {
+            if (prefab.first == typeid(TextureComponent) && loadTexture) {
                 auto &texture = registry.getComponent<TextureComponent>()[entity];
+                _assetManager.get().loadTexture(texture->path, texture->textureSize);
                 texture->sprite.load(_assetManager.get().getTexture(texture->path));
             }
         }

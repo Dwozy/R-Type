@@ -1,0 +1,22 @@
+{
+    "name": "minimap_camera",
+    "components": [
+        {
+            "type": "CameraComponent",
+            "value": {
+                "cameraView": {
+                    "left": 0.0,
+                    "top": 0.0,
+                    "width": 3000.0,
+                    "height": 225.0
+                },
+                "cameraViewport": {
+                    "left": 0.1,
+                    "top": 0.05,
+                    "width": 0.8,
+                    "height": 0.1
+                }
+            }
+        }
+    ]
+}

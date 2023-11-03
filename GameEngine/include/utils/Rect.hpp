@@ -12,6 +12,7 @@
 #include <SFML/Graphics/Rect.hpp>
 #include <algorithm>
 #include <cmath>
+#include <iostream>
 
 namespace GameEngine
 {
@@ -70,8 +71,7 @@ namespace GameEngine
             Vector2<T> rectCenter(rectPos.x + (rect.width / 2), rectPos.y + (rect.height / 2));
             T diffX = center.x - rectCenter.x;
             T diffY = center.y - rectCenter.y;
-
-            if (std::abs(diffX / width) > std::abs(diffY / height)) {
+            if (std::abs(diffX / width) < std::abs(diffY / height)) {
                 if (diffX < 0)
                     pos.x = rectPos.x - width;
                 else

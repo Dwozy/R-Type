@@ -1,0 +1,57 @@
+{
+    "name": "charged_shoot",
+    "components": [
+        {
+            "type": "TransformComponent",
+            "value": {
+                "position": {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                "velocity": {
+                    "x": 300.0,
+                    "y": 0.0
+                }
+            }
+        },
+        {
+            "type": "TextureComponent",
+            "value": {
+                "texturePath": "R-Type/assets/player_projectile_charged.png",
+                "textureSize": {
+                    "left": 0.0,
+                    "top": 0.0,
+                    "width": 160.0,
+                    "height": 16.0
+                },
+                "textureRects": [{
+                    "left": 0.0,
+                    "top": 0.0,
+                    "width": 80.0,
+                    "height": 16.0
+                },
+                {
+                    "left": 80.0,
+                    "top": 0.0,
+                    "width": 80.0,
+                    "height": 16.0
+                }],
+                "renderLayer": 1,
+                "animated": true,
+                "animationSpeed": 0.15
+            }
+        },
+        {
+            "type": "CollisionComponent",
+            "value": {
+                "collider": {
+                    "left": 0.0,
+                    "top": 0.0,
+                    "width": 80.0,
+                    "height": 16.0
+                },
+                "layer": 7
+            }
+        }
+    ]
+}

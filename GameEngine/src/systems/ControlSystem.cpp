@@ -18,7 +18,6 @@ namespace GameEngine
             auto &tsf = transforms[i];
             if (con && tsf) {
                 tsf.value().velocity = Vector2<float>(0.0f, 0.0f);
-                tsf.value().velocity = Vector2<float>(0.0f, 0.0f);
                 if (InputManager::isKeyPressed(con.value().key_up))
                     tsf.value().velocity += Vector2<float>(0.0f, -1.0f);
                 if (InputManager::isKeyPressed(con.value().key_left))
@@ -30,8 +29,7 @@ namespace GameEngine
                 if (tsf.value().velocity.x == 0.0f && tsf.value().velocity.y == 0.0f)
                     return;
                 tsf.value().velocity = tsf.value().velocity.normalize();
-                tsf.value().velocity.x = tsf.value().velocity.x * con.value().speed;
-                tsf.value().velocity.y = tsf.value().velocity.y * con.value().speed;
+                tsf.value().velocity *= con.value().speed;
             }
         }
     }

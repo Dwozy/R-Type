@@ -11,9 +11,6 @@ on:
     branches:
     - 'main'
 
-env:
-  MIRROR_URL: git@github.com:EpitechPromo2026/B-CPP-500-PAR-5-1-rtype-timothe.zheng.git
-
 permissions:
   contents: write
   checks: write
@@ -27,13 +24,13 @@ jobs:
         os: [ubuntu-latest, windows-latest]
         include:
           - os: ubuntu-latest
-            install_cmd: ./build_unix.sh
-            run_tests_cmd: ./Tests/unit_tests
+            install_cmd: ./build.sh
+            run_tests_cmd: ./tests/unit_tests
             container: biozzzzz/r-type
             executables: R-Type-server/r-type_server,R-Type/r-type_client
           - os: windows-latest
-            install_cmd: cmd /c build_win.bat
-            run_tests_cmd: cmd /c .\Tests\unit_tests.exe
+            install_cmd: cmd /c build.bat
+            run_tests_cmd: cmd /c .\tests\unit_tests.exe
             executables: R-Type-server\r-type_server.exe,R-Type\r-type_client.exe
     runs-on: ${{ matrix.os }}
     container: ${{ matrix.container }}
@@ -47,7 +44,7 @@ jobs:
 
       - name: Build
         run: ${{ matrix.install_cmd }}
-        timeout-minutes: 10
+        timeout-minutes: 15
 
       - name: Run tests
         run: ${{ matrix.run_tests_cmd }}
