@@ -44,6 +44,6 @@ target_include_directories(${GAME_BINARY_NAME} PRIVATE ${INCLUDES_GAME} ${INCLUD
 if (DEFINED INSTALL)
     set(CPACK_PACKAGE_NAME "SCP-Adventures")
     install(TARGETS ${GAME_BINARY_NAME} RUNTIME DESTINATION bin)
-    install(DIRECTORY ${GAME_FOLDER}/assets/ DESTINATION ${GAME_FOLDER}/assets)
-    install(DIRECTORY ${GAME_FOLDER}/config/ DESTINATION ${GAME_FOLDER}/config)
+    install(DIRECTORY ${GAME_FOLDER}/assets/ DESTINATION ${GAME_FOLDER}/bin/assets)
+    install(DIRECTORY ${GAME_FOLDER}/config/ DESTINATION ${GAME_FOLDER}/bin/config)
 endif (DEFINED INSTALL)

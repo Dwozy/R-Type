@@ -56,5 +56,5 @@ target_include_directories(${SERVER_BINARY_NAME} PRIVATE ${INCLUDES_SERVER} ${IN
 if (DEFINED INSTALL)
     set(CPACK_PACKAGE_NAME "R-Type-server")
     install(TARGETS ${SERVER_BINARY_NAME} RUNTIME DESTINATION bin)
-    install(DIRECTORY config/ DESTINATION config)
+    install(DIRECTORY config/ DESTINATION bin/config)
 endif (DEFINED INSTALL)

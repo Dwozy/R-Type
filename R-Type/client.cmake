@@ -50,6 +50,6 @@ target_include_directories(${CLIENT_BINARY_NAME} PRIVATE ${INCLUDES_CLIENT} ${IN
 if (DEFINED INSTALL)
     set(CPACK_PACKAGE_NAME "R-Type-client")
     install(TARGETS ${CLIENT_BINARY_NAME} RUNTIME DESTINATION bin)
-    install(DIRECTORY ${CLIENT_FOLDER}/assets/ DESTINATION R-Type/assets)
-    install(DIRECTORY config/ DESTINATION config)
+    install(DIRECTORY ${CLIENT_FOLDER}/assets/ DESTINATION bin/R-Type/assets)
+    install(DIRECTORY config/ DESTINATION bin/config)
 endif (DEFINED INSTALL)
