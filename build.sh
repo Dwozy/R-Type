@@ -9,7 +9,7 @@ clean_all()
 
 setup_all()
 {
-    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DDEBUG=On
     status=$?
     if [ "$status" -ne 0 ]; then
         exit "$status"
@@ -35,7 +35,7 @@ fi
 
 setup_game_engine()
 {
-    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_GAME_ENGINE=""
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_GAME_ENGINE="" -DDEBUG=On
     status=$?
     if [ "$status" -ne 0 ]; then
         exit "$status"
@@ -44,7 +44,7 @@ setup_game_engine()
 
 setup_client()
 {
-    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_CLIENT=""
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_CLIENT="" -DDEBUG=On
     status=$?
     if [ "$status" -ne 0 ]; then
         exit "$status"
@@ -53,7 +53,7 @@ setup_client()
 
 setup_server()
 {
-    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_SERVER=""
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_SERVER="" -DDEBUG=On
     status=$?
     if [ "$status" -ne 0 ]; then
         exit "$status"
@@ -62,7 +62,7 @@ setup_server()
 
 setup_tests()
 {
-    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTS=""
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTS="" -DDEBUG=On
     status=$?
     if [ "$status" -ne 0 ]; then
         exit "$status"

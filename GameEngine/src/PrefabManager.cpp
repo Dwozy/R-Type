@@ -91,6 +91,7 @@ namespace GameEngine
             _componentAdders.at(prefab.first)(registry, prefab.second, entity);
             if (prefab.first == typeid(TextureComponent) && loadTexture) {
                 auto &texture = registry.getComponent<TextureComponent>()[entity];
+                _assetManager.get().loadTexture(texture->path, texture->textureSize);
                 texture->sprite.load(_assetManager.get().getTexture(texture->path));
             }
         }
@@ -106,6 +107,7 @@ namespace GameEngine
             _componentAdders.at(prefab.first)(registry, prefab.second, entity);
             if (prefab.first == typeid(TextureComponent) && loadTexture) {
                 auto &texture = registry.getComponent<TextureComponent>()[entity];
+                _assetManager.get().loadTexture(texture->path, texture->textureSize);
                 texture->sprite.load(_assetManager.get().getTexture(texture->path));
             }
         }

@@ -15,6 +15,12 @@
 #include "RenderInterfaces.hpp"
 #include "Keyboard.hpp"
 
+#ifdef DEBUG
+    #include "Debug.hpp"
+    #include <imgui.h>
+    #include <imgui-SFML.h>
+#endif
+
 namespace GameEngine
 {
     /// @brief Class representing a custom event wrapper for sf::Event
@@ -31,6 +37,19 @@ namespace GameEngine
 
       private:
         sf::Event _event;
+    };
+
+    class Clock : public IClock<sf::Clock>
+    {
+      public:
+        /// @brief Default constructor for Clock
+        Clock() = default;
+        /// @brief Returns the wrapped sf::Clock
+        /// @return Reference to the sf::Clock instance
+        sf::Clock &getClock() override { return _clock; }
+
+      private:
+        sf::Clock _clock;
     };
 
     /// @brief Class representing a texture wrapper for sf::Texture with an associated area
@@ -101,17 +120,27 @@ namespace GameEngine
         /// @param width The width of the window
         /// @param height The height of the window
         /// @param title The title of the window
+#ifdef DEBUG
+        Window(
+            Debug::DebugMenu &debugMenu, int width = 1920, int height = 1080, const std::string &title = "Game window")
+            : _window(sf::VideoMode(width, height), title), _title(title), _debugMenu(debugMenu)
+        {
+        }
+#else
         Window(int width = 1920, int height = 1080, const std::string &title = "Game window")
             : _window(sf::VideoMode(width, height), title), _title(title)
         {
         }
+#endif
         /// @brief Returns the wrapped sf::RenderWindow
         /// @return Reference to the sf::RenderWindow instance
         const sf::RenderWindow &getWindow() const override { return _window; }
+        /// @brief Returns the wrapped sf::RenderWindow
+        /// @return Reference to the sf::RenderWindow instance
+        sf::RenderWindow &getWindow() override { return _window; }
         /// @brief Draws a sf::Drawable object on the window
         /// @param drawable The object to be drawn
         void draw(const sf::Drawable &drawable) override { _window.draw(drawable); }
-
         /// @brief Sets the view of the window
         /// @param view The view to set
         void setView(const IView<sf::View> &view) override { _window.setView(view.getBaseView()); };
@@ -124,7 +153,14 @@ namespace GameEngine
         /// @brief Polls and retrieves the next event
         /// @param event The event to be filled with the polled event
         /// @return True if an event was polled, false otherwise
-        bool pollEvent(IEvent<sf::Event> &event) override { return _window.pollEvent(event.getEvent()); }
+        bool pollEvent(IEvent<sf::Event> &event) override
+        {
+            bool result = _window.pollEvent(event.getEvent());
+#ifdef DEBUG
+            ImGui::SFML::ProcessEvent(_window, event.getEvent());
+#endif
+            return result;
+        }
         /// @brief Closes the window
         void close() override { _window.close(); }
         /// @brief Displays the contents of the window
@@ -149,9 +185,31 @@ namespace GameEngine
             return Vector2<float>(coord.x, coord.y);
         };
 
+#ifdef DEBUG
+        void initDebug() override
+        {
+            if (!ImGui::SFML::Init(_window))
+                throw;
+            ImGuiIO &io = ImGui::GetIO();
+            io.IniFilename = NULL;
+            io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+        }
+        void shutdownDebug() override { ImGui::SFML::Shutdown(); }
+        void drawDebug() override
+        {
+            ImGui::SFML::Update(_window, _debugClock.getClock().restart());
+            _debugMenu.draw();
+            ImGui::SFML::Render(_window);
+        }
+#endif
+
       private:
         sf::RenderWindow _window;
         std::string _title;
+#ifdef DEBUG
+        Debug::DebugMenu &_debugMenu;
+        Clock _debugClock;
+#endif
     };
 
     /// @brief Class representing a text wrapper for sf::Text with basic functionality

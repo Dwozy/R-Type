@@ -6,16 +6,17 @@ set(INCLUDES_CLIENT ${CLIENT_FOLDER}/include)
 set(SRCS_CLIENT
     ${CLIENT_FOLDER}/src/main.cpp
     ${CLIENT_FOLDER}/src/RTypeClient.cpp
-    ${CLIENT_FOLDER}/src/EntityManager.cpp
     ${CLIENT_FOLDER}/src/UdpClient.cpp
     ${CLIENT_FOLDER}/src/TcpClient.cpp
     ${CLIENT_FOLDER}/src/HandleEvent.cpp
     ${CLIENT_FOLDER}/src/SetGameEngine.cpp
-    ${CLIENT_FOLDER}/src/Event/ConnexionEvent.cpp
     ${CLIENT_FOLDER}/src/Event/DeleteEntityEvent.cpp
-    ${CLIENT_FOLDER}/src/Event/MoveEntityEvent.cpp
-    ${CLIENT_FOLDER}/src/Event/UpdateEntityEvent.cpp
-    ${CLIENT_FOLDER}/src/Event/ShootEvent.cpp
+    ${CLIENT_FOLDER}/src/Event/InputEvent.cpp
+    ${CLIENT_FOLDER}/src/Event/TransformEvent.cpp
+    ${CLIENT_FOLDER}/src/Event/TextureEvent.cpp
+    ${CLIENT_FOLDER}/src/Event/CollisionEvent.cpp
+    ${CLIENT_FOLDER}/src/Event/ControllableEvent.cpp
+    ${CLIENT_FOLDER}/src/Callback.cpp
 )
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${PROJECT_NAME})
@@ -28,7 +29,13 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${PROJECT_NAME})
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/${PROJECT_NAME})
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/${PROJECT_NAME})
 
-add_executable(${CLIENT_BINARY_NAME} ${SRCS_CLIENT})
+if(DEBUG)
+    add_executable(${CLIENT_BINARY_NAME} ${SRCS_CLIENT} ${SRCS_DEBUG})
+    target_include_directories(${CLIENT_BINARY_NAME} PRIVATE ${INCLUDES_DEBUG})
+    target_link_libraries(${CLIENT_BINARY_NAME} PRIVATE ImGui-SFML::ImGui-SFML)
+else()
+    add_executable(${CLIENT_BINARY_NAME} ${SRCS_CLIENT})
+endif()
 if (UNIX)
     target_link_libraries(${CLIENT_BINARY_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/GameEngine/GameEngine/lib/libGameEngine.a)
 endif (UNIX)

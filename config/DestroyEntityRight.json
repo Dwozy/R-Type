@@ -5,7 +5,7 @@
             "type": "TransformComponent",
             "value": {
                 "position": {
-                    "x": 230.0,
+                    "x": 300.0,
                     "y": 0.0
                 },
                 "velocity": {
@@ -23,7 +23,7 @@
                     "width": 10.0,
                     "height": 200.0
                 },
-                "layer": 15
+                "layer": 3
             }
         }
     ]

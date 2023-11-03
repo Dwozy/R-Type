@@ -11,18 +11,27 @@
 #include <functional>
 #include <string>
 #include <typeindex>
-#include <unordered_map>
 #include <utility>
 #include <algorithm>
 #include "Entity.hpp"
 #include "Error.hpp"
 #include "SparseArray.hpp"
 
+namespace Debug
+{
+    class DebugMenu;
+}
+#ifdef DEBUG
+#endif
+
 namespace GameEngine
 {
     /// @brief Entity component system, handling entities, components and systems
     class Registry
     {
+        #ifdef DEBUG
+        #endif
+        friend class Debug::DebugMenu;
       public:
         /// @brief Constructor
         /// @param maxEntities Maximum amount of entities at once. Will set the maximum size for the components array.
@@ -88,7 +97,7 @@ namespace GameEngine
         Entity spawnEntity(const std::size_t &id)
         {
             if (id > _maxEntities)
-                throw;
+                throw Error::InvalidEntityIdError();
             if (!_emptyIndexes.empty()) {
                 auto it = std::lower_bound(_emptyIndexes.begin(), _emptyIndexes.end(), id);
                 if (it != _emptyIndexes.end())
@@ -107,9 +116,9 @@ namespace GameEngine
         Entity getEntityById(const std::size_t &id) const
         {
             if (id > _nbEntities || id > _maxEntities)
-                throw;
+                throw Error::InvalidEntityIdError();
             if (std::binary_search(_emptyIndexes.begin(), _emptyIndexes.end(), id))
-                throw;
+                throw Error::InvalidEntityIdError();
             return Entity(id);
         };
         /// @brief Kills the entity given, it destroys all the components to this entity.
@@ -160,6 +169,16 @@ namespace GameEngine
         void removeComponent(const Entity &entity)
         {
             getComponent<Component>().erase(entity);
+        };
+        /// @brief tells if a component is registered
+        /// @tparam Component component to find
+        /// @return boolean indicating whether the component is registered
+        template <typename Component>
+        bool isComponentRegistered()
+        {
+            if(_container.find(std::type_index(typeid(Component))) != _container.end())
+                return true;
+            return false;
         };
 
         /// @brief Adds a system to the registry. The system function can take reference to some component's

@@ -1,6 +1,24 @@
 # R-Type
 
+[![release](https://img.shields.io/github/v/release/EpitechPromo2026/B-CPP-500-PAR-5-1-rtype-timothe.zheng?sort=semver)](https://github.com/EpitechPromo2026/B-CPP-500-PAR-5-1-rtype-timothe.zheng/releases)
+[![Documentation](https://img.shields.io/static/v1?label=Documentation&message=reference&color=blue)](https://dwozy.github.io/R-Type/)
+[![Test Status](https://github.com/EpitechPromo2026/B-CPP-500-PAR-5-1-rtype-timothe.zheng/workflows/Actions/badge.svg)](https://github.com/EpitechPromo2026/B-CPP-500-PAR-5-1-rtype-timothe.zheng/actions?query=workflow%3AActions)
+
 R-type is a multiplayer 2D shoot'em up game. The game is separated in two part: the client that display the game to the user, and the server who handle connections and running the game.
+
+This repository contains the game R-type, the server program for R-Type, the Game Engine and a sample platformer game.
+
+# Exchange protocol
+
+The R-Type client and server respect a protocol detailed [here](docs/Protocol.md)
+
+For any creation of new clients or server programs, the protocol must be respected otherwise it will not be compatible.
+
+# Game engine
+
+The R-Type Game Engine is the game engine used to build the R-Type client and server program. It is composed of a static library and headers files. You can use the game engine to create a variety of games.
+
+To use the game engine, refer to [this documentation](docs/GameEngine.md) or the [reference](https://dwozy.github.io/R-Type/namespaceGameEngine.html).
 
 # Downloading
 There is two ways to get each part of the game:
@@ -11,8 +29,8 @@ Go to the latest release, you can download the archive for either the server or 
 ### On Linux
 Extract the archive then run the install script as this:
 ```bash
-$> cd [extracted folder]/[client or server]
-$> ./install.sh
+cd [extracted folder]/[client or server]
+./install.sh
 ```
 Note: if you change shell, you'll have to repeat this step.
 
@@ -46,12 +64,19 @@ You should have this installed beforehand.
 
 To build from source, you'll have to download the source code from either a release or in the `Code` menu on the repository Github page.
 
-Then you'll have to go the folder and execute the `build_unix.sh` script like this:
+Then you'll have to go the folder and execute the `build.sh` script like this:
 ```bash
-$> ./build_unix.sh
+./build.sh [part to build]
 ```
 
-You'll then have the corresponding binary in the R-Type folder for the client and the R-Type-server for the server.
+This command without specifying the part to build will build all the parts of R-Type (the game engine, the client, the server, the sample game and the unit tests), the parts to precise are the following:
+ - Client
+ - Server
+ - GameEngine
+ - Platformer (for the sample game)
+ - tests
+
+You'll then have the corresponding binary/library in the R-Type folder for the client, the R-Type-server folder for the server, the Platformer folder for the sample platformer game, the GameEngine/GameEngine/lib folder for the game engine and tests folder for the unit tests.
 
 ### On Windows
 
@@ -63,9 +88,21 @@ You should have this installed beforehand.
 
 To build from source, you'll have to download the source code from either a release or in the `Code` menu on the repository Github page.
 
-Then you'll have to go the folder and execute the `build_win.bat` script by double-clicking on it.
+Then you'll have to go the folder and execute the `build.bat` script by double-clicking on it.
 
-You'll then have the corresponding binary in the R-Type folder for the client and the R-Type-server for the server.
+You can also run the `build.bat` script through the Windows cmd like this:
+```bash
+cmd /c build.bat [part to build]
+```
+
+Simply double-clicking on the script or running the command without specifying the part to build will build all the parts of R-Type (the game engine, the client, the server, the sample game and the unit tests), the parts to precise are the following:
+ - Client
+ - Server
+ - GameEngine
+ - Platformer (for the sample game)
+ - tests
+
+You'll then have the corresponding binary/library in the R-Type folder for the client, the R-Type-server folder for the server, the Platformer folder for the sample platformer game, the GameEngine\GameEngine\lib folder for the game engine and tests folder for the unit tests.
 
 # Usage
 **Important**: Always run the executable alongside the .dll files on windows. For Linux, you should run the binary with the .so files alongside it or as is if you're building from source.
@@ -73,12 +110,12 @@ You'll then have the corresponding binary in the R-Type folder for the client an
 ## Linux
 ### Server
 ```bash
-$> ./r-type_server [port (default: 8080)]
+./r-type_server [port (default: 8080)]
 ```
 ### Client
 You should always run from a folder containing the `R-Type/assets` folder.
 ```bash
-$> ./r-type_client [ip (default: 127.0.0.1)] [port (default: 8080)]
+./r-type_client [ip (default: 127.0.0.1)] [port (default: 8080)]
 ```
 
 ## Windows

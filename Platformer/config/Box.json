@@ -19,6 +19,12 @@
             "value": {
                 "texturePath": "Platformer/assets/box.png",
                 "textureRects": [],
+                "textureSize": {
+                    "left": 0.0,
+                    "top": 0.0,
+                    "width": 32.0,
+                    "height": 32.0
+                },
                 "renderLayer": 2
             }
         },

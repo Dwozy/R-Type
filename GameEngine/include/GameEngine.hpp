@@ -20,7 +20,6 @@
 #include "systems/AnimationSystem.hpp"
 #include "components/CameraComponent.hpp"
 #include "components/CollisionComponent.hpp"
-#include "components/ControllableComponent.hpp"
 #include "components/FontComponent.hpp"
 #include "components/MusicComponent.hpp"
 #include "components/PressableComponent.hpp"
@@ -30,18 +29,30 @@
 #include "components/TransformComponent.hpp"
 #include "components/GravityComponent.hpp"
 
+#ifdef DEBUG
+    #include "Debug.hpp"
+#endif
+
 namespace GameEngine
 {
     /// @brief Game engine class, will manage all the necessary classes for the game.
     class GameEngine
     {
       public:
+#ifdef DEBUG
         /// @brief Constructor for the game engine.
-        /// @param maxEntities Maximum number of entities at once. Default value is 512.
-        GameEngine(std::size_t maxEntities = 512) : registry(maxEntities), prefabManager(assetManager)
+        /// @param maxEntities Maximum number of entities at once. Default value is 1024.
+        GameEngine(std::size_t maxEntities = 512)
+            : registry(maxEntities), prefabManager(assetManager), debugMenu(eventManager, registry, deltaTime)
         {
             deltaTime.update();
         };
+#else
+        GameEngine(std::size_t maxEntities = 1024) : registry(maxEntities), prefabManager(assetManager)
+        {
+            deltaTime.update();
+        };
+#endif
         /// @brief Default destructor.
         ~GameEngine() = default;
 
@@ -55,6 +66,9 @@ namespace GameEngine
         SceneManager sceneManager;
         AssetManager assetManager;
         PrefabManager prefabManager;
+#ifdef DEBUG
+        Debug::DebugMenu debugMenu;
+#endif
     };
 } // namespace GameEngine
 

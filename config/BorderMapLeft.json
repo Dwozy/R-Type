@@ -1,4 +1,4 @@
-{
+    {
     "name": "border_map_left",
     "components": [
         {
@@ -23,7 +23,7 @@
                     "width": 20.0,
                     "height": 500.0
                 },
-                "layer": 25
+                "layer": 2
             }
         }
     ]

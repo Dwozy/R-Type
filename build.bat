@@ -57,7 +57,7 @@ goto:eof
 
 :build_all
     cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
-    cmake --build .\build --config Release
+    cmake --build .\build -j --config Release
 
     for /R .\build %%f in (*.dll) do copy %%f .\R-Type
     for /R .\build %%f in (*.dll) do copy %%f .\R-Type-server

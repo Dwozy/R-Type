@@ -44,7 +44,12 @@ void Platformer::setGameEngineCallback() {}
 
 void Platformer::setGameEngineSystem()
 {
-    auto drawSystem = std::make_shared<GameEngine::DrawSystem>(_gameEngine.eventManager, 1920, 1080, "SCP");
+#ifdef DEBUG
+        auto drawSystem =
+            std::make_shared<GameEngine::DrawSystem>(_gameEngine.eventManager, _gameEngine.debugMenu, 1920, 1080, "SCP Adventures");
+#else
+        auto drawSystem = std::make_shared<GameEngine::DrawSystem>(_gameEngine.eventManager, 1920, 1080, "SCP Adventures");
+#endif
     GameEngine::PositionSystem positionSystem(_gameEngine.deltaTime.getDeltaTime());
     GameEngine::PressableSystem pressableSystem(_gameEngine.eventManager);
     GameEngine::ControlSystem controlSystem;
