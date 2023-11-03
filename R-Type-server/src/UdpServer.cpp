@@ -21,11 +21,11 @@ RType::Server::UdpServer::UdpServer(
             &RType::Server::UdpServer::handleCollisionResponse, this, std::placeholders::_1, std::placeholders::_2));
     _commands.emplace(static_cast<uint8_t>(RType::Protocol::ComponentType::INPUT),
         std::bind(&RType::Server::UdpServer::handleInput, this, std::placeholders::_1, std::placeholders::_2));
-    _commands.emplace(static_cast<uint8_t>(RType::PacketType::STRING),
+    _commands.emplace(static_cast<uint8_t>(RType::Protocol::PacketType::STRING),
         std::bind(&RType::Server::UdpServer::handleString, this, std::placeholders::_1, std::placeholders::_2));
-    _commands.emplace(static_cast<uint8_t>(RType::PacketType::CONNEXION),
+    _commands.emplace(static_cast<uint8_t>(RType::Protocol::PacketType::CONNEXION),
         std::bind(&RType::Server::UdpServer::handleConnexion, this, std::placeholders::_1, std::placeholders::_2));
-    _commands.emplace(static_cast<uint8_t>(RType::PacketType::DESTROY),
+    _commands.emplace(static_cast<uint8_t>(RType::Protocol::PacketType::DESTROY),
         std::bind(&RType::Server::UdpServer::handleDisconnexion, this, std::placeholders::_1, std::placeholders::_2));
 }
 
@@ -34,7 +34,7 @@ RType::Server::UdpServer::~UdpServer()
     std::string message = "Server down";
 
     for (auto endpoint : _listClient) {
-        sendData(message.data(), message.size(), static_cast<uint8_t>(RType::PacketType::STRING), _udpSocket,
+        sendData(message.data(), message.size(), static_cast<uint8_t>(RType::Protocol::PacketType::STRING), _udpSocket,
             endpoint.second);
     }
     _udpSocket.close();

@@ -31,6 +31,7 @@ RType::Server::RTypeServer::RTypeServer(unsigned short port)
     setGameEngine();
     setupGame();
     setTimers();
+    _points = 0;
     _nbPlayers = 0;
     pos = 1;
     _isRunning = true;
@@ -86,7 +87,8 @@ void RType::Server::RTypeServer::handlingTimers()
             std::vector<std::byte> dataToSend =
                 Serialization::serializeData<struct RType::Protocol::StatePlayerData>(statePlayer, sizeof(statePlayer));
             for (auto client : _udpServer.getListClients())
-                _udpServer.sendInformation(static_cast<uint8_t>(RType::Protocol::ComponentType::TEXTURE_STATE), dataToSend, client.second);
+                _udpServer.sendInformation(
+                    static_cast<uint8_t>(RType::Protocol::ComponentType::TEXTURE_STATE), dataToSend, client.second);
         }
     }
 }
@@ -98,7 +100,8 @@ void RType::Server::RTypeServer::handlingEndGame()
         std::vector<std::byte> dataToSend(message.size());
         std::transform(message.begin(), message.end(), dataToSend.begin(), [](char c) { return std::byte(c); });
         for (auto client : _udpServer.getListClients())
-            _udpServer.sendInformation(static_cast<uint8_t>(RType::PacketType::STRING), dataToSend, client.second);
+            _udpServer.sendInformation(
+                static_cast<uint8_t>(RType::Protocol::PacketType::STRING), dataToSend, client.second);
         _nbPlayers = 0;
     }
 }

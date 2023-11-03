@@ -1,0 +1,63 @@
+{
+    "name": "boss",
+    "components": [
+        {
+            "type": "TransformComponent",
+            "value": {
+                "position": {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                "velocity": {
+                    "x": -30.0,
+                    "y": 0.0
+                }
+            }
+        },
+        {
+            "type": "TextureComponent",
+            "value": {
+                "texturePath": "R-Type/assets/big_enemy.png",
+                "textureSize": {
+                    "left": 0.0,
+                    "top": 0.0,
+                    "width": 196.0,
+                    "height": 50.0
+                },
+                "textureRects": [{
+                    "left": 0.0,
+                    "top": 0.0,
+                    "width": 64.0,
+                    "height": 50.0
+                },
+                {
+                    "left": 65.0,
+                    "top": 0.0,
+                    "width": 640,
+                    "height": 50.0
+                },
+                {
+                    "left": 129.0,
+                    "top": 0.0,
+                    "width": 64.0,
+                    "height": 50.0
+                }],
+                "renderLayer": 2,
+                "animated": true,
+                "animationSpeed": 0.30
+            }
+        },
+        {
+            "type": "CollisionComponent",
+            "value": {
+                "collider": {
+                    "left": 0.0,
+                    "top": 0.0,
+                    "width": 64.0,
+                    "height": 50.0
+                },
+                "layer": 6
+            }
+        }
+    ]
+}

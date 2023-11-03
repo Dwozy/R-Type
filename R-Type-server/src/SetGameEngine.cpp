@@ -20,6 +20,7 @@ namespace RType::Server
     void RTypeServer::setPrefab()
     {
         _gameEngine.prefabManager.loadPrefabFromFile("config/NonPlayerStarship.json");
+        _gameEngine.prefabManager.loadPrefabFromFile("config/Boss.json");
         _gameEngine.prefabManager.loadPrefabFromFile("config/Player.json");
         _gameEngine.prefabManager.loadPrefabFromFile("config/ParallaxCollision.json");
         _gameEngine.prefabManager.loadPrefabFromFile("config/Parallax.json");

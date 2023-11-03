@@ -31,15 +31,19 @@ namespace RType::Server
                 continue;
             if (selfCol.value().layer == 5 && col.value().layer != 6)
                 continue;
-            if (selfCol.value().layer == 6 && col.value().layer != 5)
-                continue;
             if (selfCol.value().layer == 7 && col.value().layer != 6)
+                continue;
+            if (selfCol.value().layer == 6 && col.value().layer != 5)
                 continue;
             if (selfCol.value().collider.isColliding(
                     selfTsf.value().position, col.value().collider, tsf.value().position)) {
+                if (col.value().layer == 6 && (selfCol.value().layer == 5 || selfCol.value().layer == 7)) {
+                    std::cout << "Win point : " << _points << std::endl;
+                    _points++;
+                }
                 struct RType::Protocol::EntityIdData entityId = {.id = static_cast<uint16_t>(i)};
                 struct RType::Event destroyEvent = {
-                    .packetType = static_cast<uint8_t>(RType::PacketType::DESTROY), .data = entityId};
+                    .packetType = static_cast<uint8_t>(RType::Protocol::PacketType::DESTROY), .data = entityId};
                 _eventQueue.push(destroyEvent);
             }
         }
@@ -81,7 +85,7 @@ namespace RType::Server
                 _nbPlayers = -1;
             struct RType::Protocol::EntityIdData entityValue = {.id = static_cast<uint16_t>(entityId)};
             struct RType::Event destroyEvent = {
-                .packetType = static_cast<uint8_t>(RType::PacketType::DESTROY), .data = entityValue};
+                .packetType = static_cast<uint8_t>(RType::Protocol::PacketType::DESTROY), .data = entityValue};
             _eventQueue.push(destroyEvent);
         } else {
             _listLifePoints.at(static_cast<uint16_t>(entityId))--;
@@ -92,7 +96,8 @@ namespace RType::Server
             std::vector<std::byte> dataToSend =
                 Serialization::serializeData<struct RType::Protocol::StatePlayerData>(statePlayer, sizeof(statePlayer));
             for (auto client : _udpServer.getListClients())
-                _udpServer.sendInformation(static_cast<uint8_t>(RType::Protocol::ComponentType::TEXTURE_STATE), dataToSend, client.second);
+                _udpServer.sendInformation(
+                    static_cast<uint8_t>(RType::Protocol::ComponentType::TEXTURE_STATE), dataToSend, client.second);
         }
     }
 

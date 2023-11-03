@@ -117,7 +117,7 @@ void RType::Client::RTypeClient::handleQuit()
         struct RType::Protocol::EntityIdData entityId = {.id = this->_serverId};
         std::vector<std::byte> dataToSend =
             Serialization::serializeData<struct RType::Protocol::EntityIdData>(entityId, sizeof(entityId));
-        _udpClient.sendDataInformation(dataToSend, static_cast<uint8_t>(RType::PacketType::DESTROY));
+        _udpClient.sendDataInformation(dataToSend, static_cast<uint8_t>(RType::Protocol::PacketType::DESTROY));
         std::cout << "Player " << _serverId << " died :( !" << std::endl;
     }
 }

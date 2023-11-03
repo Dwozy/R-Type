@@ -121,6 +121,7 @@ namespace RType::Server
         std::size_t _nbPlayers;
         bool _chargedAttack;
         float pos;
+        std::size_t _points;
         std::vector<uint8_t> _inputsType;
     };
 } // namespace RType::Server

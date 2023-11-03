@@ -87,7 +87,7 @@ namespace RType::Client
             case static_cast<uint8_t>(RType::Protocol::ComponentType::CONTROLLABLE):
                 handleControllableComponent(event);
                 break;
-            case static_cast<uint8_t>(RType::PacketType::DESTROY):
+            case static_cast<uint8_t>(RType::Protocol::PacketType::DESTROY):
                 handleDisconnexion(event);
                 break;
             case static_cast<uint8_t>(RType::Protocol::ComponentType::TEXTURE_STATE):
