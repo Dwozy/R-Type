@@ -10,6 +10,28 @@ permissions:
   contents: write
   checks: write
 
+  create_artifacts:
+    if: success()
+    strategy:
+      max-parallel: 2
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            install_cmd: ./build_artifact.sh
+            container: biozzzzz/r-type
+          - os: windows-latest
+            install_cmd: cmd /c build_artifact.bat
+      steps:
+        - name: Build artifacts
+          run: ${{ matrix.cmd }} ${{ github.ref_name }}
+        - name: Upload artifacts
+          uses: actions/upload-artifact@v3
+          with:
+            name: ${{ matrix.os }}-artifacts
+            path: artifacts/
+            retention-days: 3
+
   create_release:
     if: success() && github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
     needs: create_artifact
@@ -35,15 +57,17 @@ permissions:
       max-parallel: 4
       matrix:
         os: [ubuntu-latest, windows-latest]
-        category: [client, server, platformer, game_engine]
+        category: [r-type_client, r-type_server, scp_adventures, r-type_game_engine]
         include:
           - os: ubuntu-latest
-            cmd: ./build_artifact.sh
             arch: linux_x86-64
+            installer_extension: .sh
+            installer_MIME: text/plain
             container: biozzzzz/r-type
           - os: windows-latest
-            cmd: cmd /c build_artifact.bat
             arch: windows_x86-64
+            installer_extension: .exe
+            installer_MIME: application/vnd.microsoft.portable-executable
     runs-on: ${{ matrix.os }}
     container: ${{ matrix.container }}
     steps:
@@ -51,15 +75,27 @@ permissions:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Build artifact
-        run: ${{ matrix.cmd }}
-      - name: Upload Release Asset
-        id: upload-release-asset
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ matrix.os }}-artifacts
+      - name: Upload Release Asset archive
+        id: upload-release-asset 1
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create_release.outputs.upload_url }}
-          asset_path: ./artifacts/r-type_${{ matrix.category }}_${{ matrix.arch }}.zip
-          asset_name: r-type_${{ matrix.category }}_${{ matrix.arch }}.zip
+          asset_path: ./artifacts/${{ matrix.category }}-${{ github.ref_name }}-${{ matrix.arch }}.zip
+          asset_name: ${{ matrix.category }}-${{ github.ref_name }}-${{ matrix.arch }}.zip
           asset_content_type: application/zip
+      - name: Upload Release Asset installer
+        id: upload-release-asset 2
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          asset_path: ./artifacts/${{ matrix.category }}-${{ github.ref_name }}-${{ matrix.arch }}.${{ matrix.installer_extension }}
+          asset_name: ${{ matrix.category }}-${{ github.ref_name }}-${{ matrix.arch }}.${{ matrix.installer_extension }}
+          asset_content_type: ${{ matrix.installer_MIME }}
