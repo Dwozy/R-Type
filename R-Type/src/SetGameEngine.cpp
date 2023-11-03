@@ -49,6 +49,7 @@ namespace RType::Client
         setCollisionCallback();
         setControllableCallback();
         setInputCallback();
+        setTextureStateCallback();
     }
 
     void RTypeClient::setGameEngineSystem()

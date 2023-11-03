@@ -57,7 +57,10 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
     _gameEngine.prefabManager.loadPrefabFromFile("config/Parallax.json");
 
     _listPathTextureId.insert({static_cast<uint8_t>(RType::Protocol::TextureType::PLAYER), "R-Type/assets/image.png"});
-    _listPathTextureId.insert({static_cast<uint8_t>(RType::Protocol::TextureType::MOB), "R-Type/assets/pata_pata.gif"});
+    _listPathTextureId.insert(
+        {static_cast<uint8_t>(RType::Protocol::TextureType::SIMPLE_MOB), "R-Type/assets/pata_pata.gif"});
+    _listPathTextureId.insert(
+        {static_cast<uint8_t>(RType::Protocol::TextureType::MEDIUM_MOB), "R-Type/assets/big_enemy.png"});
     _listPathTextureId.insert(
         {static_cast<uint8_t>(RType::Protocol::TextureType::SIMPLE_SHOOT), "R-Type/assets/player_projectile.png"});
     _listPathTextureId.insert({static_cast<uint8_t>(RType::Protocol::TextureType::CHARGED_SHOOT),
@@ -119,7 +122,7 @@ void RType::Client::RTypeClient::handleQuit()
         struct RType::Protocol::EntityIdData entityId = {.id = this->_serverId};
         std::vector<std::byte> dataToSend =
             Serialization::serializeData<struct RType::Protocol::EntityIdData>(entityId, sizeof(entityId));
-        _udpClient.sendDataInformation(dataToSend, static_cast<uint8_t>(RType::PacketType::DESTROY));
+        _udpClient.sendDataInformation(dataToSend, static_cast<uint8_t>(RType::Protocol::PacketType::DESTROY));
         std::cout << "Player " << _serverId << " died :( !" << std::endl;
     }
 }

@@ -24,12 +24,14 @@
                     "width": 166.0,
                     "height": 86.0
                 },
-                "textureRects": [{
-                    "left": 66.0,
-                    "top": 17.0,
-                    "width": 33.0,
-                    "height": 17.0
-                }],
+                "textureRects": [
+                    {
+                        "left": 66.0,
+                        "top": 17.0,
+                        "width": 33.0,
+                        "height": 17.0
+                    }
+                ],
                 "renderLayer": 2
             }
         },

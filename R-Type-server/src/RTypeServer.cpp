@@ -19,7 +19,8 @@ void RType::Server::RTypeServer::setTimers()
     std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
     srand(time(0));
 
-    _timers["mob"] = now;
+    _timers["patapata"] = now;
+    _timers["dop"] = now;
     _timers["gameloop"] = now;
     _timers["charged"] = now;
 }
@@ -31,6 +32,7 @@ RType::Server::RTypeServer::RTypeServer(unsigned short port)
     setGameEngine();
     setupGame();
     setTimers();
+    _points = 0;
     _nbPlayers = 0;
     pos = 1;
     _isRunning = true;
@@ -51,13 +53,32 @@ void RType::Server::RTypeServer::startNetwork(bool &isRunning)
     isRunning = false;
 }
 
+void RType::Server::RTypeServer::handleImmunity(std::chrono::steady_clock::time_point &now)
+{
+    for (auto &playerTimer : _timerLifePoint) {
+        if (playerTimer.second.first)
+            continue;
+        std::chrono::duration<float> _deltaTimerInvicibility =
+            std::chrono::duration_cast<std::chrono::duration<float>>(now - playerTimer.second.second);
+        if (_deltaTimerInvicibility.count() > 3.0) {
+            playerTimer.second.second = now;
+            playerTimer.second.first = true;
+            struct RType::Protocol::StatePlayerData statePlayer = {
+                .id = playerTimer.first, .invincibility = static_cast<uint8_t>(false)};
+            std::vector<std::byte> dataToSend =
+                Serialization::serializeData<struct RType::Protocol::StatePlayerData>(statePlayer, sizeof(statePlayer));
+            for (auto client : _udpServer.getListClients())
+                _udpServer.sendInformation(
+                    static_cast<uint8_t>(RType::Protocol::ComponentType::TEXTURE_STATE), dataToSend, client.second);
+        }
+    }
+}
+
 void RType::Server::RTypeServer::handlingTimers()
 {
     std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
     std::chrono::duration<float> _deltaTime =
         std::chrono::duration_cast<std::chrono::duration<float>>(now - _timers["gameloop"]);
-    std::chrono::duration<float> _deltaTimeSpawn =
-        std::chrono::duration_cast<std::chrono::duration<float>>(now - _timers["mob"]);
     std::chrono::duration<float> _deltaTimeChargedAttack =
         std::chrono::duration_cast<std::chrono::duration<float>>(now - _timers["charged"]);
 
@@ -65,14 +86,12 @@ void RType::Server::RTypeServer::handlingTimers()
         broadcastInformation();
         _timers["gameloop"] = now;
     }
-    if (_deltaTimeSpawn.count() > 2.0) {
-        spawnMob();
-        _timers["mob"] = now;
-    }
     if (_deltaTimeChargedAttack.count() > 5.0) {
         _chargedAttack = true;
         _timers["charged"] = now;
     }
+    spawnMob(now);
+    handleImmunity(now);
 }
 
 void RType::Server::RTypeServer::handlingEndGame()
@@ -82,7 +101,8 @@ void RType::Server::RTypeServer::handlingEndGame()
         std::vector<std::byte> dataToSend(message.size());
         std::transform(message.begin(), message.end(), dataToSend.begin(), [](char c) { return std::byte(c); });
         for (auto client : _udpServer.getListClients())
-            _udpServer.sendInformation(static_cast<uint8_t>(RType::PacketType::STRING), dataToSend, client.second);
+            _udpServer.sendInformation(
+                static_cast<uint8_t>(RType::Protocol::PacketType::STRING), dataToSend, client.second);
         _nbPlayers = 0;
     }
 }
@@ -91,10 +111,10 @@ void RType::Server::RTypeServer::gameLoop()
 {
     while (_isRunning) {
         _gameEngine.deltaTime.update();
+        _gameEngine.registry.runSystems();
         if (_eventQueue.size() != 0)
             handleEvent();
         handlingTimers();
         handlingEndGame();
-        _gameEngine.registry.runSystems();
     }
 }

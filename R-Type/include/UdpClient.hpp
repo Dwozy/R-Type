@@ -28,6 +28,7 @@ namespace RType::Client
         void handleTextureComponent(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
         void handleCollisionComponent(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
         void handleControllableComponent(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
+        void handleTextureState(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
 
         /// @brief Handle String
         /// @param header that contains the size of the payload

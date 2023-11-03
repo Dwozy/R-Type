@@ -1,5 +1,5 @@
 {
-    "name": "player",
+    "name": "dop",
     "components": [
         {
             "type": "TransformComponent",
@@ -9,60 +9,56 @@
                     "y": 0.0
                 },
                 "velocity": {
-                    "x": 0.0,
+                    "x": -30.0,
                     "y": 0.0
                 }
             }
         },
         {
-            "type": "ControllableComponent",
+            "type": "HealthComponent",
             "value": {
-                "key_up": "Z",
-                "key_left": "Q",
-                "key_down": "S",
-                "key_right": "D",
-                "speed": 100.0
+                "health": 30
             }
         },
         {
             "type": "DamageComponent",
             "value": {
-                "damage": 0
-            }
-        },
-        {
-            "type": "HealthComponent",
-            "value": {
-                "health": 5
+                "damage": 5
             }
         },
         {
             "type": "TextureComponent",
             "value": {
-                "texturePath": "R-Type/assets/image.png",
+                "texturePath": "R-Type/assets/big_enemy.png",
                 "textureSize": {
                     "left": 0.0,
                     "top": 0.0,
-                    "width": 166.0,
-                    "height": 86.0
+                    "width": 196.0,
+                    "height": 50.0
                 },
                 "textureRects": [
                     {
-                        "left": 66.0,
-                        "top": 0.0,
-                        "width": 33.0,
-                        "height": 17.0
-                    },
-                    {
                         "left": 0.0,
                         "top": 0.0,
-                        "width": 0.0,
-                        "height": 0.0
+                        "width": 64.0,
+                        "height": 50.0
+                    },
+                    {
+                        "left": 65.0,
+                        "top": 0.0,
+                        "width": 64.0,
+                        "height": 50.0
+                    },
+                    {
+                        "left": 129.0,
+                        "top": 0.0,
+                        "width": 64.0,
+                        "height": 50.0
                     }
                 ],
                 "renderLayer": 2,
-                "animated": false,
-                "animationSpeed": 0.05
+                "animated": true,
+                "animationSpeed": 0.30
             }
         },
         {
@@ -71,10 +67,10 @@
                 "collider": {
                     "left": 0.0,
                     "top": 0.0,
-                    "width": 32.0,
-                    "height": 16.0
+                    "width": 64.0,
+                    "height": 50.0
                 },
-                "layer": 1
+                "layer": 6
             }
         }
     ]
