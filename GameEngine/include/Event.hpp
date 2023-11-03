@@ -36,6 +36,7 @@ namespace GameEngine
         GetNewEntity,
         GetEntity,
         SendInput,
+        GetStateTexture,
         DeleteEntity,
         EnemiesSpawnedEvent,
         EnemiesMoveEvent,

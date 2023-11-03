@@ -22,6 +22,7 @@ namespace RType::Protocol
         INPUT,
         COLLISION_RES,
         TEXTURE_RES,
+        TEXTURE_STATE
     };
 
     enum class InputType : uint8_t { UP = 0, RIGHT, DOWN, LEFT, SHOOT };
@@ -33,6 +34,12 @@ namespace RType::Protocol
         uint16_t id;
         uint8_t inputId;
         uint8_t state;
+    };
+
+    struct StatePlayerData
+    {
+        uint16_t id;
+        uint8_t invincibility;
     };
 
     struct ControllableData

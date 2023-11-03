@@ -71,6 +71,10 @@ namespace RType::Server
     {
         if (_listLifePoints.find(static_cast<uint16_t>(entityId)) == _listLifePoints.end())
             return;
+        if (_timerLifePoint.find(static_cast<uint16_t>(entityId)) == _timerLifePoint.end())
+            return;
+        if (!_timerLifePoint.at(static_cast<uint16_t>(entityId)).first)
+            return;
         if (_listLifePoints.at(static_cast<uint16_t>(entityId)) == 0) {
             _nbPlayers--;
             if (_nbPlayers == 0)
@@ -79,8 +83,17 @@ namespace RType::Server
             struct RType::Event destroyEvent = {
                 .packetType = static_cast<uint8_t>(RType::PacketType::DESTROY), .data = entityValue};
             _eventQueue.push(destroyEvent);
-        } else
+        } else {
             _listLifePoints.at(static_cast<uint16_t>(entityId))--;
+            _timerLifePoint.at(static_cast<uint16_t>(entityId)).first = false;
+            _timerLifePoint.at(static_cast<uint16_t>(entityId)).second = std::chrono::steady_clock::now();
+            struct RType::Protocol::StatePlayerData statePlayer = {
+                .id = static_cast<uint8_t>(entityId), .invincibility = static_cast<uint8_t>(true)};
+            std::vector<std::byte> dataToSend =
+                Serialization::serializeData<struct RType::Protocol::StatePlayerData>(statePlayer, sizeof(statePlayer));
+            for (auto client : _udpServer.getListClients())
+                _udpServer.sendInformation(static_cast<uint8_t>(RType::Protocol::ComponentType::TEXTURE_STATE), dataToSend, client.second);
+        }
     }
 
     void RTypeServer::playerDamageCallback(const std::size_t &entityId,

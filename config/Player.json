@@ -39,8 +39,16 @@
                     "top": 0.0,
                     "width": 33.0,
                     "height": 17.0
+                },
+                {
+                    "left": 0.0,
+                    "top": 0.0,
+                    "width": 0.0,
+                    "height": 0.0
                 }],
-                "renderLayer": 2
+                "renderLayer": 2,
+                "animated": false,
+                "animationSpeed": 0.05
             }
         },
         {

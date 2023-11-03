@@ -117,6 +117,7 @@ namespace RType::Server
         std::map<uint16_t, uint8_t> _listLifePoints;
         std::map<unsigned short, componentList> _listInfosComponent;
         std::map<std::string, std::chrono::steady_clock::time_point> _timers;
+        std::map<uint16_t, std::pair<bool, std::chrono::steady_clock::time_point>> _timerLifePoint;
         std::size_t _nbPlayers;
         bool _chargedAttack;
         float pos;

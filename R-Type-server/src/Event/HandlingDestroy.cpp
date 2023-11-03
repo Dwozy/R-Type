@@ -20,6 +20,7 @@ namespace RType::Server
             _gameEngine.registry.killEntity(getEntity);
             _listLifePoints.erase(static_cast<uint16_t>(entity.id));
             _listIdType.erase(static_cast<uint16_t>(entity.id));
+            _timerLifePoint.erase(static_cast<uint16_t>(entity.id));
             struct RType::Protocol::EntityIdData entityId = {.id = entity.id};
             std::vector<std::byte> dataToSend =
                 Serialization::serializeData<struct RType::Protocol::EntityIdData>(entityId, sizeof(entityId));

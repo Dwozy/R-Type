@@ -24,6 +24,9 @@ RType::Client::UdpClient::UdpClient(
     _commands.emplace(static_cast<uint8_t>(RType::Protocol::ComponentType::CONTROLLABLE),
         std::bind(&RType::Client::UdpClient::handleControllableComponent, this, std::placeholders::_1,
             std::placeholders::_2));
+    _commands.emplace(static_cast<uint8_t>(RType::Protocol::ComponentType::TEXTURE_STATE),
+        std::bind(&RType::Client::UdpClient::handleTextureState, this, std::placeholders::_1,
+            std::placeholders::_2));
     _commands.emplace(static_cast<uint8_t>(RType::PacketType::STRING),
         std::bind(&RType::Client::UdpClient::handleString, this, std::placeholders::_1, std::placeholders::_2));
     _commands.emplace(static_cast<uint8_t>(RType::PacketType::DESTROY),
@@ -48,6 +51,16 @@ void RType::Client::UdpClient::handleTransformComponent(
     struct RType::Protocol::TransformData transformData =
         Serialization::deserializeData<struct RType::Protocol::TransformData>(_streamBuffer, header.payloadSize);
     struct RType::Event event = {.packetType = header.packetType, .data = transformData};
+
+    _eventQueue.push(event);
+}
+
+void RType::Client::UdpClient::handleTextureState(
+    struct RType::Protocol::HeaderDataPacket header, unsigned short port)
+{
+    struct RType::Protocol::StatePlayerData stateData =
+        Serialization::deserializeData<struct RType::Protocol::StatePlayerData>(_streamBuffer, header.payloadSize);
+    struct RType::Event event = {.packetType = header.packetType, .data = stateData};
 
     _eventQueue.push(event);
 }

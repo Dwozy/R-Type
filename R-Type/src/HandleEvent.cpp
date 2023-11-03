@@ -58,6 +58,16 @@ namespace RType::Client
             .publish(collisionData);
     }
 
+    void RTypeClient::handleTextureState(struct RType::Event event)
+    {
+        struct RType::Protocol::StatePlayerData stateData =
+            std::any_cast<struct RType::Protocol::StatePlayerData>(event.data);
+        _gameEngine.eventManager
+            .getHandler<struct RType::Protocol::StatePlayerData>(
+                static_cast<GameEngine::EventType>(GameEngine::Event::GetStateTexture))
+            .publish(stateData);
+    }
+
     void RTypeClient::handleEvent()
     {
         struct RType::Event event;
@@ -79,6 +89,9 @@ namespace RType::Client
                 break;
             case static_cast<uint8_t>(RType::PacketType::DESTROY):
                 handleDisconnexion(event);
+                break;
+            case static_cast<uint8_t>(RType::Protocol::ComponentType::TEXTURE_STATE):
+                handleTextureState(event);
                 break;
             }
         }
