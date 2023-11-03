@@ -9,7 +9,6 @@
 
 Platformer::Platformer()
 {
-    // spawn l'entity camera me fait quelque probleme avec l'entity player
     _state = GameState::Mainmenu;
     setGameEngine();
     gameLoop();

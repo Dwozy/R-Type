@@ -92,8 +92,6 @@ void Platformer::setGameEngineScene()
 
 void Platformer::setGameEngineTexture()
 {
-    _gameEngine.assetManager.loadTexture("Platformer/assets/image.png", GameEngine::Recti(0, 0, 32, 16));
-    _gameEngine.assetManager.loadTexture("Platformer/assets/pata_pata.gif", GameEngine::Recti(7, 8, 17, 20));
     _gameEngine.assetManager.loadTexture("Platformer/assets/SCP-745.png", GameEngine::Recti(0, 64, 64, 64));
     _gameEngine.assetManager.loadTexture("Platformer/assets/box.png", GameEngine::Recti(0, 0, 32, 32));
     _gameEngine.assetManager.loadTexture("Platformer/assets/dark_city_background.png", GameEngine::Recti(0, 0, 5000, 500));
@@ -103,7 +101,6 @@ void Platformer::setGameEngineTexture()
 void Platformer::setGameEnginePrefab()
 {
     _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/Player.json");
-    _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/PataPata.json");
     _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/BorderMapDown.json");
     _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/MainCam.json");
     _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/MinimapCam.json");

@@ -75,7 +75,6 @@ void GameScene::load()
                 GameEngine::CollisionComponent, GameEngine::TransformComponent, GameEngine::GravityComponent>(
                 _gameEngine.registry, BlockcollisionCallback);
 
-        // petit probleme quand le rect du player est plus grand que le sol il se tp full sur un side
         GameEngine::Entity block2 =
             _gameEngine.prefabManager.createEntityFromPrefab("border_map_down", _gameEngine.registry);
     }

@@ -18,7 +18,6 @@ namespace GameEngine
             if (!(_currentDeltaTime >= 0.001))
                 return;
             if (grav) {
-                // std::cout << " x = " << tsf->position.x << " y = " << tsf->position.y << " velocity.y = "<< tsf->velocity.y << std::endl;
                 if (grav->isActive == true)
                     grav->cumulatedGVelocity += grav->gravityForce;
             }
