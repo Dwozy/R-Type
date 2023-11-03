@@ -7,11 +7,21 @@
 
 #ifndef INPUT_HPP_
 #define INPUT_HPP_
+#include <cstdint>
 
 namespace GameEngine
 {
     namespace Input
     {
+        enum class InputType : uint8_t { UP = 0, RIGHT, DOWN, LEFT, SHOOT };
+
+        struct InputInfo
+        {
+            std::size_t id;
+            InputType idInput;
+            bool state;
+        };
+
         namespace Keyboard
         {
 

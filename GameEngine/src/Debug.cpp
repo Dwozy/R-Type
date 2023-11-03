@@ -242,7 +242,7 @@ namespace Debug
 
         if (!unlimitedFps) {
             if (ImGui::SliderInt("##fpsLimitSlider", &fpsLimit, 1, 1000, "%d"))
-                _eventManager.getHandler<const float &>(GameEngine::Event::SetFpsLimitEvent).publish((float)fpsLimit);
+                _eventManager.getHandler<const float &>(static_cast<GameEngine::EventType>(GameEngine::Event::SetFpsLimitEvent)).publish((float)fpsLimit);
         } else {
             fpsLimit = maxFps;
         }
@@ -251,10 +251,10 @@ namespace Debug
                 oldFpsLimit = fpsLimit;
                 maxFps = 0;
                 lowFps = fpsLimit;
-                _eventManager.getHandler<const float &>(GameEngine::Event::SetFpsLimitEvent).publish(-1.0f);
+                _eventManager.getHandler<const float &>(static_cast<GameEngine::EventType>(GameEngine::Event::SetFpsLimitEvent)).publish(-1.0f);
             } else {
                 fpsLimit = oldFpsLimit;
-                _eventManager.getHandler<const float &>(GameEngine::Event::SetFpsLimitEvent).publish((float)fpsLimit);
+                _eventManager.getHandler<const float &>(static_cast<GameEngine::EventType>(GameEngine::Event::SetFpsLimitEvent)).publish((float)fpsLimit);
             }
         }
         ImGui::Text("Low: %d, Max: %d", lowFps, maxFps);

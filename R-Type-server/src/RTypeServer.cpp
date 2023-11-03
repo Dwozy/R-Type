@@ -82,7 +82,7 @@ void RType::Server::RTypeServer::handlingEndGame()
         std::vector<std::byte> dataToSend(message.size());
         std::transform(message.begin(), message.end(), dataToSend.begin(), [](char c) { return std::byte(c); });
         for (auto client : _udpServer.getListClients())
-            _udpServer.sendInformation(static_cast<uint8_t>(rtype::PacketType::STRING), dataToSend, client.second);
+            _udpServer.sendInformation(static_cast<uint8_t>(RType::PacketType::STRING), dataToSend, client.second);
         _nbPlayers = 0;
     }
 }

@@ -19,13 +19,21 @@ namespace RType::Protocol
         COLLISION,
         TEXTURE,
         CONTROLLABLE,
+        INPUT,
         COLLISION_RES,
         TEXTURE_RES,
     };
 
-    enum class InputType : uint8_t { UP = 1, RIGHT, DOWN, LEFT, SHOOT };
+    enum class InputType : uint8_t { UP = 0, RIGHT, DOWN, LEFT, SHOOT };
 
     enum class TextureType : uint8_t { NONE = 1, PLAYER, SIMPLE_SHOOT, CHARGED_SHOOT, MOB };
+
+    struct InputData
+    {
+        uint16_t id;
+        uint8_t inputId;
+        uint8_t state;
+    };
 
     struct ControllableData
     {

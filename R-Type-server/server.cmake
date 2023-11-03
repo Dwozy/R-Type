@@ -17,6 +17,7 @@ set(SRCS_SERVER
     ${SERVER_FOLDER}/src/Event/HandlingDestroy.cpp
     ${SERVER_FOLDER}/src/Event/HandlingMove.cpp
     ${SERVER_FOLDER}/src/Event/HandlingShoot.cpp
+    ${SERVER_FOLDER}/src/Event/HandlingInput.cpp
     ${SERVER_FOLDER}/src/Game/SetupGame.cpp
     ${SERVER_FOLDER}/src/Game/SpawnMob.cpp
     ${SERVER_FOLDER}/src/Game/UpdateGame.cpp

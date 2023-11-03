@@ -36,7 +36,7 @@ namespace Debug
 
         void draw()
         {
-            ImGui::ShowDemoWindow();
+            // ImGui::ShowDemoWindow();
             ImGui::SetNextWindowSize(DEBUG_MENU_DEFAULT_WINDOW_SIZE, ImGuiCond_FirstUseEver);
             ImGui::Begin("Debug Menu");
             if (ImGui::BeginTabBar("MainTabBar")) {

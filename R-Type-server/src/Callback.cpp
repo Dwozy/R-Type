@@ -38,8 +38,8 @@ namespace RType::Server
             if (selfCol.value().collider.isColliding(
                     selfTsf.value().position, col.value().collider, tsf.value().position)) {
                 struct RType::Protocol::EntityIdData entityId = {.id = static_cast<uint16_t>(i)};
-                struct rtype::Event destroyEvent = {
-                    .packetType = static_cast<uint8_t>(rtype::PacketType::DESTROY), .data = entityId};
+                struct RType::Event destroyEvent = {
+                    .packetType = static_cast<uint8_t>(RType::PacketType::DESTROY), .data = entityId};
                 _eventQueue.push(destroyEvent);
             }
         }
@@ -67,6 +67,22 @@ namespace RType::Server
         }
     }
 
+    void RTypeServer::handlingLifePoint(std::size_t entityId)
+    {
+        if (_listLifePoints.find(static_cast<uint16_t>(entityId)) == _listLifePoints.end())
+            return;
+        if (_listLifePoints.at(static_cast<uint16_t>(entityId)) == 0) {
+            _nbPlayers--;
+            if (_nbPlayers == 0)
+                _nbPlayers = -1;
+            struct RType::Protocol::EntityIdData entityValue = {.id = static_cast<uint16_t>(entityId)};
+            struct RType::Event destroyEvent = {
+                .packetType = static_cast<uint8_t>(RType::PacketType::DESTROY), .data = entityValue};
+            _eventQueue.push(destroyEvent);
+        } else
+            _listLifePoints.at(static_cast<uint16_t>(entityId))--;
+    }
+
     void RTypeServer::playerDamageCallback(const std::size_t &entityId,
         SparseArray<GameEngine::CollisionComponent> &collisions,
         SparseArray<GameEngine::TransformComponent> &transforms)
@@ -86,18 +102,7 @@ namespace RType::Server
                 continue;
             if (selfCol.value().collider.isColliding(
                     selfTsf.value().position, col.value().collider, tsf.value().position)) {
-                if (_listLifePoints.find(static_cast<uint16_t>(entityId)) != _listLifePoints.end()) {
-                    if (_listLifePoints.at(static_cast<uint16_t>(entityId)) == 0) {
-                        _nbPlayers--;
-                        if (_nbPlayers == 0)
-                            _nbPlayers = -1;
-                        struct RType::Protocol::EntityIdData entityValue = {.id = static_cast<uint16_t>(entityId)};
-                        struct rtype::Event destroyEvent = {
-                            .packetType = static_cast<uint8_t>(rtype::PacketType::DESTROY), .data = entityValue};
-                        _eventQueue.push(destroyEvent);
-                    } else
-                        _listLifePoints.at(static_cast<uint16_t>(entityId))--;
-                }
+                handlingLifePoint(entityId);
             }
         }
     }
