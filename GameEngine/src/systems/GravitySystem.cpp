@@ -12,8 +12,7 @@ namespace GameEngine
     void GravitySystem::operator()(SparseArray<GravityComponent> &gravity)
     {
         _currentDeltaTime += _deltaTime;
-        for (size_t i = 0; i < gravity.size(); ++i)
-        {
+        for (size_t i = 0; i < gravity.size(); ++i) {
             auto &grav = gravity[i];
             if (!(_currentDeltaTime >= 0.001))
                 return;
@@ -24,4 +23,4 @@ namespace GameEngine
         }
         _currentDeltaTime = 0;
     }
-}
+} // namespace GameEngine

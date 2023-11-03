@@ -21,7 +21,8 @@ namespace GameEngine
         PositionSystem(const float &deltaTime) : _deltaTime(deltaTime){};
         ~PositionSystem() = default;
 
-        void operator()(SparseArray<TransformComponent> &transforms, SparseArray<TextureComponent> &textures, SparseArray<GravityComponent> &gravities);
+        void operator()(SparseArray<TransformComponent> &transforms, SparseArray<TextureComponent> &textures,
+            SparseArray<GravityComponent> &gravities);
 
       private:
         const float &_deltaTime;

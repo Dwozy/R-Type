@@ -29,9 +29,10 @@ namespace GameEngine
     /// @brief Entity component system, handling entities, components and systems
     class Registry
     {
-        #ifdef DEBUG
-        #endif
+#ifdef DEBUG
+#endif
         friend class Debug::DebugMenu;
+
       public:
         /// @brief Constructor
         /// @param maxEntities Maximum amount of entities at once. Will set the maximum size for the components array.
@@ -176,7 +177,7 @@ namespace GameEngine
         template <typename Component>
         bool isComponentRegistered()
         {
-            if(_container.find(std::type_index(typeid(Component))) != _container.end())
+            if (_container.find(std::type_index(typeid(Component))) != _container.end())
                 return true;
             return false;
         };

@@ -17,6 +17,6 @@ namespace GameEngine
         Vector2<float> cumulatedGVelocity;
         bool isActive;
     };
-}
+} // namespace GameEngine
 
 #endif /* !GRAVITYCOMPONENT_HPP_ */

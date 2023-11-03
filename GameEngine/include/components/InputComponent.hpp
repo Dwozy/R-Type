@@ -17,10 +17,7 @@ namespace GameEngine
     {
         std::map<Input::InputType, Input::Keyboard::Key> inputs;
 
-        void addInput(Input::InputType inputType, Input::Keyboard::Key key)
-        {
-            inputs.insert({inputType, key});
-        };
+        void addInput(Input::InputType inputType, Input::Keyboard::Key key) { inputs.insert({inputType, key}); };
     };
 } // namespace GameEngine
 #endif /* !INPUTCOMPONENT_HPP_ */

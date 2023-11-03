@@ -9,37 +9,31 @@
 #define PLATFORMER_HPP_
 #include "GameEngine.hpp"
 
+enum class GameState { Mainmenu, Pause, Game, win, Lose, Restart };
 
-enum class GameState {
-    Mainmenu,
-    Pause,
-    Game,
-    win,
-    Lose,
-    Restart
-};
+class Platformer
+{
+  public:
+    Platformer();
+    ~Platformer() = default;
+    void setGameEngineComponent();
+    void setGameEngineCallback();
+    void setGameEngineSystem();
+    void setGameEngineScene();
+    void setGameEngine();
+    void handleScreenChange();
+    void handlePlayerMove();
+    void handlePlayerjump();
+    void setGameEngineTexture();
+    void setGameEnginePrefab();
+    void gameLoop();
 
-class Platformer {
-    public:
-        Platformer();
-        ~Platformer() = default;
-        void setGameEngineComponent();
-        void setGameEngineCallback();
-        void setGameEngineSystem();
-        void setGameEngineScene();
-        void setGameEngine();
-        void handleScreenChange();
-        void handlePlayerMove();
-        void handlePlayerjump();
-        void setGameEngineTexture();
-        void setGameEnginePrefab();
-        void gameLoop();
-    private:
-        GameState _state;
-        GameEngine::GameEngine _gameEngine;
-        std::size_t _id;
-        std::size_t _score;
-        std::size_t _hp;
+  private:
+    GameState _state;
+    GameEngine::GameEngine _gameEngine;
+    std::size_t _id;
+    std::size_t _score;
+    std::size_t _hp;
 };
 
 #endif /* !PLATFORMER_HPP_ */

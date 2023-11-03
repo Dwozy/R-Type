@@ -185,12 +185,12 @@ namespace GameEngine
         /// @param title title of the window
         virtual void create(int width, int height, const std::string &title) = 0;
 
-        #ifdef DEBUG
+#ifdef DEBUG
         /// @brief init debug context
         virtual void initDebug() = 0;
         virtual void shutdownDebug() = 0;
         virtual void drawDebug() = 0;
-        #endif
+#endif
     };
 } // namespace GameEngine
 

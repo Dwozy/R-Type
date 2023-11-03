@@ -43,7 +43,8 @@ namespace GameEngine
         /// @param registry reference to the registry
         /// @param id id of the entity
         /// @return the created entity
-        Entity createEntityFromPrefab(const std::string &prefabName, Registry &registry, size_t id, bool loadTexture = true);
+        Entity createEntityFromPrefab(
+            const std::string &prefabName, Registry &registry, size_t id, bool loadTexture = true);
 
       protected:
       private:

@@ -11,7 +11,9 @@
 struct nop
 {
     template <typename T>
-    void operator() (T const &) const noexcept { }
+    void operator()(T const &) const noexcept
+    {
+    }
 };
 
 #endif /* !UTILS_HPP_ */

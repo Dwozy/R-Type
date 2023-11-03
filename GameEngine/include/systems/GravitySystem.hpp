@@ -17,15 +17,18 @@ namespace GameEngine
 {
     using GravityFunction = std::function<void(SparseArray<GravityComponent> &)>;
 
-    class GravitySystem {
-        public:
-            GravitySystem(const float &deltaTime) : _deltaTime(deltaTime){};;
-            ~GravitySystem() = default;
-            void operator()(SparseArray<GravityComponent> &gravity);
-        protected:
-            const float &_deltaTime;
-            float _currentDeltaTime;
+    class GravitySystem
+    {
+      public:
+        GravitySystem(const float &deltaTime) : _deltaTime(deltaTime){};
+        ;
+        ~GravitySystem() = default;
+        void operator()(SparseArray<GravityComponent> &gravity);
+
+      protected:
+        const float &_deltaTime;
+        float _currentDeltaTime;
     };
-}
+} // namespace GameEngine
 
 #endif /* !GRAVITYSYSTEM_HPP_ */

@@ -13,8 +13,7 @@ namespace GameEngine
 {
     void InputSystem::handleInput(std::size_t id, std::pair<Input::InputType, Input::Keyboard::Key> inputInfo)
     {
-        struct Input::InputInfo data = {
-            .id = id, .idInput = inputInfo.first};
+        struct Input::InputInfo data = {.id = id, .idInput = inputInfo.first};
         if (InputManager::isKeyPressed(inputInfo.second)) {
             data.state = true;
             _eventManager.getHandler<struct Input::InputInfo>(static_cast<EventType>(Event::SendInput)).publish(data);

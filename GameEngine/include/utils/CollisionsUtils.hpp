@@ -9,7 +9,8 @@
 #define COLLISIONSUTILS_HPP_
 #include "utils/Rect.hpp"
 
-namespace GameEngine {
+namespace GameEngine
+{
     template <typename T>
     int replaceOnTop(Vector2<T> &pos1, const Rect<T> &rect1, const Vector2<T> &pos2, const Rect<T> &rect2)
     {
@@ -41,6 +42,6 @@ namespace GameEngine {
             return 0;
         }
     }
-}
+} // namespace GameEngine
 
 #endif /* !COLLISIONSUTILS_HPP_ */

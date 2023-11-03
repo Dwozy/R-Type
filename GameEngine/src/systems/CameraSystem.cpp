@@ -7,7 +7,8 @@
 
 #include "systems/CameraSystem.hpp"
 
-namespace GameEngine {
+namespace GameEngine
+{
     void CameraSystem::operator()(SparseArray<CameraComponent> &cameras, SparseArray<TransformComponent> &transforms)
     {
         for (auto &camera : cameras) {
@@ -22,4 +23,4 @@ namespace GameEngine {
                 camera->view.setCenter({camera->view.getCenter().x, transform->position.y});
         }
     }
-}
+} // namespace GameEngine

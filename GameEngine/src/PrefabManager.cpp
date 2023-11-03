@@ -50,12 +50,10 @@ namespace GameEngine
                                                               Entity entity) {
             return registry.addComponent(entity, std::any_cast<ControllableComponent>(component));
         };
-        _componentAdders[typeid(GravityComponent)] = [](Registry &registry, const std::any &component,
-                                                              Entity entity) {
+        _componentAdders[typeid(GravityComponent)] = [](Registry &registry, const std::any &component, Entity entity) {
             return registry.addComponent(entity, std::any_cast<GravityComponent>(component));
         };
-        _componentAdders[typeid(CameraComponent)] = [](Registry &registry, const std::any &component,
-                                                              Entity entity) {
+        _componentAdders[typeid(CameraComponent)] = [](Registry &registry, const std::any &component, Entity entity) {
             return registry.addComponent(entity, std::any_cast<CameraComponent>(component));
         };
     }
