@@ -18,7 +18,7 @@
 #include "components/DamageComponent.hpp"
 #include "components/GravityComponent.hpp"
 #include "components/InputComponent.hpp"
-#include "components/LifePointComponent.hpp"
+#include "components/HealthComponent.hpp"
 #include "components/NetworkIdComponent.hpp"
 
 #ifdef DEBUG
@@ -283,18 +283,18 @@ namespace Debug
         ImGui::TreePop();
     }
 
-    void DebugMenu::_showLifePointComponentMenu()
+    void DebugMenu::_showHealthComponentMenu()
     {
-        if (_registry.isComponentRegistered<GameEngine::LifePointComponent>()) {
+        if (_registry.isComponentRegistered<GameEngine::HealthComponent>()) {
             static int currentComponent = 0;
             ImGui::BeginGroup();
-            SparseArray<GameEngine::LifePointComponent> &lifePointComponents =
-                _registry.getComponent<GameEngine::LifePointComponent>();
-            _showComponentList<GameEngine::LifePointComponent>(lifePointComponents, currentComponent);
+            SparseArray<GameEngine::HealthComponent> &healthComponents =
+                _registry.getComponent<GameEngine::HealthComponent>();
+            _showComponentList<GameEngine::HealthComponent>(healthComponents, currentComponent);
             ImGui::SameLine();
             ImGui::BeginGroup();
-            if (lifePointComponents[currentComponent])
-                ImGui::Text("Life points: %hhu", lifePointComponents[currentComponent]->lifePoint);
+            if (healthComponents[currentComponent])
+                ImGui::Text("Health: %d", healthComponents[currentComponent]->health);
             ImGui::EndGroup();
             ImGui::EndGroup();
         } else {
@@ -415,8 +415,8 @@ namespace Debug
                 _showGravityComponentMenu();
             if (ImGui::TreeNode("Input"))
                 _showInputComponentMenu();
-            if (ImGui::TreeNode("Life Point"))
-                _showLifePointComponentMenu();
+            if (ImGui::TreeNode("Health"))
+                _showHealthComponentMenu();
             if (ImGui::TreeNode("Network ID"))
                 _showNetworkIdComponentMenu();
         }

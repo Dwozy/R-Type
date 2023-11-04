@@ -92,7 +92,7 @@ namespace Debug
         void _showDamageComponentMenu();
         void _showGravityComponentMenu();
         void _showInputComponentMenu();
-        void _showLifePointComponentMenu();
+        void _showHealthComponentMenu();
         void _showNetworkIdComponentMenu();
         void _showEventsMenu();
     };
