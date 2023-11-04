@@ -17,7 +17,6 @@ namespace RType::Server
         _timers["patapata"] = now;
         _timers["dop"] = now;
         _timers["gameloop"] = now;
-        _timers["charged"] = now;
     }
 
     void RType::Server::RTypeServer::handlingTimers()
@@ -31,10 +30,6 @@ namespace RType::Server
         if (_deltaTime.count() > 0.1) {
             broadcastInformation();
             _timers["gameloop"] = now;
-        }
-        if (_deltaTimeChargedAttack.count() > 5.0) {
-            _chargedAttack = true;
-            _timers["charged"] = now;
         }
         spawnMob(now);
         handleImmunity(now);

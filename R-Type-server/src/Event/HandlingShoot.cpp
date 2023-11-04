@@ -44,11 +44,14 @@ namespace RType::Server
 
     void RTypeServer::handleShoot(struct RType::Protocol::ShootData shootInfo)
     {
-        _timers["charged"] = std::chrono::steady_clock::now();
-        if (_chargedAttack) {
+        auto now = std::chrono::steady_clock::now();
+        std::chrono::duration<float> _deltaTimeChargedAttack =
+            std::chrono::duration_cast<std::chrono::duration<float>>(now - _chargedAttackTimer.at(shootInfo.id).second);
+        std::cout << _deltaTimeChargedAttack.count() << std::endl;
+        if (_deltaTimeChargedAttack.count() > 1.5)
             handleShootType("charged_shoot", shootInfo, RType::TextureType::CHARGED_SHOOT);
-            _chargedAttack = false;
-        } else
+        else
             handleShootType("simple_shoot", shootInfo, RType::TextureType::SIMPLE_SHOOT);
+        _chargedAttackTimer.at(shootInfo.id).second = now;
     }
 } // namespace RType::Server

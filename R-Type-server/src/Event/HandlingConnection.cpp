@@ -48,6 +48,7 @@ namespace RType::Server
         _listInfosComponent.insert({event.port, setEntitiesComponent()});
         _listLifePoints.insert({static_cast<uint16_t>(entity), 5});
         _timerLifePoint.insert({static_cast<uint16_t>(entity), {true, std::chrono::steady_clock::now()}});
+        _chargedAttackTimer.insert({static_cast<uint16_t> (entity), {true, std::chrono::steady_clock::now()}});
         updateComponentInformation(entity, RType::TextureType::PLAYER);
         broadcastEntityInformation(entity);
         sendControllableInformation(entity, event.port);

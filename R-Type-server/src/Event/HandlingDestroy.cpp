@@ -45,6 +45,15 @@ namespace RType::Server
             _killEnemy = false;
             _gameEngine.registry.killEntity(getEntity);
             sendDestroyInfo(entity);
+            _chargedAttackTimer.erase(static_cast<uint16_t>(entity.id));
+            struct RType::Protocol::EntityIdData entityId = {.id = entity.id};
+            std::vector<std::byte> dataToSend =
+                Serialization::serializeData<struct RType::Protocol::EntityIdData>(entityId, sizeof(entityId));
+            for (auto client : _udpServer.getListClients()) {
+                _listInfosComponent[client.first].erase(static_cast<uint16_t>(entity.id));
+                _udpServer.sendInformation(
+                    static_cast<uint8_t>(RType::Protocol::PacketType::DESTROY), dataToSend, client.second);
+            }
         } catch (const std::exception &e) {
             return;
         }
