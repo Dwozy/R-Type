@@ -66,33 +66,22 @@ void GameScene::load()
         auto &camComponent = _gameEngine.registry.getComponent<GameEngine::CameraComponent>()[camera];
         camComponent->target = _id;
 
-        auto bolckColliderCallback = std::bind(&GameScene::BlockcollisionCallback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
+        auto blockColliderCallback = std::bind(&GameScene::BlockcollisionCallback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
         _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[_id]
             .value()
             .addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
                            SparseArray<GameEngine::TransformComponent> &, SparseArray<GameEngine::GravityComponent> &)>,
                 GameEngine::CollisionComponent, GameEngine::TransformComponent, GameEngine::GravityComponent>(
-                _gameEngine.registry, bolckColliderCallback);
-
-        GameEngine::Entity block = _gameEngine.prefabManager.createEntityFromPrefab("box", _gameEngine.registry);
-        _entities.push_back(block);
-        auto &blockTransform = _gameEngine.registry.getComponent<GameEngine::TransformComponent>()[block];
-        blockTransform->position = {50, 50};
+                _gameEngine.registry, blockColliderCallback);
 
         GameEngine::Entity background = _gameEngine.prefabManager.createEntityFromPrefab("background", _gameEngine.registry);
         _entities.push_back(background);
-        auto enemy = _gameEngine.prefabManager.createEntityFromPrefab("enemy", _gameEngine.registry);
-        _entities.push_back(enemy);
-        _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[enemy]
-            .value()
-            .addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
-                           SparseArray<GameEngine::TransformComponent> &, SparseArray<GameEngine::GravityComponent> &)>,
-                GameEngine::CollisionComponent, GameEngine::TransformComponent, GameEngine::GravityComponent>(
-                _gameEngine.registry, bolckColliderCallback);
 
         GameEngine::Entity block2 =
             _gameEngine.prefabManager.createEntityFromPrefab("border_map_down", _gameEngine.registry);
         _entities.push_back(block2);
+
+        _mapLoader.loadMap("Platformer/maps/map1", {0, _gameEngine.registry.getComponent<GameEngine::TransformComponent>()[block2]->position.y - 7 * 32}, 32);
         _state = GameState::Game;
     }
     if (_state == GameState::Pause) {
