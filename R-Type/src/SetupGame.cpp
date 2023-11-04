@@ -9,7 +9,6 @@
 #include "components/TextComponent.hpp"
 #include "components/FontComponent.hpp"
 #include "GameEngine.hpp"
-#include "utils/Vector.hpp"
 
 namespace RType::Client
 {

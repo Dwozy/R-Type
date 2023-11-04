@@ -29,6 +29,7 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
       _signal(_IOContext, SIGINT, SIGTERM)
 {
     _id = 0;
+    _points = 0;
     setGameEngine();
     setupGame();
     GameEngine::Entity scoreTitle = _gameEngine.registry.spawnEntity();
@@ -48,7 +49,6 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
     _gameEngine.registry.addComponent<GameEngine::FontComponent>(score, font);
     _gameEngine.registry.addComponent<GameEngine::TextComponent>(score, text);
     _scoreTextEntity = score;
-    _points = 0;
 
     _isRunning = true;
     std::thread network(&RType::Client::RTypeClient::startNetwork, this, std::ref(_isRunning));
@@ -108,4 +108,6 @@ void RType::Client::RTypeClient::gameLoop()
         _gameEngine.eventManager.publish<bool &>(
             static_cast<GameEngine::EventType>(GameEngine::Event::WindowIsOpen), isOpen);
     }
+    if (_isRunning)
+        handleQuit();
 }
