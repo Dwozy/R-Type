@@ -10,9 +10,11 @@
 #include "components/TransformComponent.hpp"
 #include "components/CollisionComponent.hpp"
 #include "components/GravityComponent.hpp"
+#include "components/HealthComponent.hpp"
 
-void standardGravityCollisionCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
-    SparseArray<GameEngine::TransformComponent> &transforms, SparseArray<GameEngine::GravityComponent> &gravity)
+void standardGravityCollisionCallback(const std::size_t &entityId,
+    SparseArray<GameEngine::CollisionComponent> &collisions, SparseArray<GameEngine::TransformComponent> &transforms,
+    SparseArray<GameEngine::GravityComponent> &gravity)
 {
     auto &selfCol = collisions[entityId];
     auto &selfTsf = transforms[entityId];
@@ -41,8 +43,9 @@ void standardGravityCollisionCallback(const std::size_t &entityId, SparseArray<G
         selfGrav.value().isActive = true;
 }
 
-void changeDirGravityCollisionCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
-    SparseArray<GameEngine::TransformComponent> &transforms, SparseArray<GameEngine::GravityComponent> &gravity)
+void changeDirGravityCollisionCallback(const std::size_t &entityId,
+    SparseArray<GameEngine::CollisionComponent> &collisions, SparseArray<GameEngine::TransformComponent> &transforms,
+    SparseArray<GameEngine::GravityComponent> &gravity)
 {
     auto &selfCol = collisions[entityId];
     auto &selfTsf = transforms[entityId];

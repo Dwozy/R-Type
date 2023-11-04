@@ -28,6 +28,7 @@
 #include "components/ControllableComponent.hpp"
 #include "components/TransformComponent.hpp"
 #include "components/GravityComponent.hpp"
+#include "components/HealthComponent.hpp"
 
 #ifdef DEBUG
     #include "Debug.hpp"

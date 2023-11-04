@@ -60,6 +60,7 @@ static void createMap(std::vector<std::string> &lines, std::vector<std::string>:
             auto &trf = engine.registry.getComponent<GameEngine::TransformComponent>()[entity];
             if (trf)
                 trf->position = {position.x + j * blockSize, position.y + i * blockSize};
+
             if (prefabSymbols.at(std::string() + character) == "enemy")
                 engine.registry.getComponent<GameEngine::CollisionComponent>()[entity]
                     ->addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,

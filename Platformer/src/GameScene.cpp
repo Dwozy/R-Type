@@ -30,14 +30,25 @@ void GameScene::BlockcollisionCallback(const std::size_t &entityId,
         auto &tsf = transforms[i];
         auto &hth = health[i];
 
-        if (!col || !tsf || !col.value().isActive || col.value().layer != 30)
+        if (!col || !tsf || !col.value().isActive || (col.value().layer != 30 && col.value().layer != 20))
             continue;
         auto result = GameEngine::replaceOnTop(selfTsf->position, selfCol->collider, tsf->position, col->collider);
         if (result == 1) {
             hasCollidedOnTop = true;
             if (hth)
                 hth->health -= 1;
-        } else if (result == 0 && hth && selfHealth && (std::chrono::steady_clock::now() - lastTime).count() > 1000000000) {
+            if (col->layer == 20 && (std::chrono::steady_clock::now() - lastTime).count() > 1000000000) {
+                lastTime = std::chrono::steady_clock::now();
+                if (selfHealth->health > 0) {
+                    auto lastHeart = _heartEntities.back();
+                    _entities.erase(std::find(_entities.begin(), _entities.end(), lastHeart));
+                    _heartEntities.pop_back();
+                    _gameEngine.registry.killEntity(lastHeart);
+                }
+                selfHealth->health -= 1;
+            }
+        } else if (result == 0 && hth && selfHealth &&
+                   (std::chrono::steady_clock::now() - lastTime).count() > 1000000000) {
             lastTime = std::chrono::steady_clock::now();
             if (selfHealth->health > 0) {
                 auto lastHeart = _heartEntities.back();
@@ -89,7 +100,8 @@ void GameScene::load()
         }
         auto heartCam = _gameEngine.registry.spawnEntity();
         _entities.push_back(heartCam);
-        auto &heartCamComp = _gameEngine.registry.addComponent<GameEngine::CameraComponent>(heartCam, GameEngine::CameraComponent{GameEngine::View(GameEngine::Rectf(0, y, i * size, size))});
+        auto &heartCamComp = _gameEngine.registry.addComponent<GameEngine::CameraComponent>(
+            heartCam, GameEngine::CameraComponent{GameEngine::View(GameEngine::Rectf(0, y, i * size, size))});
         heartCamComp->view.setViewPort(GameEngine::Vector2<float>(0.01, 0.9), 0.05 * i, 0.1);
 
         auto camera = _gameEngine.prefabManager.createEntityFromPrefab("main_camera", _gameEngine.registry);
