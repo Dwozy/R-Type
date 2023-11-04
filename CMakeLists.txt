@@ -3,9 +3,6 @@ set(CMAKE_CXX_STANDARD 20)
 
 set(PROJECT_NAME "R-Type")
 set(LIBRARY_NAME "GameEngine")
-#set(CMAKE_BUILD_TYPE RelWithDebInfo)
-
-#set(CMAKE_VERBOSE_MAKEFILE ON)
 
 message(CHECK_START "Fetching dependencies...")
 list(APPEND CMAKE_MESSAGE_INDENT "  ")

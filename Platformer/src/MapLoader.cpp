@@ -66,7 +66,7 @@ static void createMap(std::vector<std::string> &lines, std::vector<std::string>:
                                     SparseArray<GameEngine::TransformComponent> &,
                                     SparseArray<GameEngine::GravityComponent> &)>,
                         GameEngine::CollisionComponent, GameEngine::TransformComponent, GameEngine::GravityComponent>(
-                        engine.registry, standardGravityCollisionCallback);
+                        engine.registry, changeDirGravityCollisionCallback);
             j++;
         }
     }

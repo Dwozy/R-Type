@@ -4,8 +4,10 @@ rm -rf build/CMakeCache.txt
 
 debug=""
 target="$1"
+build_type="Release"
 if [ "$1" == "-d" ]; then
     debug="-DDEBUG=On"
+    build_type="RelWithDebInfo"
     target="$2"
 fi
 
@@ -19,7 +21,7 @@ clean_all()
 
 setup_all()
 {
-    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=$build_type $debug
     status=$?
     if [ "$status" -ne 0 ]; then
         exit "$status"
@@ -45,7 +47,7 @@ fi
 
 setup_game_engine()
 {
-    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_GAME_ENGINE="" $debug
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=$build_type -DBUILD_GAME_ENGINE="" $debug
     status=$?
     if [ "$status" -ne 0 ]; then
         exit "$status"
@@ -54,7 +56,7 @@ setup_game_engine()
 
 setup_client()
 {
-    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_CLIENT="" $debug
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=$build_type -DBUILD_CLIENT="" $debug
     status=$?
     if [ "$status" -ne 0 ]; then
         exit "$status"
@@ -63,7 +65,7 @@ setup_client()
 
 setup_server()
 {
-    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_SERVER="" $debug
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=$build_type -DBUILD_SERVER="" $debug
     status=$?
     if [ "$status" -ne 0 ]; then
         exit "$status"
@@ -72,7 +74,7 @@ setup_server()
 
 setup_tests()
 {
-    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTS="" $debug
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=$build_type -DBUILD_TESTS="" $debug
     status=$?
     if [ "$status" -ne 0 ]; then
         exit "$status"
@@ -81,7 +83,7 @@ setup_tests()
 
 setup_game_platformer()
 {
-    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_GAME_PLATFORMER=""
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=$build_type -DBUILD_GAME_PLATFORMER="" $debug
     status=$?
     if [ "$status" -ne 0 ]; then
         exit "$status"
@@ -90,7 +92,7 @@ setup_game_platformer()
 
 build()
 {
-    cmake --build ./build --config Release
+    cmake --build ./build --config $build_type
     status=$?
     if [ "$status" -ne 0 ]; then
         exit "$status"
