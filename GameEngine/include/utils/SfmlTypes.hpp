@@ -19,6 +19,7 @@
     #include "Debug.hpp"
     #include <imgui.h>
     #include <imgui-SFML.h>
+    #include "Error.hpp"
 #endif
 
 namespace GameEngine
@@ -189,7 +190,7 @@ namespace GameEngine
         void initDebug() override
         {
             if (!ImGui::SFML::Init(_window))
-                throw;
+                throw Error::ImGuiSFMLInitError();
             ImGuiIO &io = ImGui::GetIO();
             io.IniFilename = NULL;
             io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;

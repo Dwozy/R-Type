@@ -74,7 +74,7 @@ namespace GameEngine
         {static_cast<EventType>(Event::PlayerShootEvent), "PlayerShootEvent"},
     };
 #ifdef DEBUG
-    static const size_t MAX_EVENT_LOG_LENGTH = 100000;
+    static const int DEFAULT_MAX_EVENT_LOG_LENGTH = 100000;
 #endif
 
     /// @brief class that store all the callback functions for a specific event type
@@ -102,14 +102,16 @@ namespace GameEngine
         }
 
       private:
+#ifdef DEBUG
         std::vector<EventType> &_eventLog;
+#endif
         const EventType _eventType;
         /// @brief call all the subscribed functions with the given eventData
         /// @param eventData data to be given to subscribed functions
         void _publish(EventData eventData)
         {
 #ifdef DEBUG
-			if (_eventLog.size() >= MAX_EVENT_LOG_LENGTH)
+			if (_eventLog.size() >= DEFAULT_MAX_EVENT_LOG_LENGTH)
 				_eventLog.clear();
             _eventLog.push_back(_eventType);
 #endif

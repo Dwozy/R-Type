@@ -15,8 +15,11 @@
 #include "components/PressableComponent.hpp"
 #include "components/TextComponent.hpp"
 #include "components/ControllableComponent.hpp"
-
-#include <iostream>
+#include "components/DamageComponent.hpp"
+#include "components/GravityComponent.hpp"
+#include "components/InputComponent.hpp"
+#include "components/LifePointComponent.hpp"
+#include "components/NetworkIdComponent.hpp"
 
 #ifdef DEBUG
 namespace Debug
@@ -56,8 +59,8 @@ namespace Debug
             ImGui::SameLine();
             ImGui::BeginGroup();
             if (textures[currentComponent]) {
-                ImGui::Text("Is Rendered: %s", textures[currentComponent]->isRendered ? "True" : "False");
-                ImGui::Text("Is Animated: %s", textures[currentComponent]->animated ? "True" : "False");
+                ImGui::Checkbox("Is Rendered", &textures[currentComponent]->isRendered);
+                ImGui::Checkbox("Is Animated", &textures[currentComponent]->animated);
                 ImGui::Text("Render Layer: %ld", textures[currentComponent]->renderLayer);
                 ImGui::Text("Texture Path: \"%s\"", textures[currentComponent]->path.c_str());
                 if (textures[currentComponent]->animated)
@@ -90,7 +93,7 @@ namespace Debug
             ImGui::SameLine();
             ImGui::BeginGroup();
             if (collisions[currentComponent]) {
-                ImGui::Text("Collision Active: %s", collisions[currentComponent]->isActive ? "True" : "False");
+                ImGui::Checkbox("Collision Active", &collisions[currentComponent]->isActive);
                 ImGui::Text("Layer: %ld", collisions[currentComponent]->layer);
                 ImGui::Text("Actions registered: %ld", collisions[currentComponent]->actions.size());
             }
@@ -177,7 +180,7 @@ namespace Debug
             if (texts[currentComponent]) {
                 ImGui::Text("Text: %s", texts[currentComponent]->str.c_str());
                 ImGui::Text("Size: %ld", texts[currentComponent]->size);
-                ImGui::Text("Is Rendered: %s", texts[currentComponent]->isRendered ? "True" : "False");
+                ImGui::Checkbox("Is Rendered", &texts[currentComponent]->isRendered);
                 ImGui::Text("Layer: %ld", texts[currentComponent]->renderLayer);
             }
             ImGui::EndGroup();
@@ -209,9 +212,120 @@ namespace Debug
         ImGui::TreePop();
     }
 
+    void DebugMenu::_showDamageComponentMenu()
+    {
+        if (_registry.isComponentRegistered<GameEngine::DamageComponent>()) {
+            static int currentComponent = 0;
+            ImGui::BeginGroup();
+            SparseArray<GameEngine::DamageComponent> &damageComponents =
+                _registry.getComponent<GameEngine::DamageComponent>();
+            _showComponentList<GameEngine::DamageComponent>(damageComponents, currentComponent);
+            ImGui::SameLine();
+            ImGui::BeginGroup();
+            if (damageComponents[currentComponent])
+                ImGui::Text("Damage: %hhu", damageComponents[currentComponent]->damage);
+            ImGui::EndGroup();
+            ImGui::EndGroup();
+        } else {
+            ImGui::Text("Component not registered");
+        }
+        ImGui::TreePop();
+    }
+
+    void DebugMenu::_showGravityComponentMenu()
+    {
+        if (_registry.isComponentRegistered<GameEngine::GravityComponent>()) {
+            static int currentComponent = 0;
+            ImGui::BeginGroup();
+            SparseArray<GameEngine::GravityComponent> &gravityComponents =
+                _registry.getComponent<GameEngine::GravityComponent>();
+            _showComponentList<GameEngine::GravityComponent>(gravityComponents, currentComponent);
+            ImGui::SameLine();
+            ImGui::BeginGroup();
+            if (gravityComponents[currentComponent]) {
+                ImGui::Text("Gravity Force: (%f, %f)", gravityComponents[currentComponent]->gravityForce.x,
+                    gravityComponents[currentComponent]->gravityForce.y);
+                ImGui::Text("Cumulated G Velocity: (%f, %f)", gravityComponents[currentComponent]->cumulatedGVelocity.x,
+                    gravityComponents[currentComponent]->cumulatedGVelocity.y);
+                if (ImGui::Button("Reset Cumulated G Velocity"))
+                    gravityComponents[currentComponent]->cumulatedGVelocity = GameEngine::Vector2<float>(0.0f, 0.0f);
+                ImGui::Checkbox("Is Active", &gravityComponents[currentComponent]->isActive);
+            }
+            ImGui::EndGroup();
+            ImGui::EndGroup();
+        } else {
+            ImGui::Text("Component not registered");
+        }
+        ImGui::TreePop();
+    }
+
+    void DebugMenu::_showInputComponentMenu()
+    {
+        if (_registry.isComponentRegistered<GameEngine::InputComponent>()) {
+            static int currentComponent = 0;
+            ImGui::BeginGroup();
+            SparseArray<GameEngine::InputComponent> &inputComponents =
+                _registry.getComponent<GameEngine::InputComponent>();
+            _showComponentList<GameEngine::InputComponent>(inputComponents, currentComponent);
+            ImGui::SameLine();
+            ImGui::BeginGroup();
+            if (inputComponents[currentComponent]) {
+                ImGui::Text("Input Registered: %hhu", inputComponents[currentComponent]->inputs.size());
+                ImGui::Text("Inputs:");
+                for (auto inputInfo : inputComponents[currentComponent]->inputs)
+                    ImGui::Text("[%hhu -> %d]", inputInfo.first, inputInfo.second);
+            }
+            ImGui::EndGroup();
+            ImGui::EndGroup();
+        } else {
+            ImGui::Text("Component not registered");
+        }
+        ImGui::TreePop();
+    }
+
+    void DebugMenu::_showLifePointComponentMenu()
+    {
+        if (_registry.isComponentRegistered<GameEngine::LifePointComponent>()) {
+            static int currentComponent = 0;
+            ImGui::BeginGroup();
+            SparseArray<GameEngine::LifePointComponent> &lifePointComponents =
+                _registry.getComponent<GameEngine::LifePointComponent>();
+            _showComponentList<GameEngine::LifePointComponent>(lifePointComponents, currentComponent);
+            ImGui::SameLine();
+            ImGui::BeginGroup();
+            if (lifePointComponents[currentComponent])
+                ImGui::Text("Life points: %hhu", lifePointComponents[currentComponent]->lifePoint);
+            ImGui::EndGroup();
+            ImGui::EndGroup();
+        } else {
+            ImGui::Text("Component not registered");
+        }
+        ImGui::TreePop();
+    }
+
+    void DebugMenu::_showNetworkIdComponentMenu()
+    {
+        if (_registry.isComponentRegistered<GameEngine::NetworkIdComponent>()) {
+            static int currentComponent = 0;
+            ImGui::BeginGroup();
+            SparseArray<GameEngine::NetworkIdComponent> &networkIdComponents =
+                _registry.getComponent<GameEngine::NetworkIdComponent>();
+            _showComponentList<GameEngine::NetworkIdComponent>(networkIdComponents, currentComponent);
+            ImGui::SameLine();
+            ImGui::BeginGroup();
+            if (networkIdComponents[currentComponent])
+                ImGui::Text("Network ID: %ld", networkIdComponents[currentComponent]->id);
+            ImGui::EndGroup();
+            ImGui::EndGroup();
+        } else {
+            ImGui::Text("Component not registered");
+        }
+        ImGui::TreePop();
+    }
+
     void DebugMenu::_showGameMenu()
     {
-        static int fpsLimit = 60.0f;
+        static int fpsLimit = DEFAULT_FPS_LIMIT_SLIDER_VALUE;
         static int oldFpsLimit = 0;
         static bool unlimitedFps = false;
         static int fpsValuesOffset = 0;
@@ -241,7 +355,7 @@ namespace Debug
             DEFAULT_FPS_PLOT_SIZE);
 
         if (!unlimitedFps) {
-            if (ImGui::SliderInt("##fpsLimitSlider", &fpsLimit, 1, 1000, "%d"))
+            if (ImGui::SliderInt("##fpsLimitSlider", &fpsLimit, 1, DEFAULT_FPS_LIMIT_SLIDER_MAX_VALUE, "%d"))
                 _eventManager
                     .getHandler<const float &>(static_cast<GameEngine::EventType>(GameEngine::Event::SetFpsLimitEvent))
                     .publish((float)fpsLimit);
@@ -270,40 +384,44 @@ namespace Debug
     void DebugMenu::_showRegistryMenu()
     {
         if (ImGui::CollapsingHeader("Entities")) {
+            ImGui::SeparatorText("Entities");
             ImGui::Text("Living Entities: %d/%d", _registry._nbEntities - _registry._emptyIndexes.size(),
                 _registry._maxEntities);
             ImGui::Text("Max Entity Id Used: %d/%d", _registry._nbEntities, _registry._maxEntities);
         }
         if (ImGui::CollapsingHeader("Components")) {
-            if (ImGui::TreeNode("Transform")) {
+            ImGui::SeparatorText("Components");
+            if (ImGui::TreeNode("Transform"))
                 _showTransfomComponentMenu();
-            }
-            if (ImGui::TreeNode("Texture")) {
+            if (ImGui::TreeNode("Texture"))
                 _showTextureComponentMenu();
-            }
-            if (ImGui::TreeNode("Camera")) {
+            if (ImGui::TreeNode("Camera"))
                 _showCameraComponentMenu();
-            }
-            if (ImGui::TreeNode("Collision")) {
+            if (ImGui::TreeNode("Collision"))
                 _showCollisionComponentMenu();
-            }
-            if (ImGui::TreeNode("Font")) {
+            if (ImGui::TreeNode("Font"))
                 _showFontComponentMenu();
-            }
-            if (ImGui::TreeNode("Music")) {
+            if (ImGui::TreeNode("Music"))
                 _showMusicComponentMenu();
-            }
-            if (ImGui::TreeNode("Pressable")) {
+            if (ImGui::TreeNode("Pressable"))
                 _showPressableComponentMenu();
-            }
-            if (ImGui::TreeNode("Text")) {
+            if (ImGui::TreeNode("Text"))
                 _showTextComponentMenu();
-            }
-            if (ImGui::TreeNode("Controllable")) {
+            if (ImGui::TreeNode("Controllable"))
                 _showControllableComponentMenu();
-            }
+            if (ImGui::TreeNode("Damage"))
+                _showDamageComponentMenu();
+            if (ImGui::TreeNode("Gravity"))
+                _showGravityComponentMenu();
+            if (ImGui::TreeNode("Input"))
+                _showInputComponentMenu();
+            if (ImGui::TreeNode("Life Point"))
+                _showLifePointComponentMenu();
+            if (ImGui::TreeNode("Network ID"))
+                _showNetworkIdComponentMenu();
         }
         if (ImGui::CollapsingHeader("Systems")) {
+            ImGui::SeparatorText("Systems");
             ImGui::Text("Systems Registered: %ld", _registry._systems.size());
         }
         ImGui::EndTabItem();
@@ -311,19 +429,17 @@ namespace Debug
 
     void DebugMenu::_showEventsMenu()
     {
-        static bool showInternalEvents = true;
-
         ImGui::SeparatorText("Events");
-        ImGui::Checkbox("Internal", &showInternalEvents);
-        ImGui::BeginChild("##eventLog", ImVec2(ImGui::GetContentRegionAvail().x, 200), ImGuiChildFlags_Border, ImGuiWindowFlags_AlwaysVerticalScrollbar | ImGuiWindowFlags_AlwaysHorizontalScrollbar);
+        ImGui::BeginChild("##eventLog", ImVec2(ImGui::GetContentRegionAvail().x, DEFAULT_EVENT_LOG_HEIGHT), ImGuiChildFlags_Border,
+            ImGuiWindowFlags_AlwaysVerticalScrollbar | ImGuiWindowFlags_AlwaysHorizontalScrollbar);
 
         ImGuiListClipper eventLog;
         eventLog.Begin(_eventManager.eventLog.size());
         while (eventLog.Step()) {
             for (int i = eventLog.DisplayStart; i < eventLog.DisplayEnd; i++) {
                 if (GameEngine::InternalEventNames.contains(_eventManager.eventLog[i])) {
-                    if (showInternalEvents)
-                        ImGui::Text("[%d](Internal) Event triggered: %s", i, GameEngine::InternalEventNames.at(_eventManager.eventLog[i]).c_str());
+                    ImGui::Text("[%d](Internal) Event triggered: %s", i,
+                        GameEngine::InternalEventNames.at(_eventManager.eventLog[i]).c_str());
                 } else
                     ImGui::Text("[%d] Event triggered: %ld", i, _eventManager.eventLog[i]);
             }
@@ -332,7 +448,10 @@ namespace Debug
         if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY())
             ImGui::SetScrollHereY(1.0f);
         ImGui::EndChild();
-        if (ImGui::Button("Clear Event Log")) _eventManager.eventLog.clear();
+        if (ImGui::Button("Clear Event Log"))
+            _eventManager.eventLog.clear();
+        ImGui::SameLine();
+        ImGui::Text("(Auto Clear at %d Event)", GameEngine::DEFAULT_MAX_EVENT_LOG_LENGTH);
     }
 
 } // namespace Debug

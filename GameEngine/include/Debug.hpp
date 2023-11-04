@@ -19,10 +19,14 @@
 namespace Debug
 {
     static const ImVec2 DEBUG_MENU_DEFAULT_WINDOW_SIZE = ImVec2((float)500, (float)500);
+    static const float DEFAULT_COMPONENT_LIST_HEIGHT = 150.0f;
+    static const float DEFAULT_EVENT_LOG_HEIGHT = 200.0f;
     static const size_t DEFAULT_FPS_PLOT_TEXT_LENGTH = 32;
     static const size_t DEFAULT_FPS_PLOT_NB_VALUES = 90;
     static const double DEFAULT_FPS_PLOT_REFRESH_RATE = 60.0;
     static const ImVec2 DEFAULT_FPS_PLOT_SIZE = ImVec2(0, 80.0f);
+    static const int DEFAULT_FPS_LIMIT_SLIDER_MAX_VALUE = 1000;
+    static const int DEFAULT_FPS_LIMIT_SLIDER_VALUE = 60;
 
     class DebugMenu
     {
@@ -36,7 +40,6 @@ namespace Debug
 
         void draw()
         {
-            ImGui::ShowDemoWindow();
             ImGui::SetNextWindowSize(DEBUG_MENU_DEFAULT_WINDOW_SIZE, ImGuiCond_FirstUseEver);
             ImGui::Begin("Debug Menu");
             if (ImGui::BeginTabBar("MainTabBar")) {
@@ -63,7 +66,7 @@ namespace Debug
         template <typename Component>
         void _showComponentList(SparseArray<Component> &components, int &currentComponent)
         {
-            if (ImGui::BeginListBox("##componentList", ImVec2(ImGui::GetContentRegionAvail().x / 3.0f, 150))) {
+            if (ImGui::BeginListBox("##componentList", ImVec2(ImGui::GetContentRegionAvail().x / 3.0f, DEFAULT_COMPONENT_LIST_HEIGHT))) {
                 for (int i = 0; i < _registry._nbEntities; i++) {
                     if (!components[i])
                         continue;
@@ -86,6 +89,11 @@ namespace Debug
         void _showPressableComponentMenu();
         void _showTextComponentMenu();
         void _showControllableComponentMenu();
+        void _showDamageComponentMenu();
+        void _showGravityComponentMenu();
+        void _showInputComponentMenu();
+        void _showLifePointComponentMenu();
+        void _showNetworkIdComponentMenu();
         void _showEventsMenu();
     };
 } // namespace Debug
