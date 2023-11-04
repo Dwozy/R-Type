@@ -13,6 +13,7 @@ set(SRCS_GAME
     ${GAME_FOLDER}/src/MainMenuScene.cpp
     ${GAME_FOLDER}/src/PauseScene.cpp
     ${GAME_FOLDER}/src/MapLoader.cpp
+    ${GAME_FOLDER}/src/CollisionCallbacks.cpp
 )
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${GAME_FOLDER})

@@ -34,7 +34,7 @@ static std::unordered_map<std::string, std::string> getPrefabSymbols(std::vector
 
 static void createMap(std::vector<std::string> &lines, std::vector<std::string>::iterator &vectorIter,
     std::unordered_map<std::string, std::string> const &prefabSymbols, GameEngine::GameEngine &engine,
-    GameEngine::Vector2<float> const &position, float blockSize)
+    GameEngine::Vector2<float> const &position, float blockSize, std::vector<GameEngine::Entity> &entities)
 {
     auto iterCopy(vectorIter);
     size_t len = iterCopy->size();
@@ -56,6 +56,7 @@ static void createMap(std::vector<std::string> &lines, std::vector<std::string>:
                                          std::to_string(i) + ", column " + std::to_string(j));
             auto entity = engine.prefabManager.createEntityFromPrefab(
                 prefabSymbols.at(std::string() + character), engine.registry);
+            entities.push_back(entity);
             auto &trf = engine.registry.getComponent<GameEngine::TransformComponent>()[entity];
             if (trf)
                 trf->position = {position.x + j * blockSize, position.y + i * blockSize};
@@ -65,7 +66,7 @@ static void createMap(std::vector<std::string> &lines, std::vector<std::string>:
                                     SparseArray<GameEngine::TransformComponent> &,
                                     SparseArray<GameEngine::GravityComponent> &)>,
                         GameEngine::CollisionComponent, GameEngine::TransformComponent, GameEngine::GravityComponent>(
-                        engine.registry, BlockcollisionCallback);
+                        engine.registry, standardGravityCollisionCallback);
             j++;
         }
     }
@@ -86,5 +87,5 @@ void MapLoader::loadMap(std::string const &path, GameEngine::Vector2<float> cons
 
     auto iter = lines.begin();
     auto prefabSymbols = getPrefabSymbols(lines, iter, _engine.prefabManager);
-    createMap(lines, iter, prefabSymbols, _engine, position, blockSize);
+    createMap(lines, iter, prefabSymbols, _engine, position, blockSize, _entities);
 }
