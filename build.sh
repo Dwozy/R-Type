@@ -7,7 +7,7 @@ target="$1"
 build_type="Release"
 if [ "$1" == "-d" ]; then
     debug="-DDEBUG=On"
-    build_type="RelWithDebInfo"
+    build_type="Debug"
     target="$2"
 fi
 

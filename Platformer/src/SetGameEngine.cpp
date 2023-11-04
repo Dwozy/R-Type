@@ -116,6 +116,7 @@ void Platformer::setGameEnginePrefab()
     _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/buttonResume.json");
     _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/buttonQuit.json");
     _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/buttonRestart.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/Heart.json");
 }
 
 void Platformer::setGameEngine()

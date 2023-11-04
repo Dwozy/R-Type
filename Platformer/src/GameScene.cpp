@@ -38,8 +38,14 @@ void GameScene::BlockcollisionCallback(const std::size_t &entityId,
             if (hth)
                 hth->health -= 1;
         } else if (result == 0 && hth && selfHealth && (std::chrono::steady_clock::now() - lastTime).count() > 1000000000) {
-            selfHealth->health -= 1;
             lastTime = std::chrono::steady_clock::now();
+            if (selfHealth->health > 0) {
+                auto lastHeart = _heartEntities.back();
+                _entities.erase(std::find(_entities.begin(), _entities.end(), lastHeart));
+                _heartEntities.pop_back();
+                _gameEngine.registry.killEntity(lastHeart);
+            }
+            selfHealth->health -= 1;
         }
     }
     if (hasCollidedOnTop) {
@@ -64,11 +70,31 @@ void GameScene::load()
         std::cout << "create game from start" << std::endl;
         _isLoaded = true;
         auto minimap_camera = _gameEngine.prefabManager.createEntityFromPrefab("minimap_camera", _gameEngine.registry);
+
+        _id = _gameEngine.prefabManager.createEntityFromPrefab("player", _gameEngine.registry);
+        _entities.push_back(_gameEngine.registry.getEntityById(_id));
+
+        auto health = _gameEngine.registry.getComponent<GameEngine::HealthComponent>()[_id];
+        int i = 0;
+        float y = 0;
+        float size = 0;
+        for (; health && i < health->health; i++) {
+            auto heart = _gameEngine.prefabManager.createEntityFromPrefab("heart", _gameEngine.registry);
+            _entities.push_back(heart);
+            _heartEntities.push_back(heart);
+            auto &heartTransfrom = _gameEngine.registry.getComponent<GameEngine::TransformComponent>()[heart];
+            size = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[heart]->textureSize.width;
+            heartTransfrom->position.x = i * size;
+            y = heartTransfrom->position.y;
+        }
+        auto heartCam = _gameEngine.registry.spawnEntity();
+        _entities.push_back(heartCam);
+        auto &heartCamComp = _gameEngine.registry.addComponent<GameEngine::CameraComponent>(heartCam, GameEngine::CameraComponent{GameEngine::View(GameEngine::Rectf(0, y, i * size, size))});
+        heartCamComp->view.setViewPort(GameEngine::Vector2<float>(0.01, 0.9), 0.05 * i, 0.1);
+
         auto camera = _gameEngine.prefabManager.createEntityFromPrefab("main_camera", _gameEngine.registry);
         _entities.push_back(camera);
         _entities.push_back(minimap_camera);
-        _id = _gameEngine.prefabManager.createEntityFromPrefab("player", _gameEngine.registry);
-        _entities.push_back(_gameEngine.registry.getEntityById(_id));
 
         std::cout << "player is " << _id << std::endl;
 

@@ -40,6 +40,7 @@ class GameScene : public GameEngine::IScene
     SparseArray<GameEngine::TextureComponent> texturescpy;
     SparseArray<GameEngine::TransformComponent> trscpy;
     std::vector<GameEngine::Entity> _entities;
+    std::vector<GameEngine::Entity> _heartEntities;
     GameEngine::GameEngine &_gameEngine;
     GameState &_state;
     size_t &_id;
