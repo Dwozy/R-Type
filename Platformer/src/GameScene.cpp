@@ -46,6 +46,7 @@ void GameScene::load()
     if (_state == GameState::Mainmenu || _state == GameState::Restart) {
         std::cout << "create game from start" << std::endl;
 
+        _gameEngine.prefabManager.createEntityFromPrefab("background", _gameEngine.registry);
         auto minimap_camera = _gameEngine.prefabManager.createEntityFromPrefab("minimap_camera", _gameEngine.registry);
         auto camera = _gameEngine.prefabManager.createEntityFromPrefab("main_camera", _gameEngine.registry);
         _id = _gameEngine.prefabManager.createEntityFromPrefab("player", _gameEngine.registry);
@@ -61,22 +62,10 @@ void GameScene::load()
                 GameEngine::CollisionComponent, GameEngine::TransformComponent, GameEngine::GravityComponent>(
                 _gameEngine.registry, BlockcollisionCallback);
 
-        GameEngine::Entity block = _gameEngine.prefabManager.createEntityFromPrefab("box", _gameEngine.registry);
-        auto &blockTransform = _gameEngine.registry.getComponent<GameEngine::TransformComponent>()[block];
-        blockTransform->position = {50, 50};
-
-        _gameEngine.prefabManager.createEntityFromPrefab("background", _gameEngine.registry);
-
-        auto enemy = _gameEngine.prefabManager.createEntityFromPrefab("enemy", _gameEngine.registry);
-        _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[enemy]
-            .value()
-            .addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
-                           SparseArray<GameEngine::TransformComponent> &, SparseArray<GameEngine::GravityComponent> &)>,
-                GameEngine::CollisionComponent, GameEngine::TransformComponent, GameEngine::GravityComponent>(
-                _gameEngine.registry, BlockcollisionCallback);
-
-        GameEngine::Entity block2 =
+        GameEngine::Entity block =
             _gameEngine.prefabManager.createEntityFromPrefab("border_map_down", _gameEngine.registry);
+
+        _mapLoader.loadMap("Platformer/maps/map1", {0, _gameEngine.registry.getComponent<GameEngine::TransformComponent>()[block]->position.y - 7 * 32}, 32);
     }
     if (_state == GameState::Pause) {
         std::cout << "resume game" << std::endl;

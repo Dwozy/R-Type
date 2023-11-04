@@ -10,12 +10,13 @@
 #include "utils/IScene.hpp"
 #include "GameEngine.hpp"
 #include "Platformer.hpp"
+#include "MapLoader.hpp"
 
 class GameScene : public GameEngine::IScene
 {
   public:
     GameScene(GameEngine::GameEngine &gameEngine, GameState &state, size_t &id)
-        : _gameEngine(gameEngine), _state(state), _id(id){};
+        : _gameEngine(gameEngine), _state(state), _id(id), _mapLoader(gameEngine){};
     ~GameScene() = default;
     void load() override;
     void unload() override;
@@ -24,6 +25,7 @@ class GameScene : public GameEngine::IScene
     GameEngine::GameEngine &_gameEngine;
     GameState &_state;
     size_t &_id;
+    MapLoader _mapLoader;
 };
 
 #endif /* !GAMESCENE_HPP_ */

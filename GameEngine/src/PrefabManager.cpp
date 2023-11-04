@@ -123,4 +123,9 @@ namespace GameEngine
         }
         return entity;
     }
+
+    bool PrefabManager::isPrefabLoaded(const std::string &prefabName) const
+    {
+        return _prefabs.contains(prefabName);
+    }
 } // namespace GameEngine

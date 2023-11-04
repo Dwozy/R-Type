@@ -45,6 +45,10 @@ namespace GameEngine
         /// @return the created entity
         Entity createEntityFromPrefab(
             const std::string &prefabName, Registry &registry, size_t id, bool loadTexture = true);
+        /// @brief Check if prefab is loaded
+        /// @param prefabName name of the prefab
+        /// @return true if the prefab is loaded, false otherwise
+        bool isPrefabLoaded(const std::string &prefabName) const;
 
       protected:
       private:
