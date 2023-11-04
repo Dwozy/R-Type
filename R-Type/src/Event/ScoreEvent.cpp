@@ -15,10 +15,10 @@ namespace RType::Client
 {
     void RTypeClient::setScore(struct RType::Protocol::ScoreData scoreData)
     {
-        auto &text = _gameEngine.registry.getComponent<GameEngine::TextComponent> () [_scoreTextEntity];
+        auto &text = _gameEngine.registry.getComponent<GameEngine::TextComponent>()[_scoreTextEntity];
         if (!text)
             return;
-        _points = static_cast<std::size_t> (scoreData.score);
+        _points = static_cast<std::size_t>(scoreData.score);
         text.value().text.setString(std::to_string(_points));
     }
 

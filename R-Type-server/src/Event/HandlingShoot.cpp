@@ -36,7 +36,8 @@ namespace RType::Server
                 GameEngine::CollisionComponent, GameEngine::TransformComponent>(
                 _gameEngine.registry, destroyShootCallback);
 
-        shootPos->position = GameEngine::Vector2<float>(shootInfo.x + (rectPlayer.width / 2),
+        shootPos->position = GameEngine::Vector2<float>(
+            shootInfo.x + (rectPlayer.width / 2) - (shootCollider.value().collider.width / 2),
             shootInfo.y + (rectPlayer.height / 2) - (shootCollider.value().collider.height / 2));
         updateComponentInformation(shootEntity, typeShoot);
         broadcastEntityInformation(shootEntity);
