@@ -108,6 +108,7 @@ void Platformer::setGameEnginePrefab()
     _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/Box.json");
     _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/Background.json");
     _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/Enemy.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/Spike.json");
 }
 
 void Platformer::setGameEngine()
