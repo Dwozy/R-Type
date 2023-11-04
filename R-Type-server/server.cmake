@@ -21,6 +21,8 @@ set(SRCS_SERVER
     ${SERVER_FOLDER}/src/Game/SetupGame.cpp
     ${SERVER_FOLDER}/src/Game/SpawnMob.cpp
     ${SERVER_FOLDER}/src/Game/UpdateGame.cpp
+    ${SERVER_FOLDER}/src/Game/Immunity.cpp
+    ${SERVER_FOLDER}/src/Game/Timer.cpp
     ${SERVER_FOLDER}/src/HandlingEvent.cpp
     ${SERVER_FOLDER}/src/SetGameEngine.cpp
 )
@@ -52,3 +54,9 @@ target_link_libraries(${SERVER_BINARY_NAME} PRIVATE asio)
 target_link_libraries(${SERVER_BINARY_NAME} PRIVATE sfml-graphics sfml-audio sfml-system sfml-window)
 target_link_libraries(${SERVER_BINARY_NAME} PRIVATE nlohmann_json::nlohmann_json)
 target_include_directories(${SERVER_BINARY_NAME} PRIVATE ${INCLUDES_SERVER} ${INCLUDES_GLOBAL} ${CMAKE_SOURCE_DIR}/GameEngine/include/)
+
+if (DEFINED INSTALL)
+    set(CPACK_PACKAGE_NAME "R-Type-server")
+    install(TARGETS ${SERVER_BINARY_NAME} RUNTIME DESTINATION bin)
+    install(DIRECTORY config/ DESTINATION bin/config)
+endif (DEFINED INSTALL)

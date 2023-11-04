@@ -5,7 +5,7 @@
             "type": "TransformComponent",
             "value": {
                 "position": {
-                    "x": -30.0,
+                    "x": -100.0,
                     "y": 0.0
                 },
                 "velocity": {
@@ -28,4 +28,3 @@
         }
     ]
 }
-

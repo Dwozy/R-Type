@@ -45,13 +45,13 @@ namespace RType::Client
     {
         auto &textures = _gameEngine.registry.getComponent<GameEngine::TextureComponent>();
         std::size_t id = 0;
-        if (!_searchEntity(textureData.id)) {
+        if (!searchEntity(textureData.id)) {
             GameEngine::Entity entity = _gameEngine.registry.spawnEntity();
             _gameEngine.registry.addComponent<GameEngine::NetworkIdComponent>(
                 entity, GameEngine::NetworkIdComponent{textureData.id});
             setTextureInformation(textureData, entity);
         }
-        id = _findEntity(textureData.id);
+        id = findEntity(textureData.id);
         if (!textures[id]) {
             GameEngine::Entity entity = _gameEngine.registry.getEntityById(id);
             setTextureInformation(textureData, entity);

@@ -1,8 +1,8 @@
 # R-Type
 
-[![release](https://img.shields.io/github/v/release/EpitechPromo2026/B-CPP-500-PAR-5-1-rtype-timothe.zheng?sort=semver)](https://github.com/EpitechPromo2026/B-CPP-500-PAR-5-1-rtype-timothe.zheng/releases)
+[![release](https://img.shields.io/github/v/release/Dwozy/R-Type?sort=semver)](https://github.com/Dwozy/R-Type/releases)
 [![Documentation](https://img.shields.io/static/v1?label=Documentation&message=reference&color=blue)](https://dwozy.github.io/R-Type/)
-[![Test Status](https://github.com/EpitechPromo2026/B-CPP-500-PAR-5-1-rtype-timothe.zheng/workflows/Actions/badge.svg)](https://github.com/EpitechPromo2026/B-CPP-500-PAR-5-1-rtype-timothe.zheng/actions?query=workflow%3AActions)
+[![Test Status](https://github.com/Dwozy/R-Type/workflows/Actions/badge.svg)](https://github.com/Dwozy/R-Type/actions?query=workflow%3ATests)
 
 R-type is a multiplayer 2D shoot'em up game. The game is separated in two part: the client that display the game to the user, and the server who handle connections and running the game.
 
@@ -24,20 +24,37 @@ To use the game engine, refer to [this documentation](docs/GameEngine.md) or the
 There is two ways to get each part of the game:
 
 ## Get the release
-Go to the latest release, you can download the archive for either the server or the client depending of your platform and architecture
+Go to the latest release, you can download the archieve or an installer for each part of R-Type (client, server, game engine or sample game) depending on your platform.
 
 ### On Linux
-Extract the archive then run the install script as this:
-```bash
-cd [extracted folder]/[client or server]
-./install.sh
-```
-Note: if you change shell, you'll have to repeat this step.
 
-After restarting the shell you can then run the client with `r-type_client` and/or the server with `r-type_server`
+#### Archive
+Extract the archive, you will find the program in the main folder.
+
+### Script
+First you'll need to add execution permission to the installation script (ending in `.sh`) this way:
+```bash
+chmod +x [script].sh
+```
+
+The you can execute the script like this:
+```bash
+`./[script].sh
+```
+
+You'll find a new folder with the part your wanted inside, the program will directly be inside.
 
 ### On Windows
-Extract the archive then go to the extracted folder and double-click on the `install.bat` file
+
+#### Archive
+Extract the archive, you will find the program in the main folder.
+
+#### Installer
+Launch the installer and follow the instructions.
+![Start of installation](readme_assets/Installer_start.png "Start of installation")
+
+Later select the components (bin is mandatory)
+![Components](readme_assets/Installer_component.png "Make sure bin is selected")
 
 ## Build from source
 

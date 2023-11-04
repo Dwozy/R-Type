@@ -43,9 +43,12 @@ namespace RType::Server
         void startNetwork(bool &isRunning);
 
         void handleShoot(struct RType::Protocol::ShootData shootInfo);
-        void spawnMob();
+        void spawnMob(std::chrono::steady_clock::time_point &now);
 
         void broadcastInformation();
+
+        void handlingDamage(
+            std::size_t entityId, std::size_t i, SparseArray<GameEngine::CollisionComponent> &collisions);
 
         void destroyEntityCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
             SparseArray<GameEngine::TransformComponent> &transforms);
@@ -90,6 +93,9 @@ namespace RType::Server
         void handlingEndGame();
         void setTimers();
 
+        std::size_t findEntity(const std::size_t &networkId);
+        bool searchEntity(const std::size_t &networkId);
+
         void sendControllableInformation(GameEngine::Entity &entity, unsigned short port);
 
         void checkCollisionComponent(GameEngine::CollisionComponent &collision, std::size_t i);
@@ -98,10 +104,24 @@ namespace RType::Server
             RType::TextureType typeShoot);
         void updateComponentInformation(GameEngine::Entity &entity, RType::TextureType entityType);
 
-        void handlingLifePoint(std::size_t entityId);
+        void handlingLifePoint(std::size_t entityId, std::size_t id);
 
         GameEngine::Vector2<float> handlingMovement(
             GameEngine::TransformComponent &transform, struct RType::Protocol::InputData inputInfo);
+
+        void handleDestroyCallback(std::size_t &id);
+        void setDestroyCallback();
+        void setGameEngineCallback();
+
+        void spawnEntityMob(const std::string &mob, RType::TextureType mobType);
+        void handleImmunity(std::chrono::steady_clock::time_point &now);
+        void sendScore(unsigned short port);
+
+        void setImmunity(std::chrono::duration<float> timerInvincibility,
+            std::pair<const uint16_t, std::pair<bool, std::chrono::steady_clock::time_point>> playerTimer,
+            std::chrono::steady_clock::time_point &now);
+
+        void sendDestroyInfo(struct RType::Protocol::EntityIdData entity);
 
       protected:
       private:
@@ -110,16 +130,17 @@ namespace RType::Server
         asio::signal_set _signal;
         bool _isRunning;
         RType::Server::UdpServer _udpServer;
-        RType::Server::TcpServer _tcpServer;
         std::map<unsigned short, asio::ip::udp::endpoint> _listClients;
         SafeQueue<struct RType::Event> _eventQueue;
         std::map<uint16_t, uint8_t> _listIdType;
         std::map<uint16_t, uint8_t> _listLifePoints;
         std::map<unsigned short, componentList> _listInfosComponent;
         std::map<std::string, std::chrono::steady_clock::time_point> _timers;
+        std::map<uint16_t, std::pair<bool, std::chrono::steady_clock::time_point>> _timerLifePoint;
         std::size_t _nbPlayers;
         bool _chargedAttack;
-        float pos;
+        bool _killEnemy;
+        std::size_t _points;
         std::vector<uint8_t> _inputsType;
     };
 } // namespace RType::Server

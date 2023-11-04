@@ -10,8 +10,10 @@
 Platformer::Platformer()
 {
     _state = GameState::Mainmenu;
+    isJumping = false;
     setGameEngine();
     gameLoop();
+    isOpen = false;
 }
 
 void Platformer::handlePlayerjump()
@@ -22,9 +24,10 @@ void Platformer::handlePlayerjump()
     auto &grav = _gameEngine.registry.getComponent<GameEngine::GravityComponent>();
     if (!grav[_id].has_value())
         return;
-    if (GameEngine::InputManager::isKeyPressed(GameEngine::Input::Keyboard::Space) && canJump) {
+    if (GameEngine::InputManager::isKeyPressed(GameEngine::Input::Keyboard::Space) && canJump && !isJumping) {
         grav[_id]->cumulatedGVelocity.y = -100;
         canJump = false;
+        isJumping = true;
     }
     if (GameEngine::InputManager::isKeyReleased(GameEngine::Input::Keyboard::Space))
         canJump = true;
@@ -34,7 +37,6 @@ void Platformer::handlePlayerMove() {}
 
 void Platformer::gameLoop()
 {
-    bool isOpen = false;
     GameEngine::PollEventStruct event;
 
     _gameEngine.eventManager.publish<bool &>(

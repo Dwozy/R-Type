@@ -28,6 +28,12 @@ namespace GameEngine
         _componentConverters["CollisionComponent"] = [](json json) {
             return std::pair(std::type_index(typeid(CollisionComponent)), json.get<CollisionComponent>());
         };
+        _componentConverters["HealthComponent"] = [](json json) {
+            return std::pair(std::type_index(typeid(HealthComponent)), json.get<HealthComponent>());
+        };
+        _componentConverters["DamageComponent"] = [](json json) {
+            return std::pair(std::type_index(typeid(DamageComponent)), json.get<DamageComponent>());
+        };
         _componentConverters["GravityComponent"] = [](json json) {
             return std::pair(std::type_index(typeid(GravityComponent)), json.get<GravityComponent>());
         };
@@ -49,6 +55,12 @@ namespace GameEngine
         _componentAdders[typeid(ControllableComponent)] = [](Registry &registry, const std::any &component,
                                                               Entity entity) {
             return registry.addComponent(entity, std::any_cast<ControllableComponent>(component));
+        };
+        _componentAdders[typeid(HealthComponent)] = [](Registry &registry, const std::any &component, Entity entity) {
+            return registry.addComponent(entity, std::any_cast<HealthComponent>(component));
+        };
+        _componentAdders[typeid(DamageComponent)] = [](Registry &registry, const std::any &component, Entity entity) {
+            return registry.addComponent(entity, std::any_cast<DamageComponent>(component));
         };
         _componentAdders[typeid(GravityComponent)] = [](Registry &registry, const std::any &component, Entity entity) {
             return registry.addComponent(entity, std::any_cast<GravityComponent>(component));
@@ -110,5 +122,10 @@ namespace GameEngine
             }
         }
         return entity;
+    }
+
+    bool PrefabManager::isPrefabLoaded(const std::string &prefabName) const
+    {
+        return _prefabs.contains(prefabName);
     }
 } // namespace GameEngine

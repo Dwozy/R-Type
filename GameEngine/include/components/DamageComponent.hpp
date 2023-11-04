@@ -14,7 +14,8 @@ namespace GameEngine
 {
     struct DamageComponent
     {
-        uint8_t damage;
+        std::size_t damage;
+        std::vector<std::size_t> listDamage;
     };
 } // namespace GameEngine
 #endif /* !DAMAGECOMPONENT_HPP_ */

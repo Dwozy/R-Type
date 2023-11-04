@@ -12,6 +12,8 @@ set(SRCS_GAME
     ${GAME_FOLDER}/src/GameScene.cpp
     ${GAME_FOLDER}/src/MainMenuScene.cpp
     ${GAME_FOLDER}/src/PauseScene.cpp
+    ${GAME_FOLDER}/src/MapLoader.cpp
+    ${GAME_FOLDER}/src/CollisionCallbacks.cpp
 )
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${GAME_FOLDER})
@@ -40,3 +42,10 @@ endif (MSVC)
 target_link_libraries(${GAME_BINARY_NAME} PRIVATE sfml-graphics sfml-audio sfml-system sfml-window)
 target_link_libraries(${GAME_BINARY_NAME} PRIVATE nlohmann_json::nlohmann_json)
 target_include_directories(${GAME_BINARY_NAME} PRIVATE ${INCLUDES_GAME} ${INCLUDES_GLOBAL} ${CMAKE_SOURCE_DIR}/GameEngine/include/)
+
+if (DEFINED INSTALL)
+    set(CPACK_PACKAGE_NAME "SCP-Adventures")
+    install(TARGETS ${GAME_BINARY_NAME} RUNTIME DESTINATION bin)
+    install(DIRECTORY ${GAME_FOLDER}/assets/ DESTINATION ${GAME_FOLDER}/bin/assets)
+    install(DIRECTORY ${GAME_FOLDER}/config/ DESTINATION ${GAME_FOLDER}/bin/config)
+endif (DEFINED INSTALL)

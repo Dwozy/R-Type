@@ -29,6 +29,7 @@ namespace GameEngine
     enum class Event : EventType {
         WindowIsOpen,
         WindowCloseEvent,
+        QuitEvent,
         PollEvent,
         GetWorldMousePos,
         WindowSetView,
@@ -39,7 +40,10 @@ namespace GameEngine
         GetControllable,
         GetNewEntity,
         GetEntity,
+        GetDestroy,
         SendInput,
+        GetStateTexture,
+        GetScore,
         DeleteEntity,
         EnemiesSpawnedEvent,
         EnemiesMoveEvent,
