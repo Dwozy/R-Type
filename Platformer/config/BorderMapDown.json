@@ -25,6 +25,20 @@
                 },
                 "layer": 30
             }
+        },
+        {
+            "type": "TextureComponent",
+            "value": {
+                "texturePath": "Platformer/assets/Ground.png",
+                "textureRects": [],
+                "textureSize": {
+                    "left": 0.0,
+                    "top": 0.0,
+                    "width": 4000.0,
+                    "height": 30.0
+                },
+                "renderLayer": 2
+            }
         }
     ]
 }
