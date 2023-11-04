@@ -49,6 +49,7 @@ namespace GameEngine
     void DrawSystem::_initDrawSystem()
     {
         auto &isOpenHandler = _eventManager.addHandler<bool &>(static_cast<EventType>(Event::WindowIsOpen));
+        auto &QuitHandler = _eventManager.addHandler<bool &>(static_cast<EventType>(Event::QuitEvent));
         auto &pollEventHandler = _eventManager.addHandler<PollEventStruct &>(static_cast<EventType>(Event::PollEvent));
         auto &windowCloseHandler = _eventManager.addHandler<SEvent &>(static_cast<EventType>(Event::WindowCloseEvent));
         auto &getWorldMousePosHandler =
@@ -64,6 +65,9 @@ namespace GameEngine
         windowCloseHandler.subscribe([this](SEvent &event) {
             if (event.type == sf::Event::Closed)
                 _window->close();
+        });
+        QuitHandler.subscribe([this](bool &isOpen) {
+            _window->close();
         });
         getWorldMousePosHandler.subscribe([this](Vector2<float> &pos) {
             pos = this->_window->mapPixelToCoords(Input::Mouse::getPosition(*this->_window));
@@ -111,9 +115,13 @@ namespace GameEngine
             for (const auto &item : rend) {
                 if (std::holds_alternative<TextureComponent>(item)) {
                     const auto &tex = std::get<TextureComponent>(item);
+                    if (!tex.isRendered)
+                        continue;
                     _window->draw(tex.sprite.getSprite());
                 } else if (std::holds_alternative<TextComponent>(item)) {
                     const auto &tex = std::get<TextComponent>(item);
+                    if (!tex.isRendered)
+                        continue;
                     _window->draw(tex.text.getText());
                 }
             }

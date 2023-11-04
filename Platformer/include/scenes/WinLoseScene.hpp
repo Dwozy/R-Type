@@ -8,18 +8,25 @@
 #ifndef WINLOSESCENE_HPP_
 #define WINLOSESCENE_HPP_
 #include "utils/IScene.hpp"
+#include "GameEngine.hpp"
 #include "Platformer.hpp"
 
 class WinLoseScene : public GameEngine::IScene
 {
   public:
-    WinLoseScene(GameState &state) : _state(state){};
+    WinLoseScene(GameEngine::GameEngine &gameEngine, GameState &state, bool &isOpen) : _gameEngine(gameEngine), _state(state), _isOpen(isOpen) {
+      _font.load("Platformer/assets/8-bit fortress.ttf");
+    };
     ~WinLoseScene() = default;
     void load() override;
     void unload() override;
 
   private:
+    GameEngine::Font _font;
     GameState &_state;
+    bool &_isOpen;
+    GameEngine::GameEngine &_gameEngine;
+    std::vector<GameEngine::Entity> _entities;
 };
 
 #endif /* !WINLOSESCENE_HPP_ */

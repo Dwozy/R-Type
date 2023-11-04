@@ -8,17 +8,23 @@
 #ifndef MAINMENUSCENE_HPP_
 #define MAINMENUSCENE_HPP_
 #include "utils/IScene.hpp"
+#include "GameEngine.hpp"
+#include "Platformer.hpp"
 
 class MainMenuScene : public GameEngine::IScene
 {
   public:
-    MainMenuScene();
+    MainMenuScene(GameEngine::GameEngine &gameEngine, GameState &state) : _gameEngine(gameEngine), _state(state) {
+      _font.load("Platformer/assets/8-bit fortress.ttf");
+    } ;
     ~MainMenuScene() = default;
     void load() override;
     void unload() override;
-
-  protected:
   private:
+    std::vector<GameEngine::Entity> _entities;
+    GameEngine::Font _font;
+    GameEngine::GameEngine &_gameEngine;
+    GameState &_state;
 };
 
 #endif /* !MAINMENUSCENE_HPP_ */
