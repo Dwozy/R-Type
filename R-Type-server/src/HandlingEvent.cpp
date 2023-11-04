@@ -16,10 +16,10 @@ namespace RType::Server
         while (_eventQueue.size() != 0) {
             event = _eventQueue.pop();
             switch (event.packetType) {
-            case static_cast<uint8_t>(RType::PacketType::CONNEXION):
+            case static_cast<uint8_t>(RType::Protocol::PacketType::CONNEXION):
                 handleConnexion(event);
                 break;
-            case static_cast<uint8_t>(RType::PacketType::DESTROY):
+            case static_cast<uint8_t>(RType::Protocol::PacketType::DESTROY):
                 handleDestroy(event);
                 break;
             case static_cast<uint8_t>(RType::Protocol::ComponentType::TEXTURE_RES):

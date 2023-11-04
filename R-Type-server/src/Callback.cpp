@@ -6,9 +6,23 @@
 */
 
 #include "RTypeServer.hpp"
+#include "components/HealthComponent.hpp"
+#include "components/DamageComponent.hpp"
 
 namespace RType::Server
 {
+
+    void RTypeServer::handlingDamage(
+        std::size_t entityId, std::size_t i, SparseArray<GameEngine::CollisionComponent> &collisions)
+    {
+        static int count = 0;
+        auto &damages = _gameEngine.registry.getComponent<GameEngine::DamageComponent>();
+        std::size_t entityToDieIndex = 0;
+
+        if (!damages[entityId] || !damages[i])
+            return;
+        damages[i].value().listDamage.push_back(damages[entityId].value().damage);
+    }
 
     void RTypeServer::destroyEntityCallback(const std::size_t &entityId,
         SparseArray<GameEngine::CollisionComponent> &collisions,
@@ -31,16 +45,19 @@ namespace RType::Server
                 continue;
             if (selfCol.value().layer == 5 && col.value().layer != 6)
                 continue;
-            if (selfCol.value().layer == 6 && col.value().layer != 5)
-                continue;
             if (selfCol.value().layer == 7 && col.value().layer != 6)
+                continue;
+            if (selfCol.value().layer == 6 && col.value().layer != 5 && col.value().layer != 7)
                 continue;
             if (selfCol.value().collider.isColliding(
                     selfTsf.value().position, col.value().collider, tsf.value().position)) {
-                struct RType::Protocol::EntityIdData entityId = {.id = static_cast<uint16_t>(i)};
-                struct RType::Event destroyEvent = {
-                    .packetType = static_cast<uint8_t>(RType::PacketType::DESTROY), .data = entityId};
-                _eventQueue.push(destroyEvent);
+                if (selfCol.value().layer == 3) {
+                    struct RType::Protocol::EntityIdData entityId = {.id = static_cast<uint16_t>(i)};
+                    struct RType::Event destroyEvent = {
+                        .packetType = static_cast<uint8_t>(RType::Protocol::PacketType::DESTROY), .data = entityId};
+                    _eventQueue.push(destroyEvent);
+                } else
+                    handlingDamage(entityId, i, collisions);
             }
         }
     }
@@ -67,20 +84,23 @@ namespace RType::Server
         }
     }
 
-    void RTypeServer::handlingLifePoint(std::size_t entityId)
+    void RTypeServer::handlingLifePoint(std::size_t entityId, std::size_t id)
     {
-        if (_listLifePoints.find(static_cast<uint16_t>(entityId)) == _listLifePoints.end())
+        auto &damages = _gameEngine.registry.getComponent<GameEngine::DamageComponent>();
+
+        if (_timerLifePoint.find(static_cast<uint16_t>(entityId)) == _timerLifePoint.end())
             return;
-        if (_listLifePoints.at(static_cast<uint16_t>(entityId)) == 0) {
-            _nbPlayers--;
-            if (_nbPlayers == 0)
-                _nbPlayers = -1;
-            struct RType::Protocol::EntityIdData entityValue = {.id = static_cast<uint16_t>(entityId)};
-            struct RType::Event destroyEvent = {
-                .packetType = static_cast<uint8_t>(RType::PacketType::DESTROY), .data = entityValue};
-            _eventQueue.push(destroyEvent);
-        } else
-            _listLifePoints.at(static_cast<uint16_t>(entityId))--;
+        if (!damages[entityId] || !damages[id] || !_timerLifePoint.at(static_cast<uint16_t>(entityId)).first)
+            return;
+        damages[entityId].value().listDamage.push_back(damages[id].value().damage);
+        _timerLifePoint.at(static_cast<uint16_t>(entityId)).first = false;
+        struct RType::Protocol::StatePlayerData statePlayer = {
+            .id = static_cast<uint8_t>(entityId), .invincibility = static_cast<uint8_t>(true)};
+        std::vector<std::byte> dataToSend =
+            Serialization::serializeData<struct RType::Protocol::StatePlayerData>(statePlayer, sizeof(statePlayer));
+        for (auto client : _udpServer.getListClients())
+            _udpServer.sendInformation(
+                static_cast<uint8_t>(RType::Protocol::ComponentType::TEXTURE_STATE), dataToSend, client.second);
     }
 
     void RTypeServer::playerDamageCallback(const std::size_t &entityId,
@@ -102,7 +122,7 @@ namespace RType::Server
                 continue;
             if (selfCol.value().collider.isColliding(
                     selfTsf.value().position, col.value().collider, tsf.value().position)) {
-                handlingLifePoint(entityId);
+                handlingLifePoint(entityId, i);
             }
         }
     }

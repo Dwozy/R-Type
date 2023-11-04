@@ -13,6 +13,7 @@ set(SRCS_LIB
     GameEngine/src/systems/GravitySystem.cpp
     GameEngine/src/systems/CameraSystem.cpp
     GameEngine/src/systems/InputSystem.cpp
+    GameEngine/src/systems/DamageSystem.cpp
     GameEngine/src/SceneManager.cpp
     GameEngine/src/PrefabManager.cpp
 )
@@ -40,3 +41,9 @@ target_include_directories(${LIBRARY_NAME} PRIVATE ${INCLUDES_LIB})
 target_link_libraries(${LIBRARY_NAME} PRIVATE sfml-graphics sfml-audio sfml-system sfml-window)
 target_link_libraries(${LIBRARY_NAME} PRIVATE nlohmann_json::nlohmann_json)
 target_link_libraries(${LIBRARY_NAME} PRIVATE asio)
+
+if (DEFINED INSTALL)
+    set(CPACK_PACKAGE_NAME "R-Type-Game-Engine")
+    install(TARGETS ${LIBRARY_NAME} RUNTIME DESTINATION lib)
+    install(DIRECTORY GameEngine/include DESTINATION include/GameEngine)
+endif (DEFINED INSTALL)
