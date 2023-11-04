@@ -11,6 +11,10 @@
 #include <functional>
 #include <unordered_map>
 #include <vector>
+#include <type_traits>
+#include <algorithm>
+#include <iterator>
+#include <map>
 
 namespace GameEngine
 {
@@ -46,12 +50,43 @@ namespace GameEngine
         PlayerShootEvent
     };
 
+    static const std::map<EventType, std::string> InternalEventNames{
+        {static_cast<EventType>(Event::WindowIsOpen), "WindowIsOpen"},
+        {static_cast<EventType>(Event::WindowCloseEvent), "WindowCloseEvent"},
+        {static_cast<EventType>(Event::PollEvent), "PollEvent"},
+        {static_cast<EventType>(Event::GetWorldMousePos), "GetWorldMousePos"},
+        {static_cast<EventType>(Event::WindowSetView), "WindowSetView"},
+        {static_cast<EventType>(Event::SetFpsLimitEvent), "SetFpsLimitEvent"},
+        {static_cast<EventType>(Event::GetTransform), "GetTransform"},
+        {static_cast<EventType>(Event::GetCollision), "GetCollision"},
+        {static_cast<EventType>(Event::GetTexture), "GetTexture"},
+        {static_cast<EventType>(Event::GetControllable), "GetControllable"},
+        {static_cast<EventType>(Event::GetNewEntity), "GetNewEntity"},
+        {static_cast<EventType>(Event::GetEntity), "GetEntity"},
+        {static_cast<EventType>(Event::SendInput), "SendInput"},
+        {static_cast<EventType>(Event::DeleteEntity), "DeleteEntity"},
+        {static_cast<EventType>(Event::EnemiesSpawnedEvent), "EnemiesSpawnedEvent"},
+        {static_cast<EventType>(Event::EnemiesMoveEvent), "EnemiesMoveEvent"},
+        {static_cast<EventType>(Event::EnemiesDieEvent), "EnemiesDieEvent"},
+        {static_cast<EventType>(Event::PlayerMoveEvent), "PlayerMoveEvent"},
+        {static_cast<EventType>(Event::PlayerSpawnedEvent), "PlayerSpawnedEvent"},
+        {static_cast<EventType>(Event::PlayersDieEvent), "PlayersDieEvent"},
+        {static_cast<EventType>(Event::PlayerShootEvent), "PlayerShootEvent"},
+    };
+#ifdef DEBUG
+    static const size_t MAX_EVENT_LOG_LENGTH = 100000;
+#endif
+
     /// @brief class that store all the callback functions for a specific event type
     /// @tparam EventData type of the data to send to subscribed functions when publishing events
     template <typename EventData = NoEventData>
     class EventHandler
     {
       public:
+#ifdef DEBUG
+        EventHandler(std::vector<EventType> &eventLog, const EventType eventType)
+            : _eventLog(eventLog), _eventType(eventType){};
+#endif
         /// @brief call all the subscribed functions with the given eventData
         /// @param eventData data to be given to subscribed functions
         void publish(EventData eventData) { _publish(eventData); }
@@ -67,10 +102,17 @@ namespace GameEngine
         }
 
       private:
+        std::vector<EventType> &_eventLog;
+        const EventType _eventType;
         /// @brief call all the subscribed functions with the given eventData
         /// @param eventData data to be given to subscribed functions
         void _publish(EventData eventData)
         {
+#ifdef DEBUG
+			if (_eventLog.size() >= MAX_EVENT_LOG_LENGTH)
+				_eventLog.clear();
+            _eventLog.push_back(_eventType);
+#endif
             for (std::function<void(EventData)> callback : _callbacks)
                 callback(eventData);
         }
@@ -89,7 +131,11 @@ namespace GameEngine
         template <class EventData = NoEventData>
         EventHandler<EventData> &addHandler(EventType eventType)
         {
+#ifdef DEBUG
+            _handlers.insert({eventType, EventHandler<EventData>(eventLog, eventType)});
+#else
             _handlers.insert({eventType, EventHandler<EventData>()});
+#endif
             return getHandler<EventData>(eventType);
         }
         /// @brief remove an event handler
@@ -114,10 +160,15 @@ namespace GameEngine
             return std::any_cast<EventHandler<EventData> &>(_handlers[eventType]);
         }
 
+#ifdef DEBUG
+        std::vector<EventType> eventLog;
+#endif
+
       private:
         /// @brief map that store all the event handlers
         std::unordered_map<EventType, std::any> _handlers;
     };
+
 } // namespace GameEngine
 
 #endif /* !EVENT_HPP_ */

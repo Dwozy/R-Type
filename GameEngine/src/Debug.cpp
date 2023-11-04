@@ -60,10 +60,10 @@ namespace Debug
                 ImGui::Text("Is Animated: %s", textures[currentComponent]->animated ? "True" : "False");
                 ImGui::Text("Render Layer: %ld", textures[currentComponent]->renderLayer);
                 ImGui::Text("Texture Path: \"%s\"", textures[currentComponent]->path.c_str());
-                ImGui::Text("Animation state: %f/%f (%ld/%ld)", textures[currentComponent]->lastUpdate,
-                    textures[currentComponent]->animationSpeed, textures[currentComponent]->animeid,
-                    textures[currentComponent]->textureRects.size());
-                ImGui::EndChild();
+                if (textures[currentComponent]->animated)
+                    ImGui::Text("Animation state: %f/%f (%ld/%ld)", textures[currentComponent]->lastUpdate,
+                        textures[currentComponent]->animationSpeed, textures[currentComponent]->animeid,
+                        textures[currentComponent]->textureRects.size());
             }
             ImGui::EndGroup();
             ImGui::EndGroup();
@@ -308,5 +308,32 @@ namespace Debug
         }
         ImGui::EndTabItem();
     }
+
+    void DebugMenu::_showEventsMenu()
+    {
+        static bool showInternalEvents = true;
+
+        ImGui::SeparatorText("Events");
+        ImGui::Checkbox("Internal", &showInternalEvents);
+        ImGui::BeginChild("##eventLog", ImVec2(ImGui::GetContentRegionAvail().x, 200), ImGuiChildFlags_Border, ImGuiWindowFlags_AlwaysVerticalScrollbar | ImGuiWindowFlags_AlwaysHorizontalScrollbar);
+
+        ImGuiListClipper eventLog;
+        eventLog.Begin(_eventManager.eventLog.size());
+        while (eventLog.Step()) {
+            for (int i = eventLog.DisplayStart; i < eventLog.DisplayEnd; i++) {
+                if (GameEngine::InternalEventNames.contains(_eventManager.eventLog[i])) {
+                    if (showInternalEvents)
+                        ImGui::Text("[%d](Internal) Event triggered: %s", i, GameEngine::InternalEventNames.at(_eventManager.eventLog[i]).c_str());
+                } else
+                    ImGui::Text("[%d] Event triggered: %ld", i, _eventManager.eventLog[i]);
+            }
+        }
+
+        if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY())
+            ImGui::SetScrollHereY(1.0f);
+        ImGui::EndChild();
+        if (ImGui::Button("Clear Event Log")) _eventManager.eventLog.clear();
+    }
+
 } // namespace Debug
 #endif

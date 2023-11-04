@@ -36,7 +36,7 @@ namespace Debug
 
         void draw()
         {
-            // ImGui::ShowDemoWindow();
+            ImGui::ShowDemoWindow();
             ImGui::SetNextWindowSize(DEBUG_MENU_DEFAULT_WINDOW_SIZE, ImGuiCond_FirstUseEver);
             ImGui::Begin("Debug Menu");
             if (ImGui::BeginTabBar("MainTabBar")) {
@@ -45,6 +45,9 @@ namespace Debug
                 }
                 if (ImGui::BeginTabItem("Registry")) {
                     _showRegistryMenu();
+                }
+                if (ImGui::BeginTabItem("Events")) {
+                    _showEventsMenu();
                 }
                 ImGui::EndTabBar();
             }
@@ -60,7 +63,7 @@ namespace Debug
         template <typename Component>
         void _showComponentList(SparseArray<Component> &components, int &currentComponent)
         {
-            if (ImGui::BeginListBox("", ImVec2(ImGui::GetContentRegionAvail().x / 3.0f, 150))) {
+            if (ImGui::BeginListBox("##componentList", ImVec2(ImGui::GetContentRegionAvail().x / 3.0f, 150))) {
                 for (int i = 0; i < _registry._nbEntities; i++) {
                     if (!components[i])
                         continue;
@@ -83,6 +86,7 @@ namespace Debug
         void _showPressableComponentMenu();
         void _showTextComponentMenu();
         void _showControllableComponentMenu();
+        void _showEventsMenu();
     };
 } // namespace Debug
     #endif
