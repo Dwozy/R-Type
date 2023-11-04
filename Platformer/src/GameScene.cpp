@@ -10,7 +10,7 @@
 #include <iostream>
 #include <functional>
 
-void BlockcollisionCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
+void standardGravityCollisionCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
     SparseArray<GameEngine::TransformComponent> &transforms, SparseArray<GameEngine::GravityComponent> &gravity)
 {
     auto &selfCol = collisions[entityId];
@@ -60,7 +60,7 @@ void GameScene::load()
             .addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
                            SparseArray<GameEngine::TransformComponent> &, SparseArray<GameEngine::GravityComponent> &)>,
                 GameEngine::CollisionComponent, GameEngine::TransformComponent, GameEngine::GravityComponent>(
-                _gameEngine.registry, BlockcollisionCallback);
+                _gameEngine.registry, standardGravityCollisionCallback);
 
         GameEngine::Entity block =
             _gameEngine.prefabManager.createEntityFromPrefab("border_map_down", _gameEngine.registry);

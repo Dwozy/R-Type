@@ -21,7 +21,7 @@ class MapLoader
     GameEngine::GameEngine &_engine;
 };
 
-void BlockcollisionCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
+void standardGravityCollisionCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
     SparseArray<GameEngine::TransformComponent> &transforms, SparseArray<GameEngine::GravityComponent> &gravity);
 
 #endif /* !MAPLOADER_HPP_ */
