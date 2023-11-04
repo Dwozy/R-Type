@@ -90,6 +90,8 @@ namespace GameEngine
 #ifdef DEBUG
         EventHandler(std::vector<EventType> &eventLog, const EventType eventType)
             : _eventLog(eventLog), _eventType(eventType){};
+#else
+        EventHandler(const EventType eventType) : _eventType(eventType){};
 #endif
         /// @brief call all the subscribed functions with the given eventData
         /// @param eventData data to be given to subscribed functions
@@ -115,8 +117,8 @@ namespace GameEngine
         void _publish(EventData eventData)
         {
 #ifdef DEBUG
-			if (_eventLog.size() >= DEFAULT_MAX_EVENT_LOG_LENGTH)
-				_eventLog.clear();
+            if (_eventLog.size() >= DEFAULT_MAX_EVENT_LOG_LENGTH)
+                _eventLog.clear();
             _eventLog.push_back(_eventType);
 #endif
             for (std::function<void(EventData)> callback : _callbacks)
@@ -140,7 +142,7 @@ namespace GameEngine
 #ifdef DEBUG
             _handlers.insert({eventType, EventHandler<EventData>(eventLog, eventType)});
 #else
-            _handlers.insert({eventType, EventHandler<EventData>()});
+            _handlers.insert({eventType, EventHandler<EventData>(eventType)});
 #endif
             return getHandler<EventData>(eventType);
         }

@@ -19,6 +19,7 @@
 #include "components/GravityComponent.hpp"
 #include "components/InputComponent.hpp"
 #include "components/HealthComponent.hpp"
+#include "components/ScoreComponent.hpp"
 #include "components/NetworkIdComponent.hpp"
 
 #ifdef DEBUG
@@ -303,6 +304,26 @@ namespace Debug
         ImGui::TreePop();
     }
 
+    void DebugMenu::_showScoreComponentMenu()
+    {
+        if (_registry.isComponentRegistered<GameEngine::ScoreComponent>()) {
+            static int currentComponent = 0;
+            ImGui::BeginGroup();
+            SparseArray<GameEngine::ScoreComponent> &scoreComponents =
+                _registry.getComponent<GameEngine::ScoreComponent>();
+            _showComponentList<GameEngine::ScoreComponent>(scoreComponents, currentComponent);
+            ImGui::SameLine();
+            ImGui::BeginGroup();
+            if (scoreComponents[currentComponent])
+                ImGui::Text("Score: %ld", scoreComponents[currentComponent]->score);
+            ImGui::EndGroup();
+            ImGui::EndGroup();
+        } else {
+            ImGui::Text("Component not registered");
+        }
+        ImGui::TreePop();
+    }
+
     void DebugMenu::_showNetworkIdComponentMenu()
     {
         if (_registry.isComponentRegistered<GameEngine::NetworkIdComponent>()) {
@@ -417,6 +438,8 @@ namespace Debug
                 _showInputComponentMenu();
             if (ImGui::TreeNode("Health"))
                 _showHealthComponentMenu();
+            if (ImGui::TreeNode("Score"))
+                _showScoreComponentMenu();
             if (ImGui::TreeNode("Network ID"))
                 _showNetworkIdComponentMenu();
         }
