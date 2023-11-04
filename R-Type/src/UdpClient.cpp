@@ -30,6 +30,8 @@ RType::Client::UdpClient::UdpClient(
         std::bind(&RType::Client::UdpClient::handleString, this, std::placeholders::_1, std::placeholders::_2));
     _commands.emplace(static_cast<uint8_t>(RType::Protocol::PacketType::DESTROY),
         std::bind(&RType::Client::UdpClient::handleDisconnexion, this, std::placeholders::_1, std::placeholders::_2));
+    _commands.emplace(static_cast<uint8_t>(RType::Protocol::PacketType::SCORE),
+        std::bind(&RType::Client::UdpClient::handleScore, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 RType::Client::UdpClient::~UdpClient() { _udpSocket.close(); }
@@ -50,6 +52,15 @@ void RType::Client::UdpClient::handleTransformComponent(
     struct RType::Protocol::TransformData transformData =
         Serialization::deserializeData<struct RType::Protocol::TransformData>(_streamBuffer, header.payloadSize);
     struct RType::Event event = {.packetType = header.packetType, .data = transformData};
+
+    _eventQueue.push(event);
+}
+
+void RType::Client::UdpClient::handleScore(struct RType::Protocol::HeaderDataPacket header, unsigned short port)
+{
+    struct RType::Protocol::ScoreData scoreData =
+        Serialization::deserializeData<struct RType::Protocol::ScoreData>(_streamBuffer, header.payloadSize);
+    struct RType::Event event = {.packetType = header.packetType, .data = scoreData};
 
     _eventQueue.push(event);
 }

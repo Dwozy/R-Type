@@ -52,7 +52,7 @@ namespace RType::Server
         void handleCollisionResponse(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
         void handleInput(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
 
-        std::map<unsigned short, asio::ip::udp::endpoint> getListClients();
+        std::map<unsigned short, asio::ip::udp::endpoint> &getListClients();
 
       protected:
       private:

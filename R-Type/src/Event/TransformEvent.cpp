@@ -15,7 +15,7 @@ namespace RType::Client
         auto &transforms = _gameEngine.registry.getComponent<GameEngine::TransformComponent>();
         std::size_t id = 0;
 
-        if (!_searchEntity(transformData.id)) {
+        if (!searchEntity(transformData.id)) {
             GameEngine::Entity entity = _gameEngine.registry.spawnEntity();
             _gameEngine.registry.addComponent<GameEngine::NetworkIdComponent>(
                 entity, GameEngine::NetworkIdComponent{transformData.id});
@@ -23,7 +23,7 @@ namespace RType::Client
                 GameEngine::Vector2<float>(transformData.dx, transformData.dy)};
             _gameEngine.registry.addComponent<GameEngine::TransformComponent>(entity, tsf);
         }
-        id = _findEntity(transformData.id);
+        id = findEntity(transformData.id);
         if (!transforms[id]) {
             GameEngine::Entity entity = _gameEngine.registry.getEntityById(id);
             GameEngine::TransformComponent tsf = {GameEngine::Vector2<float>(transformData.x, transformData.y),

@@ -86,7 +86,7 @@
                         "height": 20.0
                     }
                 ],
-                "renderLayer": 2,
+                "renderLayer": 3,
                 "animated": true,
                 "animationSpeed": 0.25
             }

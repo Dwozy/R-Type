@@ -21,7 +21,7 @@ namespace RType
     static const uint32_t MAGIC_NUMBER = 0xA54CDEF5;
     static const float PLAYER_SPEED = 100.0f;
 
-    enum class PacketType : uint8_t { STRING = 10, CONNEXION, DESTROY };
+    enum class PacketType : uint8_t { STRING = 10, CONNEXION, DESTROY, SCORE };
 
     enum class TextureType : uint8_t { NONE = 1, PLAYER, SIMPLE_SHOOT, CHARGED_SHOOT, SIMPLE_MOB, MEDIUM_MOB };
 

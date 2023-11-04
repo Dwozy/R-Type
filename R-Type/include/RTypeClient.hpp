@@ -46,7 +46,7 @@ namespace RType::Client
         void handleDisconnexion(struct RType::Event event);
         /// @brief Function that delete a Entity
         /// @param entity delete the corresponding entity
-        void deleteEntity(const struct RType::Protocol::EntityIdData id);
+        void deleteEntity(struct RType::Protocol::EntityIdData entityId);
         /// @brief Function that will handle when entity needed to be move
         /// @param event struct that will contain the information about the entity
         void handlePlayerMovement();
@@ -62,6 +62,10 @@ namespace RType::Client
         void setGameEngineCallback();
 
         void setGameEngine();
+
+        void setPrefab();
+
+        void setupTextureEntity();
 
         void setDeleteEntityCallback();
         void setMovementEntityCallback();
@@ -85,14 +89,25 @@ namespace RType::Client
         void getTransformInformation(struct RType::Protocol::TransformData transformData);
         void setTransformCallback();
 
+        void setCollisionInformation(struct RType::Protocol::CollisionData collisionData, GameEngine::Entity &entity);
+
         void getCollisionInformation(struct RType::Protocol::CollisionData collisionData);
         void setCollisionCallback();
 
         void getTextureInformation(struct RType::Protocol::TextureData textureData);
         void setTextureCallback();
 
+        void setupGame();
+        void setupScoreText();
+
+        void handleScore(struct RType::Event event);
+        void setScoreCallback();
+        void setScore(struct RType::Protocol::ScoreData scoreData);
+
         void playerCollisionCallback(const std::size_t &entityId,
             SparseArray<GameEngine::CollisionComponent> &collisions,
+            SparseArray<GameEngine::TransformComponent> &transforms);
+        void parallaxCollision(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
             SparseArray<GameEngine::TransformComponent> &transforms);
 
         void setInputCallback();
@@ -102,20 +117,19 @@ namespace RType::Client
 
       protected:
       private:
-        std::size_t _findEntity(const std::size_t &networkId);
-        bool _searchEntity(const std::size_t &networkId);
+        std::size_t findEntity(const std::size_t &networkId);
+        bool searchEntity(const std::size_t &networkId);
 
         GameEngine::GameEngine _gameEngine;
         asio::io_context _IOContext;
         asio::ip::udp::endpoint _serverUdpEndpoint;
         asio::ip::tcp::endpoint _serverTcpEndpoint;
         RType::Client::UdpClient _udpClient;
-        // RType::Client::TcpClient _tcpClient;
         asio::signal_set _signal;
         SafeQueue<struct RType::Event> _eventQueue;
-        bool _isAlive;
+        std::size_t _scoreTextEntity;
         bool _isRunning;
-        bool _isPlayer;
+        std::size_t _points;
         uint16_t _serverId;
         std::size_t _id;
         GameEngine::Input::InputType _lastInput;

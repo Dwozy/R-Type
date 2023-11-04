@@ -38,7 +38,7 @@ namespace RType::Protocol
         uint8_t state;
     };
 
-    struct scoreData
+    struct ScoreData
     {
         uint16_t score;
     };
