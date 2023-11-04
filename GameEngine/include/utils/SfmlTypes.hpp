@@ -233,6 +233,12 @@ namespace GameEngine
             _text.setFont(font);
             _text.setCharacterSize(size);
         }
+        void setPosition(const Vector2<float> &position) {
+          _text.setPosition(static_cast<int>(position.x), static_cast<int>(position.y));
+        }
+          void setString(const std::string &string) {
+          _text.setString(string);
+        }
 
       private:
         sf::Text _text;

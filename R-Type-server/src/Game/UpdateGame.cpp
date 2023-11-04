@@ -9,6 +9,16 @@
 
 namespace RType::Server
 {
+    void RTypeServer::sendScore(unsigned short port)
+    {
+        struct RType::Protocol::ScoreData score = {.score = static_cast<uint16_t>(_points)};
+        std::vector<std::byte> dataToSend =
+            Serialization::serializeData<struct RType::Protocol::ScoreData>(score, sizeof(score));
+
+        _udpServer.sendInformation(
+            static_cast<uint8_t>(RType::Protocol::PacketType::SCORE), dataToSend, _udpServer.getListClients()[port]);
+    }
+
     void RTypeServer::updateComponentInformation(GameEngine::Entity &entity, RType::TextureType entityType)
     {
         std::map<RType::Protocol::ComponentType, std::vector<bool>> componentInfo;

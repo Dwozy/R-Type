@@ -15,10 +15,15 @@ namespace RType::Server
     void RTypeServer::handlingDamage(
         std::size_t entityId, std::size_t i, SparseArray<GameEngine::CollisionComponent> &collisions)
     {
-        static int count = 0;
         auto &damages = _gameEngine.registry.getComponent<GameEngine::DamageComponent>();
-        std::size_t entityToDieIndex = 0;
 
+        if (collisions[entityId].value().layer == 3) {
+            struct RType::Protocol::EntityIdData entityId = {.id = static_cast<uint16_t>(i)};
+            struct RType::Event destroyEvent = {
+                .packetType = static_cast<uint8_t>(RType::Protocol::PacketType::DESTROY), .data = entityId};
+            _eventQueue.push(destroyEvent);
+            return;
+        }
         if (!damages[entityId] || !damages[i])
             return;
         damages[i].value().listDamage.push_back(damages[entityId].value().damage);
@@ -51,13 +56,7 @@ namespace RType::Server
                 continue;
             if (selfCol.value().collider.isColliding(
                     selfTsf.value().position, col.value().collider, tsf.value().position)) {
-                if (selfCol.value().layer == 3) {
-                    struct RType::Protocol::EntityIdData entityId = {.id = static_cast<uint16_t>(i)};
-                    struct RType::Event destroyEvent = {
-                        .packetType = static_cast<uint8_t>(RType::Protocol::PacketType::DESTROY), .data = entityId};
-                    _eventQueue.push(destroyEvent);
-                } else
-                    handlingDamage(entityId, i, collisions);
+                handlingDamage(entityId, i, collisions);
             }
         }
     }

@@ -11,8 +11,8 @@ namespace RType::Client
 {
     void RTypeClient::setTextureState(struct RType::Protocol::StatePlayerData stateData)
     {
-        if (_searchEntity(stateData.id)) {
-            std::size_t id = _findEntity(stateData.id);
+        if (searchEntity(stateData.id)) {
+            std::size_t id = findEntity(stateData.id);
             GameEngine::Entity entity = _gameEngine.registry.getEntityById(id);
             auto &texture = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[entity];
             if (!texture)

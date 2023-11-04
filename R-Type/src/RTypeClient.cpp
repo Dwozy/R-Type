@@ -23,29 +23,6 @@
 #include "systems/CollisionSystem.hpp"
 #include "utils/Vector.hpp"
 
-void parallaxCollision(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
-    SparseArray<GameEngine::TransformComponent> &transforms)
-{
-    auto &selfCol = collisions[entityId];
-    auto &selfTsf = transforms[entityId];
-
-    if (!selfCol || !selfTsf)
-        return;
-    for (std::size_t i = 0; i < collisions.size(); i++) {
-        if (i == entityId)
-            continue;
-        auto &col = collisions[i];
-        auto &tsf = transforms[i];
-
-        if (!col || !tsf || !col.value().isActive || col.value().layer != 10)
-            continue;
-        if (selfCol.value().collider.isColliding(
-                selfTsf.value().position, col.value().collider, tsf.value().position)) {
-            tsf.value().position.x = 199;
-        }
-    }
-}
-
 RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned short port)
     : _serverUdpEndpoint(asio::ip::make_address(address), port), _serverTcpEndpoint(asio::ip::make_address(address), 0),
       _udpClient(_IOContext, _serverUdpEndpoint, std::ref(_eventQueue)), /*_tcpClient(_IOContext, _serverTcpEndpoint),*/
@@ -53,46 +30,27 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
 {
     _id = 0;
     setGameEngine();
-    _gameEngine.prefabManager.loadPrefabFromFile("config/ParallaxCollision.json");
-    _gameEngine.prefabManager.loadPrefabFromFile("config/Parallax.json");
+    setupGame();
+    GameEngine::Entity scoreTitle = _gameEngine.registry.spawnEntity();
+    GameEngine::Font _font;
+    _font.load("R-Type/fonts/Valoon.ttf");
+    GameEngine::FontComponent font{"R-Type/fonts/Valoon.ttf", _font};
+    GameEngine::TextComponent textTitle{"SCORE : ", 10, GameEngine::Text(), true, 10};
+    textTitle.text.load(textTitle.str, _font.getFont(), textTitle.size);
+    textTitle.text.setPosition(GameEngine::Vector2<float>{5, 5});
+    _gameEngine.registry.addComponent<GameEngine::FontComponent>(scoreTitle, font);
+    _gameEngine.registry.addComponent<GameEngine::TextComponent>(scoreTitle, textTitle);
 
-    _listPathTextureId.insert({static_cast<uint8_t>(RType::Protocol::TextureType::PLAYER), "R-Type/assets/image.png"});
-    _listPathTextureId.insert(
-        {static_cast<uint8_t>(RType::Protocol::TextureType::SIMPLE_MOB), "R-Type/assets/pata_pata.gif"});
-    _listPathTextureId.insert(
-        {static_cast<uint8_t>(RType::Protocol::TextureType::MEDIUM_MOB), "R-Type/assets/big_enemy.png"});
-    _listPathTextureId.insert(
-        {static_cast<uint8_t>(RType::Protocol::TextureType::SIMPLE_SHOOT), "R-Type/assets/player_projectile.png"});
-    _listPathTextureId.insert({static_cast<uint8_t>(RType::Protocol::TextureType::CHARGED_SHOOT),
-        "R-Type/assets/player_projectile_charged.png"});
+    GameEngine::Entity score = _gameEngine.registry.spawnEntity();
+    GameEngine::TextComponent text{std::to_string(_points), 10, GameEngine::Text(), true, 10};
+    text.text.load(text.str, _font.getFont(), text.size);
+    text.text.setPosition(GameEngine::Vector2<float>{50, 5});
+    _gameEngine.registry.addComponent<GameEngine::FontComponent>(score, font);
+    _gameEngine.registry.addComponent<GameEngine::TextComponent>(score, text);
+    _scoreTextEntity = score;
+    _points = 0;
 
-    GameEngine::Entity camera = _gameEngine.registry.spawnEntity();
-    GameEngine::CameraComponent cam = {GameEngine::View{GameEngine::Rect<float>(0.0f, 0.0f, 200.0f, 200.0f)}};
-    auto &refCamera = _gameEngine.registry.addComponent<GameEngine::CameraComponent>(camera, cam);
-    if (refCamera)
-        _gameEngine.eventManager.publish<GameEngine::View &>(
-            static_cast<GameEngine::EventType>(GameEngine::Event::WindowSetView), refCamera.value().view);
-
-    auto parallax1 = _gameEngine.prefabManager.createEntityFromPrefab("parallax", _gameEngine.registry);
-    auto &textureParallax = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[parallax1];
-    textureParallax->sprite.setScale(0.1851, 0.1851);
-
-    auto parallax2 = _gameEngine.prefabManager.createEntityFromPrefab("parallax", _gameEngine.registry);
-    auto &posParallax2 = _gameEngine.registry.getComponent<GameEngine::TransformComponent>()[parallax2];
-    posParallax2.value().position = GameEngine::Vector2<float>(199.0, 0.0);
-    auto &textureParallax2 = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[parallax2];
-    textureParallax2->sprite.setScale(0.1851, 0.1851);
-
-    auto parallaxRange = _gameEngine.prefabManager.createEntityFromPrefab("parallaxCollision", _gameEngine.registry);
-    auto &parallaxBox = _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[parallaxRange];
-    parallaxBox.value()
-        .addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
-                       SparseArray<GameEngine::TransformComponent> &)>,
-            GameEngine::CollisionComponent, GameEngine::TransformComponent>(_gameEngine.registry, parallaxCollision);
-
-    _isAlive = true;
     _isRunning = true;
-    _isPlayer = true;
     std::thread network(&RType::Client::RTypeClient::startNetwork, this, std::ref(_isRunning));
     network.detach();
     gameLoop();
@@ -102,17 +60,8 @@ RType::Client::RTypeClient::~RTypeClient() {}
 
 void RType::Client::RTypeClient::startNetwork(bool &isRunning)
 {
-    // runTcpServer();
-    // _IOContext.restart();
     runUdpServer();
     _isRunning = false;
-}
-
-void RType::Client::RTypeClient::runTcpServer()
-{
-    // _signal.async_wait(std::bind(&asio::io_context::stop, &_IOContext));
-    // _tcpClient.run();
-    // _IOContext.run();
 }
 
 void RType::Client::RTypeClient::handleQuit()
@@ -159,30 +108,4 @@ void RType::Client::RTypeClient::gameLoop()
         _gameEngine.eventManager.publish<bool &>(
             static_cast<GameEngine::EventType>(GameEngine::Event::WindowIsOpen), isOpen);
     }
-}
-
-std::size_t RType::Client::RTypeClient::_findEntity(const std::size_t &networkId)
-{
-    const auto &ids = _gameEngine.registry.getComponent<GameEngine::NetworkIdComponent>();
-
-    for (std::size_t i = 0; i < ids.size(); i++) {
-        const auto &id = ids[i];
-
-        if (id && id.value().id == networkId)
-            return i;
-    }
-    throw; // Entity not found
-}
-
-bool RType::Client::RTypeClient::_searchEntity(const std::size_t &networkId)
-{
-    const auto &ids = _gameEngine.registry.getComponent<GameEngine::NetworkIdComponent>();
-
-    for (std::size_t i = 0; i < ids.size(); i++) {
-        const auto &id = ids[i];
-
-        if (id && id.value().id == networkId)
-            return true;
-    }
-    return false;
 }
