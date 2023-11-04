@@ -18,7 +18,7 @@ namespace GameEngine
             auto &grav = gravities[i];
             if (tsf)
                 tsf.value().position +=
-                    (tsf.value().velocity + (grav ? grav->cumulatedGVelocity : Vector2<float>())) * _deltaTime;
+                    (tsf.value().velocity + (grav && grav->isActive ? grav->cumulatedGVelocity : Vector2<float>())) * _deltaTime;
             if (tsf && tex)
                 tex.value().sprite.setPosition(tsf.value().position);
         }

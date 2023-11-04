@@ -37,6 +37,7 @@ void MainMenuScene::load()
 void MainMenuScene::unload()
 {
     for (std::size_t i = 0; i < _entities.size(); i++)
-            _gameEngine.registry.killEntity(_entities[i]);
+        _gameEngine.registry.killEntity(_entities[i]);
+    _entities.clear();
     std::cout << "Unloading MainMenuScene" << std::endl;
 }
