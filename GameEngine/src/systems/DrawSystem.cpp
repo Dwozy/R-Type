@@ -115,12 +115,14 @@ namespace GameEngine
             for (const auto &item : rend) {
                 if (std::holds_alternative<TextureComponent>(item)) {
                     const auto &tex = std::get<TextureComponent>(item);
-                    if (tex.isRendered)
-                        _window->draw(tex.sprite.getSprite());
+                    if (!tex.isRendered)
+                        continue;
+                    _window->draw(tex.sprite.getSprite());
                 } else if (std::holds_alternative<TextComponent>(item)) {
                     const auto &tex = std::get<TextComponent>(item);
-                    if (tex.isRendered)
-                        _window->draw(tex.text.getText());
+                    if (!tex.isRendered)
+                        continue;
+                    _window->draw(tex.text.getText());
                 }
             }
             _window->setView(camera->view);
