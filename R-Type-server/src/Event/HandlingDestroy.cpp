@@ -36,8 +36,8 @@ namespace RType::Server
             if (_killEnemy && (_listIdType.at(entity.id) == static_cast<uint8_t>(RType::TextureType::SIMPLE_MOB) ||
                                   _listIdType.at(entity.id) == static_cast<uint8_t>(RType::TextureType::MEDIUM_MOB))) {
                 _points += (_listIdType.at(entity.id) == static_cast<uint8_t>(RType::TextureType::MEDIUM_MOB)) ? 25 : 1;
-                // for (auto client : _udpServer.getListClients())
-                //     sendScore(client.first);
+                for (auto client : _udpServer.getListClients())
+                    sendScore(client.first);
             }
             _listLifePoints.erase(static_cast<uint16_t>(entity.id));
             _listIdType.erase(static_cast<uint16_t>(entity.id));
