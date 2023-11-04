@@ -20,6 +20,7 @@ class GameScene : public GameEngine::IScene
     ~GameScene() = default;
     void load() override;
     void unload() override;
+    void update() override;
     void BlockcollisionCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
     SparseArray<GameEngine::TransformComponent> &transforms, SparseArray<GameEngine::GravityComponent> &gravity);
 

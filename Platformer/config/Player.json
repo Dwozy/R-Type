@@ -64,6 +64,12 @@
                 },
                 "layer": 30
             }
+        },
+        {
+            "type": "HealthComponent",
+            "value": {
+                "health": 3
+            }
         }
     ]
 }

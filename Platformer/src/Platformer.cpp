@@ -55,6 +55,7 @@ void Platformer::gameLoop()
         handleScreenChange();
         handlePlayerjump();
         handlePlayerMove();
+        _gameEngine.sceneManager.updateCurrentScene();
         _gameEngine.eventManager.publish<bool &>(
             static_cast<GameEngine::EventType>(GameEngine::Event::WindowIsOpen), isOpen);
     }

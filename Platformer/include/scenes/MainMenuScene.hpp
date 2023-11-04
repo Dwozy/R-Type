@@ -20,6 +20,7 @@ class MainMenuScene : public GameEngine::IScene
     ~MainMenuScene() = default;
     void load() override;
     void unload() override;
+    void update() override;
   private:
     std::vector<GameEngine::Entity> _entities;
     GameEngine::Font _font;

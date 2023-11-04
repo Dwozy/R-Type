@@ -84,6 +84,12 @@
                 },
                 "isActive" : true
             }
+        },
+        {
+            "type": "HealthComponent",
+            "value": {
+                "health": 1
+            }
         }
     ]
 }

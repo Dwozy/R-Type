@@ -36,6 +36,8 @@ namespace GameEngine
         void loadScene(const std::string &name);
         /// @brief Unloads the currently loaded scene.
         void unloadScene();
+        /// @brief Updates the current scene.
+        void updateCurrentScene();
 
       private:
         std::unordered_map<std::string, std::unique_ptr<IScene>> _scenes;

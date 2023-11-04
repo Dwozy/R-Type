@@ -5,13 +5,16 @@
 ** GameScene
 */
 
-#include "scenes/GameScene.hpp"
-#include "utils/CollisionsUtils.hpp"
 #include <iostream>
 #include <functional>
+#include <algorithm>
+#include "scenes/GameScene.hpp"
+#include "utils/CollisionsUtils.hpp"
+#include "components/HealthComponent.hpp"
 
-void GameScene::BlockcollisionCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
-    SparseArray<GameEngine::TransformComponent> &transforms, SparseArray<GameEngine::GravityComponent> &gravity)
+void GameScene::BlockcollisionCallback(const std::size_t &entityId,
+    SparseArray<GameEngine::CollisionComponent> &collisions, SparseArray<GameEngine::TransformComponent> &transforms,
+    SparseArray<GameEngine::GravityComponent> &gravity)
 {
     auto &selfCol = collisions[entityId];
     auto &selfTsf = transforms[entityId];
@@ -66,7 +69,8 @@ void GameScene::load()
         auto &camComponent = _gameEngine.registry.getComponent<GameEngine::CameraComponent>()[camera];
         camComponent->target = _id;
 
-        auto blockColliderCallback = std::bind(&GameScene::BlockcollisionCallback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
+        auto blockColliderCallback = std::bind(&GameScene::BlockcollisionCallback, this, std::placeholders::_1,
+            std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
         _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[_id]
             .value()
             .addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
@@ -74,18 +78,20 @@ void GameScene::load()
                 GameEngine::CollisionComponent, GameEngine::TransformComponent, GameEngine::GravityComponent>(
                 _gameEngine.registry, blockColliderCallback);
 
-        GameEngine::Entity background = _gameEngine.prefabManager.createEntityFromPrefab("background", _gameEngine.registry);
+        GameEngine::Entity background =
+            _gameEngine.prefabManager.createEntityFromPrefab("background", _gameEngine.registry);
         _entities.push_back(background);
 
         GameEngine::Entity block2 =
             _gameEngine.prefabManager.createEntityFromPrefab("border_map_down", _gameEngine.registry);
         _entities.push_back(block2);
 
-        _mapLoader.loadMap("Platformer/maps/map1", {0, _gameEngine.registry.getComponent<GameEngine::TransformComponent>()[block2]->position.y - 7 * 32}, 32);
+        _mapLoader.loadMap("Platformer/maps/map1",
+            {0, _gameEngine.registry.getComponent<GameEngine::TransformComponent>()[block2]->position.y - 7 * 32}, 32);
         _state = GameState::Game;
     }
     if (_state == GameState::Pause) {
-        auto &cams =  _gameEngine.registry.getComponent<GameEngine::CameraComponent>();
+        auto &cams = _gameEngine.registry.getComponent<GameEngine::CameraComponent>();
         auto &colls = _gameEngine.registry.getComponent<GameEngine::CollisionComponent>();
         auto &ctrls = _gameEngine.registry.getComponent<GameEngine::ControllableComponent>();
         auto &Gravs = _gameEngine.registry.getComponent<GameEngine::GravityComponent>();
@@ -116,14 +122,14 @@ void GameScene::unload()
     textscpy = _gameEngine.registry.getComponent<GameEngine::TextComponent>();
     texturescpy = _gameEngine.registry.getComponent<GameEngine::TextureComponent>();
     trscpy = _gameEngine.registry.getComponent<GameEngine::TransformComponent>();
-    auto &cams =  _gameEngine.registry.getComponent<GameEngine::CameraComponent>();
+    auto &cams = _gameEngine.registry.getComponent<GameEngine::CameraComponent>();
     auto &colls = _gameEngine.registry.getComponent<GameEngine::CollisionComponent>();
     auto &ctrls = _gameEngine.registry.getComponent<GameEngine::ControllableComponent>();
     auto &gravs = _gameEngine.registry.getComponent<GameEngine::GravityComponent>();
     auto &press = _gameEngine.registry.getComponent<GameEngine::PressableComponent>();
     auto &texts = _gameEngine.registry.getComponent<GameEngine::TextComponent>();
     auto &textures = _gameEngine.registry.getComponent<GameEngine::TextureComponent>();
-    auto &trs =  _gameEngine.registry.getComponent<GameEngine::TransformComponent>();
+    auto &trs = _gameEngine.registry.getComponent<GameEngine::TransformComponent>();
     for (size_t i = 0; i < cams.size(); ++i) {
         auto &cam = cams[i];
         if (cam)
@@ -138,9 +144,12 @@ void GameScene::unload()
         auto &ctrl = ctrls[i];
         if (ctrl) {
             ctrl->key_up = GameEngine::Input::Keyboard::Key::NO_KEY;
-            ctrl->key_left = GameEngine::Input::Keyboard::Key::NO_KEY;;
-            ctrl->key_down = GameEngine::Input::Keyboard::Key::NO_KEY;;
-            ctrl->key_right = GameEngine::Input::Keyboard::Key::NO_KEY;;
+            ctrl->key_left = GameEngine::Input::Keyboard::Key::NO_KEY;
+            ;
+            ctrl->key_down = GameEngine::Input::Keyboard::Key::NO_KEY;
+            ;
+            ctrl->key_right = GameEngine::Input::Keyboard::Key::NO_KEY;
+            ;
         }
     }
     for (size_t i = 0; i < gravs.size(); ++i) {
@@ -175,4 +184,16 @@ void GameScene::unload()
         }
     }
     std::cout << "unloading GameScene" << std::endl;
+}
+
+void GameScene::update()
+{
+    for (auto iter = _entities.begin(); iter != _entities.end();) {
+        auto &hth = _gameEngine.registry.getComponent<GameEngine::HealthComponent>()[*iter];
+        if (hth && hth->health <= 0) {
+            _gameEngine.registry.killEntity(*iter);
+            iter = _entities.erase(iter);
+        } else
+            iter++;
+    }
 }

@@ -63,10 +63,8 @@ void changeDirGravityCollisionCallback(const std::size_t &entityId, SparseArray<
         auto result = GameEngine::replaceOnTop(selfTsf->position, selfCol->collider, tsf->position, col->collider);
         if (result == 1)
             hasCollidedOnTop = true;
-        else if (result == 0) {
+        else if (result == 0)
             selfTsf->velocity.x = -selfTsf->velocity.x;
-            // selfTsf->position.x += 20 * (selfTsf->velocity.x / std::abs(selfTsf->velocity.x));
-        }
     }
     if (hasCollidedOnTop) {
         selfGrav.value().cumulatedGVelocity = {0, 0};

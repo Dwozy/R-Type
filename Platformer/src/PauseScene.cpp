@@ -60,3 +60,5 @@ void PauseScene::unload()
     _entities.clear();
     std::cout << "Unloading PauseScene" << std::endl;
 }
+
+void PauseScene::update() {}
