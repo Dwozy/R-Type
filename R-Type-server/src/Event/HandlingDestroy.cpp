@@ -31,6 +31,7 @@ namespace RType::Server
             if (_listIdType.at(entity.id) == static_cast<uint8_t>(RType::TextureType::PLAYER)) {
                 _nbPlayers--;
                 _nbPlayers = (_nbPlayers == 0) ? -1 : _nbPlayers;
+                _udpServer.getListClients().erase(event.port);
             }
             if (_killEnemy && (_listIdType.at(entity.id) == static_cast<uint8_t>(RType::TextureType::SIMPLE_MOB) ||
                                   _listIdType.at(entity.id) == static_cast<uint8_t>(RType::TextureType::MEDIUM_MOB))) {

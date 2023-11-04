@@ -114,7 +114,8 @@ void RType::Server::UdpServer::handleData(struct RType::Protocol::HeaderDataPack
         std::cerr << "Packet Type doesn't exist !" << std::endl;
 }
 
-std::map<unsigned short, asio::ip::udp::endpoint> RType::Server::UdpServer::getListClients() { return _listClient; }
+std::map<unsigned short, asio::ip::udp::endpoint> &RType::Server::UdpServer::getListClients() { return _listClient; }
+
 
 void RType::Server::UdpServer::sendInformation(
     uint8_t packetType, std::vector<std::byte> dataToSend, asio::ip::udp::endpoint &endpoint)

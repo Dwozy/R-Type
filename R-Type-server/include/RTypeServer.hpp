@@ -118,7 +118,7 @@ namespace RType::Server
         void sendScore(unsigned short port);
 
         void setImmunity(std::chrono::duration<float> timerInvincibility,
-            std::pair<const uint16_t, std::pair<bool, std::chrono::_V2::steady_clock::time_point>> playerTimer,
+            std::pair<const uint16_t, std::pair<bool, std::chrono::steady_clock::time_point>> playerTimer,
             std::chrono::steady_clock::time_point &now);
 
         void sendDestroyInfo(struct RType::Protocol::EntityIdData entity);

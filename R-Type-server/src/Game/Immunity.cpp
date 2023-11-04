@@ -10,7 +10,7 @@
 namespace RType::Server
 {
     void RType::Server::RTypeServer::setImmunity(std::chrono::duration<float> timerInvincibility,
-        std::pair<const uint16_t, std::pair<bool, std::chrono::_V2::steady_clock::time_point>> playerTimer,
+        std::pair<const uint16_t, std::pair<bool, std::chrono::steady_clock::time_point>> playerTimer,
         std::chrono::steady_clock::time_point &now)
     {
         if (timerInvincibility.count() > 3.0) {
