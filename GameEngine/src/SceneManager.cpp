@@ -39,6 +39,7 @@ namespace GameEngine
     }
     void SceneManager::updateCurrentScene()
     {
-        _scenes[_currentScene]->update();
+        if (_scenes.contains(_currentScene))
+            _scenes[_currentScene]->update();
     }
 } // namespace GameEngine

@@ -10,18 +10,17 @@
 #include <algorithm>
 #include "scenes/GameScene.hpp"
 #include "utils/CollisionsUtils.hpp"
-#include "components/HealthComponent.hpp"
 
 void GameScene::BlockcollisionCallback(const std::size_t &entityId,
     SparseArray<GameEngine::CollisionComponent> &collisions, SparseArray<GameEngine::TransformComponent> &transforms,
-    SparseArray<GameEngine::GravityComponent> &gravity)
+    SparseArray<GameEngine::GravityComponent> &gravity, SparseArray<GameEngine::HealthComponent> &health)
 {
     auto &selfCol = collisions[entityId];
     auto &selfTsf = transforms[entityId];
     auto &selfGrav = gravity[entityId];
+    auto &selfHealth = health[entityId];
 
     bool hasCollidedOnTop = false;
-
     if (!selfCol || !selfTsf || !selfGrav)
         return;
     for (std::size_t i = 0; i < collisions.size(); i++) {
@@ -29,12 +28,19 @@ void GameScene::BlockcollisionCallback(const std::size_t &entityId,
             continue;
         auto &col = collisions[i];
         auto &tsf = transforms[i];
+        auto &hth = health[i];
 
         if (!col || !tsf || !col.value().isActive || col.value().layer != 30)
             continue;
         auto result = GameEngine::replaceOnTop(selfTsf->position, selfCol->collider, tsf->position, col->collider);
-        if (result == 1)
+        if (result == 1) {
             hasCollidedOnTop = true;
+            if (hth)
+                hth->health -= 1;
+        } else if (result == 0 && hth && selfHealth && (std::chrono::steady_clock::now() - lastTime).count() > 1000000000) {
+            selfHealth->health -= 1;
+            lastTime = std::chrono::steady_clock::now();
+        }
     }
     if (hasCollidedOnTop) {
         if (entityId == _id)
@@ -70,13 +76,14 @@ void GameScene::load()
         camComponent->target = _id;
 
         auto blockColliderCallback = std::bind(&GameScene::BlockcollisionCallback, this, std::placeholders::_1,
-            std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
+            std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5);
         _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[_id]
             .value()
             .addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
-                           SparseArray<GameEngine::TransformComponent> &, SparseArray<GameEngine::GravityComponent> &)>,
-                GameEngine::CollisionComponent, GameEngine::TransformComponent, GameEngine::GravityComponent>(
-                _gameEngine.registry, blockColliderCallback);
+                           SparseArray<GameEngine::TransformComponent> &, SparseArray<GameEngine::GravityComponent> &,
+                           SparseArray<GameEngine::HealthComponent> &)>,
+                GameEngine::CollisionComponent, GameEngine::TransformComponent, GameEngine::GravityComponent,
+                GameEngine::HealthComponent>(_gameEngine.registry, blockColliderCallback);
 
         GameEngine::Entity background =
             _gameEngine.prefabManager.createEntityFromPrefab("background", _gameEngine.registry);
