@@ -51,3 +51,10 @@ target_link_libraries(${CLIENT_BINARY_NAME} PRIVATE sfml-graphics sfml-audio sfm
 target_link_libraries(${CLIENT_BINARY_NAME} PRIVATE nlohmann_json::nlohmann_json)
 target_link_libraries(${CLIENT_BINARY_NAME} PRIVATE asio)
 target_include_directories(${CLIENT_BINARY_NAME} PRIVATE ${INCLUDES_CLIENT} ${INCLUDES_GLOBAL} ${CMAKE_SOURCE_DIR}/GameEngine/include/)
+
+if (DEFINED INSTALL)
+    set(CPACK_PACKAGE_NAME "R-Type-client")
+    install(TARGETS ${CLIENT_BINARY_NAME} RUNTIME DESTINATION bin)
+    install(DIRECTORY ${CLIENT_FOLDER}/assets/ DESTINATION bin/R-Type/assets)
+    install(DIRECTORY config/ DESTINATION bin/config)
+endif (DEFINED INSTALL)

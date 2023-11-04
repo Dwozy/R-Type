@@ -34,6 +34,7 @@ void Platformer::setGameEngineComponent()
     _gameEngine.registry.registerComponent<GameEngine::ControllableComponent>();
     _gameEngine.registry.registerComponent<GameEngine::CameraComponent>();
     _gameEngine.registry.registerComponent<GameEngine::TextureComponent>();
+    _gameEngine.registry.registerComponent<GameEngine::FontComponent>();
     _gameEngine.registry.registerComponent<GameEngine::TextComponent>();
     _gameEngine.registry.registerComponent<GameEngine::PressableComponent>();
     _gameEngine.registry.registerComponent<GameEngine::NetworkIdComponent>();
@@ -83,10 +84,10 @@ void Platformer::setGameEngineSystem()
 
 void Platformer::setGameEngineScene()
 {
-    _gameEngine.sceneManager.registerScene("Game", std::make_unique<GameScene>(_gameEngine, _state, _id));
-    _gameEngine.sceneManager.registerScene("Pause", std::make_unique<PauseScene>());
-    _gameEngine.sceneManager.registerScene("MainMenu", std::make_unique<MainMenuScene>());
-    _gameEngine.sceneManager.registerScene("WinLose", std::make_unique<WinLoseScene>(_state));
+    _gameEngine.sceneManager.registerScene("Game", std::make_unique<GameScene>(_gameEngine, _state, _id, isJumping));
+    _gameEngine.sceneManager.registerScene("Pause", std::make_unique<PauseScene>(_gameEngine, _state, isOpen));
+    _gameEngine.sceneManager.registerScene("MainMenu", std::make_unique<MainMenuScene>(_gameEngine, _state));
+    _gameEngine.sceneManager.registerScene("WinLose", std::make_unique<WinLoseScene>(_gameEngine, _state, isOpen));
     _gameEngine.sceneManager.loadScene("MainMenu");
 }
 
@@ -97,6 +98,7 @@ void Platformer::setGameEngineTexture()
     _gameEngine.assetManager.loadTexture(
         "Platformer/assets/dark_city_background.png", GameEngine::Recti(0, 0, 5000, 500));
     _gameEngine.assetManager.loadTexture("Platformer/assets/Gunner_Black_Run.png", GameEngine::Recti(0, 0, 48, 48));
+    _gameEngine.assetManager.loadTexture("Platformer/assets/button.png", GameEngine::Recti(0, 0, 48, 16));
 }
 
 void Platformer::setGameEnginePrefab()
@@ -108,6 +110,9 @@ void Platformer::setGameEnginePrefab()
     _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/Box.json");
     _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/Background.json");
     _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/Enemy.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/buttonResume.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/buttonQuit.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/buttonRestart.json");
 }
 
 void Platformer::setGameEngine()

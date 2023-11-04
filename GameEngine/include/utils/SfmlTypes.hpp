@@ -233,11 +233,16 @@ namespace GameEngine
             _text.setFont(font);
             _text.setCharacterSize(size);
         }
-        void setPosition(const Vector2<float> &position) {
-          _text.setPosition(static_cast<int>(position.x), static_cast<int>(position.y));
+        void setPosition(const Vector2<float> &position)
+        {
+            _text.setPosition(static_cast<int>(position.x), static_cast<int>(position.y));
         }
-          void setString(const std::string &string) {
-          _text.setString(string);
+        void setString(const std::string &string) { _text.setString(string); }
+
+        Rectf getLocalBounds() const
+        {
+            return Rectf(_text.getLocalBounds().left, _text.getLocalBounds().top, _text.getLocalBounds().width,
+                _text.getLocalBounds().height);
         }
 
       private:

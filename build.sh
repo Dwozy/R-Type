@@ -1,5 +1,15 @@
 #!/bin/bash
 
+rm -rf build/CMakeCache.txt
+
+debug=""
+target="$1"
+if [ "$1" == "-d" ]; then
+    debug="-DDEBUG=On"
+    target="$2"
+fi
+
+
 clean_all()
 {
     echo "-- Cleaning build folder"
@@ -16,13 +26,13 @@ setup_all()
     fi
 }
 
-if [ "$1" == "clean" ]
+if [ "$target" == "clean" ]
     then
     clean_all
     exit 0
 fi
 
-if [ "$1" == "fclean" ]
+if [ "$target" == "fclean" ]
     then
     clean_all
     rm -rf GameEngine/GameEngine
@@ -35,7 +45,7 @@ fi
 
 setup_game_engine()
 {
-    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_GAME_ENGINE=""
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_GAME_ENGINE="" $debug
     status=$?
     if [ "$status" -ne 0 ]; then
         exit "$status"
@@ -44,7 +54,7 @@ setup_game_engine()
 
 setup_client()
 {
-    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_CLIENT=""
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_CLIENT="" $debug
     status=$?
     if [ "$status" -ne 0 ]; then
         exit "$status"
@@ -53,7 +63,7 @@ setup_client()
 
 setup_server()
 {
-    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_SERVER=""
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_SERVER="" $debug
     status=$?
     if [ "$status" -ne 0 ]; then
         exit "$status"
@@ -62,7 +72,7 @@ setup_server()
 
 setup_tests()
 {
-    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTS=""
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTS="" $debug
     status=$?
     if [ "$status" -ne 0 ]; then
         exit "$status"
@@ -87,31 +97,31 @@ build()
     fi
 }
 
-if [ "$1" == "GameEngine" ]; then
+if [ "$target" == "GameEngine" ]; then
     setup_game_engine
     build
     exit 0
 fi
 
-if [ "$1" == "Client" ]; then
+if [ "$target" == "Client" ]; then
     setup_client
     build
     exit 0
 fi
 
-if [ "$1" == "Server" ]; then
+if [ "$target" == "Server" ]; then
     setup_server
     build
     exit 0
 fi
 
-if [ "$1" == "tests" ]; then
+if [ "$target" == "tests" ]; then
     setup_tests
     build
     exit 0
 fi
 
-if [ "$1" == "Platformer" ]; then
+if [ "$target" == "Platformer" ]; then
     setup_game_platformer
     build
     exit 0
