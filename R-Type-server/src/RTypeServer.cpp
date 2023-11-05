@@ -51,16 +51,14 @@ void RType::Server::RTypeServer::handlingEndGame()
             _udpServer.sendInformation(
                 static_cast<uint8_t>(RType::Protocol::PacketType::ENDGAME), dataToSend, client.second);
         _nbPlayers = 0;
-        _isRunning = false;
     }
-    if (_points >= 150) {
+    if (_points >= 50) {
         struct RType::Protocol::EndGameData endGameData = {.endGameState = static_cast<uint8_t>(RType::GameState::WIN)};
         std::vector<std::byte> dataToSend =
             Serialization::serializeData<struct RType::Protocol::EndGameData>(endGameData, sizeof(endGameData));
         for (auto client : _udpServer.getListClients())
             _udpServer.sendInformation(
                 static_cast<uint8_t>(RType::Protocol::PacketType::ENDGAME), dataToSend, client.second);
-        _isRunning = false;
     }
 }
 

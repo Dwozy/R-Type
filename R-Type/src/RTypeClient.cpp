@@ -76,7 +76,6 @@ void RType::Client::RTypeClient::handleQuit()
         _udpClient.sendDataInformation(dataToSend, static_cast<uint8_t>(RType::Protocol::PacketType::DESTROY));
         std::cout << "Player " << _serverId << " died :( !" << std::endl;
     }
-    exit(0);
 }
 
 void RType::Client::RTypeClient::runUdpServer()
@@ -86,6 +85,7 @@ void RType::Client::RTypeClient::runUdpServer()
     _udpClient.run();
     _IOContext.run();
     _isRunning = false;
+    exit(0);
 }
 
 void RType::Client::RTypeClient::gameLoop()
