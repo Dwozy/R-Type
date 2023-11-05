@@ -12,19 +12,12 @@
 #include <vector>
 #include "Error.hpp"
 
-namespace GameEngine
-{
-    class ScriptingSystem;
-}
-
 /// @brief Array which can have empty indexes.
 /// @tparam Component Type of the component in the array.
 template <typename Component>
 class SparseArray
 {
   public:
-    friend class GameEngine::ScriptingSystem;
-
     /// @brief Type of the array wrap in an optional.
     using valueType = std::optional<Component>;
     /// @brief Reference to valueType.

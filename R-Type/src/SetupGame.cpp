@@ -7,7 +7,6 @@
 
 #include "RTypeClient.hpp"
 #include "components/TextComponent.hpp"
-#include "components/ScriptComponent.hpp"
 #include "GameEngine.hpp"
 
 namespace RType::Client
@@ -55,14 +54,20 @@ namespace RType::Client
 
         auto parallax1 = _gameEngine.prefabManager.createEntityFromPrefab("parallax", _gameEngine.registry);
         auto &textureParallax = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[parallax1];
-        _gameEngine.registry.addComponent<GameEngine::ScriptComponent>(
-            parallax1, GameEngine::ScriptComponent{"R-Type/src/scripts/parallax.lua"});
+        textureParallax->sprite.setScale(0.1851, 0.1851);
 
         auto parallax2 = _gameEngine.prefabManager.createEntityFromPrefab("parallax", _gameEngine.registry);
         auto &posParallax2 = _gameEngine.registry.getComponent<GameEngine::TransformComponent>()[parallax2];
         posParallax2.value().position = GameEngine::Vector2<float>(199.0, 0.0);
         auto &textureParallax2 = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[parallax2];
-        _gameEngine.registry.addComponent<GameEngine::ScriptComponent>(
-            parallax2, GameEngine::ScriptComponent{"R-Type/src/scripts/parallax.lua"});
+        textureParallax2->sprite.setScale(0.1851, 0.1851);
+
+        auto parallaxRange =
+            _gameEngine.prefabManager.createEntityFromPrefab("parallaxCollision", _gameEngine.registry);
+        auto &parallaxBox = _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[parallaxRange];
+        parallaxBox.value()
+            .addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
+                           SparseArray<GameEngine::TransformComponent> &)>,
+                GameEngine::CollisionComponent, GameEngine::TransformComponent>(_gameEngine.registry, parallaxCallback);
     }
 } // namespace RType::Client
