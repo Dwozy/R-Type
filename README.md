@@ -2,7 +2,7 @@
 
 [![release](https://img.shields.io/github/v/release/Dwozy/R-Type?sort=semver)](https://github.com/Dwozy/R-Type/releases)
 [![Documentation](https://img.shields.io/static/v1?label=Documentation&message=reference&color=blue)](https://dwozy.github.io/R-Type/)
-[![Test Status](https://github.com/Dwozy/R-Type/workflows/Actions/badge.svg)](https://github.com/Dwozy/R-Type/actions?query=workflow%3ATests)
+[![Tests](https://github.com/Dwozy/R-Type/actions/workflows/Tests.yml/badge.svg)](https://github.com/Dwozy/R-Type/actions/workflows/Tests.yml)
 
 R-type is a multiplayer 2D shoot'em up game. The game is separated in two part: the client that display the game to the user, and the server who handle connections and running the game.
 
