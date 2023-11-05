@@ -15,12 +15,14 @@ namespace RType::Client
     {
         GameEngine::Entity scoreTitle = _gameEngine.registry.spawnEntity();
         GameEngine::TextComponent textTitle{"SCORE : ", "R-Type/fonts/Valoon.ttf", 10, GameEngine::Text(), true, 10};
-        textTitle.text.load(textTitle.str, _gameEngine.assetManager.getFont("R-Type/fonts/Valoon.ttf").getFont(), textTitle.size);
+        textTitle.text.load(
+            textTitle.str, _gameEngine.assetManager.getFont("R-Type/fonts/Valoon.ttf").getFont(), textTitle.size);
         textTitle.text.setPosition(GameEngine::Vector2<float>{5, 5});
         _gameEngine.registry.addComponent<GameEngine::TextComponent>(scoreTitle, textTitle);
 
         GameEngine::Entity score = _gameEngine.registry.spawnEntity();
-        GameEngine::TextComponent text{std::to_string(_points), "R-Type/fonts/Valoon.ttf", 10, GameEngine::Text(), true, 10};
+        GameEngine::TextComponent text{
+            std::to_string(_points), "R-Type/fonts/Valoon.ttf", 10, GameEngine::Text(), true, 10};
         text.text.load(text.str, _gameEngine.assetManager.getFont("R-Type/fonts/Valoon.ttf").getFont(), text.size);
         text.text.setPosition(GameEngine::Vector2<float>{50, 5});
         _gameEngine.registry.addComponent<GameEngine::TextComponent>(score, text);
@@ -44,6 +46,8 @@ namespace RType::Client
     void RTypeClient::setupGame()
     {
         setupTextureEntity();
+        auto parallaxCallback = std::bind(&RType::Client::RTypeClient::parallaxCollision, this, std::placeholders::_1,
+            std::placeholders::_2, std::placeholders::_3);
         GameEngine::Entity camera = _gameEngine.registry.spawnEntity();
         GameEngine::CameraComponent cam = {GameEngine::View{GameEngine::Rect<float>(0.0f, 0.0f, 200.0f, 200.0f)}};
         auto &refCamera = _gameEngine.registry.addComponent<GameEngine::CameraComponent>(camera, cam);
