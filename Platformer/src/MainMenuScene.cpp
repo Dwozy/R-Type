@@ -19,12 +19,12 @@ void MainMenuScene::load()
     _entities.push_back(cam);
     _entities.push_back(title);
     _entities.push_back(start);
-    GameEngine::FontComponent fontTitle{"Platformer/assets/8-bit fortress.ttf", _font};
+    GameEngine::FontComponent fontTitle{"Platformer/assets/8-bit fortress.ttf", _gameEngine.assetManager.getFont("Platformer/assets/8-bit fortress.ttf")};
     GameEngine::TextComponent textTitle{"SCP 745 adventures", 25, GameEngine::Text(), true, 50};
-    GameEngine::FontComponent fontsubtitle{"Platformer/assets/8-bit fortress.ttf", _font};
+    GameEngine::FontComponent fontsubtitle{"Platformer/assets/8-bit fortress.ttf", _gameEngine.assetManager.getFont("Platformer/assets/8-bit fortress.ttf")};
     GameEngine::TextComponent textsubTitle{"press escap to start", 17, GameEngine::Text(), true, 50};
-    textTitle.text.load(textTitle.str, _font.getFont(), textTitle.size);
-    textsubTitle.text.load(textsubTitle.str, _font.getFont(), textsubTitle.size);
+    textTitle.text.load(textTitle.str, _gameEngine.assetManager.getFont("Platformer/assets/8-bit fortress.ttf").getFont(), textTitle.size);
+    textsubTitle.text.load(textsubTitle.str, _gameEngine.assetManager.getFont("Platformer/assets/8-bit fortress.ttf").getFont(), textsubTitle.size);
     textTitle.text.setPosition(GameEngine::Vector2<float>{22, 75});
     textsubTitle.text.setPosition(GameEngine::Vector2<float>{65, 150});
     _gameEngine.registry.addComponent<GameEngine::FontComponent>(title, fontTitle);

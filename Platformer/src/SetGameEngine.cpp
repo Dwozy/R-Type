@@ -101,6 +101,7 @@ void Platformer::setGameEngineTexture()
         "Platformer/assets/dark_city_background.png", GameEngine::Recti(0, 0, 5000, 500));
     _gameEngine.assetManager.loadTexture("Platformer/assets/Gunner_Black_Run.png", GameEngine::Recti(0, 0, 48, 48));
     _gameEngine.assetManager.loadTexture("Platformer/assets/button.png", GameEngine::Recti(0, 0, 48, 16));
+    _gameEngine.assetManager.loadFont("Platformer/assets/8-bit fortress.ttf");
 }
 
 void Platformer::setGameEnginePrefab()

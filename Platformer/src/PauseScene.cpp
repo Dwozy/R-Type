@@ -26,9 +26,9 @@ void PauseScene::load()
     _entities.push_back(buttonresume);
     _entities.push_back(buttonQuit);
     _entities.push_back(buttonRestart);
-    GameEngine::FontComponent fontTitle{"Platformer/assets/8-bit fortress.ttf", _font};
+    GameEngine::FontComponent fontTitle{"Platformer/assets/8-bit fortress.ttf", _gameEngine.assetManager.getFont("Platformer/assets/8-bit fortress.ttf")};
     GameEngine::TextComponent textTitle{"Pause", 25, GameEngine::Text(), true, 50};
-    textTitle.text.load(textTitle.str, _font.getFont(), textTitle.size);
+    textTitle.text.load(textTitle.str, _gameEngine.assetManager.getFont("Platformer/assets/8-bit fortress.ttf").getFont(), textTitle.size);
     textTitle.text.setPosition(GameEngine::Vector2<float>{
         (400 - textTitle.text.getLocalBounds().width) / 2, (225 - textTitle.text.getLocalBounds().height) / 3});
     _gameEngine.registry.addComponent<GameEngine::FontComponent>(title, fontTitle);
