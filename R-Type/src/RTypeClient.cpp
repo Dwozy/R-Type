@@ -53,6 +53,7 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
     _gameEngine.registry.addComponent<GameEngine::MusicComponent>(musicHolder, music);
 
     _isRunning = true;
+    _gameState = RType::GameState::GAME;
     std::thread network(&RType::Client::RTypeClient::startNetwork, this, std::ref(_isRunning));
     network.detach();
     gameLoop();
@@ -76,6 +77,7 @@ void RType::Client::RTypeClient::handleQuit()
         _udpClient.sendDataInformation(dataToSend, static_cast<uint8_t>(RType::Protocol::PacketType::DESTROY));
         std::cout << "Player " << _serverId << " died :( !" << std::endl;
     }
+    exit(0);
 }
 
 void RType::Client::RTypeClient::runUdpServer()
@@ -104,9 +106,15 @@ void RType::Client::RTypeClient::gameLoop()
             _gameEngine.eventManager.publish<GameEngine::PollEventStruct &>(
                 static_cast<GameEngine::EventType>(GameEngine::Event::PollEvent), event);
         }
+        if (_gameState != RType::GameState::GAME && _endScene) {
+            _win = (_gameState == RType::GameState::WIN) ? true : false;
+            _gameEngine.sceneManager.loadScene("WinLose");
+            _endScene = false;
+        }
         if (_eventQueue.size() != 0)
             handleEvent();
         _gameEngine.registry.runSystems();
+        _gameEngine.sceneManager.updateCurrentScene();
         _gameEngine.eventManager.publish<bool &>(
             static_cast<GameEngine::EventType>(GameEngine::Event::WindowIsOpen), isOpen);
     }

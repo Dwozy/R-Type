@@ -15,7 +15,6 @@ namespace RType::Client
             _gameState = RType::GameState::WIN;
         if (endGameData.endGameState == static_cast<uint8_t> (RType::GameState::LOSE))
             _gameState = RType::GameState::LOSE;
-        exit(0);
     }
 
     void RTypeClient::setEndGameCallback()

@@ -27,6 +27,7 @@
 #include "systems/InputSystem.hpp"
 #include "systems/ScriptingSystem.hpp"
 #include "systems/MusicSystem.hpp"
+#include "WinLoseScene.hpp"
 
 namespace RType::Client
 {
@@ -51,6 +52,8 @@ namespace RType::Client
     {
         _gameEngine.prefabManager.loadPrefabFromFile("config/ParallaxCollision.json");
         _gameEngine.prefabManager.loadPrefabFromFile("config/Parallax.json");
+        _gameEngine.prefabManager.loadPrefabFromFile("config/ButtonQuit.json");
+        _gameEngine.prefabManager.loadPrefabFromFile("config/MainCam.json");
         _gameEngine.assetManager.loadFont("R-Type/fonts/Valoon.ttf");
     }
 
@@ -122,12 +125,18 @@ namespace RType::Client
                 musicSystem);
     }
 
+    void RTypeClient::setGameEngineScene()
+    {
+        _gameEngine.sceneManager.registerScene("WinLose", std::make_unique<WinLoseScene>(_gameEngine, _win, isOpen));
+    }
+
     void RTypeClient::setGameEngine()
     {
         setGameEngineComponent();
         setGameEngineSystem();
         setGameEngineCallback();
         setPrefab();
+        setGameEngineScene();
     }
 
 } // namespace RType::Client

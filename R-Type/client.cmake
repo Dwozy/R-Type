@@ -22,6 +22,7 @@ set(SRCS_CLIENT
     ${CLIENT_FOLDER}/src/Callback.cpp
     ${CLIENT_FOLDER}/src/SetupGame.cpp
     ${CLIENT_FOLDER}/src/EntityUtils.cpp
+    ${CLIENT_FOLDER}/src/WinLoseScene.cpp
 
 )
 

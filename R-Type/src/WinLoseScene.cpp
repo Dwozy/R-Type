@@ -23,13 +23,16 @@ void WinLoseScene::load()
     _entities.push_back(title);
     _entities.push_back(buttonQuit);
     GameEngine::TextComponent textTitle{"default", "R-Type/fonts/Valoon.ttf", 25, GameEngine::Text(), true, 50};
-    if (_win)
+    if (_win) {
         textTitle.str = "Win";
-    else
+        textTitle.text.load(textTitle.str, _gameEngine.assetManager.getFont("R-Type/fonts/Valoon.ttf").getFont(), textTitle.size);
+        textTitle.text.setPosition(GameEngine::Vector2<float>{75, 65});
+    } else {
         textTitle.str = "Game Over";
-    textTitle.text.load(textTitle.str, _font.getFont(), textTitle.size);
-    textTitle.text.setPosition(GameEngine::Vector2<float>{
-        (400 - textTitle.text.getLocalBounds().width) / 2, (225 - textTitle.text.getLocalBounds().height) / 3});
+        textTitle.text.load(textTitle.str, _gameEngine.assetManager.getFont("R-Type/fonts/Valoon.ttf").getFont(), textTitle.size);
+        textTitle.text.setPosition(GameEngine::Vector2<float>{30, 65});
+    }
+
     _gameEngine.registry.addComponent<GameEngine::TextComponent>(title, textTitle);
     _gameEngine.registry.addComponent<GameEngine::PressableComponent>(buttonQuit,
         GameEngine::PressableComponent{GameEngine::Recti(0, 0, 48, 16), GameEngine::Recti(0, 0, 48, 16),
@@ -40,6 +43,8 @@ void WinLoseScene::load()
                     static_cast<GameEngine::EventType>(GameEngine::Event::QuitEvent), _isOpen);
             }});
 }
+
+void WinLoseScene::addEntityToUnload(GameEngine::Entity) {}
 
 void WinLoseScene::unload()
 {
