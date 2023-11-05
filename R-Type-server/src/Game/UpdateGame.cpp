@@ -23,14 +23,17 @@ namespace RType::Server
     {
         std::map<RType::Protocol::ComponentType, std::vector<bool>> componentInfo;
         auto &texture = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[entity];
+        RType::Protocol::ComponentType transformType = RType::Protocol::ComponentType::TRANSFORM;
+        RType::Protocol::ComponentType collisionType = RType::Protocol::ComponentType::COLLISION;
+        RType::Protocol::ComponentType textureType = RType::Protocol::ComponentType::TEXTURE;
 
-        componentInfo.insert({RType::Protocol::ComponentType::TRANSFORM, {true}});
-        componentInfo.insert({RType::Protocol::ComponentType::COLLISION, {true}});
+        componentInfo[transformType] = {true};
+        componentInfo[collisionType] = {true};
         if (texture) {
             std::vector<bool> distribTexture(texture.value().textureRects.size(), true);
-            componentInfo.insert({RType::Protocol::ComponentType::TEXTURE, distribTexture});
+            componentInfo[textureType] = distribTexture;
         } else
-            componentInfo.insert({RType::Protocol::ComponentType::TEXTURE, {false}});
+            componentInfo[textureType] = {false};
 
         for (auto &listInfo : _listInfosComponent)
             listInfo.second.insert({entity, componentInfo});
@@ -68,20 +71,22 @@ namespace RType::Server
 
         auto transforms = _gameEngine.registry.getComponent<GameEngine::TransformComponent>();
         auto textures = _gameEngine.registry.getComponent<GameEngine::TextureComponent>();
-
+        RType::Protocol::ComponentType transformType = RType::Protocol::ComponentType::TRANSFORM;
+        RType::Protocol::ComponentType collisionType = RType::Protocol::ComponentType::COLLISION;
+        RType::Protocol::ComponentType textureType = RType::Protocol::ComponentType::TEXTURE;
         for (std::size_t i = 0; i < transforms.size(); i++) {
             std::map<RType::Protocol::ComponentType, std::vector<bool>> componentInfo;
-            componentInfo.insert({RType::Protocol::ComponentType::TRANSFORM, {true}});
-            componentInfo.insert({RType::Protocol::ComponentType::COLLISION, {true}});
+            componentInfo[transformType] = {true};
+            componentInfo[collisionType] = {true};
             auto texture = textures[i];
             auto transform = transforms[i];
             if (!texture && !transform)
                 continue;
             if (texture) {
                 std::vector<bool> distribTexture(texture->textureRects.size(), true);
-                componentInfo.insert({RType::Protocol::ComponentType::TEXTURE, distribTexture});
+                componentInfo[textureType] = distribTexture;
             } else
-                componentInfo.insert({RType::Protocol::ComponentType::TEXTURE, {false}});
+                componentInfo[textureType] = {false};
             GameEngine::Entity entity = _gameEngine.registry.getEntityById(i);
             infos.insert({entity, componentInfo});
         }

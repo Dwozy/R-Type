@@ -70,8 +70,7 @@ namespace RType::Client
 
     void RTypeClient::handleScore(struct RType::Event event)
     {
-        struct RType::Protocol::ScoreData stateData =
-            std::any_cast<struct RType::Protocol::ScoreData>(event.data);
+        struct RType::Protocol::ScoreData stateData = std::any_cast<struct RType::Protocol::ScoreData>(event.data);
         _gameEngine.eventManager
             .getHandler<struct RType::Protocol::ScoreData>(
                 static_cast<GameEngine::EventType>(GameEngine::Event::GetScore))
