@@ -116,7 +116,6 @@ void RType::Server::UdpServer::handleData(struct RType::Protocol::HeaderDataPack
 
 std::map<unsigned short, asio::ip::udp::endpoint> &RType::Server::UdpServer::getListClients() { return _listClient; }
 
-
 void RType::Server::UdpServer::sendInformation(
     uint8_t packetType, std::vector<std::byte> dataToSend, asio::ip::udp::endpoint &endpoint)
 {
