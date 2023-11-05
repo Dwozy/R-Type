@@ -104,7 +104,7 @@ void GameScene::playerCollisionCallback(const std::size_t &entityId,
         auto &tsf = transforms[i];
         auto &hth = health[i];
 
-        if (!col || !tsf || !col.value().isActive || (col.value().layer != 30 && col.value().layer != 20))
+        if (!col || !tsf || !col.value().isActive || (col.value().layer != 30 && col.value().layer != 20 && col.value().layer != 35))
             continue;
         auto result = GameEngine::replaceOnTop(selfTsf->position, selfCol->collider, tsf->position, col->collider);
         if (result == 1) {

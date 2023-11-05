@@ -73,10 +73,10 @@
             "type": "CollisionComponent",
             "value": {
                 "collider": {
-                    "left": 0.0,
-                    "top": 0.0,
-                    "width": 40.0,
-                    "height": 64.0
+                    "left": 7.0,
+                    "top": 5.0,
+                    "width": 33.0,
+                    "height": 59.0
                 },
                 "layer": 30
             }
