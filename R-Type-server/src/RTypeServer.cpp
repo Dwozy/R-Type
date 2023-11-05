@@ -22,9 +22,9 @@ RType::Server::RTypeServer::RTypeServer(unsigned short port)
     setTimers();
     _killEnemy = false;
     _points = 0;
-    _nbPlayers = 0;
     _isRunning = true;
     _chargedAttack = true;
+    _nbPlayers = 0;
     std::thread network(&RType::Server::RTypeServer::startNetwork, this, std::ref(_isRunning));
     network.detach();
     gameLoop();
