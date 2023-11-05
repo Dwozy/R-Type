@@ -28,6 +28,6 @@ void standardGravityCollisionCallback(const std::size_t &entityId,
     SparseArray<GameEngine::GravityComponent> &gravity);
 void changeDirGravityCollisionCallback(const std::size_t &entityId,
     SparseArray<GameEngine::CollisionComponent> &collisions, SparseArray<GameEngine::TransformComponent> &transforms,
-    SparseArray<GameEngine::GravityComponent> &gravity);
+    SparseArray<GameEngine::GravityComponent> &gravity, SparseArray<GameEngine::TextureComponent> &textures);
 
 #endif /* !MAPLOADER_HPP_ */

@@ -9,7 +9,7 @@
                     "y": -100.0
                 },
                 "velocity": {
-                    "x": 10.0,
+                    "x": 25.0,
                     "y": 0.0
                 }
             }
@@ -62,7 +62,7 @@
                 },
                 "renderLayer": 2,
                 "animated": true,
-                "animationSpeed": 0.25
+                "animationSpeed": 0.10
             }
         },
         {

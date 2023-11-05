@@ -46,15 +46,16 @@ void standardGravityCollisionCallback(const std::size_t &entityId,
 
 void changeDirGravityCollisionCallback(const std::size_t &entityId,
     SparseArray<GameEngine::CollisionComponent> &collisions, SparseArray<GameEngine::TransformComponent> &transforms,
-    SparseArray<GameEngine::GravityComponent> &gravity)
+    SparseArray<GameEngine::GravityComponent> &gravity, SparseArray<GameEngine::TextureComponent> &textures)
 {
     auto &selfCol = collisions[entityId];
     auto &selfTsf = transforms[entityId];
     auto &selfGrav = gravity[entityId];
+    auto &selfTex = textures[entityId];
 
     bool hasCollidedOnTop = false;
 
-    if (!selfCol || !selfTsf || !selfGrav)
+    if (!selfCol || !selfTsf || !selfGrav || !selfTex)
         return;
     for (std::size_t i = 0; i < collisions.size(); i++) {
         if (i == entityId)
@@ -67,8 +68,15 @@ void changeDirGravityCollisionCallback(const std::size_t &entityId,
         auto result = GameEngine::replaceOnTop(selfTsf->position, selfCol->collider, tsf->position, col->collider);
         if (result == 1)
             hasCollidedOnTop = true;
-        else if (result == 0)
+        else if (result == 0) {
             selfTsf->velocity.x = -selfTsf->velocity.x;
+            if (selfTsf->velocity.x > 0)
+                for (auto &texRect : selfTex->textureRects)
+                    texRect.top = 0;
+            else
+                for (auto &texRect : selfTex->textureRects)
+                    texRect.top = 48;
+        }
     }
     if (hasCollidedOnTop) {
         selfGrav.value().cumulatedGVelocity = {0, 0};
