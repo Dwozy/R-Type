@@ -13,22 +13,43 @@
 #include "MapLoader.hpp"
 #include "components/HealthComponent.hpp"
 
+/// @brief GameScene class that herites from the IScene interface
 class GameScene : public GameEngine::IScene
 {
   public:
+    /// @brief constructor
+    /// @param gameEngine the GameEngine instance
+    /// @param state state for the game
+    /// @param id id of the player
+    /// @param jumping boleans that indicate if the player is jumping
     GameScene(GameEngine::GameEngine &gameEngine, GameState &state, size_t &id, bool &jumping)
         : _gameEngine(gameEngine), _state(state), _id(id), _jumping(jumping), _mapLoader(gameEngine, _entities),
           lastTime(std::chrono::steady_clock::now())
     {
         _isLoaded = true;
     };
+    /// @brief default constructor
     ~GameScene() = default;
+    /// @brief load the scene
     void load() override;
+    /// @brief unload the scene
     void unload() override;
+    /// @brief update the scene
     void update() override;
+    /// @brief callback function of the player collision
+    /// @param entityId id of the entity that hold the collision
+    /// @param collisions SparseArray that contain all the collision components attached to a entity
+    /// @param transforms SparseArray that contain all the transform components attached to a entity
+    /// @param gravity SparseArray that contain all the gravity components attached to a entity
+    /// @param health SparseArray that contain all the health components attached to a entity
     void playerCollisionCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
         SparseArray<GameEngine::TransformComponent> &transforms, SparseArray<GameEngine::GravityComponent> &gravity,
         SparseArray<GameEngine::HealthComponent> &health);
+
+    /// @brief callback function for the Player Victory
+    /// @param entityId id of the entity that hold the collision
+    /// @param collisions SparseArray that contain all the collision components attached to a entity
+    /// @param transforms SparseArray that contain all the transform components attached to a entity
     void endOfLevelCollsionCallback(const std::size_t &entityId,
         SparseArray<GameEngine::CollisionComponent> &collisions,
         SparseArray<GameEngine::TransformComponent> &transforms);

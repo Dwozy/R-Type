@@ -33,8 +33,6 @@ void Platformer::handlePlayerjump()
         canJump = true;
 }
 
-void Platformer::handlePlayerMove() {}
-
 void Platformer::gameLoop()
 {
     GameEngine::PollEventStruct event;
@@ -52,9 +50,8 @@ void Platformer::gameLoop()
                 static_cast<GameEngine::EventType>(GameEngine::Event::PollEvent), event);
         }
         _gameEngine.registry.runSystems();
-        handleScreenChange();
+        handleSceneChange();
         handlePlayerjump();
-        handlePlayerMove();
         _gameEngine.sceneManager.updateCurrentScene();
         _gameEngine.eventManager.publish<bool &>(
             static_cast<GameEngine::EventType>(GameEngine::Event::WindowIsOpen), isOpen);

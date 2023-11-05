@@ -42,8 +42,6 @@ void Platformer::setGameEngineComponent()
     _gameEngine.registry.registerComponent<GameEngine::HealthComponent>();
 }
 
-void Platformer::setGameEngineCallback() {}
-
 void Platformer::setGameEngineSystem()
 {
 #ifdef DEBUG

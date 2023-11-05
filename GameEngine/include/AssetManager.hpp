@@ -31,7 +31,8 @@ namespace GameEngine
                 _texture[filename].load(filename, area);
             }
         }
-
+        /// @brief load the font from a file
+        /// @param filename name of the file
         void loadFont(const std::string &filename)
         {
             if (_font.find(filename) == _font.end()) {
@@ -45,6 +46,9 @@ namespace GameEngine
         /// @return const reference to the texture
         const Texture &getTexture(const std::string &textureName) const { return _texture.at(textureName); }
 
+        /// @brief Get a font previously loaded
+        /// @param fontName name of the font
+        /// @return const reference to the font
         const Font &getFont(const std::string &fontName) const { return _font.at(fontName); }
 
       protected:

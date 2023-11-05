@@ -7,7 +7,7 @@
 
 #include "Platformer.hpp"
 
-void Platformer::handleScreenChange()
+void Platformer::handleSceneChange()
 {
     static bool changable = true;
 
