@@ -1,0 +1,32 @@
+{
+    "name": "heart",
+    "components": [
+        {
+            "type": "TransformComponent",
+            "value": {
+                "position": {
+                    "x": 0.0,
+                    "y": 500.0
+                },
+                "velocity": {
+                    "x": 0.0,
+                    "y": 0.0
+                }
+            }
+        },
+        {
+            "type": "TextureComponent",
+            "value": {
+                "texturePath": "Platformer/assets/heart.png",
+                "textureRects": [],
+                "textureSize": {
+                    "left": 0.0,
+                    "top": 0.0,
+                    "width": 17.0,
+                    "height": 17.0
+                },
+                "renderLayer": 8
+            }
+        }
+    ]
+}

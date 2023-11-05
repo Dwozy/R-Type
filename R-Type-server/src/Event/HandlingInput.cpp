@@ -34,14 +34,22 @@ namespace RType::Server
             auto transforms = _gameEngine.registry.getComponent<GameEngine::TransformComponent>();
             if (!transforms[inputInfo.id])
                 return;
-            struct RType::Protocol::ShootData shootInfo = {
-                .id = inputInfo.id,
-                .x = transforms[inputInfo.id].value().position.x,
-                .y = transforms[inputInfo.id].value().position.y,
-                .dx = transforms[inputInfo.id].value().velocity.x,
-                .dy = transforms[inputInfo.id].value().velocity.y,
-            };
-            handleShoot(shootInfo);
+            if (_chargedAttackTimer.find(inputInfo.id) != _chargedAttackTimer.end() &&
+                inputInfo.state == static_cast<uint8_t>(true) && _chargedAttackTimer.at(inputInfo.id).first) {
+                _chargedAttackTimer.at(inputInfo.id).second = std::chrono::steady_clock::now();
+                _chargedAttackTimer.at(inputInfo.id).first = false;
+            } else if (inputInfo.state == static_cast<uint8_t>(false) &&
+                       _chargedAttackTimer.find(inputInfo.id) != _chargedAttackTimer.end()) {
+                struct RType::Protocol::ShootData shootInfo = {
+                    .id = inputInfo.id,
+                    .x = transforms[inputInfo.id].value().position.x,
+                    .y = transforms[inputInfo.id].value().position.y,
+                    .dx = transforms[inputInfo.id].value().velocity.x,
+                    .dy = transforms[inputInfo.id].value().velocity.y,
+                };
+                handleShoot(shootInfo);
+                _chargedAttackTimer.at(inputInfo.id).first = true;
+            }
         } else {
             auto transforms = _gameEngine.registry.getComponent<GameEngine::TransformComponent>();
             if (!transforms[inputInfo.id])

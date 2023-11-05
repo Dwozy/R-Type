@@ -1,7 +1,6 @@
 local entity
 
 function Start(entity_id)
-    print("Start function", entity_id)
     entity = entity_id
 end
 
@@ -10,7 +9,7 @@ function Update()
 
     if pos ~= nil then
         if pos.x <= -200 then
-            pos.x = 199
+            pos.x = pos.x + 398
         end
     end
 end

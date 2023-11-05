@@ -8,18 +8,29 @@
 #ifndef PAUSESCENE_HPP_
 #define PAUSESCENE_HPP_
 #include "utils/IScene.hpp"
+#include "GameEngine.hpp"
+#include "Platformer.hpp"
 
 class PauseScene : public GameEngine::IScene
 {
   public:
-    PauseScene();
+    PauseScene(GameEngine::GameEngine &gameEngine, GameState &state, bool &isOpen)
+        : _gameEngine(gameEngine), _state(state), _isOpen(isOpen)
+    {
+        _font.load("Platformer/assets/8-bit fortress.ttf");
+    };
     ~PauseScene() = default;
     void load() override;
     void unload() override;
     void addEntityToUnload(GameEngine::Entity entity) override;
+    void update() override;
 
-  protected:
   private:
+    GameEngine::Font _font;
+    GameState &_state;
+    bool &_isOpen;
+    GameEngine::GameEngine &_gameEngine;
+    std::vector<GameEngine::Entity> _entities;
 };
 
 #endif /* !PAUSESCENE_HPP_ */

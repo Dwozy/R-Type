@@ -137,6 +137,24 @@ namespace Error
       private:
         std::string message;
     };
+
+#ifdef DEBUG
+    /**
+     * @brief
+     * ImGuiSFMLInitError Class Error
+     * Error thrown when an error is encountered while initializing the ImGuiSFML context
+     */
+    class ImGuiSFMLInitError : public std::exception
+    {
+      public:
+        ImGuiSFMLInitError();
+        ~ImGuiSFMLInitError();
+        const char *what() const noexcept override;
+
+      private:
+        std::string message;
+    };
+#endif
 } // namespace Error
 
 #endif /* !ERROR_HPP_ */

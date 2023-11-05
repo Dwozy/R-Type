@@ -30,15 +30,15 @@ namespace GameEngine
         T diffY = center.y - rectCenter.y;
         if (x2 - x1 > y2 - y1) {
             if (diffY < 0)
-                pos1.y = pos2Y - rect1.height;
+                pos1.y = pos2Y - rect1.height - rect1.top;
             else
-                pos1.y = pos2Y + rect2.height;
+                pos1.y = pos2Y + rect2.height - rect1.top;
             return 1;
         } else {
             if (diffX < 0)
-                pos1.x = pos2X - rect1.width;
+                pos1.x = pos2X - rect1.width - rect1.left;
             else
-                pos1.x = pos2X + rect2.width;
+                pos1.x = pos2X + rect2.width - rect1.left;
             return 0;
         }
     }

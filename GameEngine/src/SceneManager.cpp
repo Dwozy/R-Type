@@ -44,4 +44,10 @@ namespace GameEngine
             return;
         _scenes[_currentScene]->addEntityToUnload(entity);
     }
+
+    void SceneManager::updateCurrentScene()
+    {
+        if (_scenes.contains(_currentScene))
+            _scenes[_currentScene]->update();
+    }
 } // namespace GameEngine

@@ -21,6 +21,8 @@ set(SRCS_SERVER
     ${SERVER_FOLDER}/src/Game/SetupGame.cpp
     ${SERVER_FOLDER}/src/Game/SpawnMob.cpp
     ${SERVER_FOLDER}/src/Game/UpdateGame.cpp
+    ${SERVER_FOLDER}/src/Game/Immunity.cpp
+    ${SERVER_FOLDER}/src/Game/Timer.cpp
     ${SERVER_FOLDER}/src/HandlingEvent.cpp
     ${SERVER_FOLDER}/src/SetGameEngine.cpp
 )

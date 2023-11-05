@@ -28,41 +28,63 @@
             "type": "TextureComponent",
             "value": {
                 "texturePath": "Platformer/assets/SCP-745.png",
-                "textureRects": [{
-                    "left": 0.0,
-                    "top": 64.0,
-                    "width": 64.0,
-                    "height": 64.0
-                }],
                 "textureSize": {
                     "left": 0.0,
-                    "top": 64.0,
-                    "width": 64.0,
-                    "height": 64.0
+                    "top": 0.0,
+                    "width": 384.0,
+                    "height": 256.0
                 },
-                "renderLayer": 2
+                "textureRects": [
+                    {
+                        "left": 0.0,
+                        "top": 64.0,
+                        "width": 64.0,
+                        "height": 64.0
+                    },
+                    {
+                        "left": 64.0,
+                        "top": 64.0,
+                        "width": 64.0,
+                        "height": 64.0
+                    },
+                    {
+                        "left": 128.0,
+                        "top": 64.0,
+                        "width": 64.0,
+                        "height": 64.0
+                    }
+                ],
+                "renderLayer": 2,
+                "animated": true,
+                "animationSpeed": 0.15
             }
         },
         {
-            "type" : "GravityComponent",
-            "value" : {
-                "gravityForce" : {
+            "type": "GravityComponent",
+            "value": {
+                "gravityForce": {
                     "x": 0.0,
-                    "y": 2
+                    "y": 12
                 },
-                "isActive" : true
+                "isActive": true
             }
         },
         {
             "type": "CollisionComponent",
             "value": {
                 "collider": {
-                    "left": 0.0,
-                    "top": 0.0,
-                    "width": 40.0,
-                    "height": 64.0
+                    "left": 7.0,
+                    "top": 5.0,
+                    "width": 33.0,
+                    "height": 59.0
                 },
                 "layer": 30
+            }
+        },
+        {
+            "type": "HealthComponent",
+            "value": {
+                "health": 3
             }
         }
     ]

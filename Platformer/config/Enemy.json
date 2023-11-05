@@ -6,10 +6,10 @@
             "value": {
                 "position": {
                     "x": 100.0,
-                    "y": 100.0
+                    "y": -100.0
                 },
                 "velocity": {
-                    "x": 10.0,
+                    "x": 25.0,
                     "y": 0.0
                 }
             }
@@ -57,10 +57,12 @@
                 "textureSize": {
                     "left": 0.0,
                     "top": 0.0,
-                    "width": 48.0,
-                    "height": 48.0
+                    "width": 288.0,
+                    "height": 96.0
                 },
-                "renderLayer": 2
+                "renderLayer": 2,
+                "animated": true,
+                "animationSpeed": 0.10
             }
         },
         {
@@ -72,7 +74,7 @@
                     "width": 29.0,
                     "height": 36.0
                 },
-                "layer": 30
+                "layer": 35
             }
         },
         {
@@ -80,9 +82,15 @@
             "value" : {
                 "gravityForce" : {
                     "x": 0.0,
-                    "y": 2
+                    "y": 12
                 },
                 "isActive" : true
+            }
+        },
+        {
+            "type": "HealthComponent",
+            "value": {
+                "health": 1
             }
         }
     ]

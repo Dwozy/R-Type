@@ -37,11 +37,18 @@ namespace RType::Client
         _gameEngine.registry.registerComponent<GameEngine::CameraComponent>();
         _gameEngine.registry.registerComponent<GameEngine::TextureComponent>();
         _gameEngine.registry.registerComponent<GameEngine::TextComponent>();
+        _gameEngine.registry.registerComponent<GameEngine::FontComponent>();
         _gameEngine.registry.registerComponent<GameEngine::PressableComponent>();
         _gameEngine.registry.registerComponent<GameEngine::NetworkIdComponent>();
         _gameEngine.registry.registerComponent<GameEngine::GravityComponent>();
         _gameEngine.registry.registerComponent<GameEngine::InputComponent>();
         _gameEngine.registry.registerComponent<GameEngine::ScriptComponent>();
+    }
+
+    void RTypeClient::setPrefab()
+    {
+        _gameEngine.prefabManager.loadPrefabFromFile("config/ParallaxCollision.json");
+        _gameEngine.prefabManager.loadPrefabFromFile("config/Parallax.json");
     }
 
     void RTypeClient::setGameEngineCallback()
@@ -52,6 +59,8 @@ namespace RType::Client
         setCollisionCallback();
         setControllableCallback();
         setInputCallback();
+        setTextureStateCallback();
+        setScoreCallback();
     }
 
     void RTypeClient::setGameEngineSystem()
@@ -109,6 +118,7 @@ namespace RType::Client
         setGameEngineComponent();
         setGameEngineSystem();
         setGameEngineCallback();
+        setPrefab();
     }
 
 } // namespace RType::Client
