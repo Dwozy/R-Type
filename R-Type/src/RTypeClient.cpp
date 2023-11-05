@@ -46,10 +46,10 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
     _gameEngine.registry.addComponent<GameEngine::TextComponent>(score, text);
     _scoreTextEntity = score;
 
-    GameEngine::Entity musicHolder = _gameEngine.registry.spawnEntity();
-    GameEngine::MusicComponent music{"R-Type/musics/R-Type.wav", std::make_shared<GameEngine::Music>()};
-    music.music->load(music.path);
-    _gameEngine.registry.addComponent<GameEngine::MusicComponent>(musicHolder, music);
+    // GameEngine::Entity musicHolder = _gameEngine.registry.spawnEntity();
+    // GameEngine::MusicComponent music{"R-Type/musics/R-Type.wav", std::make_shared<GameEngine::Music>()};
+    // music.music->load(music.path);
+    // _gameEngine.registry.addComponent<GameEngine::MusicComponent>(musicHolder, music);
 
     _isRunning = true;
     _gameState = RType::GameState::GAME;
