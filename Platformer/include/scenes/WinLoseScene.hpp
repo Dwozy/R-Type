@@ -11,17 +11,28 @@
 #include "GameEngine.hpp"
 #include "Platformer.hpp"
 
+/// @brief WinLoseScene class that herites from the IScene interface
 class WinLoseScene : public GameEngine::IScene
 {
   public:
+    /// @brief constructor
+    /// @param gameEngine the GameEngine instance
+    /// @param state state of the scene
+    /// @param isOpen boolean indicating if the window is open
     WinLoseScene(GameEngine::GameEngine &gameEngine, GameState &state, bool &isOpen)
         : _gameEngine(gameEngine), _state(state), _isOpen(isOpen)
     {};
+    /// @brief default constructor
     ~WinLoseScene() = default;
+    /// @brief load the scene
     void load() override;
+    /// @brief unload the scene
     void unload() override;
-    void addEntityToUnload(GameEngine::Entity entity) override;
+    /// @brief update the scene
     void update() override;
+    /// @brief add entiries that have to be unloaded
+    /// @param entity entity that will be unloaded
+    void addEntityToUnload(GameEngine::Entity entity) override;
 
   private:
     GameState &_state;

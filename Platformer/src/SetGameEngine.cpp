@@ -44,8 +44,6 @@ void Platformer::setGameEngineComponent()
     _gameEngine.registry.registerComponent<GameEngine::MusicComponent>();
 }
 
-void Platformer::setGameEngineCallback() {}
-
 void Platformer::setGameEngineSystem()
 {
 #ifdef DEBUG
