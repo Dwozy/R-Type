@@ -12,7 +12,6 @@
 #include "components/CameraComponent.hpp"
 #include "components/CollisionComponent.hpp"
 #include "components/ControllableComponent.hpp"
-#include "components/FontComponent.hpp"
 #include "components/MusicComponent.hpp"
 #include "components/PressableComponent.hpp"
 #include "components/TextComponent.hpp"
@@ -171,6 +170,16 @@ namespace GameEngine
             j.at("follow_y").get_to(cc.follow_y);
         if (j.contains("isActive"))
             j.at("isActive").get_to(cc.isActive);
+    }
+
+    void from_json(const json &j, TextComponent &tx)
+    {
+        tx.text = GameEngine::Text();
+        j.at("str").get_to(tx.str);
+        j.at("size").get_to(tx.size);
+        j.at("fontPath").get_to(tx.fontPath);
+        tx.isRendered = j.contains("isRendered") ? j.at("isRendered").get<bool>() : true;
+        j.at("renderLayer").get_to(tx.renderLayer);
     }
 } // namespace GameEngine
 

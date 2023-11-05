@@ -16,6 +16,7 @@ namespace GameEngine
     struct TextComponent
     {
         std::string str;
+        std::string fontPath;
         size_t size;
         Text text;
         bool isRendered;
