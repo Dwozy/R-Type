@@ -27,7 +27,17 @@ namespace RType::Server
             _gameEngine.prefabManager.createEntityFromPrefab("player", _gameEngine.registry, false);
         auto &entityPos = _gameEngine.registry.getComponent<GameEngine::TransformComponent>()[entity];
         auto &entityCollider = _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[entity];
+        auto &entityTexture = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[entity];
 
+        _nbPlayers++;
+        if (!_nbPlayerTexture.empty()) {
+            entityTexture.value().textureRects[0].top += ((_nbPlayerTexture.front() - 1) % 5) * 17;
+            _listIndexTexture.insert({static_cast<uint16_t>(entity), _nbPlayerTexture.front()});
+            _nbPlayerTexture.erase(_nbPlayerTexture.begin());
+        } else {
+            entityTexture.value().textureRects[0].top += ((_nbPlayers - 1) % 5) * 17;
+            _listIndexTexture.insert({static_cast<uint16_t>(entity), _nbPlayers});
+        }
         entityPos.value().position = GameEngine::Vector2<float>(25, 25);
         auto colliderCallback = std::bind(&RType::Server::RTypeServer::playerCollisionCallback, this,
             std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
@@ -44,7 +54,6 @@ namespace RType::Server
                 GameEngine::CollisionComponent, GameEngine::TransformComponent>(
                 _gameEngine.registry, colliderDamageCollider);
 
-        _nbPlayers++;
         _listInfosComponent.insert({event.port, setEntitiesComponent()});
         _listLifePoints.insert({static_cast<uint16_t>(entity), 5});
         _timerLifePoint.insert({static_cast<uint16_t>(entity), {true, std::chrono::steady_clock::now()}});

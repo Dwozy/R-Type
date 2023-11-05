@@ -26,10 +26,10 @@ namespace RType::Server
     }
 
     void RTypeServer::sendTextureComponent(
-        uint16_t id, std::size_t index, GameEngine::TextureComponent texture, asio::ip::udp::endpoint &endpoint)
+        uint16_t id, std::size_t index, GameEngine::TextureComponent &texture, asio::ip::udp::endpoint &endpoint)
     {
         struct RType::Protocol::TextureData textureData = {.id = id,
-            .idTexture = static_cast<uint8_t>(_listIdType.at(id)),
+            .idTexture = _listIdType.at(id),
             .idOrderTexture = static_cast<uint8_t>(index),
             .rectLeft = static_cast<uint16_t>(texture.textureRects[index].left),
             .rectTop = static_cast<uint16_t>(texture.textureRects[index].top),
