@@ -9,13 +9,15 @@
 #define MUSIC_HPP_
 #include "utils/SfmlTypes.hpp"
 #include <string>
+#include <memory>
 
 namespace GameEngine
 {
     struct MusicComponent
     {
         std::string path;
-        Music music;
+        std::shared_ptr<Music> music;
+        // Music music;
     };
 } // namespace GameEngine
 

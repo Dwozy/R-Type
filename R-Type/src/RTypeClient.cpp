@@ -16,6 +16,8 @@
 #include "components/PressableComponent.hpp"
 #include "components/NetworkIdComponent.hpp"
 #include "components/GravityComponent.hpp"
+#include "components/ScriptComponent.hpp"
+#include "components/MusicComponent.hpp"
 #include "systems/DrawSystem.hpp"
 #include "systems/PositionSystem.hpp"
 #include "systems/ControlSystem.hpp"
@@ -44,6 +46,11 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
     text.text.setPosition(GameEngine::Vector2<float>{50, 5});
     _gameEngine.registry.addComponent<GameEngine::TextComponent>(score, text);
     _scoreTextEntity = score;
+
+    GameEngine::Entity musicHolder = _gameEngine.registry.spawnEntity();
+    GameEngine::MusicComponent music{"R-Type/musics/R-Type.wav", std::make_shared<GameEngine::Music>()};
+    music.music->load(music.path);
+    _gameEngine.registry.addComponent<GameEngine::MusicComponent>(musicHolder, music);
 
     _isRunning = true;
     std::thread network(&RType::Client::RTypeClient::startNetwork, this, std::ref(_isRunning));

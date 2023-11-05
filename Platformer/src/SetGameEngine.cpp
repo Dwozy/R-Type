@@ -23,6 +23,7 @@
 #include "systems/CollisionSystem.hpp"
 #include "systems/GravitySystem.hpp"
 #include "systems/CameraSystem.hpp"
+#include "systems/MusicSystem.hpp"
 #include "scenes/GameScene.hpp"
 #include "scenes/MainMenuScene.hpp"
 #include "scenes/PauseScene.hpp"
@@ -40,6 +41,7 @@ void Platformer::setGameEngineComponent()
     _gameEngine.registry.registerComponent<GameEngine::NetworkIdComponent>();
     _gameEngine.registry.registerComponent<GameEngine::GravityComponent>();
     _gameEngine.registry.registerComponent<GameEngine::HealthComponent>();
+    _gameEngine.registry.registerComponent<GameEngine::MusicComponent>();
 }
 
 void Platformer::setGameEngineSystem()
@@ -57,6 +59,7 @@ void Platformer::setGameEngineSystem()
     GameEngine::GravitySystem gravitySystem(_gameEngine.deltaTime.getDeltaTime());
     GameEngine::CameraSystem cameraSystem;
     GameEngine::AnimationSystem animationSystem(_gameEngine.deltaTime.getDeltaTime());
+    GameEngine::MusicSystem musicSystem;
 
     _gameEngine.registry.addSystem<std::function<void(SparseArray<GameEngine::TransformComponent> &,
                                        SparseArray<GameEngine::ControllableComponent> &)>,
@@ -84,6 +87,10 @@ void Platformer::setGameEngineSystem()
     _gameEngine.registry
         .addSystem<std::function<void(SparseArray<GameEngine::TextureComponent> &)>, GameEngine::TextureComponent>(
             animationSystem);
+
+    _gameEngine.registry
+        .addSystem<std::function<void(SparseArray<GameEngine::MusicComponent> &)>, GameEngine::MusicComponent>(
+            musicSystem);
 }
 
 void Platformer::setGameEngineScene()
@@ -95,10 +102,7 @@ void Platformer::setGameEngineScene()
     _gameEngine.sceneManager.loadScene("MainMenu");
 }
 
-void Platformer::setGameEngineFont()
-{
-    _gameEngine.assetManager.loadFont("Platformer/assets/8-bit fortress.ttf");
-}
+void Platformer::setGameEngineFont() { _gameEngine.assetManager.loadFont("Platformer/assets/8-bit fortress.ttf"); }
 
 void Platformer::setGameEnginePrefab()
 {

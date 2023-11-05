@@ -28,6 +28,9 @@ class PauseScene : public GameEngine::IScene
     void load() override;
     /// @brief unload the scene
     void unload() override;
+    /// @brief add entiries that have to be unloaded
+    /// @param entity entity that will be unloaded
+    void addEntityToUnload(GameEngine::Entity entity) override;
     /// @brief update the scene
     void update() override;
 

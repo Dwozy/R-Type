@@ -36,6 +36,9 @@ class GameScene : public GameEngine::IScene
     void unload() override;
     /// @brief update the scene
     void update() override;
+    /// @brief add entiries that have to be unloaded
+    /// @param entity entity that will be unloaded
+    void addEntityToUnload(GameEngine::Entity entity) override;
     /// @brief callback function of the player collision
     /// @param entityId id of the entity that hold the collision
     /// @param collisions SparseArray that contain all the collision components attached to a entity

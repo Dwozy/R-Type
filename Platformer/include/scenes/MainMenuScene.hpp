@@ -28,6 +28,9 @@ class MainMenuScene : public GameEngine::IScene
     void unload() override;
     /// @brief update the scene
     void update() override;
+    /// @brief add entiries that have to be unloaded
+    /// @param entity entity that will be unloaded
+    void addEntityToUnload(GameEngine::Entity entity) override;
 
   private:
     std::vector<GameEngine::Entity> _entities;

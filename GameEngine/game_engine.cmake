@@ -12,8 +12,10 @@ set(SRCS_LIB
     GameEngine/src/systems/AnimationSystem.cpp
     GameEngine/src/systems/GravitySystem.cpp
     GameEngine/src/systems/CameraSystem.cpp
+    GameEngine/src/systems/ScriptingSystem.cpp
     GameEngine/src/systems/InputSystem.cpp
     GameEngine/src/systems/DamageSystem.cpp
+    GameEngine/src/systems/MusicSystem.cpp
     GameEngine/src/SceneManager.cpp
     GameEngine/src/PrefabManager.cpp
 )
@@ -37,10 +39,12 @@ if(DEBUG)
 else()
     add_library(${LIBRARY_NAME} STATIC ${SRCS_LIB})
 endif()
-target_include_directories(${LIBRARY_NAME} PRIVATE ${INCLUDES_LIB})
+target_include_directories(${LIBRARY_NAME} PRIVATE ${INCLUDES_LIB} ${lua_SOURCE_DIR}/src)
 target_link_libraries(${LIBRARY_NAME} PRIVATE sfml-graphics sfml-audio sfml-system sfml-window)
 target_link_libraries(${LIBRARY_NAME} PRIVATE nlohmann_json::nlohmann_json)
 target_link_libraries(${LIBRARY_NAME} PRIVATE asio)
+target_link_libraries(${LIBRARY_NAME} PRIVATE lua::lua)
+target_link_libraries(${LIBRARY_NAME} PRIVATE sol2)
 
 if (DEFINED INSTALL)
     set(CPACK_PACKAGE_NAME "R-Type-Game-Engine")

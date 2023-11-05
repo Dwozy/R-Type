@@ -110,6 +110,8 @@ void GameScene::load()
     }
 }
 
+void GameScene::addEntityToUnload(GameEngine::Entity) {}
+
 void GameScene::unload()
 {
     camcpy = _gameEngine.registry.getComponent<GameEngine::CameraComponent>();

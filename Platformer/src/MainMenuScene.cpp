@@ -40,4 +40,6 @@ void MainMenuScene::unload()
     std::cout << "Unloading MainMenuScene" << std::endl;
 }
 
+void MainMenuScene::addEntityToUnload(GameEngine::Entity) {}
+
 void MainMenuScene::update() {}

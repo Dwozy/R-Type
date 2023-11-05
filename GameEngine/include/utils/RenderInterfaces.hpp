@@ -86,6 +86,8 @@ namespace GameEngine
         /// @brief Load music from a file
         /// @param filename The path to the music file
         virtual void load(const std::string &filename) = 0;
+        /// @brief play the loaded music
+        virtual void play() = 0;
     };
 
     /// @brief Interface for sprite
