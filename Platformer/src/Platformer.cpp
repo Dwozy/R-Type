@@ -12,6 +12,10 @@ Platformer::Platformer()
     _state = GameState::Mainmenu;
     isJumping = false;
     setGameEngine();
+    GameEngine::Entity musicHolder = _gameEngine.registry.spawnEntity();
+    GameEngine::MusicComponent music{"Platformer/assets/dungeon.wav", std::make_shared<GameEngine::Music>()};
+    music.music->load(music.path);
+    _gameEngine.registry.addComponent<GameEngine::MusicComponent>(musicHolder, music);
     gameLoop();
     isOpen = false;
 }
