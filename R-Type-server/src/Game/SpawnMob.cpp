@@ -37,12 +37,18 @@ namespace RType::Server
             std::chrono::duration_cast<std::chrono::duration<float>>(now - _timers["dop"]);
         std::chrono::duration<float> _deltaTimePatapata =
             std::chrono::duration_cast<std::chrono::duration<float>>(now - _timers["patapata"]);
+        double timerSimpleMob = 2.0 - (static_cast<double>(_points) / 100.0);
+        double timerMediumMob = 8.0 - (static_cast<double>(_points) / 75.0);
 
-        if (_deltaTimeDop.count() > 8.0) {
+        if (timerMediumMob < 1.0)
+            timerMediumMob = 1.0;
+        if (timerSimpleMob < 0.35)
+            timerSimpleMob = 0.35;
+        if (_deltaTimeDop.count() > timerMediumMob) {
             spawnEntityMob("dop", RType::TextureType::MEDIUM_MOB);
             _timers["dop"] = now;
         }
-        if (_deltaTimePatapata.count() > 2.0) {
+        if (_deltaTimePatapata.count() > timerSimpleMob) {
             spawnEntityMob("patapata", RType::TextureType::SIMPLE_MOB);
             _timers["patapata"] = now;
         }

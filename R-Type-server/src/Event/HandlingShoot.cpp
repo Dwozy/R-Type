@@ -48,7 +48,7 @@ namespace RType::Server
         auto now = std::chrono::steady_clock::now();
         std::chrono::duration<float> _deltaTimeChargedAttack =
             std::chrono::duration_cast<std::chrono::duration<float>>(now - _chargedAttackTimer.at(shootInfo.id).second);
-        std::cout << _deltaTimeChargedAttack.count() << std::endl;
+
         if (_deltaTimeChargedAttack.count() > 1.5)
             handleShootType("charged_shoot", shootInfo, RType::TextureType::CHARGED_SHOOT);
         else
