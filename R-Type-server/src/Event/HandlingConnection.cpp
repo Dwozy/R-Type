@@ -32,11 +32,11 @@ namespace RType::Server
         _nbPlayers++;
         if (!_nbPlayerTexture.empty()) {
             entityTexture.value().textureRects[0].top += ((_nbPlayerTexture.front() - 1) % 5) * 17;
-            _listIndexTexture.insert({static_cast<uint16_t> (entity), _nbPlayerTexture.front()});
+            _listIndexTexture.insert({static_cast<uint16_t>(entity), _nbPlayerTexture.front()});
             _nbPlayerTexture.erase(_nbPlayerTexture.begin());
         } else {
             entityTexture.value().textureRects[0].top += ((_nbPlayers - 1) % 5) * 17;
-            _listIndexTexture.insert({static_cast<uint16_t> (entity), _nbPlayers});
+            _listIndexTexture.insert({static_cast<uint16_t>(entity), _nbPlayers});
         }
         entityPos.value().position = GameEngine::Vector2<float>(25, 25);
         auto colliderCallback = std::bind(&RType::Server::RTypeServer::playerCollisionCallback, this,
