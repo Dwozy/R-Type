@@ -79,7 +79,8 @@ namespace RType::Client
 
     void RTypeClient::handleEndGame(struct RType::Event event)
     {
-        struct RType::Protocol::EndGameData endGameData = std::any_cast<struct RType::Protocol::EndGameData>(event.data);
+        struct RType::Protocol::EndGameData endGameData =
+            std::any_cast<struct RType::Protocol::EndGameData>(event.data);
         _gameEngine.eventManager
             .getHandler<struct RType::Protocol::EndGameData>(
                 static_cast<GameEngine::EventType>(GameEngine::Event::GetEndGame))

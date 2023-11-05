@@ -28,10 +28,12 @@ void PauseScene::load()
     _entities.push_back(buttonQuit);
     _entities.push_back(buttonRestart);
     _entities.push_back(textCamera);
-    GameEngine::TextComponent textTitle{"Pause", "Platformer/assets/8-bit fortress.ttf", 80, GameEngine::Text(), true, 50};
-    textTitle.text.load(textTitle.str, _gameEngine.assetManager.getFont("Platformer/assets/8-bit fortress.ttf").getFont(), textTitle.size);
-    textTitle.text.setPosition(GameEngine::Vector2<float>{
-        (1920 - textTitle.text.getLocalBounds().width) / 2, (1080 - textTitle.text.getLocalBounds().height) / 3 + 1000});
+    GameEngine::TextComponent textTitle{
+        "Pause", "Platformer/assets/8-bit fortress.ttf", 80, GameEngine::Text(), true, 50};
+    textTitle.text.load(textTitle.str,
+        _gameEngine.assetManager.getFont("Platformer/assets/8-bit fortress.ttf").getFont(), textTitle.size);
+    textTitle.text.setPosition(GameEngine::Vector2<float>{(1920 - textTitle.text.getLocalBounds().width) / 2,
+        (1080 - textTitle.text.getLocalBounds().height) / 3 + 1000});
     _gameEngine.registry.addComponent<GameEngine::TextComponent>(title, textTitle);
     _gameEngine.registry.addComponent<GameEngine::PressableComponent>(buttonResume,
         GameEngine::PressableComponent{GameEngine::Recti(0, 0, 48, 16), GameEngine::Recti(0, 0, 48, 16),

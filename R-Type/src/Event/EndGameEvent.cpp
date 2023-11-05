@@ -11,9 +11,9 @@ namespace RType::Client
 {
     void RTypeClient::setEndGameState(struct RType::Protocol::EndGameData endGameData)
     {
-        if (endGameData.endGameState == static_cast<uint8_t> (RType::GameState::WIN))
+        if (endGameData.endGameState == static_cast<uint8_t>(RType::GameState::WIN))
             _gameState = RType::GameState::WIN;
-        if (endGameData.endGameState == static_cast<uint8_t> (RType::GameState::LOSE))
+        if (endGameData.endGameState == static_cast<uint8_t>(RType::GameState::LOSE))
             _gameState = RType::GameState::LOSE;
     }
 
