@@ -19,7 +19,6 @@ class MainMenuScene : public GameEngine::IScene
     ~MainMenuScene() = default;
     void load() override;
     void unload() override;
-    void addEntityToUnload(GameEngine::Entity entity) override;
     void update() override;
 
   private:

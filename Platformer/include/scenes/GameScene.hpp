@@ -25,7 +25,6 @@ class GameScene : public GameEngine::IScene
     ~GameScene() = default;
     void load() override;
     void unload() override;
-    void addEntityToUnload(GameEngine::Entity entity) override;
     void update() override;
     void playerCollisionCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
         SparseArray<GameEngine::TransformComponent> &transforms, SparseArray<GameEngine::GravityComponent> &gravity,

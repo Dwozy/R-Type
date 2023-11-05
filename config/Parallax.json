@@ -17,20 +17,34 @@
         {
             "type": "TextureComponent",
             "value": {
-                "texturePath": "R-Type/assets/parallax.jpg",
+                "texturePath": "R-Type/assets/parallax.png",
                 "textureSize": {
                     "left": 0.0,
                     "top": 0.0,
-                    "width": 200.0,
+                    "width": 1080.0,
+                    "height": 1080.0
+                },
+                "textureRects": [
+                    {
+                        "left": 199.0,
+                        "top": 0.0,
+                        "width": 30.0,
+                        "height": 200.0
+                    }
+                ],
+                "renderLayer": 0
+            }
+        },
+        {
+            "type": "CollisionComponent",
+            "value": {
+                "collider": {
+                    "left": 199.0,
+                    "top": 0.0,
+                    "width": 30.0,
                     "height": 200.0
                 },
-                "textureRects": [{
-                    "left": 0.0,
-                    "top": 0.0,
-                    "width": 200.0,
-                    "height": 200.0
-                }],
-                "renderLayer": 0
+                "layer": 10
             }
         }
     ]

@@ -78,6 +78,4 @@ void PauseScene::unload()
     std::cout << "Unloading PauseScene" << std::endl;
 }
 
-void PauseScene::addEntityToUnload(GameEngine::Entity) {}
-
 void PauseScene::update() {}

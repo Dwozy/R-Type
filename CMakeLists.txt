@@ -56,24 +56,6 @@ if(DEBUG)
     message(CHECK_PASS "Done")
 endif()
 
-message(CHECK_START "Fetching lua...")
-FetchContent_Declare(
-  lua
-  GIT_REPOSITORY "https://github.com/marovira/lua.git"
-  GIT_TAG        "master"
-)
-FetchContent_MakeAvailable(lua)
-message(CHECK_PASS "Done")
-
-message(CHECK_START "Fetching sol2...")
-FetchContent_Declare(
-  sol2
-  GIT_REPOSITORY "https://github.com/ThePhD/sol2.git"
-  GIT_TAG        "main"
-)
-FetchContent_MakeAvailable(sol2)
-message(CHECK_PASS "Done")
-
 list(POP_BACK CMAKE_MESSAGE_INDENT)
 
 project(${PROJECT_NAME} LANGUAGES CXX)
