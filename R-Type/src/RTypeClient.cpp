@@ -16,6 +16,7 @@
 #include "components/PressableComponent.hpp"
 #include "components/NetworkIdComponent.hpp"
 #include "components/GravityComponent.hpp"
+#include "components/ScriptComponent.hpp"
 #include "systems/DrawSystem.hpp"
 #include "systems/PositionSystem.hpp"
 #include "systems/ControlSystem.hpp"
@@ -53,6 +54,11 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
 {
     _id = 0;
     setGameEngine();
+
+    GameEngine::Entity testScript = _gameEngine.registry.spawnEntity();
+    _gameEngine.registry.addComponent<GameEngine::ScriptComponent>(testScript, GameEngine::ScriptComponent{ "R-Type/src/scripts/test.lua" });
+    // _gameEngine.registry.addComponent<int>(testScript, 192);
+
     _gameEngine.prefabManager.loadPrefabFromFile("config/ParallaxCollision.json");
     _gameEngine.prefabManager.loadPrefabFromFile("config/Parallax.json");
 
