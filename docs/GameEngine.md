@@ -45,13 +45,6 @@ if (intArray[i])
 |key_right|GameEngine::Input::Keyboard::Key|Store the key which will be used to go right.|
 |speed|float|Speed to add to the velocity.|
 
-#### FontComponent
-
-|Name|Type|Description|
-|---|---|---|
-|path|std::string|Path to the font file.|
-|font|GameEngine::Font|Font to use.|
-
 #### MusicComponent
 
 |Name|Type|Description|

@@ -35,7 +35,6 @@ namespace RType::Client
         _gameEngine.registry.registerComponent<GameEngine::CameraComponent>();
         _gameEngine.registry.registerComponent<GameEngine::TextureComponent>();
         _gameEngine.registry.registerComponent<GameEngine::TextComponent>();
-        _gameEngine.registry.registerComponent<GameEngine::FontComponent>();
         _gameEngine.registry.registerComponent<GameEngine::PressableComponent>();
         _gameEngine.registry.registerComponent<GameEngine::NetworkIdComponent>();
         _gameEngine.registry.registerComponent<GameEngine::GravityComponent>();
@@ -46,6 +45,7 @@ namespace RType::Client
     {
         _gameEngine.prefabManager.loadPrefabFromFile("config/ParallaxCollision.json");
         _gameEngine.prefabManager.loadPrefabFromFile("config/Parallax.json");
+        _gameEngine.assetManager.loadFont("R-Type/fonts/Valoon.ttf");
     }
 
     void RTypeClient::setGameEngineCallback()

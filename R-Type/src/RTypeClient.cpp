@@ -33,20 +33,15 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
     setGameEngine();
     setupGame();
     GameEngine::Entity scoreTitle = _gameEngine.registry.spawnEntity();
-    GameEngine::Font _font;
-    _font.load("R-Type/fonts/Valoon.ttf");
-    GameEngine::FontComponent font{"R-Type/fonts/Valoon.ttf", _font};
-    GameEngine::TextComponent textTitle{"SCORE : ", 10, GameEngine::Text(), true, 10};
-    textTitle.text.load(textTitle.str, _font.getFont(), textTitle.size);
+    GameEngine::TextComponent textTitle{"SCORE : ", "R-Type/fonts/Valoon.ttf", 10, GameEngine::Text(), true, 10};
+    textTitle.text.load(textTitle.str, _gameEngine.assetManager.getFont("R-Type/fonts/Valoon.ttf").getFont(), textTitle.size);
     textTitle.text.setPosition(GameEngine::Vector2<float>{5, 5});
-    _gameEngine.registry.addComponent<GameEngine::FontComponent>(scoreTitle, font);
     _gameEngine.registry.addComponent<GameEngine::TextComponent>(scoreTitle, textTitle);
 
     GameEngine::Entity score = _gameEngine.registry.spawnEntity();
-    GameEngine::TextComponent text{std::to_string(_points), 10, GameEngine::Text(), true, 10};
-    text.text.load(text.str, _font.getFont(), text.size);
+    GameEngine::TextComponent text{std::to_string(_points), "R-Type/fonts/Valoon.ttf", 10, GameEngine::Text(), true, 10};
+    text.text.load(text.str, _gameEngine.assetManager.getFont("R-Type/fonts/Valoon.ttf").getFont(), text.size);
     text.text.setPosition(GameEngine::Vector2<float>{50, 5});
-    _gameEngine.registry.addComponent<GameEngine::FontComponent>(score, font);
     _gameEngine.registry.addComponent<GameEngine::TextComponent>(score, text);
     _scoreTextEntity = score;
 

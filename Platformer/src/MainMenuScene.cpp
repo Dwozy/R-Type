@@ -21,17 +21,13 @@ void MainMenuScene::load()
     _entities.push_back(title);
     _entities.push_back(textCamera);
     _entities.push_back(start);
-    GameEngine::FontComponent fontTitle{"Platformer/assets/8-bit fortress.ttf", _gameEngine.assetManager.getFont("Platformer/assets/8-bit fortress.ttf")};
-    GameEngine::TextComponent textTitle{"SCP 745 adventures", 100, GameEngine::Text(), true, 50};
-    GameEngine::FontComponent fontsubtitle{"Platformer/assets/8-bit fortress.ttf", _gameEngine.assetManager.getFont("Platformer/assets/8-bit fortress.ttf")};
-    GameEngine::TextComponent textsubTitle{"press escap to start", 75, GameEngine::Text(), true, 50};
+    GameEngine::TextComponent textTitle{"SCP 745 adventures", "Platformer/assets/8-bit fortress.ttf", 100, GameEngine::Text(), true, 50};
+    GameEngine::TextComponent textsubTitle{"press escap to start", "Platformer/assets/8-bit fortress.ttf", 75, GameEngine::Text(), true, 50};
     textTitle.text.load(textTitle.str, _gameEngine.assetManager.getFont("Platformer/assets/8-bit fortress.ttf").getFont(), textTitle.size);
     textsubTitle.text.load(textsubTitle.str, _gameEngine.assetManager.getFont("Platformer/assets/8-bit fortress.ttf").getFont(), textsubTitle.size);
     textTitle.text.setPosition(GameEngine::Vector2<float>{(1920 - textTitle.text.getLocalBounds().width) / 2, (1080 - textTitle.text.getLocalBounds().height) / 3 + 1000 });
     textsubTitle.text.setPosition(GameEngine::Vector2<float>{(1920 - textsubTitle.text.getLocalBounds().width) / 2, (1080 - textsubTitle.text.getLocalBounds().height) / 1.5f + 1000});
-    _gameEngine.registry.addComponent<GameEngine::FontComponent>(title, fontTitle);
     _gameEngine.registry.addComponent<GameEngine::TextComponent>(title, textTitle);
-    _gameEngine.registry.addComponent<GameEngine::FontComponent>(start, fontsubtitle);
     _gameEngine.registry.addComponent<GameEngine::TextComponent>(start, textsubTitle);
     std::cout << "Loading MainMenuScene" << std::endl;
 }

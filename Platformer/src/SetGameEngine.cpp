@@ -35,7 +35,6 @@ void Platformer::setGameEngineComponent()
     _gameEngine.registry.registerComponent<GameEngine::ControllableComponent>();
     _gameEngine.registry.registerComponent<GameEngine::CameraComponent>();
     _gameEngine.registry.registerComponent<GameEngine::TextureComponent>();
-    _gameEngine.registry.registerComponent<GameEngine::FontComponent>();
     _gameEngine.registry.registerComponent<GameEngine::TextComponent>();
     _gameEngine.registry.registerComponent<GameEngine::PressableComponent>();
     _gameEngine.registry.registerComponent<GameEngine::NetworkIdComponent>();
