@@ -23,6 +23,7 @@
 #include "systems/GravitySystem.hpp"
 #include "systems/AnimationSystem.hpp"
 #include "systems/InputSystem.hpp"
+#include "WinLoseScene.hpp"
 
 namespace RType::Client
 {
@@ -46,6 +47,8 @@ namespace RType::Client
     {
         _gameEngine.prefabManager.loadPrefabFromFile("config/ParallaxCollision.json");
         _gameEngine.prefabManager.loadPrefabFromFile("config/Parallax.json");
+        _gameEngine.prefabManager.loadPrefabFromFile("config/ButtonQuit.json");
+        _gameEngine.prefabManager.loadPrefabFromFile("config/MainCam.json");
     }
 
     void RTypeClient::setGameEngineCallback()
@@ -58,6 +61,7 @@ namespace RType::Client
         setInputCallback();
         setTextureStateCallback();
         setScoreCallback();
+        setEndGameCallback();
     }
 
     void RTypeClient::setGameEngineSystem()
@@ -104,11 +108,17 @@ namespace RType::Client
                 inputSystem);
     }
 
+    void RTypeClient::setGameEngineScene()
+    {
+        _gameEngine.sceneManager.registerScene("WinLose", std::make_unique<WinLoseScene>(_gameEngine, _win, isOpen));
+    }
+
     void RTypeClient::setGameEngine()
     {
         setGameEngineComponent();
         setGameEngineSystem();
         setGameEngineCallback();
+        setGameEngineScene();
         setPrefab();
     }
 

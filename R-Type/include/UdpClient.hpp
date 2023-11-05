@@ -30,6 +30,7 @@ namespace RType::Client
         void handleControllableComponent(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
         void handleTextureState(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
         void handleScore(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
+        void handleEndGame(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
 
         /// @brief Handle String
         /// @param header that contains the size of the payload

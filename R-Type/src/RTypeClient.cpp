@@ -49,7 +49,9 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
     _gameEngine.registry.addComponent<GameEngine::FontComponent>(score, font);
     _gameEngine.registry.addComponent<GameEngine::TextComponent>(score, text);
     _scoreTextEntity = score;
-
+    isOpen = false;
+    _endScene = true;
+    _gameState = RType::GameState::GAME;
     _isRunning = true;
     std::thread network(&RType::Client::RTypeClient::startNetwork, this, std::ref(_isRunning));
     network.detach();
@@ -87,7 +89,6 @@ void RType::Client::RTypeClient::runUdpServer()
 
 void RType::Client::RTypeClient::gameLoop()
 {
-    bool isOpen = false;
     GameEngine::PollEventStruct event;
 
     _gameEngine.eventManager.publish<bool &>(
@@ -102,9 +103,15 @@ void RType::Client::RTypeClient::gameLoop()
             _gameEngine.eventManager.publish<GameEngine::PollEventStruct &>(
                 static_cast<GameEngine::EventType>(GameEngine::Event::PollEvent), event);
         }
+        if (_gameState != RType::GameState::GAME && _endScene) {
+            _win = (_gameState == RType::GameState::WIN) ? true : false;
+            _gameEngine.sceneManager.loadScene("WinLose");
+            _endScene = false;
+        }
         if (_eventQueue.size() != 0)
             handleEvent();
         _gameEngine.registry.runSystems();
+        // _gameEngine.sceneManager.updateCurrentScene();
         _gameEngine.eventManager.publish<bool &>(
             static_cast<GameEngine::EventType>(GameEngine::Event::WindowIsOpen), isOpen);
     }

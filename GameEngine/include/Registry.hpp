@@ -215,6 +215,13 @@ namespace GameEngine
                 _systems[i]();
         }
 
+        /// @brief Return max entities
+        /// @return _maxEntities;
+        std::size_t getMaxEntities()
+        {
+            return _maxEntities;
+        }
+
       private:
         /// @brief Unordered map storing all the component's SparseArray.
         std::unordered_map<std::type_index, std::any> _container;

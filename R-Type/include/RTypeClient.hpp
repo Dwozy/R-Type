@@ -62,6 +62,11 @@ namespace RType::Client
         void setGameEngineCallback();
 
         void setGameEngine();
+        void setGameEngineScene();
+
+        void handleEndGame(struct RType::Event event);
+        void setEndGameState(struct RType::Protocol::EndGameData endGameData);
+        void setEndGameCallback();
 
         void setPrefab();
 
@@ -132,6 +137,11 @@ namespace RType::Client
         std::size_t _points;
         uint16_t _serverId;
         std::size_t _id;
+        bool _win;
+        bool isOpen;
+        bool _endScene;
+        std::vector<GameEngine::Entity> _entities;
+        RType::GameState _gameState;
         GameEngine::Input::InputType _lastInput;
         std::map<uint8_t, std::string> _listTextureTypePrefab;
         std::map<uint8_t, std::string> _listPathTextureId;

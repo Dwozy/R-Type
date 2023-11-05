@@ -12,6 +12,7 @@ set(SRCS_CLIENT
     ${CLIENT_FOLDER}/src/SetGameEngine.cpp
     ${CLIENT_FOLDER}/src/Event/DeleteEntityEvent.cpp
     ${CLIENT_FOLDER}/src/Event/InputEvent.cpp
+    ${CLIENT_FOLDER}/src/Event/EndGameEvent.cpp
     ${CLIENT_FOLDER}/src/Event/ScoreEvent.cpp
     ${CLIENT_FOLDER}/src/Event/StateTextureEvent.cpp
     ${CLIENT_FOLDER}/src/Event/TransformEvent.cpp
@@ -21,7 +22,7 @@ set(SRCS_CLIENT
     ${CLIENT_FOLDER}/src/Callback.cpp
     ${CLIENT_FOLDER}/src/SetupGame.cpp
     ${CLIENT_FOLDER}/src/EntityUtils.cpp
-
+    ${CLIENT_FOLDER}/src/WinLoseScene.cpp
 )
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/${PROJECT_NAME})
