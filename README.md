@@ -151,3 +151,4 @@ You can also double clicking on the executable, however you'll only use the defa
 # Credits
 
 R-Type music by **Aldric Jourdain** and **Damien Pham** (SNO!).
+SCP-Adventure music by **Aldric Jourdain** (originally from Shadowy Light).
