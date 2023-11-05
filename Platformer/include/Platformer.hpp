@@ -24,7 +24,7 @@ class Platformer
     void handleScreenChange();
     void handlePlayerMove();
     void handlePlayerjump();
-    void setGameEngineTexture();
+    void setGameEngineFont();
     void setGameEnginePrefab();
     void gameLoop();
 

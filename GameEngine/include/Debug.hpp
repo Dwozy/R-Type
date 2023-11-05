@@ -101,8 +101,6 @@ namespace Debug
         void _showCameraComponentMenu();
         /// @brief show a list of all the Collision components and the stored info
         void _showCollisionComponentMenu();
-        /// @brief show a list of all the Font components and the stored info
-        void _showFontComponentMenu();
         /// @brief show a list of all the Music components and the stored info
         void _showMusicComponentMenu();
         /// @brief show a list of all the Pressable components and the stored info

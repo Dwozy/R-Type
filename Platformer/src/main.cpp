@@ -9,6 +9,11 @@
 
 int main(int ac, char const *av[])
 {
-    Platformer game;
+    try {
+        Platformer game;
+    } catch (std::exception const &e) {
+        std::cerr << e.what() << std::endl;
+        return 84;
+    }
     return 0;
 }
