@@ -7,7 +7,6 @@
 
 #ifndef ISCENE_HPP_
 #define ISCENE_HPP_
-#include "Entity.hpp"
 
 namespace GameEngine
 {
@@ -18,7 +17,6 @@ namespace GameEngine
 
         virtual void load() = 0;
         virtual void unload() = 0;
-        virtual void addEntityToUnload(Entity entity) = 0;
         virtual void update() = 0;
     };
 } // namespace GameEngine

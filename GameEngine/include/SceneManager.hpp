@@ -39,8 +39,6 @@ namespace GameEngine
         /// @brief Updates the current scene.
         void updateCurrentScene();
 
-        void addEntityToCurrentSceneUnload(Entity entity);
-
       private:
         std::unordered_map<std::string, std::unique_ptr<IScene>> _scenes;
         std::string _currentScene;
