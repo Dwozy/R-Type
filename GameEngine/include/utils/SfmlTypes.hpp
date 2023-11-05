@@ -118,6 +118,9 @@ namespace GameEngine
     {
       public:
         /// @brief Constructor for Window
+#ifdef DEBUG
+/// @param debugMenu reference to the debug menu
+#endif
         /// @param width The width of the window
         /// @param height The height of the window
         /// @param title The title of the window
@@ -187,6 +190,7 @@ namespace GameEngine
         };
 
 #ifdef DEBUG
+        /// @brief initialize the ImGui-SFML context to be able to draw the Debug Menu
         void initDebug() override
         {
             if (!ImGui::SFML::Init(_window))
@@ -195,7 +199,9 @@ namespace GameEngine
             io.IniFilename = NULL;
             io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
         }
+        /// @brief Shutdown the ImGui-SFML context
         void shutdownDebug() override { ImGui::SFML::Shutdown(); }
+        /// @brief Update the ImGui-SFML context and draw the Debug Menu
         void drawDebug() override
         {
             ImGui::SFML::Update(_window, _debugClock.getClock().restart());
