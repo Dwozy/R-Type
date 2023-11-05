@@ -20,6 +20,7 @@ class WinLoseScene : public GameEngine::IScene
     ~WinLoseScene() = default;
     void load() override;
     void unload() override;
+    void update() override;
 
   private:
     GameEngine::Font _font;

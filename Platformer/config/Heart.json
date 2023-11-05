@@ -1,12 +1,12 @@
 {
-    "name": "spike",
+    "name": "heart",
     "components": [
         {
             "type": "TransformComponent",
             "value": {
                 "position": {
                     "x": 0.0,
-                    "y": 0.0
+                    "y": 500.0
                 },
                 "velocity": {
                     "x": 0.0,
@@ -17,27 +17,15 @@
         {
             "type": "TextureComponent",
             "value": {
-                "texturePath": "Platformer/assets/Spike.png",
+                "texturePath": "Platformer/assets/heart.png",
                 "textureRects": [],
                 "textureSize": {
                     "left": 0.0,
                     "top": 0.0,
-                    "width": 32.0,
-                    "height": 32.0
+                    "width": 17.0,
+                    "height": 17.0
                 },
-                "renderLayer": 2
-            }
-        },
-        {
-            "type": "CollisionComponent",
-            "value": {
-                "collider": {
-                    "left": 0.0,
-                    "top": 23.0,
-                    "width": 32.0,
-                    "height": 9.0
-                },
-                "layer": 20
+                "renderLayer": 8
             }
         }
     ]

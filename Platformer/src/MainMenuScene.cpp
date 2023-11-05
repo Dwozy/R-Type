@@ -41,3 +41,5 @@ void MainMenuScene::unload()
     _entities.clear();
     std::cout << "Unloading MainMenuScene" << std::endl;
 }
+
+void MainMenuScene::update() {}

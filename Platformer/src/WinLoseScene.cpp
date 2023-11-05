@@ -55,3 +55,5 @@ void WinLoseScene::unload()
     _entities.clear();
     std::cout << "Unloading WinLoseScene" << std::endl;
 }
+
+void WinLoseScene::update() {}

@@ -25,7 +25,7 @@ void Platformer::handlePlayerjump()
     if (!grav[_id].has_value())
         return;
     if (GameEngine::InputManager::isKeyPressed(GameEngine::Input::Keyboard::Space) && canJump && !isJumping) {
-        grav[_id]->cumulatedGVelocity.y = -100;
+        grav[_id]->cumulatedGVelocity.y = -110;
         canJump = false;
         isJumping = true;
     }
@@ -55,6 +55,7 @@ void Platformer::gameLoop()
         handleScreenChange();
         handlePlayerjump();
         handlePlayerMove();
+        _gameEngine.sceneManager.updateCurrentScene();
         _gameEngine.eventManager.publish<bool &>(
             static_cast<GameEngine::EventType>(GameEngine::Event::WindowIsOpen), isOpen);
     }

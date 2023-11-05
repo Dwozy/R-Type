@@ -10,7 +10,13 @@
 void Platformer::handleScreenChange()
 {
     static bool changable = true;
-    if (GameEngine::InputManager::isKeyPressed(GameEngine::Input::Keyboard::Escape) == true && changable == true) {
+
+    if (_state == GameState::win || _state == GameState::Lose) {
+        _gameEngine.sceneManager.unloadScene();
+        _gameEngine.sceneManager.loadScene("WinLose");
+        _state = GameState::Finnished;
+    }
+    if (GameEngine::InputManager::isKeyPressed(GameEngine::Input::Keyboard::Escape) && changable) {
         changable = false;
         if (_state == GameState::Mainmenu) {
             _gameEngine.sceneManager.unloadScene();
@@ -31,6 +37,6 @@ void Platformer::handleScreenChange()
             return;
         }
     }
-    if (GameEngine::InputManager::isKeyReleased(GameEngine::Input::Keyboard::Escape) == true)
+    if (GameEngine::InputManager::isKeyReleased(GameEngine::Input::Keyboard::Escape))
         changable = true;
 }

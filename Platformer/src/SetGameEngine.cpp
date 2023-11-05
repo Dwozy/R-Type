@@ -15,6 +15,7 @@
 #include "components/PressableComponent.hpp"
 #include "components/NetworkIdComponent.hpp"
 #include "components/GravityComponent.hpp"
+#include "components/HealthComponent.hpp"
 #include "systems/DrawSystem.hpp"
 #include "systems/PositionSystem.hpp"
 #include "systems/ControlSystem.hpp"
@@ -39,6 +40,7 @@ void Platformer::setGameEngineComponent()
     _gameEngine.registry.registerComponent<GameEngine::PressableComponent>();
     _gameEngine.registry.registerComponent<GameEngine::NetworkIdComponent>();
     _gameEngine.registry.registerComponent<GameEngine::GravityComponent>();
+    _gameEngine.registry.registerComponent<GameEngine::HealthComponent>();
 }
 
 void Platformer::setGameEngineCallback() {}
@@ -114,6 +116,9 @@ void Platformer::setGameEnginePrefab()
     _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/buttonResume.json");
     _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/buttonQuit.json");
     _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/buttonRestart.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/Heart.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/EndOfLevel.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/InvisibleWall.json");
 }
 
 void Platformer::setGameEngine()
