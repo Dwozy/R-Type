@@ -45,6 +45,14 @@ void WinLoseScene::load()
                     this->_gameEngine.eventManager.publish<bool &>(
                     static_cast<GameEngine::EventType>(GameEngine::Event::QuitEvent), _isOpen);
                 }});
+    auto &tfBRest = _gameEngine.registry.getComponent<GameEngine::TransformComponent>()[buttonRestart];
+    auto &tfBQ = _gameEngine.registry.getComponent<GameEngine::TransformComponent>()[buttonQuit];
+    auto &txBRest = _gameEngine.registry.getComponent<GameEngine::TextComponent>()[buttonRestart];
+    auto &txBQ = _gameEngine.registry.getComponent<GameEngine::TextComponent>()[buttonQuit];
+    if (tfBRest && txBRest)
+        txBRest->text.setPosition(GameEngine::Vector2{tfBRest->position.x + 733, tfBRest->position.y + 1590});
+    if (tfBQ && txBQ)
+        txBQ->text.setPosition(GameEngine::Vector2{tfBQ->position.x + 755, tfBQ->position.y + 1705});
     std::cout << "Loading WinLoseScene" << std::endl;
 }
 
