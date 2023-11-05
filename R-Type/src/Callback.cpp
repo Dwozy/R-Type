@@ -50,7 +50,7 @@ namespace RType::Client
                 continue;
             if (selfCol.value().collider.isColliding(
                     selfTsf.value().position, col.value().collider, tsf.value().position)) {
-                tsf.value().position.x = 199;
+                tsf.value().position.x += 398;
             }
         }
     }

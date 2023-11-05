@@ -53,7 +53,7 @@ void RType::Server::RTypeServer::handlingEndGame()
         _nbPlayers = 0;
         _isRunning = false;
     }
-    if (_points >= 1) {
+    if (_points >= 150) {
         struct RType::Protocol::EndGameData endGameData = {.endGameState = static_cast<uint8_t>(RType::GameState::WIN)};
         std::vector<std::byte> dataToSend =
             Serialization::serializeData<struct RType::Protocol::EndGameData>(endGameData, sizeof(endGameData));

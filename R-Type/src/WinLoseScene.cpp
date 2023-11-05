@@ -10,16 +10,9 @@
 
 void WinLoseScene::load()
 {
-    GameEngine::Entity background = _gameEngine.prefabManager.createEntityFromPrefab("parallax", _gameEngine.registry);
-    auto &textureParallax = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[background];
-    textureParallax->sprite.setScale(0.1851, 0.1851);
-
-    GameEngine::Entity cam = _gameEngine.prefabManager.createEntityFromPrefab("main_camera", _gameEngine.registry);
     GameEngine::Entity buttonQuit =
         _gameEngine.prefabManager.createEntityFromPrefab("button_quit", _gameEngine.registry);
     GameEngine::Entity title = _gameEngine.registry.spawnEntity();
-    _entities.push_back(background);
-    _entities.push_back(cam);
     _entities.push_back(title);
     _entities.push_back(buttonQuit);
     GameEngine::TextComponent textTitle{"default", "R-Type/fonts/Valoon.ttf", 25, GameEngine::Text(), true, 50};
