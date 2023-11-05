@@ -14,22 +14,20 @@ namespace RType::Server
         struct RType::Protocol::TextureResponse response =
             std::any_cast<struct RType::Protocol::TextureResponse>(event.data);
 
-        if (_listInfosComponent.find(response.id) != _listInfosComponent.end()) {
-            try {
-                _listInfosComponent[event.port]
-                    .at(response.id)
-                    .at(RType::Protocol::ComponentType::TEXTURE)[response.idTexture] = false;
-            } catch (const std::out_of_range &) {
-                return;
-            }
-        }
+        if (_listInfosComponent.find(event.port) == _listInfosComponent.end())
+            return;
+        if (_listInfosComponent[event.port].find(response.id) == _listInfosComponent[event.port].end())
+            return;
+        _listInfosComponent[event.port]
+            .at(response.id)
+            .at(RType::Protocol::ComponentType::TEXTURE)[response.idTexture] = false;
     }
 
     void RTypeServer::sendTextureComponent(
-        uint16_t id, std::size_t index, GameEngine::TextureComponent texture, asio::ip::udp::endpoint &endpoint)
+        uint16_t id, std::size_t index, GameEngine::TextureComponent &texture, asio::ip::udp::endpoint &endpoint)
     {
         struct RType::Protocol::TextureData textureData = {.id = id,
-            .idTexture = static_cast<uint8_t>(_listIdType.at(id)),
+            .idTexture = _listIdType.at(id),
             .idOrderTexture = static_cast<uint8_t>(index),
             .rectLeft = static_cast<uint16_t>(texture.textureRects[index].left),
             .rectTop = static_cast<uint16_t>(texture.textureRects[index].top),

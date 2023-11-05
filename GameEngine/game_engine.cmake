@@ -13,6 +13,7 @@ set(SRCS_LIB
     GameEngine/src/systems/GravitySystem.cpp
     GameEngine/src/systems/CameraSystem.cpp
     GameEngine/src/systems/InputSystem.cpp
+    GameEngine/src/systems/DamageSystem.cpp
     GameEngine/src/SceneManager.cpp
     GameEngine/src/PrefabManager.cpp
 )

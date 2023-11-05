@@ -24,15 +24,7 @@ namespace RType::Client
         std::vector<std::byte> data =
             Serialization::serializeData<RType::Protocol::InputData>(inputData, sizeof(inputData));
 
-        if (input.idInput == GameEngine::Input::InputType::SHOOT) {
-            if (input.state && _shoot) {
-                _shoot = false;
-                _udpClient.sendDataInformation(data, static_cast<uint8_t>(RType::Protocol::ComponentType::INPUT));
-            }
-            if (!input.state)
-                _shoot = true;
-        } else
-            _udpClient.sendDataInformation(data, static_cast<uint8_t>(RType::Protocol::ComponentType::INPUT));
+        _udpClient.sendDataInformation(data, static_cast<uint8_t>(RType::Protocol::ComponentType::INPUT));
     }
 
     void RTypeClient::setInputCallback()

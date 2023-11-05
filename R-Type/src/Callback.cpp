@@ -31,4 +31,28 @@ namespace RType::Client
         }
     }
 
+    void RTypeClient::parallaxCollision(const std::size_t &entityId,
+        SparseArray<GameEngine::CollisionComponent> &collisions,
+        SparseArray<GameEngine::TransformComponent> &transforms)
+    {
+        auto &selfCol = collisions[entityId];
+        auto &selfTsf = transforms[entityId];
+
+        if (!selfCol || !selfTsf)
+            return;
+        for (std::size_t i = 0; i < collisions.size(); i++) {
+            if (i == entityId)
+                continue;
+            auto &col = collisions[i];
+            auto &tsf = transforms[i];
+
+            if (!col || !tsf || !col.value().isActive || col.value().layer != 10)
+                continue;
+            if (selfCol.value().collider.isColliding(
+                    selfTsf.value().position, col.value().collider, tsf.value().position)) {
+                tsf.value().position.x = 199;
+            }
+        }
+    }
+
 } // namespace RType::Client

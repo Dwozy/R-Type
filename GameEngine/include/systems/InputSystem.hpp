@@ -17,7 +17,7 @@ namespace GameEngine
     class InputSystem
     {
       public:
-        InputSystem(EventManager &eventManager) : _eventManager(eventManager), _isPressed(false){};
+        InputSystem(EventManager &eventManager) : _eventManager(eventManager){};
         ~InputSystem() = default;
 
         void operator()(SparseArray<InputComponent> &inputs);
@@ -25,7 +25,6 @@ namespace GameEngine
 
       private:
         EventManager &_eventManager;
-        bool _isPressed;
     };
 } // namespace GameEngine
 

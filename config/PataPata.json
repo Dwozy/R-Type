@@ -15,6 +15,18 @@
             }
         },
         {
+            "type": "HealthComponent",
+            "value": {
+                "health": 7
+            }
+        },
+        {
+            "type": "DamageComponent",
+            "value": {
+                "damage": 1
+            }
+        },
+        {
             "type": "TextureComponent",
             "value": {
                 "texturePath": "R-Type/assets/pata_pata.gif",
@@ -24,55 +36,57 @@
                     "width": 533.0,
                     "height": 36.0
                 },
-                "textureRects": [{
-                    "left": 7.0,
-                    "top": 8.0,
-                    "width": 17.0,
-                    "height": 20.0
-                },
-                {
-                    "left": 40.0,
-                    "top": 8.0,
-                    "width": 17.0,
-                    "height": 20.0
-                },
-                {
-                    "left": 73.0,
-                    "top": 8.0,
-                    "width": 17.0,
-                    "height": 20.0
-                },
-                {
-                    "left": 106.0,
-                    "top": 8.0,
-                    "width": 17.0,
-                    "height": 20.0
-                },
-                {
-                    "left": 139.0,
-                    "top": 8.0,
-                    "width": 17.0,
-                    "height": 20.0
-                },
-                {
-                    "left": 172.0,
-                    "top": 8.0,
-                    "width": 17.0,
-                    "height": 20.0
-                },
-                {
-                    "left": 205.0,
-                    "top": 8.0,
-                    "width": 17.0,
-                    "height": 20.0
-                },
-                {
-                    "left": 238.0,
-                    "top": 8.0,
-                    "width": 17.0,
-                    "height": 20.0
-                }],
-                "renderLayer": 2,
+                "textureRects": [
+                    {
+                        "left": 7.0,
+                        "top": 8.0,
+                        "width": 17.0,
+                        "height": 20.0
+                    },
+                    {
+                        "left": 40.0,
+                        "top": 8.0,
+                        "width": 17.0,
+                        "height": 20.0
+                    },
+                    {
+                        "left": 73.0,
+                        "top": 8.0,
+                        "width": 17.0,
+                        "height": 20.0
+                    },
+                    {
+                        "left": 106.0,
+                        "top": 8.0,
+                        "width": 17.0,
+                        "height": 20.0
+                    },
+                    {
+                        "left": 139.0,
+                        "top": 8.0,
+                        "width": 17.0,
+                        "height": 20.0
+                    },
+                    {
+                        "left": 172.0,
+                        "top": 8.0,
+                        "width": 17.0,
+                        "height": 20.0
+                    },
+                    {
+                        "left": 205.0,
+                        "top": 8.0,
+                        "width": 17.0,
+                        "height": 20.0
+                    },
+                    {
+                        "left": 238.0,
+                        "top": 8.0,
+                        "width": 17.0,
+                        "height": 20.0
+                    }
+                ],
+                "renderLayer": 3,
                 "animated": true,
                 "animationSpeed": 0.25
             }

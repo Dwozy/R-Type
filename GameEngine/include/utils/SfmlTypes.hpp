@@ -19,6 +19,7 @@
     #include "Debug.hpp"
     #include <imgui.h>
     #include <imgui-SFML.h>
+    #include "Error.hpp"
 #endif
 
 namespace GameEngine
@@ -117,6 +118,9 @@ namespace GameEngine
     {
       public:
         /// @brief Constructor for Window
+#ifdef DEBUG
+/// @param debugMenu reference to the debug menu
+#endif
         /// @param width The width of the window
         /// @param height The height of the window
         /// @param title The title of the window
@@ -186,15 +190,18 @@ namespace GameEngine
         };
 
 #ifdef DEBUG
+        /// @brief initialize the ImGui-SFML context to be able to draw the Debug Menu
         void initDebug() override
         {
             if (!ImGui::SFML::Init(_window))
-                throw;
+                throw Error::ImGuiSFMLInitError();
             ImGuiIO &io = ImGui::GetIO();
             io.IniFilename = NULL;
             io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
         }
+        /// @brief Shutdown the ImGui-SFML context
         void shutdownDebug() override { ImGui::SFML::Shutdown(); }
+        /// @brief Update the ImGui-SFML context and draw the Debug Menu
         void drawDebug() override
         {
             ImGui::SFML::Update(_window, _debugClock.getClock().restart());
@@ -232,6 +239,17 @@ namespace GameEngine
             _text.setString(text);
             _text.setFont(font);
             _text.setCharacterSize(size);
+        }
+        void setPosition(const Vector2<float> &position)
+        {
+            _text.setPosition(static_cast<int>(position.x), static_cast<int>(position.y));
+        }
+        void setString(const std::string &string) { _text.setString(string); }
+
+        Rectf getLocalBounds() const
+        {
+            return Rectf(_text.getLocalBounds().left, _text.getLocalBounds().top, _text.getLocalBounds().width,
+                _text.getLocalBounds().height);
         }
 
       private:

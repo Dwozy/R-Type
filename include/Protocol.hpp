@@ -22,17 +22,31 @@ namespace RType::Protocol
         INPUT,
         COLLISION_RES,
         TEXTURE_RES,
+        TEXTURE_STATE
     };
+
+    enum class PacketType : uint8_t { STRING = 10, CONNEXION, DESTROY, SCORE };
 
     enum class InputType : uint8_t { UP = 0, RIGHT, DOWN, LEFT, SHOOT };
 
-    enum class TextureType : uint8_t { NONE = 1, PLAYER, SIMPLE_SHOOT, CHARGED_SHOOT, MOB };
+    enum class TextureType : uint8_t { NONE = 1, PLAYER, SIMPLE_SHOOT, CHARGED_SHOOT, SIMPLE_MOB, MEDIUM_MOB };
 
     struct InputData
     {
         uint16_t id;
         uint8_t inputId;
         uint8_t state;
+    };
+
+    struct ScoreData
+    {
+        uint16_t score;
+    };
+
+    struct StatePlayerData
+    {
+        uint16_t id;
+        uint8_t invincibility;
     };
 
     struct ControllableData

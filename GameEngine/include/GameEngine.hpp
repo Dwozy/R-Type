@@ -28,6 +28,7 @@
 #include "components/ControllableComponent.hpp"
 #include "components/TransformComponent.hpp"
 #include "components/GravityComponent.hpp"
+#include "components/HealthComponent.hpp"
 
 #ifdef DEBUG
     #include "Debug.hpp"
@@ -42,7 +43,7 @@ namespace GameEngine
 #ifdef DEBUG
         /// @brief Constructor for the game engine.
         /// @param maxEntities Maximum number of entities at once. Default value is 1024.
-        GameEngine(std::size_t maxEntities = 512)
+        GameEngine(std::size_t maxEntities = 1024)
             : registry(maxEntities), prefabManager(assetManager), debugMenu(eventManager, registry, deltaTime)
         {
             deltaTime.update();

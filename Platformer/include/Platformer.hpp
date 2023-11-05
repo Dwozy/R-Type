@@ -9,7 +9,7 @@
 #define PLATFORMER_HPP_
 #include "GameEngine.hpp"
 
-enum class GameState { Mainmenu, Pause, Game, win, Lose, Restart };
+enum class GameState { Mainmenu, Pause, Game, win, Lose, Restart, Finnished };
 
 class Platformer
 {
@@ -31,6 +31,8 @@ class Platformer
   private:
     GameState _state;
     GameEngine::GameEngine _gameEngine;
+    bool isOpen;
+    bool isJumping;
     std::size_t _id;
     std::size_t _score;
     std::size_t _hp;

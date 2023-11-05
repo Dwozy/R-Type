@@ -37,4 +37,9 @@ namespace GameEngine
         _scenes[_currentScene]->unload();
         _currentScene = "";
     }
+    void SceneManager::updateCurrentScene()
+    {
+        if (_scenes.contains(_currentScene))
+            _scenes[_currentScene]->update();
+    }
 } // namespace GameEngine

@@ -13,8 +13,8 @@ namespace RType::Client
 {
     void RTypeClient::setControllable(struct RType::Protocol::ControllableData controllableData)
     {
-        if (_searchEntity(controllableData.id)) {
-            std::size_t id = _findEntity(controllableData.id);
+        if (searchEntity(controllableData.id)) {
+            std::size_t id = findEntity(controllableData.id);
             GameEngine::Entity entity = _gameEngine.registry.getEntityById(id);
             auto &input = _gameEngine.registry.addComponent<GameEngine::InputComponent>(entity, {});
 
