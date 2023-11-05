@@ -71,7 +71,7 @@ namespace RType::Server
         void broadcastTextureComponent();
 
         void sendTextureComponent(
-            uint16_t id, std::size_t index, GameEngine::TextureComponent texture, asio::ip::udp::endpoint &endpoint);
+            uint16_t id, std::size_t index, GameEngine::TextureComponent &texture, asio::ip::udp::endpoint &endpoint);
 
         void handleTextureResponse(struct RType::Event event);
         void handleCollisionResponse(struct RType::Event event);
@@ -134,9 +134,12 @@ namespace RType::Server
         SafeQueue<struct RType::Event> _eventQueue;
         std::map<uint16_t, uint8_t> _listIdType;
         std::map<uint16_t, uint8_t> _listLifePoints;
+        std::map<uint16_t, uint8_t> _listIndexTexture;
         std::map<unsigned short, componentList> _listInfosComponent;
         std::map<std::string, std::chrono::steady_clock::time_point> _timers;
         std::map<uint16_t, std::pair<bool, std::chrono::steady_clock::time_point>> _timerLifePoint;
+        std::vector<std::size_t> _nbPlayerTexture;
+        std::map<uint16_t, std::pair<bool, std::chrono::steady_clock::time_point>> _chargedAttackTimer;
         std::size_t _nbPlayers;
         bool _chargedAttack;
         bool _killEnemy;

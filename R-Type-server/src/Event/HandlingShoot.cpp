@@ -36,7 +36,8 @@ namespace RType::Server
                 GameEngine::CollisionComponent, GameEngine::TransformComponent>(
                 _gameEngine.registry, destroyShootCallback);
 
-        shootPos->position = GameEngine::Vector2<float>(shootInfo.x + (rectPlayer.width / 2),
+        shootPos->position = GameEngine::Vector2<float>(
+            shootInfo.x + (rectPlayer.width / 2) - (shootCollider.value().collider.width / 2),
             shootInfo.y + (rectPlayer.height / 2) - (shootCollider.value().collider.height / 2));
         updateComponentInformation(shootEntity, typeShoot);
         broadcastEntityInformation(shootEntity);
@@ -44,11 +45,14 @@ namespace RType::Server
 
     void RTypeServer::handleShoot(struct RType::Protocol::ShootData shootInfo)
     {
-        _timers["charged"] = std::chrono::steady_clock::now();
-        if (_chargedAttack) {
+        auto now = std::chrono::steady_clock::now();
+        std::chrono::duration<float> _deltaTimeChargedAttack =
+            std::chrono::duration_cast<std::chrono::duration<float>>(now - _chargedAttackTimer.at(shootInfo.id).second);
+
+        if (_deltaTimeChargedAttack.count() > 1.5)
             handleShootType("charged_shoot", shootInfo, RType::TextureType::CHARGED_SHOOT);
-            _chargedAttack = false;
-        } else
+        else
             handleShootType("simple_shoot", shootInfo, RType::TextureType::SIMPLE_SHOOT);
+        _chargedAttackTimer.at(shootInfo.id).second = now;
     }
 } // namespace RType::Server

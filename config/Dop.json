@@ -17,7 +17,7 @@
         {
             "type": "HealthComponent",
             "value": {
-                "health": 30
+                "health": 50
             }
         },
         {
