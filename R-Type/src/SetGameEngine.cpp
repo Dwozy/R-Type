@@ -64,6 +64,7 @@ namespace RType::Client
         setInputCallback();
         setTextureStateCallback();
         setScoreCallback();
+        setEndGameCallback();
     }
 
     void RTypeClient::setGameEngineSystem()

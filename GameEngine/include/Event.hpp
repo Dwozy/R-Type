@@ -43,6 +43,7 @@ namespace GameEngine
         GetEntity,
         GetDestroy,
         SendInput,
+        GetEndGame,
         GetStateTexture,
         GetScore,
         DeleteEntity,
