@@ -37,6 +37,14 @@ namespace GameEngine
         _scenes[_currentScene]->unload();
         _currentScene = "";
     }
+
+    void SceneManager::addEntityToCurrentSceneUnload(Entity entity)
+    {
+        if (_scenes.find(_currentScene) == _scenes.end())
+            return;
+        _scenes[_currentScene]->addEntityToUnload(entity);
+    }
+
     void SceneManager::updateCurrentScene()
     {
         if (_scenes.contains(_currentScene))

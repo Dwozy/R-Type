@@ -15,6 +15,7 @@
 #include "components/PressableComponent.hpp"
 #include "components/NetworkIdComponent.hpp"
 #include "components/InputComponent.hpp"
+#include "components/ScriptComponent.hpp"
 #include "components/MusicComponent.hpp"
 #include "systems/DrawSystem.hpp"
 #include "systems/PositionSystem.hpp"
@@ -24,6 +25,7 @@
 #include "systems/GravitySystem.hpp"
 #include "systems/AnimationSystem.hpp"
 #include "systems/InputSystem.hpp"
+#include "systems/ScriptingSystem.hpp"
 #include "systems/MusicSystem.hpp"
 
 namespace RType::Client
@@ -41,6 +43,7 @@ namespace RType::Client
         _gameEngine.registry.registerComponent<GameEngine::NetworkIdComponent>();
         _gameEngine.registry.registerComponent<GameEngine::GravityComponent>();
         _gameEngine.registry.registerComponent<GameEngine::InputComponent>();
+        _gameEngine.registry.registerComponent<GameEngine::ScriptComponent>();
         _gameEngine.registry.registerComponent<GameEngine::MusicComponent>();
     }
 
@@ -78,11 +81,17 @@ namespace RType::Client
         GameEngine::GravitySystem gravitySystem(_gameEngine.deltaTime.getDeltaTime());
         GameEngine::AnimationSystem animationSystem(_gameEngine.deltaTime.getDeltaTime());
         GameEngine::InputSystem inputSystem(_gameEngine.eventManager);
+        auto scriptingSystem = std::make_shared<GameEngine::ScriptingSystem>(_gameEngine);
         GameEngine::MusicSystem musicSystem;
+
+        scriptingSystem->registerSetter(GameEngine::setTransformForLua);
+        scriptingSystem->registerSetter(GameEngine::setEntityForLua);
 
         _gameEngine.registry.addSystem<std::function<void(SparseArray<GameEngine::TransformComponent> &,
                                            SparseArray<GameEngine::ControllableComponent> &)>,
             GameEngine::TransformComponent, GameEngine::ControllableComponent>(controlSystem);
+
+        _gameEngine.registry.addSystem<GameEngine::ScriptingSystem, GameEngine::ScriptComponent>(scriptingSystem);
 
         _gameEngine.registry
             .addSystem<std::function<void(SparseArray<GameEngine::TransformComponent> &,

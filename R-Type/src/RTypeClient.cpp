@@ -16,6 +16,7 @@
 #include "components/PressableComponent.hpp"
 #include "components/NetworkIdComponent.hpp"
 #include "components/GravityComponent.hpp"
+#include "components/ScriptComponent.hpp"
 #include "components/MusicComponent.hpp"
 #include "systems/DrawSystem.hpp"
 #include "systems/PositionSystem.hpp"

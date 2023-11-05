@@ -20,6 +20,7 @@ class PauseScene : public GameEngine::IScene
     ~PauseScene() = default;
     void load() override;
     void unload() override;
+    void addEntityToUnload(GameEngine::Entity entity) override;
     void update() override;
 
   private:
