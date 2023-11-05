@@ -233,6 +233,10 @@ void GameScene::unload()
 
 void GameScene::update()
 {
+    auto &playerHealth = _gameEngine.registry.getComponent<GameEngine::HealthComponent>()[_id];
+    if (playerHealth && playerHealth->health <= 0) {
+        _state = GameState::Lose;
+    }
     for (auto iter = _entities.begin(); iter != _entities.end();) {
         auto &hth = _gameEngine.registry.getComponent<GameEngine::HealthComponent>()[*iter];
         if (hth && hth->health <= 0) {
