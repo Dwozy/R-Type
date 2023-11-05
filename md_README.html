@@ -68,42 +68,42 @@ $(function() {
 <div class="textblock"><p><a href="https://github.com/Dwozy/R-Type/releases"><img src="https://img.shields.io/github/v/release/Dwozy/R-Type?sort=semver" alt="release" class="inline"/></a> <a href="https://dwozy.github.io/R-Type/"><img src="https://img.shields.io/static/v1?label=Documentation&amp;message=reference&amp;color=blue" alt="Documentation" class="inline"/></a> <a href="https://github.com/Dwozy/R-Type/actions/workflows/Tests.yml"><img src="https://github.com/Dwozy/R-Type/actions/workflows/Tests.yml/badge.svg" alt="Tests" style="pointer-events: none;" class="inline"/></a></p>
 <p>R-type is a multiplayer 2D shoot'em up game. The game is separated in two part: the client that display the game to the user, and the server who handle connections and running the game.</p>
 <p>This repository contains the game R-type, the server program for R-Type, the Game Engine and a sample platformer game.</p>
-<h1><a class="anchor" id="autotoc_md30"></a>
+<h1><a class="anchor" id="autotoc_md29"></a>
 Exchange protocol</h1>
 <p>The R-Type client and server respect a protocol detailed <a class="el" href="md_docs_Protocol.html">here</a></p>
 <p>For any creation of new clients or server programs, the protocol must be respected otherwise it will not be compatible.</p>
-<h1><a class="anchor" id="autotoc_md31"></a>
+<h1><a class="anchor" id="autotoc_md30"></a>
 Game engine</h1>
 <p>The R-Type Game Engine is the game engine used to build the R-Type client and server program. It is composed of a static library and headers files. You can use the game engine to create a variety of games.</p>
 <p>To use the game engine, refer to <a class="el" href="md_docs_GameEngine.html">this documentation</a> or the <a href="https://dwozy.github.io/R-Type/namespaceGameEngine.html">reference</a>.</p>
-<h1><a class="anchor" id="autotoc_md32"></a>
+<h1><a class="anchor" id="autotoc_md31"></a>
 Downloading</h1>
 <p>There is two ways to get each part of the game:</p>
-<h2><a class="anchor" id="autotoc_md33"></a>
+<h2><a class="anchor" id="autotoc_md32"></a>
 Get the release</h2>
 <p>Go to the latest release, you can download the archieve or an installer for each part of R-Type (client, server, game engine or sample game) depending on your platform.</p>
-<h3><a class="anchor" id="autotoc_md34"></a>
+<h3><a class="anchor" id="autotoc_md33"></a>
 On Linux</h3>
-<h4><a class="anchor" id="autotoc_md35"></a>
+<h4><a class="anchor" id="autotoc_md34"></a>
 Archive</h4>
 <p>Extract the archive, you will find the program in the main folder.</p>
-<h3><a class="anchor" id="autotoc_md36"></a>
+<h3><a class="anchor" id="autotoc_md35"></a>
 Script</h3>
 <p>First you'll need to add execution permission to the installation script (ending in <code>.sh</code>) this way: </p><div class="fragment"><div class="line">chmod +x [script].sh</div>
 </div><!-- fragment --><p>The you can execute the script like this: </p><div class="fragment"><div class="line">`./[script].sh</div>
 </div><!-- fragment --><p>You'll find a new folder with the part your wanted inside, the program will directly be inside.</p>
-<h3><a class="anchor" id="autotoc_md37"></a>
+<h3><a class="anchor" id="autotoc_md36"></a>
 On Windows</h3>
-<h4><a class="anchor" id="autotoc_md38"></a>
+<h4><a class="anchor" id="autotoc_md37"></a>
 Archive</h4>
 <p>Extract the archive, you will find the program in the main folder.</p>
-<h4><a class="anchor" id="autotoc_md39"></a>
+<h4><a class="anchor" id="autotoc_md38"></a>
 Installer</h4>
 <p>Launch the installer and follow the instructions. <img src="readme_assets/Installer_start.png" alt="Start of installation" title="Start of installation" class="inline"/></p>
 <p>Later select the components (bin is mandatory) <img src="readme_assets/Installer_component.png" alt="Components" title="Make sure bin is selected" class="inline"/></p>
-<h2><a class="anchor" id="autotoc_md40"></a>
+<h2><a class="anchor" id="autotoc_md39"></a>
 Build from source</h2>
-<h3><a class="anchor" id="autotoc_md41"></a>
+<h3><a class="anchor" id="autotoc_md40"></a>
 On Linux</h3>
 <p><b>Requirements</b>:</p><ul>
 <li>freetype</li>
@@ -133,7 +133,7 @@ On Linux</h3>
 <li>tests</li>
 </ul>
 <p>You'll then have the corresponding binary/library in the R-Type folder for the client, the R-Type-server folder for the server, the <a class="el" href="classPlatformer.html">Platformer</a> folder for the sample platformer game, the GameEngine/GameEngine/lib folder for the game engine and tests folder for the unit tests.</p>
-<h3><a class="anchor" id="autotoc_md42"></a>
+<h3><a class="anchor" id="autotoc_md41"></a>
 On Windows</h3>
 <p><b>Requiremants</b>:</p><ul>
 <li>cmake</li>
@@ -151,27 +151,30 @@ On Windows</h3>
 <li>tests</li>
 </ul>
 <p>You'll then have the corresponding binary/library in the R-Type folder for the client, the R-Type-server folder for the server, the <a class="el" href="classPlatformer.html">Platformer</a> folder for the sample platformer game, the <a class="el" href="namespaceGameEngine.html">GameEngine</a>\GameEngine\lib folder for the game engine and tests folder for the unit tests.</p>
-<h1><a class="anchor" id="autotoc_md43"></a>
+<h1><a class="anchor" id="autotoc_md42"></a>
 Usage</h1>
 <p><b>Important</b>: Always run the executable alongside the .dll files on windows. For Linux, you should run the binary with the .so files alongside it or as is if you're building from source.</p>
-<h2><a class="anchor" id="autotoc_md44"></a>
+<h2><a class="anchor" id="autotoc_md43"></a>
 Linux</h2>
-<h3><a class="anchor" id="autotoc_md45"></a>
+<h3><a class="anchor" id="autotoc_md44"></a>
 Server</h3>
 <div class="fragment"><div class="line">./r-type_server [port (default: 8080)]</div>
-</div><!-- fragment --> <h3><a class="anchor" id="autotoc_md46"></a>
+</div><!-- fragment --> <h3><a class="anchor" id="autotoc_md45"></a>
 Client</h3>
 <p>You should always run from a folder containing the <code>R-Type/assets</code> folder. </p><div class="fragment"><div class="line">./r-type_client [ip (default: 127.0.0.1)] [port (default: 8080)]</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md47"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md46"></a>
 Windows</h2>
-<h3><a class="anchor" id="autotoc_md48"></a>
+<h3><a class="anchor" id="autotoc_md47"></a>
 Server</h3>
 <div class="fragment"><div class="line">.\r-type_server.exe [port (default: 8080)]</div>
 </div><!-- fragment --><p> You can also double clicking on the executable, however you'll only use the default parameters this way. </p>
-<h3><a class="anchor" id="autotoc_md49"></a>
+<h3><a class="anchor" id="autotoc_md48"></a>
 Client</h3>
 <p>You should always run from a folder containing the <code>R-Type/assets</code> folder. </p><div class="fragment"><div class="line">./r-type_client.exe [ip (default: 127.0.0.1)] [port (default: 8080)]</div>
-</div><!-- fragment --><p> You can also double clicking on the executable, however you'll only use the default parameters this way. </p>
+</div><!-- fragment --><p> You can also double clicking on the executable, however you'll only use the default parameters this way.</p>
+<h1><a class="anchor" id="autotoc_md49"></a>
+Credits</h1>
+<p>R-Type music by <b>Aldric Jourdain</b> and <b>Damien Pham</b> (SNO!). SCP-Adventure music by <b>Aldric Jourdain</b> (originally from Shadowy Light). </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->

@@ -84,6 +84,7 @@ Inheritance diagram for GameEngine::IScene:</div>
 <area href="classMainMenuScene.html" alt="MainMenuScene" shape="rect" coords="138,56,266,80"/>
 <area href="classPauseScene.html" alt="PauseScene" shape="rect" coords="276,56,404,80"/>
 <area href="classWinLoseScene.html" alt="WinLoseScene" shape="rect" coords="414,56,542,80"/>
+<area href="classWinLoseScene.html" alt="WinLoseScene" shape="rect" coords="552,56,680,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -95,6 +96,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a32156b00cfd7638652cb94d56df2129b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae4e76a77faef9e17d15ff8c80dcca0ed"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1IScene.html#ae4e76a77faef9e17d15ff8c80dcca0ed">unload</a> ()=0</td></tr>
 <tr class="separator:ae4e76a77faef9e17d15ff8c80dcca0ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17c90907910282f1b3d4164e03b08ba4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1IScene.html#a17c90907910282f1b3d4164e03b08ba4">addEntityToUnload</a> (<a class="el" href="classGameEngine_1_1Entity.html">Entity</a> entity)=0</td></tr>
+<tr class="separator:a17c90907910282f1b3d4164e03b08ba4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac3a8495f6c0a32414716419d1421b96a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1IScene.html#ac3a8495f6c0a32414716419d1421b96a">update</a> ()=0</td></tr>
 <tr class="separator:ac3a8495f6c0a32414716419d1421b96a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -125,6 +128,34 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a17c90907910282f1b3d4164e03b08ba4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17c90907910282f1b3d4164e03b08ba4">&#9670;&nbsp;</a></span>addEntityToUnload()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void GameEngine::IScene::addEntityToUnload </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classGameEngine_1_1Entity.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classWinLoseScene.html#afa245c818aad052b2a3332febe67b2d8">WinLoseScene</a>, <a class="el" href="classWinLoseScene.html#afa245c818aad052b2a3332febe67b2d8">WinLoseScene</a>, <a class="el" href="classPauseScene.html#a09c3f8ab348ce0a00fa5a0142de842d8">PauseScene</a>, <a class="el" href="classMainMenuScene.html#a441df568b3d9aeda481472723c59e2aa">MainMenuScene</a>, and <a class="el" href="classGameScene.html#a37d0cace7682832428cf67880f16d817">GameScene</a>.</p>
+
+</div>
+</div>
 <a id="a32156b00cfd7638652cb94d56df2129b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a32156b00cfd7638652cb94d56df2129b">&#9670;&nbsp;</a></span>load()</h2>
 
@@ -148,7 +179,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classWinLoseScene.html#a0aa8c45c6502a7db7d7c3845aea75ed9">WinLoseScene</a>, <a class="el" href="classPauseScene.html#a7c6f0c5de6cca5c3cd105897fd1035e1">PauseScene</a>, <a class="el" href="classMainMenuScene.html#a39eaf5550b2463bd941fb1c33813c1ee">MainMenuScene</a>, and <a class="el" href="classGameScene.html#af3087589682f41f91a4181ad2f3e7c3c">GameScene</a>.</p>
+<p>Implemented in <a class="el" href="classWinLoseScene.html#a0aa8c45c6502a7db7d7c3845aea75ed9">WinLoseScene</a>, <a class="el" href="classWinLoseScene.html#a0aa8c45c6502a7db7d7c3845aea75ed9">WinLoseScene</a>, <a class="el" href="classPauseScene.html#a7c6f0c5de6cca5c3cd105897fd1035e1">PauseScene</a>, <a class="el" href="classMainMenuScene.html#a39eaf5550b2463bd941fb1c33813c1ee">MainMenuScene</a>, and <a class="el" href="classGameScene.html#af3087589682f41f91a4181ad2f3e7c3c">GameScene</a>.</p>
 
 </div>
 </div>
@@ -175,7 +206,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classWinLoseScene.html#a14fd6e09c94ed8f9e058e84b6cf2c607">WinLoseScene</a>, <a class="el" href="classPauseScene.html#a6f0c64733be90e510abd36a715c661e3">PauseScene</a>, <a class="el" href="classMainMenuScene.html#a58b4048790ef5a8126c160e338f1af92">MainMenuScene</a>, and <a class="el" href="classGameScene.html#ab0ae5e85af5cba7e2ff44636c95118f4">GameScene</a>.</p>
+<p>Implemented in <a class="el" href="classWinLoseScene.html#a14fd6e09c94ed8f9e058e84b6cf2c607">WinLoseScene</a>, <a class="el" href="classWinLoseScene.html#a14fd6e09c94ed8f9e058e84b6cf2c607">WinLoseScene</a>, <a class="el" href="classPauseScene.html#a6f0c64733be90e510abd36a715c661e3">PauseScene</a>, <a class="el" href="classMainMenuScene.html#a58b4048790ef5a8126c160e338f1af92">MainMenuScene</a>, and <a class="el" href="classGameScene.html#ab0ae5e85af5cba7e2ff44636c95118f4">GameScene</a>.</p>
 
 </div>
 </div>
@@ -202,7 +233,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classWinLoseScene.html#a6156ad515ca02556a56c1e0050d63aee">WinLoseScene</a>, <a class="el" href="classPauseScene.html#a1a75448b06fb508b41289e9500aad98f">PauseScene</a>, <a class="el" href="classMainMenuScene.html#a8d767eeae7d00a48f781c2704f37b53d">MainMenuScene</a>, and <a class="el" href="classGameScene.html#a70464c5d4ccd05d39a9cb168e332c93a">GameScene</a>.</p>
+<p>Implemented in <a class="el" href="classWinLoseScene.html#a6156ad515ca02556a56c1e0050d63aee">WinLoseScene</a>, <a class="el" href="classWinLoseScene.html#a6156ad515ca02556a56c1e0050d63aee">WinLoseScene</a>, <a class="el" href="classPauseScene.html#a1a75448b06fb508b41289e9500aad98f">PauseScene</a>, <a class="el" href="classMainMenuScene.html#a8d767eeae7d00a48f781c2704f37b53d">MainMenuScene</a>, and <a class="el" href="classGameScene.html#a70464c5d4ccd05d39a9cb168e332c93a">GameScene</a>.</p>
 
 </div>
 </div>

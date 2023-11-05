@@ -116,16 +116,6 @@ ControllableComponent</h3>
 <td class="markdownTableBodyNone">speed   </td><td class="markdownTableBodyNone">float   </td><td class="markdownTableBodyNone">Speed to add to the velocity.   </td></tr>
 </table>
 <h3><a class="anchor" id="autotoc_md6"></a>
-FontComponent</h3>
-<table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Name   </th><th class="markdownTableHeadNone">Type   </th><th class="markdownTableHeadNone">Description    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">path   </td><td class="markdownTableBodyNone">std::string   </td><td class="markdownTableBodyNone">Path to the font file.    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">font   </td><td class="markdownTableBodyNone"><a class="el" href="classGameEngine_1_1Font.html" title="Class representing a font wrapper for sf::Font.">GameEngine::Font</a>   </td><td class="markdownTableBodyNone">Font to use.   </td></tr>
-</table>
-<h3><a class="anchor" id="autotoc_md7"></a>
 MusicComponent</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -135,7 +125,7 @@ MusicComponent</h3>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">music   </td><td class="markdownTableBodyNone"><a class="el" href="classGameEngine_1_1Music.html" title="Class representing a music wrapper for sf::Music.">GameEngine::Music</a>   </td><td class="markdownTableBodyNone">Music to use.   </td></tr>
 </table>
-<h3><a class="anchor" id="autotoc_md8"></a>
+<h3><a class="anchor" id="autotoc_md7"></a>
 PressableComponent</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -153,7 +143,7 @@ PressableComponent</h3>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">action   </td><td class="markdownTableBodyNone">std::function&lt;void()&gt;   </td><td class="markdownTableBodyNone">Function for the callback of the button when pressed. Can store a lambda, which call another function with different parameters   </td></tr>
 </table>
-<h3><a class="anchor" id="autotoc_md9"></a>
+<h3><a class="anchor" id="autotoc_md8"></a>
 TextComponent</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -169,7 +159,7 @@ TextComponent</h3>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">renderLayer   </td><td class="markdownTableBodyNone">std::size_t   </td><td class="markdownTableBodyNone">Priority for the rendering of the text, the lowest layer is render first.   </td></tr>
 </table>
-<h3><a class="anchor" id="autotoc_md10"></a>
+<h3><a class="anchor" id="autotoc_md9"></a>
 TextureComponent</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -193,7 +183,7 @@ TextureComponent</h3>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">renderLayer   </td><td class="markdownTableBodyNone">std::size_t   </td><td class="markdownTableBodyNone">Priority for the rendering of the text, the lowest layer is render first.   </td></tr>
 </table>
-<h3><a class="anchor" id="autotoc_md11"></a>
+<h3><a class="anchor" id="autotoc_md10"></a>
 TransformComponent</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -203,7 +193,7 @@ TransformComponent</h3>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">velocity   </td><td class="markdownTableBodyNone">GameEngine::Vector2&lt;float&gt;   </td><td class="markdownTableBodyNone">Velocity of the entity.   </td></tr>
 </table>
-<h2><a class="anchor" id="autotoc_md12"></a>
+<h2><a class="anchor" id="autotoc_md11"></a>
 Systems</h2>
 <p>The systems can be functions, lambdas or classes which implements the <code>operator()</code> overload. They can take <code><a class="el" href="classSparseArray.html" title="Array which can have empty indexes.">SparseArray</a></code>s as parameter, and they will be automatically be passed when you register them using the <code>addSystem</code> method of the registry. To use your added systems in the game loop, call the <code>runSystems</code> method of the registry. Systems will be called in the same order as when they were added. Example of a system addition and run : </p><div class="fragment"><div class="line"> {c++}</div>
 <div class="line">GameEngine::PositionSystem positionSystem(_gameEngine.deltaTime.getDeltaTime());</div>
@@ -214,28 +204,28 @@ Systems</h2>
 <div class="line">// Game loop</div>
 <div class="line">while (1)</div>
 <div class="line">    gameEngine.registry.runSystems();</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md13"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md12"></a>
 AnimationSystem</h3>
 <p>This system will handle the animation of the texture. The class takes a reference to the DeltaTime and the method that overload the <code>operator()</code> takes as parameter the <code>TextureComponent</code>'s <code><a class="el" href="classSparseArray.html" title="Array which can have empty indexes.">SparseArray</a></code>.</p>
-<h3><a class="anchor" id="autotoc_md14"></a>
+<h3><a class="anchor" id="autotoc_md13"></a>
 CollisionSystem</h3>
 <p>This system calls all the callback functions contained in the <code>CollisionComponent</code> if the collision is active. It takes as parameter the <code>CollisionComponent</code>'s <code><a class="el" href="classSparseArray.html" title="Array which can have empty indexes.">SparseArray</a></code>.</p>
-<h3><a class="anchor" id="autotoc_md15"></a>
+<h3><a class="anchor" id="autotoc_md14"></a>
 ControlSystem</h3>
 <p>This system updates the velocity of the entity based on the inputs. It takes as parameter the <code>TransformComponent</code> and <code>ControllableComponent</code>'s <code><a class="el" href="classSparseArray.html" title="Array which can have empty indexes.">SparseArray</a></code>.</p>
-<h3><a class="anchor" id="autotoc_md16"></a>
+<h3><a class="anchor" id="autotoc_md15"></a>
 DrawSystem</h3>
 <p>This system draws the entity texture and text on the screen based on the <code>renderLayer</code>. It takes as parameter the <code>TextComponent</code> and <code>TextureComponent</code>'s <code><a class="el" href="classSparseArray.html" title="Array which can have empty indexes.">SparseArray</a></code>. This system have to be register with the second method which takes an <code>std::shared_ptr</code> conataining the system class.</p>
-<h3><a class="anchor" id="autotoc_md17"></a>
+<h3><a class="anchor" id="autotoc_md16"></a>
 PositionSystem</h3>
 <p>This system updates the position of the entity based on the velocity and moves the entity's texture if the entity have one. It takes as parameter the <code>TransformComponent</code> and <code>TextureComponent</code>'s <code><a class="el" href="classSparseArray.html" title="Array which can have empty indexes.">SparseArray</a></code>.</p>
-<h3><a class="anchor" id="autotoc_md18"></a>
+<h3><a class="anchor" id="autotoc_md17"></a>
 PressableComponent</h3>
 <p>This system updates the state of the pressable and calls the callback action if the button is pressed. It takes as parameter the <code>TransformComponent</code>, <code>TextureComponent</code> and <code>PressableComponent</code>'s <code><a class="el" href="classSparseArray.html" title="Array which can have empty indexes.">SparseArray</a></code>.</p>
-<h1><a class="anchor" id="autotoc_md19"></a>
+<h1><a class="anchor" id="autotoc_md18"></a>
 Game engine</h1>
 <p>The game engine class is a class containing all the classes that the game needs.</p>
-<h2><a class="anchor" id="autotoc_md20"></a>
+<h2><a class="anchor" id="autotoc_md19"></a>
 EventManager</h2>
 <p>Class managing events to comunicate in the game engine. Each event can have one or more callbacks that will be called when the event is published.</p>
 <p>Each event types are described in the <code>Event</code> enum with the type <code>EventType</code>.</p>
@@ -262,21 +252,21 @@ EventManager</h2>
 <div class="line"><span class="comment">// Add a callback function</span></div>
 <div class="line">myHandler.subscribe(myCallback);</div>
 <div class="line">MyCallbackDataType</div>
-<div class="ttc" id="aclassGameEngine_1_1EventHandler_html"><div class="ttname"><a href="classGameEngine_1_1EventHandler.html">GameEngine::EventHandler</a></div><div class="ttdoc">class that store all the callback functions for a specific event type</div><div class="ttdef"><b>Definition:</b> Event.hpp:89</div></div>
+<div class="ttc" id="aclassGameEngine_1_1EventHandler_html"><div class="ttname"><a href="classGameEngine_1_1EventHandler.html">GameEngine::EventHandler</a></div><div class="ttdoc">class that store all the callback functions for a specific event type</div><div class="ttdef"><b>Definition:</b> Event.hpp:90</div></div>
 </div><!-- fragment --><p>Then now if the user wants to call the callbacks of the event he must call the <code>publish</code> methode</p>
 <p>Publish event exemple </p><div class="fragment"><div class="line"><span class="comment">// Pass the data to the callbacks</span></div>
 <div class="line">myHandler.<a class="code" href="classGameEngine_1_1EventHandler.html#a085f6fff9072360a9e73a51a0aa42031">publish</a>(MyCallbackDataType());</div>
-<div class="ttc" id="aclassGameEngine_1_1EventHandler_html_a085f6fff9072360a9e73a51a0aa42031"><div class="ttname"><a href="classGameEngine_1_1EventHandler.html#a085f6fff9072360a9e73a51a0aa42031">GameEngine::EventHandler::publish</a></div><div class="ttdeci">void publish(EventData eventData)</div><div class="ttdoc">call all the subscribed functions with the given eventData</div><div class="ttdef"><b>Definition:</b> Event.hpp:99</div></div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md21"></a>
+<div class="ttc" id="aclassGameEngine_1_1EventHandler_html_a085f6fff9072360a9e73a51a0aa42031"><div class="ttname"><a href="classGameEngine_1_1EventHandler.html#a085f6fff9072360a9e73a51a0aa42031">GameEngine::EventHandler::publish</a></div><div class="ttdeci">void publish(EventData eventData)</div><div class="ttdoc">call all the subscribed functions with the given eventData</div><div class="ttdef"><b>Definition:</b> Event.hpp:100</div></div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md20"></a>
 Registry</h2>
 <p>This is the Entity Component System described above.</p>
-<h2><a class="anchor" id="autotoc_md22"></a>
+<h2><a class="anchor" id="autotoc_md21"></a>
 DeltaTime</h2>
 <p>Class which handles the delta time, it needs to be update at the begininf of the game loop with the method <code>update</code>. To get the delta time, simply use the <code>getDeltaTime</code> method.</p>
-<h2><a class="anchor" id="autotoc_md23"></a>
+<h2><a class="anchor" id="autotoc_md22"></a>
 SceneManager</h2>
 <p>Class managing scenes for the game, the scene needs to inherit the <code>AScene</code> class, and is used to create all the entity of a scene when it is loaded.</p>
-<h1><a class="anchor" id="autotoc_md24"></a>
+<h1><a class="anchor" id="autotoc_md23"></a>
 Game loop example</h1>
 <div class="fragment"><div class="line"><a class="code" href="classGameEngine_1_1GameEngine.html">GameEngine::GameEngine</a> gameEngine();</div>
 <div class="line"> </div>
@@ -291,7 +281,7 @@ Game loop example</h1>
 <div class="line">    gameEngine.deltaTime.update();</div>
 <div class="line">    _gameEngine.registry.runSystems();</div>
 <div class="line">}</div>
-<div class="ttc" id="aclassGameEngine_1_1GameEngine_html"><div class="ttname"><a href="classGameEngine_1_1GameEngine.html">GameEngine::GameEngine</a></div><div class="ttdoc">Game engine class, will manage all the necessary classes for the game.</div><div class="ttdef"><b>Definition:</b> GameEngine.hpp:41</div></div>
+<div class="ttc" id="aclassGameEngine_1_1GameEngine_html"><div class="ttname"><a href="classGameEngine_1_1GameEngine.html">GameEngine::GameEngine</a></div><div class="ttdoc">Game engine class, will manage all the necessary classes for the game.</div><div class="ttdef"><b>Definition:</b> GameEngine.hpp:40</div></div>
 </div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->

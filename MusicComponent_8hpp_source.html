@@ -80,23 +80,24 @@ $(function() {
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#define MUSIC_HPP_</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="SfmlTypes_8hpp.html">utils/SfmlTypes.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceGameEngine.html">GameEngine</a></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="structGameEngine_1_1MusicComponent.html">   15</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structGameEngine_1_1MusicComponent.html">MusicComponent</a></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    {</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="structGameEngine_1_1MusicComponent.html#a47d12ccc2ea8461978a3f2d2ab0cd698">   17</a></span>&#160;        std::string <a class="code" href="structGameEngine_1_1MusicComponent.html#a47d12ccc2ea8461978a3f2d2ab0cd698">path</a>;</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="structGameEngine_1_1MusicComponent.html#abf0684d1c357374060df7b010ae3ecaa">   18</a></span>&#160;        <a class="code" href="classGameEngine_1_1Music.html">Music</a> <a class="code" href="structGameEngine_1_1MusicComponent.html#abf0684d1c357374060df7b010ae3ecaa">music</a>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    };</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;} <span class="comment">// namespace GameEngine</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* !MUSIC_HPP_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceGameEngine.html">GameEngine</a></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="structGameEngine_1_1MusicComponent.html">   16</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structGameEngine_1_1MusicComponent.html">MusicComponent</a></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    {</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="structGameEngine_1_1MusicComponent.html#a47d12ccc2ea8461978a3f2d2ab0cd698">   18</a></span>&#160;        std::string <a class="code" href="structGameEngine_1_1MusicComponent.html#a47d12ccc2ea8461978a3f2d2ab0cd698">path</a>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="structGameEngine_1_1MusicComponent.html#aa44bf6f669ada5508510554afd205b3e">   19</a></span>&#160;        std::shared_ptr&lt;Music&gt; <a class="code" href="structGameEngine_1_1MusicComponent.html#aa44bf6f669ada5508510554afd205b3e">music</a>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="comment">// Music music;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    };</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;} <span class="comment">// namespace GameEngine</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* !MUSIC_HPP_ */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="aSfmlTypes_8hpp_html"><div class="ttname"><a href="SfmlTypes_8hpp.html">SfmlTypes.hpp</a></div></div>
-<div class="ttc" id="aclassGameEngine_1_1Music_html"><div class="ttname"><a href="classGameEngine_1_1Music.html">GameEngine::Music</a></div><div class="ttdoc">Class representing a music wrapper for sf::Music.</div><div class="ttdef"><b>Definition:</b> SfmlTypes.hpp:260</div></div>
 <div class="ttc" id="anamespaceGameEngine_html"><div class="ttname"><a href="namespaceGameEngine.html">GameEngine</a></div><div class="ttdef"><b>Definition:</b> AssetManager.hpp:15</div></div>
-<div class="ttc" id="astructGameEngine_1_1MusicComponent_html"><div class="ttname"><a href="structGameEngine_1_1MusicComponent.html">GameEngine::MusicComponent</a></div><div class="ttdef"><b>Definition:</b> MusicComponent.hpp:16</div></div>
-<div class="ttc" id="astructGameEngine_1_1MusicComponent_html_a47d12ccc2ea8461978a3f2d2ab0cd698"><div class="ttname"><a href="structGameEngine_1_1MusicComponent.html#a47d12ccc2ea8461978a3f2d2ab0cd698">GameEngine::MusicComponent::path</a></div><div class="ttdeci">std::string path</div><div class="ttdef"><b>Definition:</b> MusicComponent.hpp:17</div></div>
-<div class="ttc" id="astructGameEngine_1_1MusicComponent_html_abf0684d1c357374060df7b010ae3ecaa"><div class="ttname"><a href="structGameEngine_1_1MusicComponent.html#abf0684d1c357374060df7b010ae3ecaa">GameEngine::MusicComponent::music</a></div><div class="ttdeci">Music music</div><div class="ttdef"><b>Definition:</b> MusicComponent.hpp:18</div></div>
+<div class="ttc" id="astructGameEngine_1_1MusicComponent_html"><div class="ttname"><a href="structGameEngine_1_1MusicComponent.html">GameEngine::MusicComponent</a></div><div class="ttdef"><b>Definition:</b> MusicComponent.hpp:17</div></div>
+<div class="ttc" id="astructGameEngine_1_1MusicComponent_html_a47d12ccc2ea8461978a3f2d2ab0cd698"><div class="ttname"><a href="structGameEngine_1_1MusicComponent.html#a47d12ccc2ea8461978a3f2d2ab0cd698">GameEngine::MusicComponent::path</a></div><div class="ttdeci">std::string path</div><div class="ttdef"><b>Definition:</b> MusicComponent.hpp:18</div></div>
+<div class="ttc" id="astructGameEngine_1_1MusicComponent_html_aa44bf6f669ada5508510554afd205b3e"><div class="ttname"><a href="structGameEngine_1_1MusicComponent.html#aa44bf6f669ada5508510554afd205b3e">GameEngine::MusicComponent::music</a></div><div class="ttdeci">std::shared_ptr&lt; Music &gt; music</div><div class="ttdef"><b>Definition:</b> MusicComponent.hpp:19</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -78,22 +78,27 @@ $(function() {
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#ifndef ISCENE_HPP_</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#define ISCENE_HPP_</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceGameEngine.html">GameEngine</a></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="classGameEngine_1_1IScene.html">   13</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classGameEngine_1_1IScene.html">IScene</a></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    {</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;      <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classGameEngine_1_1IScene.html#a8092d1e4bc7466b196c19bcac5d7736c">   16</a></span>&#160;        <span class="keyword">virtual</span> <a class="code" href="classGameEngine_1_1IScene.html#a8092d1e4bc7466b196c19bcac5d7736c">~IScene</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classGameEngine_1_1IScene.html#a32156b00cfd7638652cb94d56df2129b">   18</a></span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classGameEngine_1_1IScene.html#a32156b00cfd7638652cb94d56df2129b">load</a>() = 0;</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classGameEngine_1_1IScene.html#ae4e76a77faef9e17d15ff8c80dcca0ed">   19</a></span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classGameEngine_1_1IScene.html#ae4e76a77faef9e17d15ff8c80dcca0ed">unload</a>() = 0;</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classGameEngine_1_1IScene.html#ac3a8495f6c0a32414716419d1421b96a">   20</a></span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classGameEngine_1_1IScene.html#ac3a8495f6c0a32414716419d1421b96a">update</a>() = 0;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    };</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;} <span class="comment">// namespace GameEngine</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* !ISCENE_HPP_ */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="aclassGameEngine_1_1IScene_html"><div class="ttname"><a href="classGameEngine_1_1IScene.html">GameEngine::IScene</a></div><div class="ttdef"><b>Definition:</b> IScene.hpp:14</div></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Entity_8hpp.html">Entity.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceGameEngine.html">GameEngine</a></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="classGameEngine_1_1IScene.html">   14</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classGameEngine_1_1IScene.html">IScene</a></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;      <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classGameEngine_1_1IScene.html#a8092d1e4bc7466b196c19bcac5d7736c">   17</a></span>&#160;        <span class="keyword">virtual</span> <a class="code" href="classGameEngine_1_1IScene.html#a8092d1e4bc7466b196c19bcac5d7736c">~IScene</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classGameEngine_1_1IScene.html#a32156b00cfd7638652cb94d56df2129b">   19</a></span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classGameEngine_1_1IScene.html#a32156b00cfd7638652cb94d56df2129b">load</a>() = 0;</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classGameEngine_1_1IScene.html#ae4e76a77faef9e17d15ff8c80dcca0ed">   20</a></span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classGameEngine_1_1IScene.html#ae4e76a77faef9e17d15ff8c80dcca0ed">unload</a>() = 0;</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classGameEngine_1_1IScene.html#a17c90907910282f1b3d4164e03b08ba4">   21</a></span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classGameEngine_1_1IScene.html#a17c90907910282f1b3d4164e03b08ba4">addEntityToUnload</a>(<a class="code" href="classGameEngine_1_1Entity.html">Entity</a> entity) = 0;</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classGameEngine_1_1IScene.html#ac3a8495f6c0a32414716419d1421b96a">   22</a></span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classGameEngine_1_1IScene.html#ac3a8495f6c0a32414716419d1421b96a">update</a>() = 0;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    };</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;} <span class="comment">// namespace GameEngine</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* !ISCENE_HPP_ */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="aEntity_8hpp_html"><div class="ttname"><a href="Entity_8hpp.html">Entity.hpp</a></div></div>
+<div class="ttc" id="aclassGameEngine_1_1Entity_html"><div class="ttname"><a href="classGameEngine_1_1Entity.html">GameEngine::Entity</a></div><div class="ttdoc">Entity class for the game engine.</div><div class="ttdef"><b>Definition:</b> Entity.hpp:18</div></div>
+<div class="ttc" id="aclassGameEngine_1_1IScene_html"><div class="ttname"><a href="classGameEngine_1_1IScene.html">GameEngine::IScene</a></div><div class="ttdef"><b>Definition:</b> IScene.hpp:15</div></div>
+<div class="ttc" id="aclassGameEngine_1_1IScene_html_a17c90907910282f1b3d4164e03b08ba4"><div class="ttname"><a href="classGameEngine_1_1IScene.html#a17c90907910282f1b3d4164e03b08ba4">GameEngine::IScene::addEntityToUnload</a></div><div class="ttdeci">virtual void addEntityToUnload(Entity entity)=0</div></div>
 <div class="ttc" id="aclassGameEngine_1_1IScene_html_a32156b00cfd7638652cb94d56df2129b"><div class="ttname"><a href="classGameEngine_1_1IScene.html#a32156b00cfd7638652cb94d56df2129b">GameEngine::IScene::load</a></div><div class="ttdeci">virtual void load()=0</div></div>
 <div class="ttc" id="aclassGameEngine_1_1IScene_html_a8092d1e4bc7466b196c19bcac5d7736c"><div class="ttname"><a href="classGameEngine_1_1IScene.html#a8092d1e4bc7466b196c19bcac5d7736c">GameEngine::IScene::~IScene</a></div><div class="ttdeci">virtual ~IScene()=default</div></div>
 <div class="ttc" id="aclassGameEngine_1_1IScene_html_ac3a8495f6c0a32414716419d1421b96a"><div class="ttname"><a href="classGameEngine_1_1IScene.html#ac3a8495f6c0a32414716419d1421b96a">GameEngine::IScene::update</a></div><div class="ttdeci">virtual void update()=0</div></div>
