@@ -41,10 +41,10 @@ namespace Error
     PrefabNameAlreadyUsedError::~PrefabNameAlreadyUsedError() {}
     char const *PrefabNameAlreadyUsedError::what() const noexcept { return message.c_str(); }
 
-    #ifdef DEBUG
+#ifdef DEBUG
     ImGuiSFMLInitError::ImGuiSFMLInitError() : message("Failed to init ImGui-SFML context") {}
     ImGuiSFMLInitError::~ImGuiSFMLInitError() {}
     char const *ImGuiSFMLInitError::what() const noexcept { return message.c_str(); }
-    #endif
+#endif
 
 } // namespace Error

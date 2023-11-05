@@ -78,7 +78,8 @@ namespace Debug
         template <typename Component>
         void _showComponentList(SparseArray<Component> &components, int &currentComponent)
         {
-            if (ImGui::BeginListBox("##componentList", ImVec2(ImGui::GetContentRegionAvail().x / 3.0f, DEFAULT_COMPONENT_LIST_HEIGHT))) {
+            if (ImGui::BeginListBox("##componentList",
+                    ImVec2(ImGui::GetContentRegionAvail().x / 3.0f, DEFAULT_COMPONENT_LIST_HEIGHT))) {
                 for (int i = 0; i < _registry._nbEntities; i++) {
                     if (!components[i])
                         continue;

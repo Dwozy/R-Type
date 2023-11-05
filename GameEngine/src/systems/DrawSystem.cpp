@@ -66,9 +66,7 @@ namespace GameEngine
             if (event.type == sf::Event::Closed)
                 _window->close();
         });
-        QuitHandler.subscribe([this](bool &isOpen) {
-            _window->close();
-        });
+        QuitHandler.subscribe([this](bool &isOpen) { _window->close(); });
         getWorldMousePosHandler.subscribe([this](Vector2<float> &pos) {
             pos = this->_window->mapPixelToCoords(Input::Mouse::getPosition(*this->_window));
         });

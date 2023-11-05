@@ -138,7 +138,7 @@ namespace Error
         std::string message;
     };
 
-    #ifdef DEBUG
+#ifdef DEBUG
     /**
      * @brief
      * ImGuiSFMLInitError Class Error
@@ -154,7 +154,7 @@ namespace Error
       private:
         std::string message;
     };
-    #endif
+#endif
 } // namespace Error
 
 #endif /* !ERROR_HPP_ */

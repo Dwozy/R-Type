@@ -58,26 +58,26 @@ void GameScene::load()
 
         auto playerCollisionCallbackBind = std::bind(&GameScene::playerCollisionCallback, this, std::placeholders::_1,
             std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5);
-        auto endOfLevelCollisionCallbackBind = std::bind(&GameScene::endOfLevelCollsionCallback, this, std::placeholders::_1,
-            std::placeholders::_2, std::placeholders::_3);
+        auto endOfLevelCollisionCallbackBind = std::bind(&GameScene::endOfLevelCollsionCallback, this,
+            std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
 
         auto &col = _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[_id];
         col->addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
                            SparseArray<GameEngine::TransformComponent> &, SparseArray<GameEngine::GravityComponent> &,
                            SparseArray<GameEngine::HealthComponent> &)>,
-                GameEngine::CollisionComponent, GameEngine::TransformComponent, GameEngine::GravityComponent,
-                GameEngine::HealthComponent>(_gameEngine.registry, playerCollisionCallbackBind);
+            GameEngine::CollisionComponent, GameEngine::TransformComponent, GameEngine::GravityComponent,
+            GameEngine::HealthComponent>(_gameEngine.registry, playerCollisionCallbackBind);
         col->addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
                            SparseArray<GameEngine::TransformComponent> &)>,
-                GameEngine::CollisionComponent, GameEngine::TransformComponent>(_gameEngine.registry, endOfLevelCollisionCallbackBind);
+            GameEngine::CollisionComponent, GameEngine::TransformComponent>(
+            _gameEngine.registry, endOfLevelCollisionCallbackBind);
 
         GameEngine::Entity background =
             _gameEngine.prefabManager.createEntityFromPrefab("background", _gameEngine.registry);
         _entities.push_back(background);
 
         auto block = _gameEngine.prefabManager.createEntityFromPrefab("invisible_wall", _gameEngine.registry);
-        auto block2 =
-            _gameEngine.prefabManager.createEntityFromPrefab("border_map_down", _gameEngine.registry);
+        auto block2 = _gameEngine.prefabManager.createEntityFromPrefab("border_map_down", _gameEngine.registry);
         _entities.push_back(block);
         _entities.push_back(block2);
 

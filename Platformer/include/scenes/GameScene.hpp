@@ -29,7 +29,8 @@ class GameScene : public GameEngine::IScene
     void playerCollisionCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
         SparseArray<GameEngine::TransformComponent> &transforms, SparseArray<GameEngine::GravityComponent> &gravity,
         SparseArray<GameEngine::HealthComponent> &health);
-    void endOfLevelCollsionCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
+    void endOfLevelCollsionCallback(const std::size_t &entityId,
+        SparseArray<GameEngine::CollisionComponent> &collisions,
         SparseArray<GameEngine::TransformComponent> &transforms);
 
   private:

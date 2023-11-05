@@ -453,7 +453,8 @@ namespace Debug
     void DebugMenu::_showEventsMenu()
     {
         ImGui::SeparatorText("Events");
-        ImGui::BeginChild("##eventLog", ImVec2(ImGui::GetContentRegionAvail().x, DEFAULT_EVENT_LOG_HEIGHT), ImGuiChildFlags_Border,
+        ImGui::BeginChild("##eventLog", ImVec2(ImGui::GetContentRegionAvail().x, DEFAULT_EVENT_LOG_HEIGHT),
+            ImGuiChildFlags_Border,
             ImGuiWindowFlags_AlwaysVerticalScrollbar | ImGuiWindowFlags_AlwaysHorizontalScrollbar);
 
         ImGuiListClipper eventLog;
