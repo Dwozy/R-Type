@@ -11,63 +11,6 @@
 #include "scenes/GameScene.hpp"
 #include "utils/CollisionsUtils.hpp"
 
-void GameScene::BlockcollisionCallback(const std::size_t &entityId,
-    SparseArray<GameEngine::CollisionComponent> &collisions, SparseArray<GameEngine::TransformComponent> &transforms,
-    SparseArray<GameEngine::GravityComponent> &gravity, SparseArray<GameEngine::HealthComponent> &health)
-{
-    auto &selfCol = collisions[entityId];
-    auto &selfTsf = transforms[entityId];
-    auto &selfGrav = gravity[entityId];
-    auto &selfHealth = health[entityId];
-
-    bool hasCollidedOnTop = false;
-    if (!selfCol || !selfTsf || !selfGrav)
-        return;
-    for (std::size_t i = 0; i < collisions.size(); i++) {
-        if (i == entityId)
-            continue;
-        auto &col = collisions[i];
-        auto &tsf = transforms[i];
-        auto &hth = health[i];
-
-        if (!col || !tsf || !col.value().isActive || (col.value().layer != 30 && col.value().layer != 20))
-            continue;
-        auto result = GameEngine::replaceOnTop(selfTsf->position, selfCol->collider, tsf->position, col->collider);
-        if (result == 1) {
-            hasCollidedOnTop = true;
-            if (hth)
-                hth->health -= 1;
-            if (col->layer == 20 && (std::chrono::steady_clock::now() - lastTime).count() > 1000000000) {
-                lastTime = std::chrono::steady_clock::now();
-                if (selfHealth->health > 0) {
-                    auto lastHeart = _heartEntities.back();
-                    _entities.erase(std::find(_entities.begin(), _entities.end(), lastHeart));
-                    _heartEntities.pop_back();
-                    _gameEngine.registry.killEntity(lastHeart);
-                }
-                selfHealth->health -= 1;
-            }
-        } else if (result == 0 && hth && selfHealth &&
-                   (std::chrono::steady_clock::now() - lastTime).count() > 1000000000) {
-            lastTime = std::chrono::steady_clock::now();
-            if (selfHealth->health > 0) {
-                auto lastHeart = _heartEntities.back();
-                _entities.erase(std::find(_entities.begin(), _entities.end(), lastHeart));
-                _heartEntities.pop_back();
-                _gameEngine.registry.killEntity(lastHeart);
-            }
-            selfHealth->health -= 1;
-        }
-    }
-    if (hasCollidedOnTop) {
-        if (entityId == _id)
-            _jumping = false;
-        selfGrav.value().cumulatedGVelocity = {0, 0};
-        selfGrav.value().isActive = false;
-    } else
-        selfGrav.value().isActive = true;
-}
-
 void GameScene::load()
 {
     std::cout << "Loading GameScene" << std::endl;
@@ -113,23 +56,33 @@ void GameScene::load()
         auto &camComponent = _gameEngine.registry.getComponent<GameEngine::CameraComponent>()[camera];
         camComponent->target = _id;
 
-        auto blockColliderCallback = std::bind(&GameScene::BlockcollisionCallback, this, std::placeholders::_1,
+        auto playerCollisionCallbackBind = std::bind(&GameScene::playerCollisionCallback, this, std::placeholders::_1,
             std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5);
-        _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[_id]
-            .value()
-            .addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
+        auto endOfLevelCollisionCallbackBind = std::bind(&GameScene::endOfLevelCollsionCallback, this, std::placeholders::_1,
+            std::placeholders::_2, std::placeholders::_3);
+
+        auto &col = _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[_id];
+        col->addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
                            SparseArray<GameEngine::TransformComponent> &, SparseArray<GameEngine::GravityComponent> &,
                            SparseArray<GameEngine::HealthComponent> &)>,
                 GameEngine::CollisionComponent, GameEngine::TransformComponent, GameEngine::GravityComponent,
-                GameEngine::HealthComponent>(_gameEngine.registry, blockColliderCallback);
+                GameEngine::HealthComponent>(_gameEngine.registry, playerCollisionCallbackBind);
+        col->addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
+                           SparseArray<GameEngine::TransformComponent> &)>,
+                GameEngine::CollisionComponent, GameEngine::TransformComponent>(_gameEngine.registry, endOfLevelCollisionCallbackBind);
 
         GameEngine::Entity background =
             _gameEngine.prefabManager.createEntityFromPrefab("background", _gameEngine.registry);
         _entities.push_back(background);
 
-        GameEngine::Entity block2 =
+        auto block = _gameEngine.prefabManager.createEntityFromPrefab("invisible_wall", _gameEngine.registry);
+        auto block2 =
             _gameEngine.prefabManager.createEntityFromPrefab("border_map_down", _gameEngine.registry);
+        _entities.push_back(block);
         _entities.push_back(block2);
+
+        auto end = _gameEngine.prefabManager.createEntityFromPrefab("end_of_level", _gameEngine.registry);
+        _entities.push_back(end);
 
         _mapLoader.loadMap("Platformer/maps/map1",
             {0, _gameEngine.registry.getComponent<GameEngine::TransformComponent>()[block2]->position.y - 7 * 32}, 32);

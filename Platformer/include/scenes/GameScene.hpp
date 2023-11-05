@@ -26,9 +26,11 @@ class GameScene : public GameEngine::IScene
     void load() override;
     void unload() override;
     void update() override;
-    void BlockcollisionCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
+    void playerCollisionCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
         SparseArray<GameEngine::TransformComponent> &transforms, SparseArray<GameEngine::GravityComponent> &gravity,
         SparseArray<GameEngine::HealthComponent> &health);
+    void endOfLevelCollsionCallback(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
+        SparseArray<GameEngine::TransformComponent> &transforms);
 
   private:
     SparseArray<GameEngine::CameraComponent> camcpy;

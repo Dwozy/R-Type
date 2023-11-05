@@ -117,6 +117,8 @@ void Platformer::setGameEnginePrefab()
     _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/buttonQuit.json");
     _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/buttonRestart.json");
     _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/Heart.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/EndOfLevel.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/InvisibleWall.json");
 }
 
 void Platformer::setGameEngine()
