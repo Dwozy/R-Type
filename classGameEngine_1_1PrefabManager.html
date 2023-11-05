@@ -95,6 +95,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa1c703875ea2d916d7e4b757e41eaf49"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classGameEngine_1_1Entity.html">Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1PrefabManager.html#aa1c703875ea2d916d7e4b757e41eaf49">createEntityFromPrefab</a> (const std::string &amp;prefabName, <a class="el" href="classGameEngine_1_1Registry.html">Registry</a> &amp;registry, size_t id, bool loadTexture=true)</td></tr>
 <tr class="memdesc:aa1c703875ea2d916d7e4b757e41eaf49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create an entity from a prefab.  <a href="classGameEngine_1_1PrefabManager.html#aa1c703875ea2d916d7e4b757e41eaf49">More...</a><br /></td></tr>
 <tr class="separator:aa1c703875ea2d916d7e4b757e41eaf49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e4fc9030338084ac93e8e686ca5746f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1PrefabManager.html#a8e4fc9030338084ac93e8e686ca5746f">isPrefabLoaded</a> (const std::string &amp;prefabName) const</td></tr>
+<tr class="memdesc:a8e4fc9030338084ac93e8e686ca5746f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if prefab is loaded.  <a href="classGameEngine_1_1PrefabManager.html#a8e4fc9030338084ac93e8e686ca5746f">More...</a><br /></td></tr>
+<tr class="separator:a8e4fc9030338084ac93e8e686ca5746f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class to manage prefabs. </p>
@@ -245,6 +248,33 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the created entity </dd></dl>
+
+</div>
+</div>
+<a id="a8e4fc9030338084ac93e8e686ca5746f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e4fc9030338084ac93e8e686ca5746f">&#9670;&nbsp;</a></span>isPrefabLoaded()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool GameEngine::PrefabManager::isPrefabLoaded </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>prefabName</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check if prefab is loaded. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">prefabName</td><td>name of the prefab </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the prefab is loaded, false otherwise </dd></dl>
 
 </div>
 </div>

@@ -88,7 +88,7 @@ $(function() {
 <div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classGameEngine_1_1InputSystem.html">   17</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classGameEngine_1_1InputSystem.html">InputSystem</a></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    {</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;      <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classGameEngine_1_1InputSystem.html#ae6ee070a8af81176bf1ab5e7568fca3b">   20</a></span>&#160;        <a class="code" href="classGameEngine_1_1InputSystem.html#ae6ee070a8af81176bf1ab5e7568fca3b">InputSystem</a>(<a class="code" href="classGameEngine_1_1EventManager.html">EventManager</a> &amp;eventManager) : _eventManager(eventManager), _isPressed(false){};</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classGameEngine_1_1InputSystem.html#ae6ee070a8af81176bf1ab5e7568fca3b">   20</a></span>&#160;        <a class="code" href="classGameEngine_1_1InputSystem.html#ae6ee070a8af81176bf1ab5e7568fca3b">InputSystem</a>(<a class="code" href="classGameEngine_1_1EventManager.html">EventManager</a> &amp;eventManager) : _eventManager(eventManager){};</div>
 <div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classGameEngine_1_1InputSystem.html#a98256f13fbd76c93e13b4a02def7f544">   21</a></span>&#160;        <a class="code" href="classGameEngine_1_1InputSystem.html#a98256f13fbd76c93e13b4a02def7f544">~InputSystem</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classGameEngine_1_1InputSystem.html#a3b407ee82f2b92cd7eb1a80e1c2d2075">operator()</a>(<a class="code" href="classSparseArray.html">SparseArray&lt;InputComponent&gt;</a> &amp;inputs);</div>
@@ -96,16 +96,15 @@ $(function() {
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;      <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <a class="code" href="classGameEngine_1_1EventManager.html">EventManager</a> &amp;_eventManager;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keywordtype">bool</span> _isPressed;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    };</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;} <span class="comment">// namespace GameEngine</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* !InputSystem_HPP_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    };</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;} <span class="comment">// namespace GameEngine</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* !InputSystem_HPP_ */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="aGameEngine_8hpp_html"><div class="ttname"><a href="GameEngine_8hpp.html">GameEngine.hpp</a></div></div>
 <div class="ttc" id="aInputComponent_8hpp_html"><div class="ttname"><a href="InputComponent_8hpp.html">InputComponent.hpp</a></div></div>
 <div class="ttc" id="aKeyboard_8hpp_html"><div class="ttname"><a href="Keyboard_8hpp.html">Keyboard.hpp</a></div></div>
 <div class="ttc" id="aRegistry_8hpp_html"><div class="ttname"><a href="Registry_8hpp.html">Registry.hpp</a></div></div>
-<div class="ttc" id="aclassGameEngine_1_1EventManager_html"><div class="ttname"><a href="classGameEngine_1_1EventManager.html">GameEngine::EventManager</a></div><div class="ttdoc">class to help create and manage all the event handlers</div><div class="ttdef"><b>Definition:</b> Event.hpp:83</div></div>
+<div class="ttc" id="aclassGameEngine_1_1EventManager_html"><div class="ttname"><a href="classGameEngine_1_1EventManager.html">GameEngine::EventManager</a></div><div class="ttdoc">class to help create and manage all the event handlers</div><div class="ttdef"><b>Definition:</b> Event.hpp:134</div></div>
 <div class="ttc" id="aclassGameEngine_1_1InputSystem_html"><div class="ttname"><a href="classGameEngine_1_1InputSystem.html">GameEngine::InputSystem</a></div><div class="ttdef"><b>Definition:</b> InputSystem.hpp:18</div></div>
 <div class="ttc" id="aclassGameEngine_1_1InputSystem_html_a3b407ee82f2b92cd7eb1a80e1c2d2075"><div class="ttname"><a href="classGameEngine_1_1InputSystem.html#a3b407ee82f2b92cd7eb1a80e1c2d2075">GameEngine::InputSystem::operator()</a></div><div class="ttdeci">void operator()(SparseArray&lt; InputComponent &gt; &amp;inputs)</div><div class="ttdef"><b>Definition:</b> InputSystem.cpp:27</div></div>
 <div class="ttc" id="aclassGameEngine_1_1InputSystem_html_a5e512beb0412392163c8902600b58fbe"><div class="ttname"><a href="classGameEngine_1_1InputSystem.html#a5e512beb0412392163c8902600b58fbe">GameEngine::InputSystem::handleInput</a></div><div class="ttdeci">void handleInput(std::size_t id, std::pair&lt; Input::InputType, Input::Keyboard::Key &gt; inputInfo)</div><div class="ttdef"><b>Definition:</b> InputSystem.cpp:14</div></div>

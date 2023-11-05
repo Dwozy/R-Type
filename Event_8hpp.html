@@ -78,6 +78,11 @@ $(function() {
 <code>#include &lt;functional&gt;</code><br />
 <code>#include &lt;unordered_map&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;type_traits&gt;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;iterator&gt;</code><br />
+<code>#include &lt;map&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
 </div>
 <p><a href="Event_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -109,20 +114,25 @@ Enumerations</h2></td></tr>
 <tr class="memitem:aceedf9387bcbfde534e40633bff6ab0a"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0a">GameEngine::Event</a> : EventType { <br />
 &#160;&#160;<a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0aaa1a0243f2fecd2feac8e4a166f831aeb">GameEngine::WindowIsOpen</a>
 , <a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0aa7b814d0fc3619be4e0b068a2b1fcb7eb">GameEngine::WindowCloseEvent</a>
+, <a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0aa8fb65b6ab64228e4029e35f845c6da3c">GameEngine::QuitEvent</a>
 , <a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0aacb48ab783612fab2926414ce00159b41">GameEngine::PollEvent</a>
-, <a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0aae3674d8cfa68227da9b96be912d61386">GameEngine::GetWorldMousePos</a>
 , <br />
-&#160;&#160;<a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0aa9d0a85c353c3b1f5e215bcc66ad17b4b">GameEngine::WindowSetView</a>
+&#160;&#160;<a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0aae3674d8cfa68227da9b96be912d61386">GameEngine::GetWorldMousePos</a>
+, <a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0aa9d0a85c353c3b1f5e215bcc66ad17b4b">GameEngine::WindowSetView</a>
 , <a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0aa4d55ba3262dce26f9224d1fa7409d824">GameEngine::SetFpsLimitEvent</a>
 , <a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0aaeb3bc754901e5a5ea784aa2b3429f2f4">GameEngine::GetTransform</a>
-, <a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0aa0a614dbef89eae89f7860223fb00161d">GameEngine::GetCollision</a>
 , <br />
-&#160;&#160;<a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0aa664f5ec40d228ef4ce8a72131fe5f420">GameEngine::GetTexture</a>
+&#160;&#160;<a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0aa0a614dbef89eae89f7860223fb00161d">GameEngine::GetCollision</a>
+, <a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0aa664f5ec40d228ef4ce8a72131fe5f420">GameEngine::GetTexture</a>
 , <a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0aa027e01783b53750f023ba91ddbdab4be">GameEngine::GetControllable</a>
 , <a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0aaf621768dc9219f4bf86337427fbf1107">GameEngine::GetNewEntity</a>
-, <a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0aaabceaf2af6dbeab5b3a3dd35dec29ae3">GameEngine::GetEntity</a>
 , <br />
-&#160;&#160;<a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0aa4b981623f1261b6355ecc0e82c15c5c6">GameEngine::SendInput</a>
+&#160;&#160;<a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0aaabceaf2af6dbeab5b3a3dd35dec29ae3">GameEngine::GetEntity</a>
+, <a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0aa4de2454db3c4cf4931bc394b2cab9b16">GameEngine::GetDestroy</a>
+, <a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0aa4b981623f1261b6355ecc0e82c15c5c6">GameEngine::SendInput</a>
+, <a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0aa93bb01445eec559f9cc89f095d1e7f83">GameEngine::GetStateTexture</a>
+, <br />
+&#160;&#160;<a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0aacc470cf5dce077769bd2f5578cc39e21">GameEngine::GetScore</a>
 , <a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0aa431d1939242a9672b2bcf4a603ca4fd1">GameEngine::DeleteEntity</a>
 , <a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0aa7f5fc6f3db09d6db43bad01846b04f61">GameEngine::EnemiesSpawnedEvent</a>
 , <a class="el" href="namespaceGameEngine.html#aceedf9387bcbfde534e40633bff6ab0aa352cf6644472504a4bc140a760f7f0d3">GameEngine::EnemiesMoveEvent</a>

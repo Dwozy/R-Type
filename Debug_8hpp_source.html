@@ -90,80 +90,94 @@ $(function() {
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceDebug.html">Debug</a></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;{</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> ImVec2 DEBUG_MENU_DEFAULT_WINDOW_SIZE = ImVec2((<span class="keywordtype">float</span>)500, (<span class="keywordtype">float</span>)500);</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">size_t</span> DEFAULT_FPS_PLOT_TEXT_LENGTH = 32;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">size_t</span> DEFAULT_FPS_PLOT_NB_VALUES = 90;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">double</span> DEFAULT_FPS_PLOT_REFRESH_RATE = 60.0;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> ImVec2 DEFAULT_FPS_PLOT_SIZE = ImVec2(0, 80.0f);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">class </span>DebugMenu</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;      <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        DebugMenu(</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            <a class="code" href="classGameEngine_1_1EventManager.html">GameEngine::EventManager</a> &amp;eventManager, <a class="code" href="classGameEngine_1_1Registry.html">GameEngine::Registry</a> &amp;registry, <a class="code" href="classGameEngine_1_1DeltaTime.html">GameEngine::DeltaTime</a> &amp;deltaTime)</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            : _eventManager(eventManager), _registry(registry), _deltaTime(deltaTime)</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        }</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        ~DebugMenu() {}</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordtype">void</span> draw()</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            <span class="comment">// ImGui::ShowDemoWindow();</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            ImGui::SetNextWindowSize(DEBUG_MENU_DEFAULT_WINDOW_SIZE, ImGuiCond_FirstUseEver);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            ImGui::Begin(<span class="stringliteral">&quot;Debug Menu&quot;</span>);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            <span class="keywordflow">if</span> (ImGui::BeginTabBar(<span class="stringliteral">&quot;MainTabBar&quot;</span>)) {</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                <span class="keywordflow">if</span> (ImGui::BeginTabItem(<span class="stringliteral">&quot;Game&quot;</span>)) {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                    _showGameMenu();</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                }</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                <span class="keywordflow">if</span> (ImGui::BeginTabItem(<span class="stringliteral">&quot;Registry&quot;</span>)) {</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                    _showRegistryMenu();</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                }</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                ImGui::EndTabBar();</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            }</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            ImGui::End();</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        }</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <a class="code" href="classGameEngine_1_1EventManager.html">GameEngine::EventManager</a> &amp;_eventManager;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <a class="code" href="classGameEngine_1_1Registry.html">GameEngine::Registry</a> &amp;_registry;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <a class="code" href="classGameEngine_1_1DeltaTime.html">GameEngine::DeltaTime</a> &amp;_deltaTime;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordtype">void</span> _showGameMenu();</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordtype">void</span> _showRegistryMenu();</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Component&gt;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordtype">void</span> _showComponentList(<a class="code" href="classSparseArray.html">SparseArray&lt;Component&gt;</a> &amp;components, <span class="keywordtype">int</span> &amp;currentComponent)</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            <span class="keywordflow">if</span> (ImGui::BeginListBox(<span class="stringliteral">&quot;&quot;</span>, ImVec2(ImGui::GetContentRegionAvail().x / 3.0f, 150))) {</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; _registry._nbEntities; i++) {</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                    <span class="keywordflow">if</span> (!components[i])</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                        <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                    <span class="keyword">const</span> <span class="keywordtype">bool</span> is_selected = (currentComponent == i);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                    <span class="keywordflow">if</span> (ImGui::Selectable(std::to_string(i).c_str(), is_selected)) {</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                        currentComponent = i;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                    }</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                    <span class="keywordflow">if</span> (is_selected)</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                        ImGui::SetItemDefaultFocus();</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                }</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                ImGui::EndListBox();</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            }</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        }</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keywordtype">void</span> _showTransfomComponentMenu();</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordtype">void</span> _showTextureComponentMenu();</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="keywordtype">void</span> _showCameraComponentMenu();</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordtype">void</span> _showCollisionComponentMenu();</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordtype">void</span> _showFontComponentMenu();</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keywordtype">void</span> _showMusicComponentMenu();</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordtype">void</span> _showPressableComponentMenu();</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keywordtype">void</span> _showTextComponentMenu();</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordtype">void</span> _showControllableComponentMenu();</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    };</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;} <span class="comment">// namespace Debug</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">    #endif</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> DEFAULT_COMPONENT_LIST_HEIGHT = 150.0f;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> DEFAULT_EVENT_LOG_HEIGHT = 200.0f;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">size_t</span> DEFAULT_FPS_PLOT_TEXT_LENGTH = 32;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">size_t</span> DEFAULT_FPS_PLOT_NB_VALUES = 90;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">double</span> DEFAULT_FPS_PLOT_REFRESH_RATE = 60.0;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> ImVec2 DEFAULT_FPS_PLOT_SIZE = ImVec2(0, 80.0f);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> DEFAULT_FPS_LIMIT_SLIDER_MAX_VALUE = 1000;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> DEFAULT_FPS_LIMIT_SLIDER_VALUE = 60;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">class </span>DebugMenu</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;      <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        DebugMenu(</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            <a class="code" href="classGameEngine_1_1EventManager.html">GameEngine::EventManager</a> &amp;eventManager, <a class="code" href="classGameEngine_1_1Registry.html">GameEngine::Registry</a> &amp;registry, <a class="code" href="classGameEngine_1_1DeltaTime.html">GameEngine::DeltaTime</a> &amp;deltaTime)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            : _eventManager(eventManager), _registry(registry), _deltaTime(deltaTime)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        }</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        ~DebugMenu() {}</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordtype">void</span> draw()</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            ImGui::SetNextWindowSize(DEBUG_MENU_DEFAULT_WINDOW_SIZE, ImGuiCond_FirstUseEver);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            ImGui::Begin(<span class="stringliteral">&quot;Debug Menu&quot;</span>);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            <span class="keywordflow">if</span> (ImGui::BeginTabBar(<span class="stringliteral">&quot;MainTabBar&quot;</span>)) {</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                <span class="keywordflow">if</span> (ImGui::BeginTabItem(<span class="stringliteral">&quot;Game&quot;</span>)) {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                    _showGameMenu();</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                }</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                <span class="keywordflow">if</span> (ImGui::BeginTabItem(<span class="stringliteral">&quot;Registry&quot;</span>)) {</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                    _showRegistryMenu();</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                }</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                <span class="keywordflow">if</span> (ImGui::BeginTabItem(<span class="stringliteral">&quot;Events&quot;</span>)) {</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                    _showEventsMenu();</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                ImGui::EndTabBar();</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            }</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            ImGui::End();</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <a class="code" href="classGameEngine_1_1EventManager.html">GameEngine::EventManager</a> &amp;_eventManager;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <a class="code" href="classGameEngine_1_1Registry.html">GameEngine::Registry</a> &amp;_registry;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <a class="code" href="classGameEngine_1_1DeltaTime.html">GameEngine::DeltaTime</a> &amp;_deltaTime;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordtype">void</span> _showGameMenu();</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keywordtype">void</span> _showRegistryMenu();</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Component&gt;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="keywordtype">void</span> _showComponentList(<a class="code" href="classSparseArray.html">SparseArray&lt;Component&gt;</a> &amp;components, <span class="keywordtype">int</span> &amp;currentComponent)</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        {</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            <span class="keywordflow">if</span> (ImGui::BeginListBox(<span class="stringliteral">&quot;##componentList&quot;</span>,</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                    ImVec2(ImGui::GetContentRegionAvail().x / 3.0f, DEFAULT_COMPONENT_LIST_HEIGHT))) {</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; _registry._nbEntities; i++) {</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                    <span class="keywordflow">if</span> (!components[i])</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                        <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                    <span class="keyword">const</span> <span class="keywordtype">bool</span> is_selected = (currentComponent == i);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                    <span class="keywordflow">if</span> (ImGui::Selectable(std::to_string(i).c_str(), is_selected)) {</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                        currentComponent = i;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                    }</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                    <span class="keywordflow">if</span> (is_selected)</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                        ImGui::SetItemDefaultFocus();</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                }</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                ImGui::EndListBox();</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            }</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        }</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keywordtype">void</span> _showTransfomComponentMenu();</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keywordtype">void</span> _showTextureComponentMenu();</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <span class="keywordtype">void</span> _showCameraComponentMenu();</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordtype">void</span> _showCollisionComponentMenu();</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keywordtype">void</span> _showFontComponentMenu();</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="keywordtype">void</span> _showMusicComponentMenu();</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <span class="keywordtype">void</span> _showPressableComponentMenu();</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keywordtype">void</span> _showTextComponentMenu();</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        <span class="keywordtype">void</span> _showControllableComponentMenu();</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <span class="keywordtype">void</span> _showDamageComponentMenu();</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="keywordtype">void</span> _showGravityComponentMenu();</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <span class="keywordtype">void</span> _showInputComponentMenu();</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <span class="keywordtype">void</span> _showHealthComponentMenu();</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <span class="keywordtype">void</span> _showScoreComponentMenu();</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        <span class="keywordtype">void</span> _showNetworkIdComponentMenu();</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        <span class="keywordtype">void</span> _showEventsMenu();</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    };</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;} <span class="comment">// namespace Debug</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="preprocessor">    #endif</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aDeltaTime_8hpp_html"><div class="ttname"><a href="DeltaTime_8hpp.html">DeltaTime.hpp</a></div></div>
 <div class="ttc" id="aEvent_8hpp_html"><div class="ttname"><a href="Event_8hpp.html">Event.hpp</a></div></div>
 <div class="ttc" id="aRegistry_8hpp_html"><div class="ttname"><a href="Registry_8hpp.html">Registry.hpp</a></div></div>
 <div class="ttc" id="aUtils_8hpp_html"><div class="ttname"><a href="Utils_8hpp.html">Utils.hpp</a></div></div>
 <div class="ttc" id="aclassGameEngine_1_1DeltaTime_html"><div class="ttname"><a href="classGameEngine_1_1DeltaTime.html">GameEngine::DeltaTime</a></div><div class="ttdoc">DeltaTime class which handles the delta time.</div><div class="ttdef"><b>Definition:</b> DeltaTime.hpp:16</div></div>
-<div class="ttc" id="aclassGameEngine_1_1EventManager_html"><div class="ttname"><a href="classGameEngine_1_1EventManager.html">GameEngine::EventManager</a></div><div class="ttdoc">class to help create and manage all the event handlers</div><div class="ttdef"><b>Definition:</b> Event.hpp:83</div></div>
+<div class="ttc" id="aclassGameEngine_1_1EventManager_html"><div class="ttname"><a href="classGameEngine_1_1EventManager.html">GameEngine::EventManager</a></div><div class="ttdoc">class to help create and manage all the event handlers</div><div class="ttdef"><b>Definition:</b> Event.hpp:134</div></div>
 <div class="ttc" id="aclassGameEngine_1_1Registry_html"><div class="ttname"><a href="classGameEngine_1_1Registry.html">GameEngine::Registry</a></div><div class="ttdoc">Entity component system, handling entities, components and systems.</div><div class="ttdef"><b>Definition:</b> Registry.hpp:31</div></div>
 <div class="ttc" id="aclassSparseArray_html"><div class="ttname"><a href="classSparseArray.html">SparseArray</a></div><div class="ttdoc">Array which can have empty indexes.</div><div class="ttdef"><b>Definition:</b> SparseArray.hpp:19</div></div>
 <div class="ttc" id="anamespaceDebug_html"><div class="ttname"><a href="namespaceDebug.html">Debug</a></div><div class="ttdef"><b>Definition:</b> Registry.hpp:21</div></div>

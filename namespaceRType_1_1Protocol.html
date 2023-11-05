@@ -77,6 +77,10 @@ $(function() {
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRType_1_1Protocol_1_1InputData.html">InputData</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRType_1_1Protocol_1_1ScoreData.html">ScoreData</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRType_1_1Protocol_1_1StatePlayerData.html">StatePlayerData</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRType_1_1Protocol_1_1ControllableData.html">ControllableData</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRType_1_1Protocol_1_1EntityIdData.html">EntityIdData</a></td></tr>
@@ -109,9 +113,16 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="namespaceRType_1_1Protocol.html#a6e9e19e4237b24f6e0b6035c4b52c865aa84cc046d48610b05c21fd3670d0c829">INPUT</a>
 , <a class="el" href="namespaceRType_1_1Protocol.html#a6e9e19e4237b24f6e0b6035c4b52c865a8fe5e19c513d214070f7e787e003d0e9">COLLISION_RES</a>
 , <a class="el" href="namespaceRType_1_1Protocol.html#a6e9e19e4237b24f6e0b6035c4b52c865a7fa7e1d5cb6ada890b8e9a28ae70c367">TEXTURE_RES</a>
+, <a class="el" href="namespaceRType_1_1Protocol.html#a6e9e19e4237b24f6e0b6035c4b52c865ab27b087805bcad51b2b0e5b02f0339f1">TEXTURE_STATE</a>
 <br />
  }</td></tr>
 <tr class="separator:a6e9e19e4237b24f6e0b6035c4b52c865"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6251732b09020b454c0085c8e0a05e3"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRType_1_1Protocol.html#af6251732b09020b454c0085c8e0a05e3">PacketType</a> : uint8_t { <a class="el" href="namespaceRType_1_1Protocol.html#af6251732b09020b454c0085c8e0a05e3a63b588d5559f64f89a416e656880b949">STRING</a> = 10
+, <a class="el" href="namespaceRType_1_1Protocol.html#af6251732b09020b454c0085c8e0a05e3aa549634ed2c22627226e8e44791cd409">CONNEXION</a>
+, <a class="el" href="namespaceRType_1_1Protocol.html#af6251732b09020b454c0085c8e0a05e3ac39aa6dbe619bb8ef8187b00b686df6a">DESTROY</a>
+, <a class="el" href="namespaceRType_1_1Protocol.html#af6251732b09020b454c0085c8e0a05e3ac9b2281fa6fd403855443e6555aa16a9">SCORE</a>
+ }</td></tr>
+<tr class="separator:af6251732b09020b454c0085c8e0a05e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac91b0bfe1aef4d1c982cf8a5753eb3d5"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRType_1_1Protocol.html#ac91b0bfe1aef4d1c982cf8a5753eb3d5">InputType</a> : uint8_t { <br />
 &#160;&#160;<a class="el" href="namespaceRType_1_1Protocol.html#ac91b0bfe1aef4d1c982cf8a5753eb3d5afbaedde498cdead4f2780217646e9ba1">UP</a> = 0
 , <a class="el" href="namespaceRType_1_1Protocol.html#ac91b0bfe1aef4d1c982cf8a5753eb3d5a21507b40c80068eda19865706fdc2403">RIGHT</a>
@@ -128,7 +139,8 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespaceRType_1_1Protocol.html#a1c9a21f9e021dcc092962f8b521b829ba7aaa7b298458e232f448bcd48604ea25">SIMPLE_SHOOT</a>
 , <a class="el" href="namespaceRType_1_1Protocol.html#a1c9a21f9e021dcc092962f8b521b829ba3a30882944340f426dc3593e21911a41">CHARGED_SHOOT</a>
 , <br />
-&#160;&#160;<a class="el" href="namespaceRType_1_1Protocol.html#a1c9a21f9e021dcc092962f8b521b829baf2b660202fcc4789d5d5fa2b40525859">MOB</a>
+&#160;&#160;<a class="el" href="namespaceRType_1_1Protocol.html#a1c9a21f9e021dcc092962f8b521b829ba88f0cd885b7900dc3650c13c6f8b8317">SIMPLE_MOB</a>
+, <a class="el" href="namespaceRType_1_1Protocol.html#a1c9a21f9e021dcc092962f8b521b829ba7548f2a3567bd86e409af429f172b30f">MEDIUM_MOB</a>
 <br />
  }</td></tr>
 <tr class="separator:a1c9a21f9e021dcc092962f8b521b829b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -161,6 +173,7 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a id="a6e9e19e4237b24f6e0b6035c4b52c865aa84cc046d48610b05c21fd3670d0c829"></a>INPUT&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a6e9e19e4237b24f6e0b6035c4b52c865a8fe5e19c513d214070f7e787e003d0e9"></a>COLLISION_RES&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a6e9e19e4237b24f6e0b6035c4b52c865a7fa7e1d5cb6ada890b8e9a28ae70c367"></a>TEXTURE_RES&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a6e9e19e4237b24f6e0b6035c4b52c865ab27b087805bcad51b2b0e5b02f0339f1"></a>TEXTURE_STATE&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -194,6 +207,34 @@ Enumerations</h2></td></tr>
 
 </div>
 </div>
+<a id="af6251732b09020b454c0085c8e0a05e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6251732b09020b454c0085c8e0a05e3">&#9670;&nbsp;</a></span>PacketType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespaceRType_1_1Protocol.html#af6251732b09020b454c0085c8e0a05e3">RType::Protocol::PacketType</a> : uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="af6251732b09020b454c0085c8e0a05e3a63b588d5559f64f89a416e656880b949"></a>STRING&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af6251732b09020b454c0085c8e0a05e3aa549634ed2c22627226e8e44791cd409"></a>CONNEXION&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af6251732b09020b454c0085c8e0a05e3ac39aa6dbe619bb8ef8187b00b686df6a"></a>DESTROY&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af6251732b09020b454c0085c8e0a05e3ac9b2281fa6fd403855443e6555aa16a9"></a>SCORE&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
 <a id="a1c9a21f9e021dcc092962f8b521b829b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1c9a21f9e021dcc092962f8b521b829b">&#9670;&nbsp;</a></span>TextureType</h2>
 
@@ -218,7 +259,8 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a id="a1c9a21f9e021dcc092962f8b521b829ba07c80e2a355d91402a00d82b1fa13855"></a>PLAYER&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a1c9a21f9e021dcc092962f8b521b829ba7aaa7b298458e232f448bcd48604ea25"></a>SIMPLE_SHOOT&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a1c9a21f9e021dcc092962f8b521b829ba3a30882944340f426dc3593e21911a41"></a>CHARGED_SHOOT&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a1c9a21f9e021dcc092962f8b521b829baf2b660202fcc4789d5d5fa2b40525859"></a>MOB&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a1c9a21f9e021dcc092962f8b521b829ba88f0cd885b7900dc3650c13c6f8b8317"></a>SIMPLE_MOB&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a1c9a21f9e021dcc092962f8b521b829ba7548f2a3567bd86e409af429f172b30f"></a>MEDIUM_MOB&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>

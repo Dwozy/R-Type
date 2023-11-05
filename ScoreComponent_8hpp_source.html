@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>R-Type: GameEngine/include/components/LifePointComponent.hpp Source File</title>
+<title>R-Type: GameEngine/include/components/ScoreComponent.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,33 +66,32 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">LifePointComponent.hpp</div>  </div>
+<div class="title">ScoreComponent.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="LifePointComponent_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<a href="ScoreComponent_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">** EPITECH PROJECT, 2023</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">** LifePointComponent.hpp</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">** ScoreComponent.hpp</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">** File description:</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">** LifePointComponent</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">** ScoreComponent</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">*/</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#ifndef LIFEPOINTCOMPONENT_HPP_</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#define LIFEPOINTCOMPONENT_HPP_</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceGameEngine.html">GameEngine</a></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="structGameEngine_1_1LifePointComponent.html">   15</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structGameEngine_1_1LifePointComponent.html">LifePointComponent</a></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    {</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="structGameEngine_1_1LifePointComponent.html#ac1bb60daee527c4b691455adccb94ceb">   17</a></span>&#160;        uint8_t <a class="code" href="structGameEngine_1_1LifePointComponent.html#ac1bb60daee527c4b691455adccb94ceb">lifePoint</a>;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    };</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;} <span class="comment">// namespace GameEngine</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* !LIFEPOINTCOMPONENT_HPP_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#ifndef SCORECOMPONENT_HPP_</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#define SCORECOMPONENT_HPP_</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;cstdio&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceGameEngine.html">GameEngine</a></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="structGameEngine_1_1ScoreComponent.html">   14</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structGameEngine_1_1ScoreComponent.html">ScoreComponent</a></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    {</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="structGameEngine_1_1ScoreComponent.html#a90c790cfbf3a65e2f4110a77dfbb73b4">   16</a></span>&#160;        std::size_t <a class="code" href="structGameEngine_1_1ScoreComponent.html#a90c790cfbf3a65e2f4110a77dfbb73b4">score</a>;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    };</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace GameEngine</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* !SCORECOMPONENT_HPP_ */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="anamespaceGameEngine_html"><div class="ttname"><a href="namespaceGameEngine.html">GameEngine</a></div><div class="ttdef"><b>Definition:</b> AssetManager.hpp:15</div></div>
-<div class="ttc" id="astructGameEngine_1_1LifePointComponent_html"><div class="ttname"><a href="structGameEngine_1_1LifePointComponent.html">GameEngine::LifePointComponent</a></div><div class="ttdef"><b>Definition:</b> LifePointComponent.hpp:16</div></div>
-<div class="ttc" id="astructGameEngine_1_1LifePointComponent_html_ac1bb60daee527c4b691455adccb94ceb"><div class="ttname"><a href="structGameEngine_1_1LifePointComponent.html#ac1bb60daee527c4b691455adccb94ceb">GameEngine::LifePointComponent::lifePoint</a></div><div class="ttdeci">uint8_t lifePoint</div><div class="ttdef"><b>Definition:</b> LifePointComponent.hpp:17</div></div>
+<div class="ttc" id="astructGameEngine_1_1ScoreComponent_html"><div class="ttname"><a href="structGameEngine_1_1ScoreComponent.html">GameEngine::ScoreComponent</a></div><div class="ttdef"><b>Definition:</b> ScoreComponent.hpp:15</div></div>
+<div class="ttc" id="astructGameEngine_1_1ScoreComponent_html_a90c790cfbf3a65e2f4110a77dfbb73b4"><div class="ttname"><a href="structGameEngine_1_1ScoreComponent.html#a90c790cfbf3a65e2f4110a77dfbb73b4">GameEngine::ScoreComponent::score</a></div><div class="ttdeci">std::size_t score</div><div class="ttdef"><b>Definition:</b> ScoreComponent.hpp:16</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

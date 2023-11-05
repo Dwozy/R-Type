@@ -101,10 +101,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ab96da5508fabdfe5683994c605551cc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9e6658f7270681c8f672fc0d591eaf7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1RTypeServer.html#aa9e6658f7270681c8f672fc0d591eaf7">handleShoot</a> (struct <a class="el" href="structRType_1_1Protocol_1_1ShootData.html">RType::Protocol::ShootData</a> shootInfo)</td></tr>
 <tr class="separator:aa9e6658f7270681c8f672fc0d591eaf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad232900ce047f9ecfd80f76dc975533c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1RTypeServer.html#ad232900ce047f9ecfd80f76dc975533c">spawnMob</a> ()</td></tr>
-<tr class="separator:ad232900ce047f9ecfd80f76dc975533c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a436d1a0eff5f370b7c63b1e4b60253ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1RTypeServer.html#a436d1a0eff5f370b7c63b1e4b60253ae">spawnMob</a> (std::chrono::steady_clock::time_point &amp;now)</td></tr>
+<tr class="separator:a436d1a0eff5f370b7c63b1e4b60253ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a37ddecc9597d7b1eca092337b2291826"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1RTypeServer.html#a37ddecc9597d7b1eca092337b2291826">broadcastInformation</a> ()</td></tr>
 <tr class="separator:a37ddecc9597d7b1eca092337b2291826"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41f1c5f1e7dac887fcdfcfb62f60ca9b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1RTypeServer.html#a41f1c5f1e7dac887fcdfcfb62f60ca9b">handlingDamage</a> (std::size_t entityId, std::size_t i, <a class="el" href="classSparseArray.html">SparseArray</a>&lt; <a class="el" href="structGameEngine_1_1CollisionComponent.html">GameEngine::CollisionComponent</a> &gt; &amp;collisions)</td></tr>
+<tr class="separator:a41f1c5f1e7dac887fcdfcfb62f60ca9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a67108797e32ac91e07d24e0ad14fadde"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1RTypeServer.html#a67108797e32ac91e07d24e0ad14fadde">destroyEntityCallback</a> (const std::size_t &amp;entityId, <a class="el" href="classSparseArray.html">SparseArray</a>&lt; <a class="el" href="structGameEngine_1_1CollisionComponent.html">GameEngine::CollisionComponent</a> &gt; &amp;collisions, <a class="el" href="classSparseArray.html">SparseArray</a>&lt; <a class="el" href="structGameEngine_1_1TransformComponent.html">GameEngine::TransformComponent</a> &gt; &amp;transforms)</td></tr>
 <tr class="separator:a67108797e32ac91e07d24e0ad14fadde"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8f1221b28ab05c4b919f62f351ae5e7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1RTypeServer.html#af8f1221b28ab05c4b919f62f351ae5e7">playerCollisionCallback</a> (const std::size_t &amp;entityId, <a class="el" href="classSparseArray.html">SparseArray</a>&lt; <a class="el" href="structGameEngine_1_1CollisionComponent.html">GameEngine::CollisionComponent</a> &gt; &amp;collisions, <a class="el" href="classSparseArray.html">SparseArray</a>&lt; <a class="el" href="structGameEngine_1_1TransformComponent.html">GameEngine::TransformComponent</a> &gt; &amp;transforms)</td></tr>
@@ -121,8 +123,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a19e4418f9999a0420a16a279e9c53da9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a35dfd2da115e961cf752514470de95f2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1RTypeServer.html#a35dfd2da115e961cf752514470de95f2">broadcastTextureComponent</a> ()</td></tr>
 <tr class="separator:a35dfd2da115e961cf752514470de95f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a099c27505429dd4ba581a07806fb14ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1RTypeServer.html#a099c27505429dd4ba581a07806fb14ca">sendTextureComponent</a> (uint16_t id, std::size_t index, <a class="el" href="structGameEngine_1_1TextureComponent.html">GameEngine::TextureComponent</a> texture, asio::ip::udp::endpoint &amp;endpoint)</td></tr>
-<tr class="separator:a099c27505429dd4ba581a07806fb14ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f47ab39f9a9c515dec96cfe225f7f4c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1RTypeServer.html#a8f47ab39f9a9c515dec96cfe225f7f4c">sendTextureComponent</a> (uint16_t id, std::size_t index, <a class="el" href="structGameEngine_1_1TextureComponent.html">GameEngine::TextureComponent</a> &amp;texture, asio::ip::udp::endpoint &amp;endpoint)</td></tr>
+<tr class="separator:a8f47ab39f9a9c515dec96cfe225f7f4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae30accf28da66eeef3cbbd93de61560d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1RTypeServer.html#ae30accf28da66eeef3cbbd93de61560d">handleTextureResponse</a> (struct <a class="el" href="structRType_1_1Event.html">RType::Event</a> event)</td></tr>
 <tr class="separator:ae30accf28da66eeef3cbbd93de61560d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8eca6b746e4160c3110bd872e81c2b50"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1RTypeServer.html#a8eca6b746e4160c3110bd872e81c2b50">handleCollisionResponse</a> (struct <a class="el" href="structRType_1_1Event.html">RType::Event</a> event)</td></tr>
@@ -151,6 +153,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aa5a84d0dda8d6f7b3c875016fd01bf7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a311b9ae1f1b015b3fad241e2acfd407f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1RTypeServer.html#a311b9ae1f1b015b3fad241e2acfd407f">setTimers</a> ()</td></tr>
 <tr class="separator:a311b9ae1f1b015b3fad241e2acfd407f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6555f35f3e0c5acbeb7b03f2098dc9c7"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1RTypeServer.html#a6555f35f3e0c5acbeb7b03f2098dc9c7">findEntity</a> (const std::size_t &amp;networkId)</td></tr>
+<tr class="separator:a6555f35f3e0c5acbeb7b03f2098dc9c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96b7f574bba11e8ab7de64dd99cd7af6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1RTypeServer.html#a96b7f574bba11e8ab7de64dd99cd7af6">searchEntity</a> (const std::size_t &amp;networkId)</td></tr>
+<tr class="separator:a96b7f574bba11e8ab7de64dd99cd7af6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a01884dfbb5e3afd24ce1f983e6422d9e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1RTypeServer.html#a01884dfbb5e3afd24ce1f983e6422d9e">sendControllableInformation</a> (<a class="el" href="classGameEngine_1_1Entity.html">GameEngine::Entity</a> &amp;entity, unsigned short port)</td></tr>
 <tr class="separator:a01884dfbb5e3afd24ce1f983e6422d9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae0dc234e814be7f98aa315b5e9e89215"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1RTypeServer.html#ae0dc234e814be7f98aa315b5e9e89215">checkCollisionComponent</a> (<a class="el" href="structGameEngine_1_1CollisionComponent.html">GameEngine::CollisionComponent</a> &amp;collision, std::size_t i)</td></tr>
@@ -159,10 +165,26 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aceb9822bd6079f086e77cb93b70684ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3a1aec7fa1a6d32b0b08f9365450654"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1RTypeServer.html#ae3a1aec7fa1a6d32b0b08f9365450654">updateComponentInformation</a> (<a class="el" href="classGameEngine_1_1Entity.html">GameEngine::Entity</a> &amp;entity, <a class="el" href="namespaceRType.html#a98e6d255b44e7b79f09201119d1499eb">RType::TextureType</a> entityType)</td></tr>
 <tr class="separator:ae3a1aec7fa1a6d32b0b08f9365450654"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6cac6398e8e5d5b7dfaa7294633ccad1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1RTypeServer.html#a6cac6398e8e5d5b7dfaa7294633ccad1">handlingLifePoint</a> (std::size_t entityId)</td></tr>
-<tr class="separator:a6cac6398e8e5d5b7dfaa7294633ccad1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52772ad146c7a64725d8a16a52173dd2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1RTypeServer.html#a52772ad146c7a64725d8a16a52173dd2">handlingLifePoint</a> (std::size_t entityId, std::size_t id)</td></tr>
+<tr class="separator:a52772ad146c7a64725d8a16a52173dd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a42cf6cfe12986accf140538acd817f18"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classGameEngine_1_1Vector2.html">GameEngine::Vector2</a>&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1RTypeServer.html#a42cf6cfe12986accf140538acd817f18">handlingMovement</a> (<a class="el" href="structGameEngine_1_1TransformComponent.html">GameEngine::TransformComponent</a> &amp;transform, struct <a class="el" href="structRType_1_1Protocol_1_1InputData.html">RType::Protocol::InputData</a> inputInfo)</td></tr>
 <tr class="separator:a42cf6cfe12986accf140538acd817f18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f7de8fe2b1c06a56e9e92c12b06e689"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1RTypeServer.html#a4f7de8fe2b1c06a56e9e92c12b06e689">handleDestroyCallback</a> (std::size_t &amp;id)</td></tr>
+<tr class="separator:a4f7de8fe2b1c06a56e9e92c12b06e689"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46da431c4fadc38fda6a6a7a34fc57e2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1RTypeServer.html#a46da431c4fadc38fda6a6a7a34fc57e2">setDestroyCallback</a> ()</td></tr>
+<tr class="separator:a46da431c4fadc38fda6a6a7a34fc57e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a860b300e293caedb205b6933d40230f6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1RTypeServer.html#a860b300e293caedb205b6933d40230f6">setGameEngineCallback</a> ()</td></tr>
+<tr class="separator:a860b300e293caedb205b6933d40230f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeaf1376205053fa9b33e970d8133d0c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1RTypeServer.html#aeaf1376205053fa9b33e970d8133d0c5">spawnEntityMob</a> (const std::string &amp;mob, <a class="el" href="namespaceRType.html#a98e6d255b44e7b79f09201119d1499eb">RType::TextureType</a> mobType)</td></tr>
+<tr class="separator:aeaf1376205053fa9b33e970d8133d0c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d269574bcf7c7f5af9bf6843c76bc40"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1RTypeServer.html#a6d269574bcf7c7f5af9bf6843c76bc40">handleImmunity</a> (std::chrono::steady_clock::time_point &amp;now)</td></tr>
+<tr class="separator:a6d269574bcf7c7f5af9bf6843c76bc40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b66acb2269a6b36bf9f61a2f91878e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1RTypeServer.html#a8b66acb2269a6b36bf9f61a2f91878e1">sendScore</a> (unsigned short port)</td></tr>
+<tr class="separator:a8b66acb2269a6b36bf9f61a2f91878e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc02b47af14bccef8ba50832bfe1e89c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1RTypeServer.html#afc02b47af14bccef8ba50832bfe1e89c">setImmunity</a> (std::chrono::duration&lt; float &gt; timerInvincibility, std::pair&lt; const uint16_t, std::pair&lt; bool, std::chrono::steady_clock::time_point &gt;&gt; playerTimer, std::chrono::steady_clock::time_point &amp;now)</td></tr>
+<tr class="separator:afc02b47af14bccef8ba50832bfe1e89c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2eb7f039ea5e0d1a9623f7e9ac7f123a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1RTypeServer.html#a2eb7f039ea5e0d1a9623f7e9ac7f123a">sendDestroyInfo</a> (struct <a class="el" href="structRType_1_1Protocol_1_1EntityIdData.html">RType::Protocol::EntityIdData</a> entity)</td></tr>
+<tr class="separator:a2eb7f039ea5e0d1a9623f7e9ac7f123a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a1f310747a349ddc5fc3a3678117499ff"></a>
@@ -383,6 +405,24 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a6555f35f3e0c5acbeb7b03f2098dc9c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6555f35f3e0c5acbeb7b03f2098dc9c7">&#9670;&nbsp;</a></span>findEntity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t RType::Server::RTypeServer::findEntity </td>
+          <td>(</td>
+          <td class="paramtype">const std::size_t &amp;&#160;</td>
+          <td class="paramname"><em>networkId</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="afac54c4530c6cc8a5f3b7581f6e5311f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afac54c4530c6cc8a5f3b7581f6e5311f">&#9670;&nbsp;</a></span>gameLoop()</h2>
 
@@ -466,6 +506,24 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a4f7de8fe2b1c06a56e9e92c12b06e689"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f7de8fe2b1c06a56e9e92c12b06e689">&#9670;&nbsp;</a></span>handleDestroyCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RType::Server::RTypeServer::handleDestroyCallback </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t &amp;&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a1e85fe3465eda3a10d0001c2aec3d756"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1e85fe3465eda3a10d0001c2aec3d756">&#9670;&nbsp;</a></span>handleEvent()</h2>
 
@@ -482,6 +540,24 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Function that will handle every event from the udp server. </p>
+
+</div>
+</div>
+<a id="a6d269574bcf7c7f5af9bf6843c76bc40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d269574bcf7c7f5af9bf6843c76bc40">&#9670;&nbsp;</a></span>handleImmunity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RType::Server::RTypeServer::handleImmunity </td>
+          <td>(</td>
+          <td class="paramtype">std::chrono::steady_clock::time_point &amp;&#160;</td>
+          <td class="paramname"><em>now</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -599,6 +675,40 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a41f1c5f1e7dac887fcdfcfb62f60ca9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41f1c5f1e7dac887fcdfcfb62f60ca9b">&#9670;&nbsp;</a></span>handlingDamage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RType::Server::RTypeServer::handlingDamage </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>entityId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>i</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classSparseArray.html">SparseArray</a>&lt; <a class="el" href="structGameEngine_1_1CollisionComponent.html">GameEngine::CollisionComponent</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>collisions</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="aa5a84d0dda8d6f7b3c875016fd01bf7d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa5a84d0dda8d6f7b3c875016fd01bf7d">&#9670;&nbsp;</a></span>handlingEndGame()</h2>
 
@@ -616,8 +726,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a6cac6398e8e5d5b7dfaa7294633ccad1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6cac6398e8e5d5b7dfaa7294633ccad1">&#9670;&nbsp;</a></span>handlingLifePoint()</h2>
+<a id="a52772ad146c7a64725d8a16a52173dd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52772ad146c7a64725d8a16a52173dd2">&#9670;&nbsp;</a></span>handlingLifePoint()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -626,8 +736,18 @@ Public Member Functions</h2></td></tr>
           <td class="memname">void RType::Server::RTypeServer::handlingLifePoint </td>
           <td>(</td>
           <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>entityId</em></td><td>)</td>
+          <td class="paramname"><em>entityId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -747,6 +867,24 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a96b7f574bba11e8ab7de64dd99cd7af6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96b7f574bba11e8ab7de64dd99cd7af6">&#9670;&nbsp;</a></span>searchEntity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool RType::Server::RTypeServer::searchEntity </td>
+          <td>(</td>
+          <td class="paramtype">const std::size_t &amp;&#160;</td>
+          <td class="paramname"><em>networkId</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a19e4418f9999a0420a16a279e9c53da9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a19e4418f9999a0420a16a279e9c53da9">&#9670;&nbsp;</a></span>sendCollisionComponent()</h2>
 
@@ -815,8 +953,44 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a099c27505429dd4ba581a07806fb14ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a099c27505429dd4ba581a07806fb14ca">&#9670;&nbsp;</a></span>sendTextureComponent()</h2>
+<a id="a2eb7f039ea5e0d1a9623f7e9ac7f123a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2eb7f039ea5e0d1a9623f7e9ac7f123a">&#9670;&nbsp;</a></span>sendDestroyInfo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RType::Server::RTypeServer::sendDestroyInfo </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structRType_1_1Protocol_1_1EntityIdData.html">RType::Protocol::EntityIdData</a>&#160;</td>
+          <td class="paramname"><em>entity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8b66acb2269a6b36bf9f61a2f91878e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b66acb2269a6b36bf9f61a2f91878e1">&#9670;&nbsp;</a></span>sendScore()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RType::Server::RTypeServer::sendScore </td>
+          <td>(</td>
+          <td class="paramtype">unsigned short&#160;</td>
+          <td class="paramname"><em>port</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8f47ab39f9a9c515dec96cfe225f7f4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f47ab39f9a9c515dec96cfe225f7f4c">&#9670;&nbsp;</a></span>sendTextureComponent()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -836,7 +1010,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structGameEngine_1_1TextureComponent.html">GameEngine::TextureComponent</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="structGameEngine_1_1TextureComponent.html">GameEngine::TextureComponent</a> &amp;&#160;</td>
           <td class="paramname"><em>texture</em>, </td>
         </tr>
         <tr>
@@ -895,6 +1069,23 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a46da431c4fadc38fda6a6a7a34fc57e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46da431c4fadc38fda6a6a7a34fc57e2">&#9670;&nbsp;</a></span>setDestroyCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RType::Server::RTypeServer::setDestroyCallback </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a06cce0cd1d345702707d02615dce3d05"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a06cce0cd1d345702707d02615dce3d05">&#9670;&nbsp;</a></span>setEntitiesComponent()</h2>
 
@@ -920,6 +1111,23 @@ Public Member Functions</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">void RType::Server::RTypeServer::setGameEngine </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a860b300e293caedb205b6933d40230f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a860b300e293caedb205b6933d40230f6">&#9670;&nbsp;</a></span>setGameEngineCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RType::Server::RTypeServer::setGameEngineCallback </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -957,6 +1165,40 @@ Public Member Functions</h2></td></tr>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afc02b47af14bccef8ba50832bfe1e89c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc02b47af14bccef8ba50832bfe1e89c">&#9670;&nbsp;</a></span>setImmunity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RType::Server::RTypeServer::setImmunity </td>
+          <td>(</td>
+          <td class="paramtype">std::chrono::duration&lt; float &gt;&#160;</td>
+          <td class="paramname"><em>timerInvincibility</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::pair&lt; const uint16_t, std::pair&lt; bool, std::chrono::steady_clock::time_point &gt;&gt;&#160;</td>
+          <td class="paramname"><em>playerTimer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::chrono::steady_clock::time_point &amp;&#160;</td>
+          <td class="paramname"><em>now</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1014,8 +1256,36 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ad232900ce047f9ecfd80f76dc975533c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad232900ce047f9ecfd80f76dc975533c">&#9670;&nbsp;</a></span>spawnMob()</h2>
+<a id="aeaf1376205053fa9b33e970d8133d0c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeaf1376205053fa9b33e970d8133d0c5">&#9670;&nbsp;</a></span>spawnEntityMob()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RType::Server::RTypeServer::spawnEntityMob </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>mob</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceRType.html#a98e6d255b44e7b79f09201119d1499eb">RType::TextureType</a>&#160;</td>
+          <td class="paramname"><em>mobType</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a436d1a0eff5f370b7c63b1e4b60253ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a436d1a0eff5f370b7c63b1e4b60253ae">&#9670;&nbsp;</a></span>spawnMob()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1023,7 +1293,8 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void RType::Server::RTypeServer::spawnMob </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">std::chrono::steady_clock::time_point &amp;&#160;</td>
+          <td class="paramname"><em>now</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1096,8 +1367,10 @@ Public Member Functions</h2></td></tr>
 <li>R-Type-server/src/Event/<a class="el" href="HandlingShoot_8cpp.html">HandlingShoot.cpp</a></li>
 <li>R-Type-server/src/Event/<a class="el" href="HandlingTexture_8cpp.html">HandlingTexture.cpp</a></li>
 <li>R-Type-server/src/Event/<a class="el" href="HandlingTransform_8cpp.html">HandlingTransform.cpp</a></li>
-<li>R-Type-server/src/Game/<a class="el" href="SetupGame_8cpp.html">SetupGame.cpp</a></li>
+<li>R-Type-server/src/Game/<a class="el" href="Immunity_8cpp.html">Immunity.cpp</a></li>
+<li>R-Type-server/src/Game/<a class="el" href="R-Type-server_2src_2Game_2SetupGame_8cpp.html">SetupGame.cpp</a></li>
 <li>R-Type-server/src/Game/<a class="el" href="SpawnMob_8cpp.html">SpawnMob.cpp</a></li>
+<li>R-Type-server/src/Game/<a class="el" href="Timer_8cpp.html">Timer.cpp</a></li>
 <li>R-Type-server/src/Game/<a class="el" href="UpdateGame_8cpp.html">UpdateGame.cpp</a></li>
 <li>R-Type-server/src/<a class="el" href="HandlingEvent_8cpp.html">HandlingEvent.cpp</a></li>
 <li>R-Type-server/src/<a class="el" href="RTypeServer_8cpp.html">RTypeServer.cpp</a></li>

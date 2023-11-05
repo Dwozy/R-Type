@@ -81,6 +81,10 @@ $(function() {
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRType_1_1Protocol_1_1InputData.html">RType::Protocol::InputData</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRType_1_1Protocol_1_1ScoreData.html">RType::Protocol::ScoreData</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRType_1_1Protocol_1_1StatePlayerData.html">RType::Protocol::StatePlayerData</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRType_1_1Protocol_1_1ControllableData.html">RType::Protocol::ControllableData</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRType_1_1Protocol_1_1EntityIdData.html">RType::Protocol::EntityIdData</a></td></tr>
@@ -120,9 +124,16 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="namespaceRType_1_1Protocol.html#a6e9e19e4237b24f6e0b6035c4b52c865aa84cc046d48610b05c21fd3670d0c829">RType::Protocol::INPUT</a>
 , <a class="el" href="namespaceRType_1_1Protocol.html#a6e9e19e4237b24f6e0b6035c4b52c865a8fe5e19c513d214070f7e787e003d0e9">RType::Protocol::COLLISION_RES</a>
 , <a class="el" href="namespaceRType_1_1Protocol.html#a6e9e19e4237b24f6e0b6035c4b52c865a7fa7e1d5cb6ada890b8e9a28ae70c367">RType::Protocol::TEXTURE_RES</a>
+, <a class="el" href="namespaceRType_1_1Protocol.html#a6e9e19e4237b24f6e0b6035c4b52c865ab27b087805bcad51b2b0e5b02f0339f1">RType::Protocol::TEXTURE_STATE</a>
 <br />
  }</td></tr>
 <tr class="separator:a6e9e19e4237b24f6e0b6035c4b52c865"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6251732b09020b454c0085c8e0a05e3"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRType_1_1Protocol.html#af6251732b09020b454c0085c8e0a05e3">RType::Protocol::PacketType</a> : uint8_t { <a class="el" href="namespaceRType_1_1Protocol.html#af6251732b09020b454c0085c8e0a05e3a63b588d5559f64f89a416e656880b949">RType::Protocol::STRING</a> = 10
+, <a class="el" href="namespaceRType_1_1Protocol.html#af6251732b09020b454c0085c8e0a05e3aa549634ed2c22627226e8e44791cd409">RType::Protocol::CONNEXION</a>
+, <a class="el" href="namespaceRType_1_1Protocol.html#af6251732b09020b454c0085c8e0a05e3ac39aa6dbe619bb8ef8187b00b686df6a">RType::Protocol::DESTROY</a>
+, <a class="el" href="namespaceRType_1_1Protocol.html#af6251732b09020b454c0085c8e0a05e3ac9b2281fa6fd403855443e6555aa16a9">RType::Protocol::SCORE</a>
+ }</td></tr>
+<tr class="separator:af6251732b09020b454c0085c8e0a05e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac91b0bfe1aef4d1c982cf8a5753eb3d5"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRType_1_1Protocol.html#ac91b0bfe1aef4d1c982cf8a5753eb3d5">RType::Protocol::InputType</a> : uint8_t { <br />
 &#160;&#160;<a class="el" href="namespaceRType_1_1Protocol.html#ac91b0bfe1aef4d1c982cf8a5753eb3d5afbaedde498cdead4f2780217646e9ba1">RType::Protocol::UP</a> = 0
 , <a class="el" href="namespaceRType_1_1Protocol.html#ac91b0bfe1aef4d1c982cf8a5753eb3d5a21507b40c80068eda19865706fdc2403">RType::Protocol::RIGHT</a>
@@ -139,7 +150,8 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespaceRType_1_1Protocol.html#a1c9a21f9e021dcc092962f8b521b829ba7aaa7b298458e232f448bcd48604ea25">RType::Protocol::SIMPLE_SHOOT</a>
 , <a class="el" href="namespaceRType_1_1Protocol.html#a1c9a21f9e021dcc092962f8b521b829ba3a30882944340f426dc3593e21911a41">RType::Protocol::CHARGED_SHOOT</a>
 , <br />
-&#160;&#160;<a class="el" href="namespaceRType_1_1Protocol.html#a1c9a21f9e021dcc092962f8b521b829baf2b660202fcc4789d5d5fa2b40525859">RType::Protocol::MOB</a>
+&#160;&#160;<a class="el" href="namespaceRType_1_1Protocol.html#a1c9a21f9e021dcc092962f8b521b829ba88f0cd885b7900dc3650c13c6f8b8317">RType::Protocol::SIMPLE_MOB</a>
+, <a class="el" href="namespaceRType_1_1Protocol.html#a1c9a21f9e021dcc092962f8b521b829ba7548f2a3567bd86e409af429f172b30f">RType::Protocol::MEDIUM_MOB</a>
 <br />
  }</td></tr>
 <tr class="separator:a1c9a21f9e021dcc092962f8b521b829b"><td class="memSeparator" colspan="2">&#160;</td></tr>
