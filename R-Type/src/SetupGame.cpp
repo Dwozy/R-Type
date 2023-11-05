@@ -44,8 +44,7 @@ namespace RType::Client
     void RTypeClient::setupGame()
     {
         setupTextureEntity();
-        auto parallaxCallback = std::bind(&RType::Client::RTypeClient::parallaxCollision, this,
-        std::placeholders::_1,
+        auto parallaxCallback = std::bind(&RType::Client::RTypeClient::parallaxCollision, this, std::placeholders::_1,
             std::placeholders::_2, std::placeholders::_3);
         GameEngine::Entity camera = _gameEngine.registry.spawnEntity();
         GameEngine::CameraComponent cam = {GameEngine::View{GameEngine::Rect<float>(0.0f, 0.0f, 200.0f, 200.0f)}};
@@ -71,7 +70,6 @@ namespace RType::Client
         parallaxBox.value()
             .addAction<std::function<void(const std::size_t &, SparseArray<GameEngine::CollisionComponent> &,
                            SparseArray<GameEngine::TransformComponent> &)>,
-                GameEngine::CollisionComponent, GameEngine::TransformComponent>(_gameEngine.registry,
-                parallaxCallback);
+                GameEngine::CollisionComponent, GameEngine::TransformComponent>(_gameEngine.registry, parallaxCallback);
     }
 } // namespace RType::Client

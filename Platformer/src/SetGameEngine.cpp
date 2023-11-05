@@ -58,6 +58,7 @@ void Platformer::setGameEngineSystem()
     GameEngine::CollisionSystem collisionSystem;
     GameEngine::GravitySystem gravitySystem(_gameEngine.deltaTime.getDeltaTime());
     GameEngine::CameraSystem cameraSystem;
+    GameEngine::AnimationSystem animationSystem(_gameEngine.deltaTime.getDeltaTime());
 
     _gameEngine.registry.addSystem<std::function<void(SparseArray<GameEngine::TransformComponent> &,
                                        SparseArray<GameEngine::ControllableComponent> &)>,
@@ -81,6 +82,10 @@ void Platformer::setGameEngineSystem()
     _gameEngine.registry.addSystem<
         std::function<void(SparseArray<GameEngine::CameraComponent> &, SparseArray<GameEngine::TransformComponent> &)>,
         GameEngine::CameraComponent, GameEngine::TransformComponent>(cameraSystem);
+
+    _gameEngine.registry
+        .addSystem<std::function<void(SparseArray<GameEngine::TextureComponent> &)>, GameEngine::TextureComponent>(
+            animationSystem);
 }
 
 void Platformer::setGameEngineScene()
@@ -92,14 +97,8 @@ void Platformer::setGameEngineScene()
     _gameEngine.sceneManager.loadScene("MainMenu");
 }
 
-void Platformer::setGameEngineTexture()
+void Platformer::setGameEngineFont()
 {
-    _gameEngine.assetManager.loadTexture("Platformer/assets/SCP-745.png", GameEngine::Recti(0, 64, 64, 64));
-    _gameEngine.assetManager.loadTexture("Platformer/assets/box.png", GameEngine::Recti(0, 0, 32, 32));
-    _gameEngine.assetManager.loadTexture(
-        "Platformer/assets/dark_city_background.png", GameEngine::Recti(0, 0, 5000, 500));
-    _gameEngine.assetManager.loadTexture("Platformer/assets/Gunner_Black_Run.png", GameEngine::Recti(0, 0, 48, 48));
-    _gameEngine.assetManager.loadTexture("Platformer/assets/button.png", GameEngine::Recti(0, 0, 48, 16));
     _gameEngine.assetManager.loadFont("Platformer/assets/8-bit fortress.ttf");
 }
 
@@ -126,7 +125,7 @@ void Platformer::setGameEngine()
 {
     setGameEngineComponent();
     setGameEngineSystem();
-    setGameEngineTexture();
+    setGameEngineFont();
     setGameEnginePrefab();
     setGameEngineScene();
     setGameEngineCallback();

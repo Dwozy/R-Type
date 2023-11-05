@@ -21,7 +21,6 @@ namespace GameEngine
     {
       public:
         GravitySystem(const float &deltaTime) : _deltaTime(deltaTime){};
-        ;
         ~GravitySystem() = default;
         void operator()(SparseArray<GravityComponent> &gravity);
 

@@ -1,36 +1,48 @@
 @echo off
 
-if "%~1"=="clean" (
+del /q build\CMakeCache.txt
+
+set debug=""
+set target="%~1"
+set build_type=Release
+
+if "%~1" == "-d" (
+    set debug=-"DDEBUG=On"
+    set build_type=Release
+    set target="%~2"
+)
+
+if %target%=="clean" (
     call:clean_all
     exit /b
 )
 
-if "%~1"=="fclean" (
+if %target%=="fclean" (
     call:fclean_all
     exit /b
 )
 
-if "%~1"=="GameEngine" (
+if %target%=="GameEngine" (
     call:build_game_engine
     exit /b
 )
 
-if "%~1"=="Client" (
+if %target%=="Client" (
     call:build_client
     exit /b
 )
 
-if "%~1"=="Server" (
+if %target%=="Server" (
     call:build_server
     exit /b
 )
 
-if "%~1"=="tests" (
+if %target%=="tests" (
     call:build_tests
     exit /b
 )
 
-if "%~1"=="platformer" (
+if %target%=="platformer" (
     call:build_game_platformer
     exit /b
 )
@@ -56,8 +68,8 @@ goto:eof
 goto:eof
 
 :build_all
-    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
-    cmake --build .\build --config Release
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=%build_type% %debug%
+    cmake --build .\build --config %build_type%
 
     for /R .\build %%f in (*.dll) do copy %%f .\R-Type
     for /R .\build %%f in (*.dll) do copy %%f .\R-Type-server
@@ -66,33 +78,33 @@ goto:eof
 goto:eof
 
 :build_game_engine
-    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_GAME_ENGINE=""
-    cmake --build .\build --config Release
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=%build_type% -DBUILD_GAME_ENGINE="" %debug%
+    cmake --build .\build --config %build_type%
 goto:eof
 
 :build_client
-    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_CLIENT=""
-    cmake --build .\build --config Release
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=%build_type% -DBUILD_CLIENT="" %debug%
+    cmake --build .\build --config %build_type%
 
     for /R .\build %%f in (*.dll) do copy %%f .\R-Type
 goto:eof
 
 :build_server
-    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_SERVER=""
-    cmake --build .\build --config Release
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=%build_type% -DBUILD_SERVER="" %debug%
+    cmake --build .\build --config %build_type%
 
     for /R .\build %%f in (*.dll) do copy %%f .\R-Type-server
 goto:eof
 
 :build_tests
-    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTS=""
-    cmake --build .\build --config Release
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=%build_type% -DBUILD_TESTS="" %debug%
+    cmake --build .\build --config %build_type%
 
     for /R .\build %%f in (*.dll) do copy %%f .\tests
 
 :build_game_platformer
-    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_GAME_PLATFORMER=""
-    cmake --build .\build --config Release
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=%build_type% -DBUILD_GAME_PLATFORMER="" %debug%
+    cmake --build .\build --config %build_type%
 
     for /R .\build %%f in (*.dll) do copy %%f .\Platformer
 

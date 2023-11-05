@@ -109,6 +109,8 @@ namespace GameEngine
                 auto &texture = registry.getComponent<TextureComponent>()[entity];
                 _assetManager.get().loadTexture(texture->path, texture->textureSize);
                 texture->sprite.load(_assetManager.get().getTexture(texture->path));
+                if (texture->textureRects.size() > 0)
+                    texture->sprite.setTextureRect(texture->textureRects[texture->animeid]);
             }
             if (prefab.first == typeid(TextComponent) && loadFont) {
                 auto &text = registry.getComponent<TextComponent>()[entity];
@@ -130,6 +132,8 @@ namespace GameEngine
                 auto &texture = registry.getComponent<TextureComponent>()[entity];
                 _assetManager.get().loadTexture(texture->path, texture->textureSize);
                 texture->sprite.load(_assetManager.get().getTexture(texture->path));
+                if (texture->textureRects.size() > 0)
+                    texture->sprite.setTextureRect(texture->textureRects[texture->animeid]);
             }
             if (prefab.first == typeid(TextComponent) && loadFont) {
                 auto &text = registry.getComponent<TextComponent>()[entity];
