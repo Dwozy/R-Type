@@ -28,6 +28,8 @@ namespace RType::Server
 
         try {
             GameEngine::Entity getEntity = _gameEngine.registry.getEntityById(entity.id);
+            if (_listIdType.find(entity.id) == _listIdType.end())
+                return;
             if (_listIdType.at(entity.id) == static_cast<uint8_t>(RType::TextureType::PLAYER)) {
                 _nbPlayers--;
                 _nbPlayers = (_nbPlayers == 0) ? -1 : _nbPlayers;

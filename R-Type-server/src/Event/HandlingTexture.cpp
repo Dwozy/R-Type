@@ -14,15 +14,13 @@ namespace RType::Server
         struct RType::Protocol::TextureResponse response =
             std::any_cast<struct RType::Protocol::TextureResponse>(event.data);
 
-        if (_listInfosComponent.find(response.id) != _listInfosComponent.end()) {
-            try {
-                _listInfosComponent[event.port]
-                    .at(response.id)
-                    .at(RType::Protocol::ComponentType::TEXTURE)[response.idTexture] = false;
-            } catch (const std::out_of_range &) {
-                return;
-            }
-        }
+        if (_listInfosComponent.find(event.port) == _listInfosComponent.end())
+            return;
+        if (_listInfosComponent[event.port].find(response.id) == _listInfosComponent[event.port].end())
+            return;
+        _listInfosComponent[event.port]
+            .at(response.id)
+            .at(RType::Protocol::ComponentType::TEXTURE)[response.idTexture] = false;
     }
 
     void RTypeServer::sendTextureComponent(
