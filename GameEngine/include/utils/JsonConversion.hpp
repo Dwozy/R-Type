@@ -104,10 +104,7 @@ namespace GameEngine
     /// @brief Function to convert a json object to a DamageComponent
     /// @param j reference to the json object
     /// @param tc reference to the damage component
-    void from_json(const json &j, DamageComponent &dc)
-    {
-        j.at("damage").get_to(dc.damage);
-    }
+    void from_json(const json &j, DamageComponent &dc) { j.at("damage").get_to(dc.damage); }
 
     /// @brief Function to convert a json object to a ControllableComponent
     /// @param j reference to the json object

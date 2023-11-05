@@ -10,7 +10,8 @@
 
 void MainMenuScene::load()
 {
-    GameEngine::Entity background = _gameEngine.prefabManager.createEntityFromPrefab("background", _gameEngine.registry);
+    GameEngine::Entity background =
+        _gameEngine.prefabManager.createEntityFromPrefab("background", _gameEngine.registry);
     GameEngine::Entity cam = _gameEngine.prefabManager.createEntityFromPrefab("main_camera", _gameEngine.registry);
     GameEngine::Entity title = _gameEngine.registry.spawnEntity();
     GameEngine::Entity start = _gameEngine.registry.spawnEntity();
@@ -24,14 +25,13 @@ void MainMenuScene::load()
     GameEngine::TextComponent textsubTitle{"press escap to start", 17, GameEngine::Text(), true, 50};
     textTitle.text.load(textTitle.str, _font.getFont(), textTitle.size);
     textsubTitle.text.load(textsubTitle.str, _font.getFont(), textsubTitle.size);
-    textTitle.text.setPosition(GameEngine::Vector2<float>{22,  75});
+    textTitle.text.setPosition(GameEngine::Vector2<float>{22, 75});
     textsubTitle.text.setPosition(GameEngine::Vector2<float>{65, 150});
     _gameEngine.registry.addComponent<GameEngine::FontComponent>(title, fontTitle);
     _gameEngine.registry.addComponent<GameEngine::TextComponent>(title, textTitle);
     _gameEngine.registry.addComponent<GameEngine::FontComponent>(start, fontsubtitle);
     _gameEngine.registry.addComponent<GameEngine::TextComponent>(start, textsubTitle);
     std::cout << "Loading MainMenuScene" << std::endl;
-
 }
 
 void MainMenuScene::unload()

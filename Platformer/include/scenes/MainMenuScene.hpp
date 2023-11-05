@@ -14,13 +14,15 @@
 class MainMenuScene : public GameEngine::IScene
 {
   public:
-    MainMenuScene(GameEngine::GameEngine &gameEngine, GameState &state) : _gameEngine(gameEngine), _state(state) {
-      _font.load("Platformer/assets/8-bit fortress.ttf");
-    } ;
+    MainMenuScene(GameEngine::GameEngine &gameEngine, GameState &state) : _gameEngine(gameEngine), _state(state)
+    {
+        _font.load("Platformer/assets/8-bit fortress.ttf");
+    };
     ~MainMenuScene() = default;
     void load() override;
     void unload() override;
     void update() override;
+
   private:
     std::vector<GameEngine::Entity> _entities;
     GameEngine::Font _font;

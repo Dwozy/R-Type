@@ -14,13 +14,16 @@
 class PauseScene : public GameEngine::IScene
 {
   public:
-    PauseScene(GameEngine::GameEngine &gameEngine, GameState &state, bool &isOpen) : _gameEngine(gameEngine), _state(state), _isOpen(isOpen) {
-      _font.load("Platformer/assets/8-bit fortress.ttf");
+    PauseScene(GameEngine::GameEngine &gameEngine, GameState &state, bool &isOpen)
+        : _gameEngine(gameEngine), _state(state), _isOpen(isOpen)
+    {
+        _font.load("Platformer/assets/8-bit fortress.ttf");
     };
     ~PauseScene() = default;
     void load() override;
     void unload() override;
     void update() override;
+
   private:
     GameEngine::Font _font;
     GameState &_state;
