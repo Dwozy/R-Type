@@ -13,3 +13,5 @@ PauseScene::PauseScene() {}
 void PauseScene::load() { std::cout << "Loading PauseScene" << std::endl; }
 
 void PauseScene::unload() { std::cout << "Unloading PauseScene" << std::endl; }
+
+void PauseScene::addEntityToUnload(GameEngine::Entity) {}

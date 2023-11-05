@@ -84,3 +84,5 @@ void GameScene::load()
 }
 
 void GameScene::unload() { std::cout << "unloading GameScene" << std::endl; }
+
+void GameScene::addEntityToUnload(GameEngine::Entity) {}

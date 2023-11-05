@@ -37,6 +37,8 @@ namespace GameEngine
         /// @brief Unloads the currently loaded scene.
         void unloadScene();
 
+        void addEntityToCurrentSceneUnload(Entity entity);
+
       private:
         std::unordered_map<std::string, std::unique_ptr<IScene>> _scenes;
         std::string _currentScene;

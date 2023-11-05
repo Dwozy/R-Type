@@ -69,9 +69,10 @@ namespace RType::Client
         GameEngine::GravitySystem gravitySystem(_gameEngine.deltaTime.getDeltaTime());
         GameEngine::AnimationSystem animationSystem(_gameEngine.deltaTime.getDeltaTime());
         GameEngine::InputSystem inputSystem(_gameEngine.eventManager);
-        auto scriptingSystem = std::make_shared<GameEngine::ScriptingSystem>(_gameEngine.registry);
+        auto scriptingSystem = std::make_shared<GameEngine::ScriptingSystem>(_gameEngine);
 
-        scriptingSystem->registerType<GameEngine::TransformComponent>("transform");
+        scriptingSystem->registerSetter(GameEngine::setTransformForLua);
+        scriptingSystem->registerSetter(GameEngine::setEntityForLua);
 
         _gameEngine.registry.addSystem<std::function<void(SparseArray<GameEngine::TransformComponent> &,
                                            SparseArray<GameEngine::ControllableComponent> &)>,

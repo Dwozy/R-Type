@@ -11,3 +11,5 @@
 void WinLoseScene::load() { std::cout << "Loading WinLoseScene" << std::endl; }
 
 void WinLoseScene::unload() { std::cout << "Unloading WinLoseScene" << std::endl; }
+
+void WinLoseScene::addEntityToUnload(GameEngine::Entity) {}

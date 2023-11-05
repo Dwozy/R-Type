@@ -19,6 +19,7 @@ class GameScene : public GameEngine::IScene
     ~GameScene() = default;
     void load() override;
     void unload() override;
+    void addEntityToUnload(GameEngine::Entity entity) override;
 
   private:
     GameEngine::GameEngine &_gameEngine;

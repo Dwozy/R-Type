@@ -11,11 +11,13 @@
 #include <unordered_map>
 #include <sol/sol.hpp>
 #include <memory>
+#include "GameEngine.hpp"
 #include "SparseArray.hpp"
 #include "Registry.hpp"
 #include "components/ScriptComponent.hpp"
 #include "components/TransformComponent.hpp"
 #include "utils/Vector.hpp"
+#include "utils/Rect.hpp"
 
 #include <iostream>
 
@@ -26,51 +28,33 @@ namespace GameEngine
     class ScriptingSystem
     {
       public:
-        ScriptingSystem(Registry &registry);
+        ScriptingSystem(GameEngine &gameEngine);
         ~ScriptingSystem() = default;
 
         void operator()(SparseArray<ScriptComponent> &scripts);
-        template <typename Component>
-        void registerType(const std::string &componentName)
-        {
-            _setters.push_back([this, componentName](sol::state &lua) {
-                // engine.new_usertype<Component>("componentName");
-                lua.set_function("get_" + componentName + "_component", [this]() {
-                    auto &sArray = _registry.getComponent<Component>();
-                    return &sArray._data;
-                });
-                lua.set_function("get_" + componentName + "_component_id", [this](std::size_t index) {
-                    auto &sArray = _registry.getComponent<Component>();
-                    return std::ref(sArray[index]);
-                });
-            });
-        };
+        void registerSetter(std::function<void(sol::state &, GameEngine &)> setter);
 
       private:
         void _setLua(sol::state &lua)
         {
-            // auto engine = lua["engine"].get_or_create<sol::table>();
             lua.new_usertype<Vector2<float>>("vector2f", "x", &Vector2<float>::x, "y", &Vector2<float>::y);
-            lua.new_usertype<TransformComponent>(
-                "transform", "position", &TransformComponent::position/*, "velocity", &TransformComponent::velocity*/);
-            lua.set_function("get_position", [this](std::size_t idx) {
-                auto &tsfs = _registry.getComponent<TransformComponent>();
-                std::optional<std::shared_ptr<Vector2<float>>> pos;
-                if (tsfs[idx].has_value()) {
-                    std::shared_ptr<Vector2<float>> ptr(&tsfs[idx].value().position, [](void *){});
-                    pos = ptr;
-                }
-                return pos;
-            });
+            lua.new_usertype<Vector2<int>>("vector2i", "x", &Vector2<int>::x, "y", &Vector2<int>::y);
+            lua.new_usertype<Rect<float>>("rectf", "left", &Rect<float>::left, "top", &Rect<float>::top, "width",
+                &Rect<float>::width, "height", &Rect<float>::height);
+            lua.new_usertype<Rect<int>>("recti", "left", &Rect<int>::left, "top", &Rect<int>::top, "width",
+                &Rect<int>::width, "height", &Rect<int>::height);
             for (auto &setter : _setters) {
-                setter(lua);
+                setter(lua, _gameEngine);
             };
         };
 
-        Registry &_registry;
+        GameEngine &_gameEngine;
         std::unordered_map<std::size_t, std::pair<bool, sol::state>> _activeScripts;
-        std::vector<std::function<void(sol::state &)>> _setters;
+        std::vector<std::function<void(sol::state &, GameEngine &)>> _setters;
     };
+
+    void setTransformForLua(sol::state &lua, GameEngine &engine);
+    void setEntityForLua(sol::state &lua, GameEngine &engine);
 } // namespace GameEngine
 
 #endif /* !SCRIPTINGSYSTEM_HPP_ */
