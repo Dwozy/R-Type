@@ -130,5 +130,4 @@ void Platformer::setGameEngine()
     setGameEngineFont();
     setGameEnginePrefab();
     setGameEngineScene();
-    setGameEngineCallback();
 }
