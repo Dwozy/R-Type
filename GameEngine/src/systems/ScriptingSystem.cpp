@@ -27,7 +27,6 @@ namespace GameEngine
                 _setLua(lua);
                 lua.script_file(script->name);
                 sol::function start = lua["Start"];
-                std::cout << "Entity ID " << i << std::endl;
                 if (start.valid())
                     start(i);
                 _activeScripts.insert({i, std::make_pair(true, std::move(lua))});

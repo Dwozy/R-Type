@@ -16,9 +16,7 @@ class WinLoseScene : public GameEngine::IScene
   public:
     WinLoseScene(GameEngine::GameEngine &gameEngine, GameState &state, bool &isOpen)
         : _gameEngine(gameEngine), _state(state), _isOpen(isOpen)
-    {
-        _font.load("Platformer/assets/8-bit fortress.ttf");
-    };
+    {};
     ~WinLoseScene() = default;
     void load() override;
     void unload() override;
@@ -26,7 +24,6 @@ class WinLoseScene : public GameEngine::IScene
     void update() override;
 
   private:
-    GameEngine::Font _font;
     GameState &_state;
     bool &_isOpen;
     GameEngine::GameEngine &_gameEngine;

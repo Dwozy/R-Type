@@ -15,6 +15,7 @@ set(SRCS_LIB
     GameEngine/src/systems/ScriptingSystem.cpp
     GameEngine/src/systems/InputSystem.cpp
     GameEngine/src/systems/DamageSystem.cpp
+    GameEngine/src/systems/MusicSystem.cpp
     GameEngine/src/SceneManager.cpp
     GameEngine/src/PrefabManager.cpp
 )
