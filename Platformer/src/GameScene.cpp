@@ -186,6 +186,20 @@ void GameScene::unload()
 
 void GameScene::update()
 {
+    auto &playerTexture = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[_id];
+    auto &playerTransform = _gameEngine.registry.getComponent<GameEngine::TransformComponent>()[_id];
+    if (playerTransform && playerTransform->velocity.x == 0.0f)
+        playerTexture->animated = false;
+    else if (playerTransform && playerTransform->velocity.x < 0.0f) {
+        playerTexture->animated = true;
+        for (auto &textRect: playerTexture->textureRects)
+            textRect.top = 192;
+    } else {
+        playerTexture->animated = true;
+        for (auto &textRect: playerTexture->textureRects)
+            textRect.top = 64;
+    }
+
     auto &playerHealth = _gameEngine.registry.getComponent<GameEngine::HealthComponent>()[_id];
     if (playerHealth && playerHealth->health <= 0) {
         _state = GameState::Lose;
