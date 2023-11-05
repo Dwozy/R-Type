@@ -38,13 +38,13 @@ namespace RType::Server
         std::chrono::duration<float> _deltaTimePatapata =
             std::chrono::duration_cast<std::chrono::duration<float>>(now - _timers["patapata"]);
 
-        if (_deltaTimeDop.count() > 8.0) {
-            spawnEntityMob("dop", RType::TextureType::MEDIUM_MOB);
-            _timers["dop"] = now;
-        }
-        if (_deltaTimePatapata.count() > 2.0) {
-            spawnEntityMob("patapata", RType::TextureType::SIMPLE_MOB);
-            _timers["patapata"] = now;
-        }
+        // if (_deltaTimeDop.count() > 8.0) {
+        //     spawnEntityMob("dop", RType::TextureType::MEDIUM_MOB);
+        //     _timers["dop"] = now;
+        // }
+        // if (_deltaTimePatapata.count() > 2.0) {
+        //     spawnEntityMob("patapata", RType::TextureType::SIMPLE_MOB);
+        //     _timers["patapata"] = now;
+        // }
     }
 } // namespace RType::Server

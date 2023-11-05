@@ -31,6 +31,10 @@ namespace RType::Server
             if (_listIdType.at(entity.id) == static_cast<uint8_t>(RType::TextureType::PLAYER)) {
                 _nbPlayers--;
                 _nbPlayers = (_nbPlayers == 0) ? -1 : _nbPlayers;
+                if (!std::binary_search(_nbPlayerTexture.begin(), _nbPlayerTexture.end(), _listIndexTexture[entity.id]))
+                    _nbPlayerTexture.push_back(_listIndexTexture[entity.id]);
+                std::sort(_nbPlayerTexture.begin(), _nbPlayerTexture.end());
+                _listIndexTexture.erase(entity.id);
                 _udpServer.getListClients().erase(event.port);
             }
             if (_killEnemy && (_listIdType.at(entity.id) == static_cast<uint8_t>(RType::TextureType::SIMPLE_MOB) ||
