@@ -93,159 +93,81 @@ Pascal string:</h2>
 Event types:</h2>
 <ul>
 <li>#### Player related events:<ul>
-<li>#### Move* Data represent position and normalised movement vector: <table class="markdownTable">
+<li>#### TranformData* Data represent Transform component of a entity: <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">id   </th><th class="markdownTableHeadNone">x   </th><th class="markdownTableHeadNone">y   </th><th class="markdownTableHeadNone">dx   </th><th class="markdownTableHeadNone">dy    </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">16-bit unsigned integer   </td><td class="markdownTableBodyNone">Float   </td><td class="markdownTableBodyNone">Float   </td><td class="markdownTableBodyNone">Float   </td><td class="markdownTableBodyNone">Float   </td></tr>
 </table>
 </li>
-<li>#### Shoot* Data represent position and normalised directional vector: <table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">id   </th><th class="markdownTableHeadNone">x   </th><th class="markdownTableHeadNone">y   </th><th class="markdownTableHeadNone">dx   </th><th class="markdownTableHeadNone">dy    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">16-bit unsigned integer   </td><td class="markdownTableBodyNone">Float   </td><td class="markdownTableBodyNone">Float   </td><td class="markdownTableBodyNone">Float   </td><td class="markdownTableBodyNone">Float   </td></tr>
-</table>
-</li>
-<li>#### Take damage* <table class="markdownTable">
+<li>#### EndGameData* Data represent End Game component of a entity: <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">id    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">16-bit unsigned integer   </td></tr>
-</table>
-</li>
-<li>#### Die <table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">id    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">16-bit unsigned integer   </td></tr>
-</table>
-</li>
-<li>#### Take bonus* Data represent position and bonus type: <table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">id   </th><th class="markdownTableHeadNone">x   </th><th class="markdownTableHeadNone">y   </th><th class="markdownTableHeadNone">bonus_id    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">16-bit unsigned integer   </td><td class="markdownTableBodyNone">Float   </td><td class="markdownTableBodyNone">Float   </td><td class="markdownTableBodyNone">8-bit unsigned integer   </td></tr>
-</table>
-</li>
-</ul>
-</li>
-<li>#### Room related events:<ul>
-<li>#### (Client) Create room* Data represent room name: <table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">room_name    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Pstring   </td></tr>
-</table>
-</li>
-<li>#### Get room information Data represent room information: <table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">room_id   </th><th class="markdownTableHeadNone">room slots   </th><th class="markdownTableHeadNone">slots left    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">16-bit unsigned integer   </td><td class="markdownTableBodyNone">8-bit unsigned integer   </td><td class="markdownTableBodyNone">8-bit unsigned integer   </td></tr>
-</table>
-</li>
-<li>#### Get room name Name of the room: <table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">room_name    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Pstring   </td></tr>
-</table>
-</li>
-<li>#### Join* Data represent room: <table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">room_id    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">16-bit unsigned integer   </td></tr>
-</table>
-</li>
-<li>#### Leave* Data represent room: <table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">room_id    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">16-bit unsigned integer   </td></tr>
-</table>
-</li>
-<li>### Delete room* Data represent room: <table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">room id    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">16-bit unsigned integer   </td></tr>
-</table>
-</li>
-<li>#### Choice stage* Data represent stage chosen: <table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">stage_number    </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">8-bit unsigned integer   </td></tr>
 </table>
 </li>
-</ul>
-</li>
-<li>#### Enemy related events:<ul>
-<li>#### Spawn Data represent position of the enemy and its id: <table class="markdownTable">
+<li>#### ScoreData* Data represent score: <table class="markdownTable">
 <tr class="markdownTableHead">
-<th class="markdownTableHeadNone">enemy_id   </th><th class="markdownTableHeadNone">x   </th><th class="markdownTableHeadNone">y    </th></tr>
+<th class="markdownTableHeadNone">id    </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">16-bit unsigned integer   </td><td class="markdownTableBodyNone">Float   </td><td class="markdownTableBodyNone">Float   </td></tr>
+<td class="markdownTableBodyNone">16-bit unsigned integer   </td></tr>
 </table>
 </li>
-<li>#### Move Data represent movement vector: <table class="markdownTable">
+<li>#### InputData* Data represent Controllable component of a entity: <table class="markdownTable">
 <tr class="markdownTableHead">
-<th class="markdownTableHeadNone">enemy_id   </th><th class="markdownTableHeadNone">x   </th><th class="markdownTableHeadNone">y    </th></tr>
+<th class="markdownTableHeadNone">id   </th><th class="markdownTableHeadNone">inputId   </th><th class="markdownTableHeadNone">state    </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">16-bit unsigned integer   </td><td class="markdownTableBodyNone">Float   </td><td class="markdownTableBodyNone">Float   </td></tr>
+<td class="markdownTableBodyNone">16-bit unsigned integer   </td><td class="markdownTableBodyNone">8-bit unsigned integer   </td><td class="markdownTableBodyNone">8-bit unsigned integer   </td></tr>
 </table>
 </li>
-<li>#### Shoot Data represent position and normalised directional vector: <table class="markdownTable">
+<li>#### ControllableData* Data represent Controllable component of a entity: |id| |&mdash;| |16-bit unsigned integer|Float|Float|</li>
+<li>#### StatePlayerData* Data represent State of the player: <table class="markdownTable">
 <tr class="markdownTableHead">
-<th class="markdownTableHeadNone">enemy_id   </th><th class="markdownTableHeadNone">x   </th><th class="markdownTableHeadNone">y   </th><th class="markdownTableHeadNone">dx   </th><th class="markdownTableHeadNone">dy    </th></tr>
+<th class="markdownTableHeadNone">id   </th><th class="markdownTableHeadNone">invincibility    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">16-bit unsigned integer   </td><td class="markdownTableBodyNone">8-bit unsigned integer   </td></tr>
+</table>
+</li>
+<li>#### CollisionData* <table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">id   </th><th class="markdownTableHeadNone">idCallback   </th><th class="markdownTableHeadNone">rectLeft   </th><th class="markdownTableHeadNone">rectTop   </th><th class="markdownTableHeadNone">rectRight   </th><th class="markdownTableHeadNone">rectHeight   </th><th class="markdownTableHeadNone">layer    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">16-bit unsigned integer   </td><td class="markdownTableBodyNone">8-bit unsigned integer   </td><td class="markdownTableBodyNone">Float   </td><td class="markdownTableBodyNone">Float   </td><td class="markdownTableBodyNone">Float   </td><td class="markdownTableBodyNone">Float   </td><td class="markdownTableBodyNone">8-bit unsigned integer   </td></tr>
+</table>
+</li>
+<li>#### TextureData* <table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone" colspan="2">id   </th><th class="markdownTableHeadNone">idTexture   </th><th class="markdownTableHeadNone">idOrderTexture   </th><th class="markdownTableHeadNone">rectLeft   </th><th class="markdownTableHeadNone">rectTop   </th><th class="markdownTableHeadNone">rectWidth   </th><th class="markdownTableHeadNone">rectHeight   </th><th class="markdownTableHeadNone">rectTextureLeft   </th><th class="markdownTableHeadNone">rectTextureTop   </th><th class="markdownTableHeadNone">rectTextureWidth   </th><th class="markdownTableHeadNone">rectTextureHeight   </th><th class="markdownTableHeadNone">renderLayer   </th><th class="markdownTableHeadNone">isAnimated   </th><th class="markdownTableHeadNone">animationSpeed    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">16-bit unsigned integer   </td><td class="markdownTableBodyNone">8-bit unsigned integer   </td><td class="markdownTableBodyNone">8-bit unsigned integer   </td><td class="markdownTableBodyNone">16-bit unsigned integer   </td><td class="markdownTableBodyNone">16-bit unsigned integer   </td><td class="markdownTableBodyNone">16-bit unsigned integer   </td><td class="markdownTableBodyNone">16-bit unsigned integer   </td><td class="markdownTableBodyNone">16-bit unsigned integer   </td><td class="markdownTableBodyNone">16-bit unsigned integer   </td><td class="markdownTableBodyNone">16-bit unsigned integer   </td><td class="markdownTableBodyNone">16-bit unsigned integer   </td><td class="markdownTableBodyNone">16-bit unsigned integer   </td><td class="markdownTableBodyNone">8-bit unsigned integer   </td><td class="markdownTableBodyNone">8-bit unsigned integer   </td><td class="markdownTableBodyNone">float   </td></tr>
+</table>
+</li>
+<li>#### MoveData* Data represent Move component of a entity: <table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">id   </th><th class="markdownTableHeadNone">x   </th><th class="markdownTableHeadNone">y   </th><th class="markdownTableHeadNone">dx   </th><th class="markdownTableHeadNone">dy    </th></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">16-bit unsigned integer   </td><td class="markdownTableBodyNone">Float   </td><td class="markdownTableBodyNone">Float   </td><td class="markdownTableBodyNone">Float   </td><td class="markdownTableBodyNone">Float   </td></tr>
 </table>
 </li>
-<li>#### Take damage* Data represent enemy: <table class="markdownTable">
+<li>#### ShootData* Data represent Shoot entity: <table class="markdownTable">
 <tr class="markdownTableHead">
-<th class="markdownTableHeadNone">enemy_id    </th></tr>
+<th class="markdownTableHeadNone">id   </th><th class="markdownTableHeadNone">x   </th><th class="markdownTableHeadNone">y   </th><th class="markdownTableHeadNone">dx   </th><th class="markdownTableHeadNone">dy    </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">16-bit unsigned integer   </td></tr>
+<td class="markdownTableBodyNone">16-bit unsigned integer   </td><td class="markdownTableBodyNone">Float   </td><td class="markdownTableBodyNone">Float   </td><td class="markdownTableBodyNone">Float   </td><td class="markdownTableBodyNone">Float   </td></tr>
 </table>
 </li>
-<li>#### Die Data represent enemy: <table class="markdownTable">
+<li>#### TextureResponse* Data if texture need to be resend: <table class="markdownTable">
 <tr class="markdownTableHead">
-<th class="markdownTableHeadNone">enemy_id    </th></tr>
+<th class="markdownTableHeadNone">id   </th><th class="markdownTableHeadNone">idTexture    </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">16-bit unsigned integer   </td></tr>
+<td class="markdownTableBodyNone">16-bit unsigned integer   </td><td class="markdownTableBodyNone">16-bit unsigned integer   </td></tr>
 </table>
 </li>
-<li>#### Drop bonus Data represent position of the enemy, its id and the bonus: <table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">x   </th><th class="markdownTableHeadNone">y   </th><th class="markdownTableHeadNone">enemy_id   </th><th class="markdownTableHeadNone">bonus_id    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Float   </td><td class="markdownTableBodyNone">Float   </td><td class="markdownTableBodyNone">16-bit unsigned integer   </td><td class="markdownTableBodyNone">8-bit unsigned integer   </td></tr>
-</table>
-</li>
-</ul>
-</li>
-<li>#### Stage related events:<ul>
-<li>#### Start No Additional data</li>
-<li>#### Win No Additional data</li>
-<li>#### Game Over No Additional data</li>
-</ul>
-</li>
-<li>#### Response events (server response to the original sender):<ul>
-<li>#### OK No Additional data</li>
-<li>#### KO Data is the error message: <table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">message    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Pstring   </td></tr>
-</table>
-</li>
+<li>#### CollisionResponse* Data if Collision need to be resend: |id| |&mdash;| |16-bit unsigned integer </li>
 </ul>
 </li>
 </ul>
-<p>*: sent by client, redistributed by server in the corresponding room with the id of the sender </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->
