@@ -19,7 +19,7 @@ clean_all()
 
 setup_all()
 {
-    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release $debug
     status=$?
     if [ "$status" -ne 0 ]; then
         exit "$status"
