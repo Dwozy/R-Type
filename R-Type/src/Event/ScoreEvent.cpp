@@ -6,7 +6,6 @@
 */
 
 #include "RTypeClient.hpp"
-#include "components/FontComponent.hpp"
 #include "components/TextComponent.hpp"
 #include "utils/SfmlTypes.hpp"
 #include "Protocol.hpp"

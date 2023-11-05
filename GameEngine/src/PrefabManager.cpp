@@ -40,6 +40,9 @@ namespace GameEngine
         _componentConverters["CameraComponent"] = [](json json) {
             return std::pair(std::type_index(typeid(CameraComponent)), json.get<CameraComponent>());
         };
+        _componentConverters["TextComponent"] = [](json json) {
+            return std::pair(std::type_index(typeid(TextComponent)), json.get<TextComponent>());
+        };
 
         _componentAdders[typeid(TransformComponent)] = [](Registry &registry, const std::any &component,
                                                            Entity entity) {
@@ -68,6 +71,9 @@ namespace GameEngine
         _componentAdders[typeid(CameraComponent)] = [](Registry &registry, const std::any &component, Entity entity) {
             return registry.addComponent(entity, std::any_cast<CameraComponent>(component));
         };
+        _componentAdders[typeid(TextComponent)] = [](Registry &registry, const std::any &component, Entity entity) {
+            return registry.addComponent(entity, std::any_cast<TextComponent>(component));
+        };
     }
 
     void PrefabManager::loadPrefabFromFile(const std::string &filename)
@@ -93,7 +99,7 @@ namespace GameEngine
         }
     }
 
-    Entity PrefabManager::createEntityFromPrefab(const std::string &prefabName, Registry &registry, bool loadTexture)
+    Entity PrefabManager::createEntityFromPrefab(const std::string &prefabName, Registry &registry, bool loadTexture, bool loadFont)
     {
         auto entity = registry.spawnEntity();
 
@@ -103,13 +109,20 @@ namespace GameEngine
                 auto &texture = registry.getComponent<TextureComponent>()[entity];
                 _assetManager.get().loadTexture(texture->path, texture->textureSize);
                 texture->sprite.load(_assetManager.get().getTexture(texture->path));
+                if (texture->textureRects.size() > 0)
+                    texture->sprite.setTextureRect(texture->textureRects[texture->animeid]);
+            }
+            if (prefab.first == typeid(TextComponent) && loadFont) {
+                auto &text = registry.getComponent<TextComponent>()[entity];
+                _assetManager.get().loadFont(text->fontPath);
+                text->text.load(text->str, _assetManager.get().getFont(text->fontPath).getFont(), text->size);
             }
         }
         return entity;
     }
 
     Entity PrefabManager::createEntityFromPrefab(
-        const std::string &prefabName, Registry &registry, size_t id, bool loadTexture)
+        const std::string &prefabName, Registry &registry, size_t id, bool loadTexture, bool loadFont)
     {
         auto entity = registry.spawnEntity(id);
 
@@ -119,6 +132,13 @@ namespace GameEngine
                 auto &texture = registry.getComponent<TextureComponent>()[entity];
                 _assetManager.get().loadTexture(texture->path, texture->textureSize);
                 texture->sprite.load(_assetManager.get().getTexture(texture->path));
+                if (texture->textureRects.size() > 0)
+                    texture->sprite.setTextureRect(texture->textureRects[texture->animeid]);
+            }
+            if (prefab.first == typeid(TextComponent) && loadFont) {
+                auto &text = registry.getComponent<TextComponent>()[entity];
+                _assetManager.get().loadFont(text->fontPath);
+                text->text.load(text->str, _assetManager.get().getFont(text->fontPath).getFont(), text->size);
             }
         }
         return entity;

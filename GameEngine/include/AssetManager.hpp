@@ -32,14 +32,25 @@ namespace GameEngine
             }
         }
 
+        void loadFont(const std::string &filename)
+        {
+            if (_font.find(filename) == _font.end()) {
+                _font[filename] = Font();
+                _font[filename].load(filename);
+            }
+        }
+
         /// @brief Get a texture previously loaded
         /// @param textureName name of the texture
         /// @return const reference to the texture
         const Texture &getTexture(const std::string &textureName) const { return _texture.at(textureName); }
 
+        const Font &getFont(const std::string &fontName) const { return _font.at(fontName); }
+
       protected:
       private:
         std::unordered_map<std::string, Texture> _texture;
+        std::unordered_map<std::string, Font> _font;
     };
 } // namespace GameEngine
 

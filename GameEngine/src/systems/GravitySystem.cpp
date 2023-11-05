@@ -14,7 +14,7 @@ namespace GameEngine
         _currentDeltaTime += _deltaTime;
         for (size_t i = 0; i < gravity.size(); ++i) {
             auto &grav = gravity[i];
-            if (!(_currentDeltaTime >= 0.001))
+            if (!(_currentDeltaTime >= 0.1))
                 return;
             if (grav) {
                 if (grav->isActive == true)

@@ -10,7 +10,6 @@
 #include "components/TextureComponent.hpp"
 #include "components/CameraComponent.hpp"
 #include "components/CollisionComponent.hpp"
-#include "components/FontComponent.hpp"
 #include "components/MusicComponent.hpp"
 #include "components/PressableComponent.hpp"
 #include "components/TextComponent.hpp"
@@ -97,26 +96,6 @@ namespace Debug
                 ImGui::Checkbox("Collision Active", &collisions[currentComponent]->isActive);
                 ImGui::Text("Layer: %ld", collisions[currentComponent]->layer);
                 ImGui::Text("Actions registered: %ld", collisions[currentComponent]->actions.size());
-            }
-            ImGui::EndGroup();
-            ImGui::EndGroup();
-        } else {
-            ImGui::Text("Component not registered");
-        }
-        ImGui::TreePop();
-    }
-
-    void DebugMenu::_showFontComponentMenu()
-    {
-        if (_registry.isComponentRegistered<GameEngine::FontComponent>()) {
-            static int currentComponent = 0;
-            ImGui::BeginGroup();
-            SparseArray<GameEngine::FontComponent> &fonts = _registry.getComponent<GameEngine::FontComponent>();
-            _showComponentList<GameEngine::FontComponent>(fonts, currentComponent);
-            ImGui::SameLine();
-            ImGui::BeginGroup();
-            if (fonts[currentComponent]) {
-                ImGui::Text("Font Path: %s", fonts[currentComponent]->path.c_str());
             }
             ImGui::EndGroup();
             ImGui::EndGroup();
@@ -420,8 +399,6 @@ namespace Debug
                 _showCameraComponentMenu();
             if (ImGui::TreeNode("Collision"))
                 _showCollisionComponentMenu();
-            if (ImGui::TreeNode("Font"))
-                _showFontComponentMenu();
             if (ImGui::TreeNode("Music"))
                 _showMusicComponentMenu();
             if (ImGui::TreeNode("Pressable"))

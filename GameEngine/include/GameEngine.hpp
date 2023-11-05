@@ -20,7 +20,6 @@
 #include "systems/AnimationSystem.hpp"
 #include "components/CameraComponent.hpp"
 #include "components/CollisionComponent.hpp"
-#include "components/FontComponent.hpp"
 #include "components/MusicComponent.hpp"
 #include "components/PressableComponent.hpp"
 #include "components/TextureComponent.hpp"
