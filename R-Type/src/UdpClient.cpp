@@ -32,9 +32,20 @@ RType::Client::UdpClient::UdpClient(
         std::bind(&RType::Client::UdpClient::handleDisconnexion, this, std::placeholders::_1, std::placeholders::_2));
     _commands.emplace(static_cast<uint8_t>(RType::Protocol::PacketType::SCORE),
         std::bind(&RType::Client::UdpClient::handleScore, this, std::placeholders::_1, std::placeholders::_2));
+    _commands.emplace(static_cast<uint8_t>(RType::Protocol::PacketType::ENDGAME),
+        std::bind(&RType::Client::UdpClient::handleEndGame, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 RType::Client::UdpClient::~UdpClient() { _udpSocket.close(); }
+
+void RType::Client::UdpClient::handleEndGame(struct RType::Protocol::HeaderDataPacket header, unsigned short port)
+{
+    struct RType::Protocol::EndGameData endGameData =
+        Serialization::deserializeData<struct RType::Protocol::EndGameData>(_streamBuffer, header.payloadSize);
+    struct RType::Event event = {.packetType = header.packetType, .data = endGameData};
+
+    _eventQueue.push(event);
+}
 
 void RType::Client::UdpClient::handleControllableComponent(
     struct RType::Protocol::HeaderDataPacket header, unsigned short port)

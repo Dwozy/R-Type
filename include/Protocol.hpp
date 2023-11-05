@@ -25,11 +25,16 @@ namespace RType::Protocol
         TEXTURE_STATE
     };
 
-    enum class PacketType : uint8_t { STRING = 10, CONNEXION, DESTROY, SCORE };
+    enum class PacketType : uint8_t { STRING = 10, CONNEXION, DESTROY, SCORE, ENDGAME };
 
     enum class InputType : uint8_t { UP = 0, RIGHT, DOWN, LEFT, SHOOT };
 
     enum class TextureType : uint8_t { NONE = 1, PLAYER, SIMPLE_SHOOT, CHARGED_SHOOT, SIMPLE_MOB, MEDIUM_MOB };
+
+    struct EndGameData
+    {
+        uint8_t endGameState;
+    };
 
     struct InputData
     {

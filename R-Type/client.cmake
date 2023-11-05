@@ -14,6 +14,7 @@ set(SRCS_CLIENT
     ${CLIENT_FOLDER}/src/Event/InputEvent.cpp
     ${CLIENT_FOLDER}/src/Event/ScoreEvent.cpp
     ${CLIENT_FOLDER}/src/Event/StateTextureEvent.cpp
+    ${CLIENT_FOLDER}/src/Event/EndGameEvent.cpp
     ${CLIENT_FOLDER}/src/Event/TransformEvent.cpp
     ${CLIENT_FOLDER}/src/Event/TextureEvent.cpp
     ${CLIENT_FOLDER}/src/Event/CollisionEvent.cpp
@@ -21,6 +22,7 @@ set(SRCS_CLIENT
     ${CLIENT_FOLDER}/src/Callback.cpp
     ${CLIENT_FOLDER}/src/SetupGame.cpp
     ${CLIENT_FOLDER}/src/EntityUtils.cpp
+    ${CLIENT_FOLDER}/src/WinLoseScene.cpp
 
 )
 
@@ -47,10 +49,10 @@ endif (UNIX)
 if (MSVC)
     target_link_libraries(${CLIENT_BINARY_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/GameEngine/GameEngine/lib/GameEngine.lib)
 endif (MSVC)
+target_include_directories(${CLIENT_BINARY_NAME} PRIVATE ${INCLUDES_CLIENT} ${INCLUDES_GLOBAL} ${CMAKE_SOURCE_DIR}/GameEngine/include/)
 target_link_libraries(${CLIENT_BINARY_NAME} PRIVATE sfml-graphics sfml-audio sfml-system sfml-window)
 target_link_libraries(${CLIENT_BINARY_NAME} PRIVATE nlohmann_json::nlohmann_json)
 target_link_libraries(${CLIENT_BINARY_NAME} PRIVATE asio)
-target_include_directories(${CLIENT_BINARY_NAME} PRIVATE ${INCLUDES_CLIENT} ${INCLUDES_GLOBAL} ${CMAKE_SOURCE_DIR}/GameEngine/include/)
 
 if (DEFINED INSTALL)
     set(CPACK_PACKAGE_NAME "R-Type-client")

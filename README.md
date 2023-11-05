@@ -147,3 +147,8 @@ You should always run from a folder containing the `R-Type/assets` folder.
 ./r-type_client.exe [ip (default: 127.0.0.1)] [port (default: 8080)]
 ```
 You can also double clicking on the executable, however you'll only use the default parameters this way.
+
+# Credits
+
+R-Type music by **Aldric Jourdain** and **Damien Pham** (SNO!).
+SCP-Adventure music by **Aldric Jourdain** (originally from Shadowy Light).

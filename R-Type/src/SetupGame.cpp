@@ -7,7 +7,6 @@
 
 #include "RTypeClient.hpp"
 #include "components/TextComponent.hpp"
-#include "components/FontComponent.hpp"
 #include "GameEngine.hpp"
 
 namespace RType::Client
@@ -15,20 +14,17 @@ namespace RType::Client
     void RTypeClient::setupScoreText()
     {
         GameEngine::Entity scoreTitle = _gameEngine.registry.spawnEntity();
-        GameEngine::Font _font;
-        _font.load("R-Type/fonts/Valoon.ttf");
-        GameEngine::FontComponent font{"R-Type/fonts/Valoon.ttf", _font};
-        GameEngine::TextComponent textTitle{"SCORE : ", 10, GameEngine::Text(), true, 10};
-        textTitle.text.load(textTitle.str, _font.getFont(), textTitle.size);
+        GameEngine::TextComponent textTitle{"SCORE : ", "R-Type/fonts/Valoon.ttf", 10, GameEngine::Text(), true, 10};
+        textTitle.text.load(
+            textTitle.str, _gameEngine.assetManager.getFont("R-Type/fonts/Valoon.ttf").getFont(), textTitle.size);
         textTitle.text.setPosition(GameEngine::Vector2<float>{5, 5});
-        _gameEngine.registry.addComponent<GameEngine::FontComponent>(scoreTitle, font);
         _gameEngine.registry.addComponent<GameEngine::TextComponent>(scoreTitle, textTitle);
 
         GameEngine::Entity score = _gameEngine.registry.spawnEntity();
-        GameEngine::TextComponent text{std::to_string(_points), 10, GameEngine::Text(), true, 10};
-        text.text.load(text.str, _font.getFont(), text.size);
+        GameEngine::TextComponent text{
+            std::to_string(_points), "R-Type/fonts/Valoon.ttf", 10, GameEngine::Text(), true, 10};
+        text.text.load(text.str, _gameEngine.assetManager.getFont("R-Type/fonts/Valoon.ttf").getFont(), text.size);
         text.text.setPosition(GameEngine::Vector2<float>{50, 5});
-        _gameEngine.registry.addComponent<GameEngine::FontComponent>(score, font);
         _gameEngine.registry.addComponent<GameEngine::TextComponent>(score, text);
         _scoreTextEntity = score;
     }
@@ -62,13 +58,11 @@ namespace RType::Client
 
         auto parallax1 = _gameEngine.prefabManager.createEntityFromPrefab("parallax", _gameEngine.registry);
         auto &textureParallax = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[parallax1];
-        textureParallax->sprite.setScale(0.1851, 0.1851);
 
         auto parallax2 = _gameEngine.prefabManager.createEntityFromPrefab("parallax", _gameEngine.registry);
         auto &posParallax2 = _gameEngine.registry.getComponent<GameEngine::TransformComponent>()[parallax2];
         posParallax2.value().position = GameEngine::Vector2<float>(199.0, 0.0);
         auto &textureParallax2 = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[parallax2];
-        textureParallax2->sprite.setScale(0.1851, 0.1851);
 
         auto parallaxRange =
             _gameEngine.prefabManager.createEntityFromPrefab("parallaxCollision", _gameEngine.registry);

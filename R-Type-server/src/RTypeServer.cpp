@@ -26,8 +26,8 @@ RType::Server::RTypeServer::RTypeServer(unsigned short port)
     _chargedAttack = true;
     _nbPlayers = 0;
     std::thread network(&RType::Server::RTypeServer::startNetwork, this, std::ref(_isRunning));
-    network.detach();
     gameLoop();
+    network.join();
 }
 
 RType::Server::RTypeServer::~RTypeServer() {}
@@ -43,13 +43,27 @@ void RType::Server::RTypeServer::startNetwork(bool &isRunning)
 void RType::Server::RTypeServer::handlingEndGame()
 {
     if (_nbPlayers == -1) {
-        std::string message = "You lose";
-        std::vector<std::byte> dataToSend(message.size());
-        std::transform(message.begin(), message.end(), dataToSend.begin(), [](char c) { return std::byte(c); });
-        for (auto client : _udpServer.getListClients())
-            _udpServer.sendInformation(
-                static_cast<uint8_t>(RType::Protocol::PacketType::STRING), dataToSend, client.second);
-        _nbPlayers = 0;
+        for (int i = 0; i < 10; i++) {
+            struct RType::Protocol::EndGameData endGameData = {
+                .endGameState = static_cast<uint8_t>(RType::GameState::LOSE)};
+            std::vector<std::byte> dataToSend =
+                Serialization::serializeData<struct RType::Protocol::EndGameData>(endGameData, sizeof(endGameData));
+            for (auto client : _udpServer.getListClients())
+                _udpServer.sendInformation(
+                    static_cast<uint8_t>(RType::Protocol::PacketType::ENDGAME), dataToSend, client.second);
+            _nbPlayers = 0;
+        }
+    }
+    if (_points >= 50) {
+        for (int i = 0; i < 10; i++) {
+            struct RType::Protocol::EndGameData endGameData = {
+                .endGameState = static_cast<uint8_t>(RType::GameState::WIN)};
+            std::vector<std::byte> dataToSend =
+                Serialization::serializeData<struct RType::Protocol::EndGameData>(endGameData, sizeof(endGameData));
+            for (auto client : _udpServer.getListClients())
+                _udpServer.sendInformation(
+                    static_cast<uint8_t>(RType::Protocol::PacketType::ENDGAME), dataToSend, client.second);
+        }
     }
 }
 
@@ -63,4 +77,5 @@ void RType::Server::RTypeServer::gameLoop()
         handlingTimers();
         handlingEndGame();
     }
+    _IOContext.stop();
 }

@@ -15,6 +15,16 @@
             }
         },
         {
+            "type": "TextComponent",
+            "value": {
+                "str": "Resume",
+                "fontPath": "Platformer/assets/8-bit fortress.ttf",
+                "size": 20,
+                "isRendered": true,
+                "renderLayer": 5
+            }
+        },
+        {
             "type": "TextureComponent",
             "value": {
                 "texturePath": "Platformer/assets/button.png",

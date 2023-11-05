@@ -110,6 +110,8 @@ void GameScene::load()
     }
 }
 
+void GameScene::addEntityToUnload(GameEngine::Entity) {}
+
 void GameScene::unload()
 {
     camcpy = _gameEngine.registry.getComponent<GameEngine::CameraComponent>();
@@ -186,6 +188,25 @@ void GameScene::unload()
 
 void GameScene::update()
 {
+    auto &playerTexture = _gameEngine.registry.getComponent<GameEngine::TextureComponent>()[_id];
+    auto &playerTransform = _gameEngine.registry.getComponent<GameEngine::TransformComponent>()[_id];
+    auto &playerCollision = _gameEngine.registry.getComponent<GameEngine::CollisionComponent>()[_id];
+    if (playerTransform && playerTransform->velocity.x == 0.0f)
+        playerTexture->animated = false;
+    else if (playerTransform && playerTransform->velocity.x < 0.0f) {
+        playerTexture->animated = true;
+        for (auto &textRect: playerTexture->textureRects)
+            textRect.top = 192;
+        if (playerCollision)
+            playerCollision->collider.left = 24;
+    } else {
+        playerTexture->animated = true;
+        for (auto &textRect: playerTexture->textureRects)
+            textRect.top = 64;
+        if (playerCollision)
+            playerCollision->collider.left = 7;
+    }
+
     auto &playerHealth = _gameEngine.registry.getComponent<GameEngine::HealthComponent>()[_id];
     if (playerHealth && playerHealth->health <= 0) {
         _state = GameState::Lose;

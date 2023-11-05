@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rm -rf build/CMakeCache.txt
+rm -f build/CMakeCache.txt
 
 debug=""
 target="$1"
