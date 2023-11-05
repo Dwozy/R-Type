@@ -12,6 +12,7 @@ void PauseScene::load()
 {
     GameEngine::Entity background =
         _gameEngine.prefabManager.createEntityFromPrefab("background", _gameEngine.registry);
+    GameEngine::Entity textCamera = _gameEngine.prefabManager.createEntityFromPrefab("UICamera", _gameEngine.registry);
     GameEngine::Entity cam = _gameEngine.prefabManager.createEntityFromPrefab("main_camera", _gameEngine.registry);
     GameEngine::Entity buttonresume =
         _gameEngine.prefabManager.createEntityFromPrefab("buttonResume", _gameEngine.registry);
@@ -26,11 +27,12 @@ void PauseScene::load()
     _entities.push_back(buttonresume);
     _entities.push_back(buttonQuit);
     _entities.push_back(buttonRestart);
+    _entities.push_back(textCamera);
     GameEngine::FontComponent fontTitle{"Platformer/assets/8-bit fortress.ttf", _gameEngine.assetManager.getFont("Platformer/assets/8-bit fortress.ttf")};
-    GameEngine::TextComponent textTitle{"Pause", 25, GameEngine::Text(), true, 50};
+    GameEngine::TextComponent textTitle{"Pause", 80, GameEngine::Text(), true, 50};
     textTitle.text.load(textTitle.str, _gameEngine.assetManager.getFont("Platformer/assets/8-bit fortress.ttf").getFont(), textTitle.size);
     textTitle.text.setPosition(GameEngine::Vector2<float>{
-        (400 - textTitle.text.getLocalBounds().width) / 2, (225 - textTitle.text.getLocalBounds().height) / 3});
+        (1920 - textTitle.text.getLocalBounds().width) / 2, (1080 - textTitle.text.getLocalBounds().height) / 3 + 1000});
     _gameEngine.registry.addComponent<GameEngine::FontComponent>(title, fontTitle);
     _gameEngine.registry.addComponent<GameEngine::TextComponent>(title, textTitle);
     _gameEngine.registry.addComponent<GameEngine::PressableComponent>(buttonresume,

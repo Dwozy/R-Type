@@ -12,21 +12,23 @@ void MainMenuScene::load()
 {
     GameEngine::Entity background =
         _gameEngine.prefabManager.createEntityFromPrefab("background", _gameEngine.registry);
+    GameEngine::Entity textCamera = _gameEngine.prefabManager.createEntityFromPrefab("UICamera", _gameEngine.registry);
     GameEngine::Entity cam = _gameEngine.prefabManager.createEntityFromPrefab("main_camera", _gameEngine.registry);
     GameEngine::Entity title = _gameEngine.registry.spawnEntity();
     GameEngine::Entity start = _gameEngine.registry.spawnEntity();
     _entities.push_back(background);
     _entities.push_back(cam);
     _entities.push_back(title);
+    _entities.push_back(textCamera);
     _entities.push_back(start);
     GameEngine::FontComponent fontTitle{"Platformer/assets/8-bit fortress.ttf", _gameEngine.assetManager.getFont("Platformer/assets/8-bit fortress.ttf")};
-    GameEngine::TextComponent textTitle{"SCP 745 adventures", 25, GameEngine::Text(), true, 50};
+    GameEngine::TextComponent textTitle{"SCP 745 adventures", 100, GameEngine::Text(), true, 50};
     GameEngine::FontComponent fontsubtitle{"Platformer/assets/8-bit fortress.ttf", _gameEngine.assetManager.getFont("Platformer/assets/8-bit fortress.ttf")};
-    GameEngine::TextComponent textsubTitle{"press escap to start", 17, GameEngine::Text(), true, 50};
+    GameEngine::TextComponent textsubTitle{"press escap to start", 75, GameEngine::Text(), true, 50};
     textTitle.text.load(textTitle.str, _gameEngine.assetManager.getFont("Platformer/assets/8-bit fortress.ttf").getFont(), textTitle.size);
     textsubTitle.text.load(textsubTitle.str, _gameEngine.assetManager.getFont("Platformer/assets/8-bit fortress.ttf").getFont(), textsubTitle.size);
-    textTitle.text.setPosition(GameEngine::Vector2<float>{22, 75});
-    textsubTitle.text.setPosition(GameEngine::Vector2<float>{65, 150});
+    textTitle.text.setPosition(GameEngine::Vector2<float>{(1920 - textTitle.text.getLocalBounds().width) / 2, (1080 - textTitle.text.getLocalBounds().height) / 3 + 1000 });
+    textsubTitle.text.setPosition(GameEngine::Vector2<float>{(1920 - textsubTitle.text.getLocalBounds().width) / 2, (1080 - textsubTitle.text.getLocalBounds().height) / 1.5f + 1000});
     _gameEngine.registry.addComponent<GameEngine::FontComponent>(title, fontTitle);
     _gameEngine.registry.addComponent<GameEngine::TextComponent>(title, textTitle);
     _gameEngine.registry.addComponent<GameEngine::FontComponent>(start, fontsubtitle);

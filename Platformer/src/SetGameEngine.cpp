@@ -120,6 +120,7 @@ void Platformer::setGameEnginePrefab()
     _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/Heart.json");
     _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/EndOfLevel.json");
     _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/InvisibleWall.json");
+    _gameEngine.prefabManager.loadPrefabFromFile("Platformer/config/UICamera.json");
 }
 
 void Platformer::setGameEngine()
