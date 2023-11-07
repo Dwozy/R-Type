@@ -6,7 +6,7 @@ var searchData=
   ['platformer_2ehpp_1044',['Platformer.hpp',['../Platformer_8hpp.html',1,'']]],
   ['positionsystem_2ecpp_1045',['PositionSystem.cpp',['../PositionSystem_8cpp.html',1,'']]],
   ['positionsystem_2ehpp_1046',['PositionSystem.hpp',['../PositionSystem_8hpp.html',1,'']]],
-  ['prefab_20systax_2emd_1047',['Prefab systax.md',['../Prefab_01systax_8md.html',1,'']]],
+  ['prefab_20syntax_2emd_1047',['Prefab syntax.md',['../Prefab_01syntax_8md.html',1,'']]],
   ['prefabmanager_2ecpp_1048',['PrefabManager.cpp',['../PrefabManager_8cpp.html',1,'']]],
   ['prefabmanager_2ehpp_1049',['PrefabManager.hpp',['../PrefabManager_8hpp.html',1,'']]],
   ['pressablecomponent_2ehpp_1050',['PressableComponent.hpp',['../PressableComponent_8hpp.html',1,'']]],
