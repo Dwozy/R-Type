@@ -267,6 +267,11 @@ DeltaTime</h2>
 SceneManager</h2>
 <p>Class managing scenes for the game, the scene needs to inherit the <code>AScene</code> class, and is used to create all the entity of a scene when it is loaded.</p>
 <h1><a class="anchor" id="autotoc_md23"></a>
+Prefab manager</h1>
+<p>When you're creating a new entity, you have two choices, creating the entity itself and then add its components or use prefabs.</p>
+<p>Prefabs are stored components associated with a name. It has to be loaded from a json file before using it with the <code>PrefabMaanger::loadPrefabFromFile</code> and then can be created with the <code>PrefabMaanger::createEntityFromPrefab</code>.</p>
+<p>./Prefab%20systax.md "Click here" to check to prefab syntax.</p>
+<h1><a class="anchor" id="autotoc_md24"></a>
 Game loop example</h1>
 <div class="fragment"><div class="line"><a class="code" href="classGameEngine_1_1GameEngine.html">GameEngine::GameEngine</a> gameEngine();</div>
 <div class="line"> </div>
