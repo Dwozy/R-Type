@@ -168,6 +168,10 @@ You should always run from a folder containing the `Platformer\assets`, `Platfor
 ```
 You can also double clicking on the executable, however you'll only use the default parameters this way.
 
+# How to play
+
+[Click here](./docs/How%20to%20play.md) to see how to play R-Type or SCP adventure
+
 # Credits
 
 R-Type music by **Aldric Jourdain** and **Damien Pham** (SNO!).
