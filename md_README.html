@@ -124,7 +124,7 @@ On Linux</h3>
 </ul>
 <p>You should have this installed beforehand.</p>
 <p>To build from source, you'll have to download the source code from either a release or in the <code>Code</code> menu on the repository Github page.</p>
-<p>Then you'll have to go the folder and execute the <code>build.sh</code> script like this: </p><div class="fragment"><div class="line">./build.sh [part to build]</div>
+<p>Then you'll have to go the folder and execute the <code>build.sh</code> script like this: </p><div class="fragment"><div class="line">./build.sh [-d] [part to build]</div>
 </div><!-- fragment --><p>This command without specifying the part to build will build all the parts of R-Type (the game engine, the client, the server, the sample game and the unit tests), the parts to precise are the following:</p><ul>
 <li>Client</li>
 <li>Server</li>
@@ -132,6 +132,7 @@ On Linux</h3>
 <li><a class="el" href="classPlatformer.html">Platformer</a> (for the sample game)</li>
 <li>tests</li>
 </ul>
+<p>You can build all of the part at once by specifiying no part. Additionally, you can build in debug mode by specifiying <code>-d</code> after <code>./build.sh</code></p>
 <p>You'll then have the corresponding binary/library in the R-Type folder for the client, the R-Type-server folder for the server, the <a class="el" href="classPlatformer.html">Platformer</a> folder for the sample platformer game, the GameEngine/GameEngine/lib folder for the game engine and tests folder for the unit tests.</p>
 <h3><a class="anchor" id="autotoc_md41"></a>
 On Windows</h3>
@@ -142,7 +143,7 @@ On Windows</h3>
 <p>You should have this installed beforehand.</p>
 <p>To build from source, you'll have to download the source code from either a release or in the <code>Code</code> menu on the repository Github page.</p>
 <p>Then you'll have to go the folder and execute the <code>build.bat</code> script by double-clicking on it.</p>
-<p>You can also run the <code>build.bat</code> script through the Windows cmd like this: </p><div class="fragment"><div class="line">cmd /c build.bat [part to build]</div>
+<p>You can also run the <code>build.bat</code> script through the Windows cmd like this: </p><div class="fragment"><div class="line">cmd /c build.bat [-d] [part to build]</div>
 </div><!-- fragment --><p>Simply double-clicking on the script or running the command without specifying the part to build will build all the parts of R-Type (the game engine, the client, the server, the sample game and the unit tests), the parts to precise are the following:</p><ul>
 <li>Client</li>
 <li>Server</li>
@@ -150,10 +151,11 @@ On Windows</h3>
 <li><a class="el" href="classPlatformer.html">Platformer</a> (for the sample game)</li>
 <li>tests</li>
 </ul>
+<p>You can build all of the part at once by specifiying no part. Additionally, you can build in debug mode by specifiying <code>-d</code> after <code>build.bat</code></p>
 <p>You'll then have the corresponding binary/library in the R-Type folder for the client, the R-Type-server folder for the server, the <a class="el" href="classPlatformer.html">Platformer</a> folder for the sample platformer game, the <a class="el" href="namespaceGameEngine.html">GameEngine</a>\GameEngine\lib folder for the game engine and tests folder for the unit tests.</p>
 <h1><a class="anchor" id="autotoc_md42"></a>
 Usage</h1>
-<p><b>Important</b>: Always run the executable alongside the .dll files on windows. For Linux, you should run the binary with the .so files alongside it or as is if you're building from source.</p>
+<p><b>Important</b>: Always run the executable alongside the .dll files on windows. For Linux, you should may have to edit the <code>LD_LIBRARY_PATH</code> environment variable with the emplacement of the <code>.so</code> files or as is if you're building from source.</p>
 <h2><a class="anchor" id="autotoc_md43"></a>
 Linux</h2>
 <h3><a class="anchor" id="autotoc_md44"></a>
@@ -161,18 +163,25 @@ Server</h3>
 <div class="fragment"><div class="line">./r-type_server [port (default: 8080)]</div>
 </div><!-- fragment --> <h3><a class="anchor" id="autotoc_md45"></a>
 Client</h3>
-<p>You should always run from a folder containing the <code>R-Type/assets</code> folder. </p><div class="fragment"><div class="line">./r-type_client [ip (default: 127.0.0.1)] [port (default: 8080)]</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md46"></a>
+<p>You should always run from a folder containing the <code>R-Type/assets</code>, <code>R-Type/fonts</code> and <code>config</code> folders (with the required files inside). </p><div class="fragment"><div class="line">./r-type_client [ip (default: 127.0.0.1)] [port (default: 8080)]</div>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md46"></a>
+Platformer</h3>
+<p>You should always run from a folder containing the <code>Platformer/assets</code>, <code>Platformer/maps</code> and <code>Platformer/config</code> folders (with the required files inside). </p><div class="fragment"><div class="line">./platformer</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md47"></a>
 Windows</h2>
-<h3><a class="anchor" id="autotoc_md47"></a>
+<h3><a class="anchor" id="autotoc_md48"></a>
 Server</h3>
 <div class="fragment"><div class="line">.\r-type_server.exe [port (default: 8080)]</div>
 </div><!-- fragment --><p> You can also double clicking on the executable, however you'll only use the default parameters this way. </p>
-<h3><a class="anchor" id="autotoc_md48"></a>
+<h3><a class="anchor" id="autotoc_md49"></a>
 Client</h3>
-<p>You should always run from a folder containing the <code>R-Type/assets</code> folder. </p><div class="fragment"><div class="line">./r-type_client.exe [ip (default: 127.0.0.1)] [port (default: 8080)]</div>
+<p>You should always run from a folder containing the <code>R-Type\assets</code>, <code>R-Type\fonts</code> and <code>config</code> folders (with the required files inside). </p><div class="fragment"><div class="line">./r-type_client.exe [ip (default: 127.0.0.1)] [port (default: 8080)]</div>
 </div><!-- fragment --><p> You can also double clicking on the executable, however you'll only use the default parameters this way.</p>
-<h1><a class="anchor" id="autotoc_md49"></a>
+<h3><a class="anchor" id="autotoc_md50"></a>
+Platformer</h3>
+<p>You should always run from a folder containing the <code><a class="el" href="classPlatformer.html">Platformer</a>\assets</code>, <code><a class="el" href="classPlatformer.html">Platformer</a>\maps</code> and <code><a class="el" href="classPlatformer.html">Platformer</a>\config</code> folders (with the required files inside). </p><div class="fragment"><div class="line">./platformer</div>
+</div><!-- fragment --><p> You can also double clicking on the executable, however you'll only use the default parameters this way.</p>
+<h1><a class="anchor" id="autotoc_md51"></a>
 Credits</h1>
 <p>R-Type music by <b>Aldric Jourdain</b> and <b>Damien Pham</b> (SNO!). SCP-Adventure music by <b>Aldric Jourdain</b> (originally from Shadowy Light). </p>
 </div></div><!-- contents -->
