@@ -202,6 +202,14 @@ Class which handles the delta time, it needs to be update at the begininf of the
 
 Class managing scenes for the game, the scene needs to inherit the ```AScene``` class, and is used to create all the entity of a scene when it is loaded.
 
+## Prefab manager
+
+When you're creating a new entity, you have two choices, creating the entity itself and then add its components or use prefabs.
+
+Prefabs are stored components associated with a name. It has to be loaded from a json file before using it with the `PrefabMaanger::loadPrefabFromFile` and then can be created with the `PrefabMaanger::createEntityFromPrefab`.
+
+[Click here](./Prefab%20systax.md) to check to prefab syntax.
+
 ## Game loop example
 
 ```cpp
