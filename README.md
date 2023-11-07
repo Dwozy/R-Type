@@ -83,7 +83,7 @@ To build from source, you'll have to download the source code from either a rele
 
 Then you'll have to go the folder and execute the `build.sh` script like this:
 ```bash
-./build.sh [part to build]
+./build.sh [-d] [part to build]
 ```
 
 This command without specifying the part to build will build all the parts of R-Type (the game engine, the client, the server, the sample game and the unit tests), the parts to precise are the following:
@@ -92,6 +92,9 @@ This command without specifying the part to build will build all the parts of R-
  - GameEngine
  - Platformer (for the sample game)
  - tests
+
+You can build all of the part at once by specifiying no part.
+Additionally, you can build in debug mode by specifiying `-d` after `./build.sh`
 
 You'll then have the corresponding binary/library in the R-Type folder for the client, the R-Type-server folder for the server, the Platformer folder for the sample platformer game, the GameEngine/GameEngine/lib folder for the game engine and tests folder for the unit tests.
 
@@ -109,7 +112,7 @@ Then you'll have to go the folder and execute the `build.bat` script by double-c
 
 You can also run the `build.bat` script through the Windows cmd like this:
 ```bash
-cmd /c build.bat [part to build]
+cmd /c build.bat [-d] [part to build]
 ```
 
 Simply double-clicking on the script or running the command without specifying the part to build will build all the parts of R-Type (the game engine, the client, the server, the sample game and the unit tests), the parts to precise are the following:
@@ -119,10 +122,14 @@ Simply double-clicking on the script or running the command without specifying t
  - Platformer (for the sample game)
  - tests
 
+
+You can build all of the part at once by specifiying no part.
+Additionally, you can build in debug mode by specifiying `-d` after `build.bat`
+
 You'll then have the corresponding binary/library in the R-Type folder for the client, the R-Type-server folder for the server, the Platformer folder for the sample platformer game, the GameEngine\GameEngine\lib folder for the game engine and tests folder for the unit tests.
 
 # Usage
-**Important**: Always run the executable alongside the .dll files on windows. For Linux, you should run the binary with the .so files alongside it or as is if you're building from source.
+**Important**: Always run the executable alongside the .dll files on windows. For Linux, you should may have to edit the `LD_LIBRARY_PATH` environment variable with the emplacement of the `.so` files or as is if you're building from source.
 
 ## Linux
 ### Server
@@ -130,9 +137,15 @@ You'll then have the corresponding binary/library in the R-Type folder for the c
 ./r-type_server [port (default: 8080)]
 ```
 ### Client
-You should always run from a folder containing the `R-Type/assets` folder.
+You should always run from a folder containing the `R-Type/assets`, `R-Type/fonts` and `config` folders (with the required files inside).
 ```bash
 ./r-type_client [ip (default: 127.0.0.1)] [port (default: 8080)]
+```
+
+### Platformer
+You should always run from a folder containing the `Platformer/assets`, `Platformer/maps` and `Platformer/config` folders (with the required files inside).
+```bash
+./platformer
 ```
 
 ## Windows
@@ -142,9 +155,16 @@ You should always run from a folder containing the `R-Type/assets` folder.
 ```
 You can also double clicking on the executable, however you'll only use the default parameters this way.
 ### Client
-You should always run from a folder containing the `R-Type/assets` folder.
+You should always run from a folder containing the `R-Type\assets`, `R-Type\fonts` and `config` folders (with the required files inside).
 ```cmd
 ./r-type_client.exe [ip (default: 127.0.0.1)] [port (default: 8080)]
+```
+You can also double clicking on the executable, however you'll only use the default parameters this way.
+
+### Platformer
+You should always run from a folder containing the `Platformer\assets`, `Platformer\maps` and `Platformer\config` folders (with the required files inside).
+```bash
+./platformer
 ```
 You can also double clicking on the executable, however you'll only use the default parameters this way.
 
