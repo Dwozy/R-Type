@@ -20,8 +20,7 @@ var searchData=
   ['animationsystem_2ecpp_25',['AnimationSystem.cpp',['../AnimationSystem_8cpp.html',1,'']]],
   ['animationsystem_2ehpp_26',['AnimationSystem.hpp',['../AnimationSystem_8hpp.html',1,'']]],
   ['animeid_27',['animeid',['../structGameEngine_1_1TextureComponent.html#a95732a5cf9444af6b3eba4d9aa48b9c2',1,'GameEngine::TextureComponent']]],
-  ['assetmanager_28',['AssetManager',['../classGameEngine_1_1AssetManager.html#a92292fa6963a20a33dd236b1b5b29e7b',1,'GameEngine::AssetManager']]],
-  ['assetmanager_29',['assetManager',['../classGameEngine_1_1GameEngine.html#acedf95db968e79943d8129c95af52d70',1,'GameEngine::GameEngine']]],
-  ['assetmanager_30',['AssetManager',['../classGameEngine_1_1AssetManager.html',1,'GameEngine']]],
-  ['assetmanager_2ehpp_31',['AssetManager.hpp',['../AssetManager_8hpp.html',1,'']]]
+  ['assetmanager_28',['assetManager',['../classGameEngine_1_1GameEngine.html#acedf95db968e79943d8129c95af52d70',1,'GameEngine::GameEngine']]],
+  ['assetmanager_29',['AssetManager',['../classGameEngine_1_1AssetManager.html#a92292fa6963a20a33dd236b1b5b29e7b',1,'GameEngine::AssetManager::AssetManager()'],['../classGameEngine_1_1AssetManager.html',1,'GameEngine::AssetManager']]],
+  ['assetmanager_2ehpp_30',['AssetManager.hpp',['../AssetManager_8hpp.html',1,'']]]
 ];
