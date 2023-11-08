@@ -27,6 +27,7 @@ class WinLoseScene : public GameEngine::IScene
     /// @brief load the scene
     void load() override;
     /// @brief unload the scene
+    void addEntityToUnload(GameEngine::Entity entity) override;
     void unload() override;
     /// @brief update the scene
     void update() override;

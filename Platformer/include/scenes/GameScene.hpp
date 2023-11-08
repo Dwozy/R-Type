@@ -34,6 +34,7 @@ class GameScene : public GameEngine::IScene
     void load() override;
     /// @brief unload the scene
     void unload() override;
+    void addEntityToUnload(GameEngine::Entity entity) override;
     /// @brief update the scene
     void update() override;
     /// @brief add entiries that have to be unloaded
