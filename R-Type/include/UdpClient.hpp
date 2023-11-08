@@ -24,12 +24,33 @@ namespace RType::Client
             SafeQueue<struct RType::Event> &eventQueue);
         ~UdpClient();
 
+        /// @brief Function that will handle from the communication the information of a transform
+        /// @param header Header struct that permit to check if the data is correct
+        /// @param port Port that corresponds to the client port who send a message
         void handleTransformComponent(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
+        /// @brief Function that will handle from the communication the information of a texture
+        /// @param header Header struct that permit to check if the data is correct
+        /// @param port Port that corresponds to the client port who send a message
         void handleTextureComponent(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
+        /// @brief Function that will handle from the communication the information of a collision
+        /// @param header Header struct that permit to check if the data is correct
+        /// @param port Port that corresponds to the client port who send a message
         void handleCollisionComponent(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
+        /// @brief Function that will handle from the communication the information of a controllable
+        /// @param header Header struct that permit to check if the data is correct
+        /// @param port Port that corresponds to the client port who send a message
         void handleControllableComponent(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
+        /// @brief Function that will handle from the communication the information of a texture state
+        /// @param header Header struct that permit to check if the data is correct
+        /// @param port Port that corresponds to the client port who send a message
         void handleTextureState(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
+        /// @brief Function that will handle from the communication the information of the score
+        /// @param header Header struct that permit to check if the data is correct
+        /// @param port Port that corresponds to the client port who send a message
         void handleScore(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
+        /// @brief Function that will handle from the communication the information of the endgame
+        /// @param header Header struct that permit to check if the data is correct
+        /// @param port Port that corresponds to the client port who send a message
         void handleEndGame(struct RType::Protocol::HeaderDataPacket header, unsigned short port);
 
         /// @brief Handle String
