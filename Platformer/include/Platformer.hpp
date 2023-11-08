@@ -9,23 +9,34 @@
 #define PLATFORMER_HPP_
 #include "GameEngine.hpp"
 
+/// @brief enum of all the game state
 enum class GameState { Mainmenu, Pause, Game, win, Lose, Restart, Finnished };
 
+/// @brief class of the game
 class Platformer
 {
   public:
     Platformer();
     ~Platformer() = default;
+    /// @brief set all the game Components
     void setGameEngineComponent();
     void setGameEngineCallback();
+    /// @brief set all the system
     void setGameEngineSystem();
+    /// @brief set all the game scene
     void setGameEngineScene();
+    /// @brief set the gameEngine
     void setGameEngine();
+    /// @brief handle when the scene has to be changed
     void handleScreenChange();
     void handlePlayerMove();
+    /// @brief handle when the player jump
     void handlePlayerjump();
+    /// @brief set all Font of the game
     void setGameEngineFont();
+    /// @brief set all the Prefab of the game
     void setGameEnginePrefab();
+    /// @brief game loop of the game
     void gameLoop();
 
   private:
