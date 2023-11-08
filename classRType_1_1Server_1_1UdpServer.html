@@ -112,16 +112,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a342652524b4db1cc0b75e16028c0ef14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start the UDP <a class="el" href="namespaceRType_1_1Server.html">Server</a>.  <a href="classRType_1_1Server_1_1UdpServer.html#a342652524b4db1cc0b75e16028c0ef14">More...</a><br /></td></tr>
 <tr class="separator:a342652524b4db1cc0b75e16028c0ef14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a563a5c3c58e4aeae497e9e0e5c91fc5f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1UdpServer.html#a563a5c3c58e4aeae497e9e0e5c91fc5f">handleTextureResponse</a> (struct <a class="el" href="structRType_1_1Protocol_1_1HeaderDataPacket.html">RType::Protocol::HeaderDataPacket</a> header, unsigned short port)</td></tr>
-<tr class="memdesc:a563a5c3c58e4aeae497e9e0e5c91fc5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle Texture response that will be retrieve and push a event.  <a href="classRType_1_1Server_1_1UdpServer.html#a563a5c3c58e4aeae497e9e0e5c91fc5f">More...</a><br /></td></tr>
 <tr class="separator:a563a5c3c58e4aeae497e9e0e5c91fc5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae1c882b145db6329b7e20daa2317957"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1UdpServer.html#aae1c882b145db6329b7e20daa2317957">handleCollisionResponse</a> (struct <a class="el" href="structRType_1_1Protocol_1_1HeaderDataPacket.html">RType::Protocol::HeaderDataPacket</a> header, unsigned short port)</td></tr>
-<tr class="memdesc:aae1c882b145db6329b7e20daa2317957"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle Collision response that will be retrieve and push a event.  <a href="classRType_1_1Server_1_1UdpServer.html#aae1c882b145db6329b7e20daa2317957">More...</a><br /></td></tr>
 <tr class="separator:aae1c882b145db6329b7e20daa2317957"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3a3e9e68a722be04c83ac5578e301843"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1UdpServer.html#a3a3e9e68a722be04c83ac5578e301843">handleInput</a> (struct <a class="el" href="structRType_1_1Protocol_1_1HeaderDataPacket.html">RType::Protocol::HeaderDataPacket</a> header, unsigned short port)</td></tr>
-<tr class="memdesc:a3a3e9e68a722be04c83ac5578e301843"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle Input response that will be retrieve and push a event.  <a href="classRType_1_1Server_1_1UdpServer.html#a3a3e9e68a722be04c83ac5578e301843">More...</a><br /></td></tr>
 <tr class="separator:a3a3e9e68a722be04c83ac5578e301843"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af3f40f9cb36810f477b1531cc8276c7e"><td class="memItemLeft" align="right" valign="top">std::map&lt; unsigned short, asio::ip::udp::endpoint &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRType_1_1Server_1_1UdpServer.html#af3f40f9cb36810f477b1531cc8276c7e">getListClients</a> ()</td></tr>
-<tr class="memdesc:af3f40f9cb36810f477b1531cc8276c7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function that will return all of the clients endpoint.  <a href="classRType_1_1Server_1_1UdpServer.html#af3f40f9cb36810f477b1531cc8276c7e">More...</a><br /></td></tr>
 <tr class="separator:af3f40f9cb36810f477b1531cc8276c7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classGameEngine_1_1Network_1_1ACommunication"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classGameEngine_1_1Network_1_1ACommunication')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classGameEngine_1_1Network_1_1ACommunication.html">GameEngine::Network::ACommunication</a></td></tr>
 <tr class="memitem:a80c1aafc311fc7d4e949499f82492ff0 inherit pub_methods_classGameEngine_1_1Network_1_1ACommunication"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGameEngine_1_1Network_1_1ACommunication.html#a80c1aafc311fc7d4e949499f82492ff0">ACommunication</a> (asio::io_context &amp;IOContext, unsigned short port)</td></tr>
@@ -232,9 +228,6 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Function that will return all of the clients endpoint. </p>
-<dl class="section return"><dt>Returns</dt><dd>list of all clients endpoints </dd></dl>
-
 </div>
 </div>
 <a id="aae1c882b145db6329b7e20daa2317957"></a>
@@ -262,15 +255,6 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Handle Collision response that will be retrieve and push a event. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">header</td><td>that contains the size of the payload </td></tr>
-    <tr><td class="paramname">port</td><td>corresponging to the port of the client that send the message </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
@@ -304,7 +288,6 @@ Additional Inherited Members</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">header</td><td>that contains the size of the payload </td></tr>
-    <tr><td class="paramname">port</td><td>corresponging to the port of the client that send the message </td></tr>
   </table>
   </dd>
 </dl>
@@ -388,7 +371,6 @@ Additional Inherited Members</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">header</td><td>that contains the size of the payload </td></tr>
-    <tr><td class="paramname">port</td><td>corresponging to the port of the client that send the message </td></tr>
   </table>
   </dd>
 </dl>
@@ -420,15 +402,6 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Handle Input response that will be retrieve and push a event. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">header</td><td>that contains the size of the payload </td></tr>
-    <tr><td class="paramname">port</td><td>corresponging to the port of the client that send the message </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
@@ -462,7 +435,6 @@ Additional Inherited Members</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">header</td><td>that contains the size of the payload </td></tr>
-    <tr><td class="paramname">port</td><td>corresponging to the port of the client that send the message </td></tr>
   </table>
   </dd>
 </dl>
@@ -494,15 +466,6 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Handle Texture response that will be retrieve and push a event. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">header</td><td>that contains the size of the payload </td></tr>
-    <tr><td class="paramname">port</td><td>corresponging to the port of the client that send the message </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
