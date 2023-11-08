@@ -42,12 +42,24 @@ namespace RType::Client
         /// @brief Function that will handle when a Collision component is received
         /// @param event struct that will contain the information abour the Collision component
         void handleCollisionComponent(struct RType::Event event);
+        /// @brief Function that will handle when new entity needed to be create
+        /// @param event struct that will contain the information about the new entity
+        void handleNewEntity(struct RType::Event event);
+        /// @brief Function that will handle when entity needed to be update
+        /// @param event struct that will contain the information about the entity
+        void handleEntity(struct RType::Event event);
         /// @brief Function that will handle when entity needed to be delete
         /// @param event struct that will contain the information about the entity
         void handleDisconnexion(struct RType::Event event);
         /// @brief Function that delete a Entity
         /// @param entity delete the corresponding entity
         void deleteEntity(struct RType::Protocol::EntityIdData entityId);
+        /// @brief Function that will handle when entity needed to be move
+        /// @param event struct that will contain the information about the entity
+        void handlePlayerMovement();
+        /// @brief Function that delete a Entity
+        /// @param entity delete the corresponding entity
+        void updatePlayerMovement(const GameEngine::TransformComponent &transform);
         /// @brief Set every component to the registry of the game engine
         void setGameEngineComponent();
         /// @brief Set every system to the registry of the game engine
@@ -65,6 +77,12 @@ namespace RType::Client
         void setEndGameCallback();
         /// @brief Set Delete entity callback
         void setDeleteEntityCallback();
+        /// @brief Function that will handle when entity needed to be move
+        /// @param event struct that will contain the information about the entity
+        void handlePlayerMovement();
+        /// @brief Function that delete a Entity
+        /// @param entity delete the corresponding entity
+        void updatePlayerMovement(const GameEngine::TransformComponent &transform);
         /// @brief Set all the needed prefab for the client
         void setPrefab();
         /// @brief Set all the need textures for entities

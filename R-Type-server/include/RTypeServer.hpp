@@ -138,6 +138,8 @@ namespace RType::Server
         void handlingEndGame();
         /// @brief Set the timers needed for the game
         void setTimers();
+        std::size_t findEntity(const std::size_t &networkId);
+        bool searchEntity(const std::size_t &networkId);
         /// @brief Function that will send information about the controllable component to a specific client
         /// @param entity Entity that will be set the controlalble
         /// @param port Port of the client
@@ -183,6 +185,9 @@ namespace RType::Server
         /// @brief Function that will send the score to a specific client when the score changed
         /// @param port corresponding of the client port
         void sendScore(unsigned short port);
+        void setImmunity(std::chrono::duration<float> timerInvincibility,
+            std::pair<const uint16_t, std::pair<bool, std::chrono::steady_clock::time_point>> playerTimer,
+            std::chrono::steady_clock::time_point &now);
         /// @brief Function that will send the destroy entity information
         /// @param entity Entity that will be destroyed
         void sendDestroyInfo(struct RType::Protocol::EntityIdData entity);
