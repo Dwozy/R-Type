@@ -113,7 +113,8 @@ void RType::Client::UdpClient::handleString(struct RType::Protocol::HeaderDataPa
     if (message == "Server down" || message == "You lose" || message == "You win") {
         if (message != "Server down")
             std::cout << message << std::endl;
-        _IOContext.stop();
+        if (!_IOContext.stopped())
+            _IOContext.stop();
     }
 }
 

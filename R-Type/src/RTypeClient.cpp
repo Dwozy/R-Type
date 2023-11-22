@@ -51,6 +51,7 @@ RType::Client::RTypeClient::RTypeClient(const std::string &address, unsigned sho
     // music.music->load(music.path);
     // _gameEngine.registry.addComponent<GameEngine::MusicComponent>(musicHolder, music);
 
+    _endScene = true;
     _isRunning = true;
     _gameState = RType::GameState::GAME;
     std::thread network(&RType::Client::RTypeClient::startNetwork, this, std::ref(_isRunning));
@@ -68,7 +69,8 @@ void RType::Client::RTypeClient::startNetwork(bool &isRunning)
 
 void RType::Client::RTypeClient::handleQuit()
 {
-    _IOContext.stop();
+    if (!_IOContext.stopped())
+        _IOContext.stop();
     if (_id != -1) {
         struct RType::Protocol::EntityIdData entityId = {.id = this->_serverId};
         std::vector<std::byte> dataToSend =
@@ -110,13 +112,13 @@ void RType::Client::RTypeClient::gameLoop()
             _gameEngine.sceneManager.loadScene("WinLose");
             _endScene = false;
         }
-        if (_eventQueue.size() != 0)
+        if (_gameState == RType::GameState::GAME && _eventQueue.size() != 0)
             handleEvent();
         _gameEngine.registry.runSystems();
         _gameEngine.sceneManager.updateCurrentScene();
         _gameEngine.eventManager.publish<bool &>(
             static_cast<GameEngine::EventType>(GameEngine::Event::WindowIsOpen), isOpen);
     }
-    if (_isRunning)
+    if (!_isRunning)
         handleQuit();
 }

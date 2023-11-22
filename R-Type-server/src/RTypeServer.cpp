@@ -43,27 +43,25 @@ void RType::Server::RTypeServer::startNetwork(bool &isRunning)
 void RType::Server::RTypeServer::handlingEndGame()
 {
     if (_nbPlayers == -1) {
-        for (int i = 0; i < 10; i++) {
-            struct RType::Protocol::EndGameData endGameData = {
-                .endGameState = static_cast<uint8_t>(RType::GameState::LOSE)};
-            std::vector<std::byte> dataToSend =
-                Serialization::serializeData<struct RType::Protocol::EndGameData>(endGameData, sizeof(endGameData));
-            for (auto client : _udpServer.getListClients())
-                _udpServer.sendInformation(
-                    static_cast<uint8_t>(RType::Protocol::PacketType::ENDGAME), dataToSend, client.second);
-            _nbPlayers = 0;
-        }
+        struct RType::Protocol::EndGameData endGameData = {
+            .endGameState = static_cast<uint8_t>(RType::GameState::LOSE)};
+        std::vector<std::byte> dataToSend =
+            Serialization::serializeData<struct RType::Protocol::EndGameData>(endGameData, sizeof(endGameData));
+        for (auto client : _udpServer.getListClients())
+            _udpServer.sendInformation(
+                static_cast<uint8_t>(RType::Protocol::PacketType::ENDGAME), dataToSend, client.second);
+        _nbPlayers = 0;
+        // _isRunning = false;
     }
-    if (_points >= 50) {
-        for (int i = 0; i < 10; i++) {
-            struct RType::Protocol::EndGameData endGameData = {
-                .endGameState = static_cast<uint8_t>(RType::GameState::WIN)};
-            std::vector<std::byte> dataToSend =
-                Serialization::serializeData<struct RType::Protocol::EndGameData>(endGameData, sizeof(endGameData));
-            for (auto client : _udpServer.getListClients())
-                _udpServer.sendInformation(
-                    static_cast<uint8_t>(RType::Protocol::PacketType::ENDGAME), dataToSend, client.second);
-        }
+    if (_points >= 150){
+        struct RType::Protocol::EndGameData endGameData = {
+            .endGameState = static_cast<uint8_t>(RType::GameState::WIN)};
+        std::vector<std::byte> dataToSend =
+            Serialization::serializeData<struct RType::Protocol::EndGameData>(endGameData, sizeof(endGameData));
+        for (auto client : _udpServer.getListClients())
+            _udpServer.sendInformation(
+                static_cast<uint8_t>(RType::Protocol::PacketType::ENDGAME), dataToSend, client.second);
+        // _isRunning = false;
     }
 }
 
