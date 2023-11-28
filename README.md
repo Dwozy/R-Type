@@ -130,6 +130,7 @@ You'll then have the corresponding binary/library in the R-Type folder for the c
 
 # Usage
 **Important**: Always run the executable alongside the .dll files on windows. For Linux, you should may have to edit the `LD_LIBRARY_PATH` environment variable with the emplacement of the `.so` files or as is if you're building from source.
+One thing to keep in mind is that the server represent **one game, when the game is over (Win or Lose), the server must be restarted**.
 
 ## Linux
 ### Server
