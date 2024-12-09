@@ -21,12 +21,16 @@ namespace RType
     static const uint32_t MAGIC_NUMBER = 0xA54CDEF5;
     static const float PLAYER_SPEED = 100.0f;
 
+    /// @brief Enum describes the state of the game
     enum class GameState : uint8_t { GAME = 0, WIN, LOSE };
 
+    /// @brief Enum describes the packet type for the protocol
     enum class PacketType : uint8_t { STRING = 10, CONNEXION, DESTROY, SCORE };
 
+    /// @brief Enum describes the texture type of an entity
     enum class TextureType : uint8_t { NONE = 1, PLAYER, SIMPLE_SHOOT, CHARGED_SHOOT, SIMPLE_MOB, MEDIUM_MOB };
 
+    /// @brief Struct event that will be communicate information with the server and the game
     struct Event
     {
         uint8_t packetType;

@@ -30,11 +30,18 @@ namespace RType::Client
         void gameLoop();
         /// @brief Function that will handle every event from the UDP Client
         void handleEvent();
-
+        /// @brief Function that will handle when a End game information is received
+        /// @param event struct that will contain the information abour the endgame
+        void handleEndGame(struct RType::Event event);
+        /// @brief Function that will handle when a Transform component is received
+        /// @param event struct that will contain the information abour the Transform component
         void handleTransformComponent(struct RType::Event event);
+        /// @brief Function that will handle when a Texture component is received
+        /// @param event struct that will contain the information abour the Texture component
         void handleTextureComponent(struct RType::Event event);
+        /// @brief Function that will handle when a Collision component is received
+        /// @param event struct that will contain the information abour the Collision component
         void handleCollisionComponent(struct RType::Event event);
-
         /// @brief Function that will handle when new entity needed to be create
         /// @param event struct that will contain the information about the new entity
         void handleNewEntity(struct RType::Event event);
@@ -53,73 +60,102 @@ namespace RType::Client
         /// @brief Function that delete a Entity
         /// @param entity delete the corresponding entity
         void updatePlayerMovement(const GameEngine::TransformComponent &transform);
-
         /// @brief Set every component to the registry of the game engine
         void setGameEngineComponent();
         /// @brief Set every system to the registry of the game engine
         void setGameEngineSystem();
-
+        /// @brief Set every callback of the eventManager in the game engine
         void setGameEngineCallback();
-
+        /// @brief Set information of the game engine
         void setGameEngine();
+        /// @brief Set Game Engine scene
         void setGameEngineScene();
-
-        void handleEndGame(struct RType::Event event);
+        /// @brief Function that will be called when the callback is triggered for the endgame
+        /// @param endGameData struct that will contain the information about the end game
         void setEndGameState(struct RType::Protocol::EndGameData endGameData);
+        /// @brief Set EndGame callback
         void setEndGameCallback();
-
-        void setPrefab();
-
-        void setupTextureEntity();
-
+        /// @brief Set Delete entity callback
         void setDeleteEntityCallback();
-        void setMovementEntityCallback();
+        /// @brief Function that will handle when entity needed to be move
+        /// @param event struct that will contain the information about the entity
+        void handlePlayerMovement();
+        /// @brief Function that delete a Entity
+        /// @param entity delete the corresponding entity
+        void updatePlayerMovement(const GameEngine::TransformComponent &transform);
+        /// @brief Set all the needed prefab for the client
+        void setPrefab();
+        /// @brief Set all the need textures for entities
+        void setupTextureEntity();
+        /// @brief Set the controllable component callback
         void setControllableCallback();
-
-        void shootEvent(const GameEngine::TransformComponent &transform);
-        void handlePlayerShoot();
+        /// @brief Function that will run the udp server in a thread;
         void runUdpServer();
-        void runTcpServer();
+        /// @brief Function that will handle correctly when a client quits
         void handleQuit();
-
+        /// @brief Function that will handle when a Texture need to be update
+        /// @param event Struct that will contain the information (state) of the texture component
         void handleTextureState(struct RType::Event event);
-        void setTextureState(struct RType::Protocol::StatePlayerData transformData);
+        /// @brief Function that will update the state of a texture
+        /// @param transformData Struct that will contain the state of the texture
+        void setTextureState(struct RType::Protocol::StatePlayerData textureData);
+        /// @brief Set the Texture State Callback
         void setTextureStateCallback();
-
+        /// @brief Set the texture information component to a specific entity
+        /// @param textureData Struct that contain the information of the texture
+        /// @param entity Entity that will get the information about the texture
         void setTextureInformation(struct RType::Protocol::TextureData textureData, GameEngine::Entity &entity);
-
+        /// @brief Function that will handle when a Controllable component is received
+        /// @param event Struct that will contain the information about the controllable component
         void handleControllableComponent(struct RType::Event event);
+        /// @brief Function that will set the controllable input for the client
+        /// @param controllableData Struct that will contain the information and set the input information
         void setControllable(struct RType::Protocol::ControllableData controllableData);
-
+        /// @brief Function that will handle and update the transform component of a entity
+        /// @param transformData Struct that will contain de transform component information
         void getTransformInformation(struct RType::Protocol::TransformData transformData);
+        /// @brief Set the transform update callback
         void setTransformCallback();
-
+        /// @brief Function that will set the value of a collision component to a specific entity
+        /// @param collisionData Struct that will contain the information about the collision
+        /// @param entity Entity that will get the information about the collision
         void setCollisionInformation(struct RType::Protocol::CollisionData collisionData, GameEngine::Entity &entity);
-
+        /// @brief Function that will handle and update the collision component information
+        /// @param collisionData Struct that will contain the collision information
         void getCollisionInformation(struct RType::Protocol::CollisionData collisionData);
+        /// @brief Set the collision update information callback
         void setCollisionCallback();
-
+        /// @brief Function that will handle and upate the texture component information
+        /// @param textureData Struct that will contain the texture information
         void getTextureInformation(struct RType::Protocol::TextureData textureData);
+        /// @brief Set the texture update component callback
         void setTextureCallback();
-
+        /// @brief Function that will setup every entity needed by the server
         void setupGame();
+        /// @brief Function that will set the score text for the client
         void setupScoreText();
-
+        /// @brief Function that will handle the score
+        /// @param event Struct that contain the information about the score
         void handleScore(struct RType::Event event);
+        /// @brief Function that set the score callback
         void setScoreCallback();
+        /// @brief Function that will be triggered when the callback start, setting the score of the game
         void setScore(struct RType::Protocol::ScoreData scoreData);
-
+        /// @brief Function that will handle the collision of the player
+        /// @param entityId Entity (Player) id
+        /// @param collisions Collision components
+        /// @param transforms Transform components
         void playerCollisionCallback(const std::size_t &entityId,
             SparseArray<GameEngine::CollisionComponent> &collisions,
             SparseArray<GameEngine::TransformComponent> &transforms);
+        /// @brief Function that will handle to move the parallax when quitting the screen
         void parallaxCollision(const std::size_t &entityId, SparseArray<GameEngine::CollisionComponent> &collisions,
             SparseArray<GameEngine::TransformComponent> &transforms);
-
+        /// @brief Function that will handle the input callback
         void setInputCallback();
+        /// @brief Function that will handle and update information about an input
+        /// @param inputData Struct that will contain the information about the input
         void handleInput(struct GameEngine::Input::InputInfo inputData);
-
-        void handleMoveInput(std::vector<std::byte> data, struct GameEngine::Input::InputInfo input);
-
       protected:
       private:
         std::size_t findEntity(const std::size_t &networkId);
